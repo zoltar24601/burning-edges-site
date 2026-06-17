@@ -36,6 +36,37 @@
   .loading,.empty{text-align:center;padding:80px 20px;color:var(--muted)}
   .spinner{width:36px;height:36px;border:3px solid var(--border);border-top-color:var(--neon);border-radius:50%;margin:0 auto 16px;animation:spin .8s linear infinite}
   @keyframes spin{to{transform:rotate(360deg)}}
+  .calc-input{display:flex;gap:10px;margin-bottom:8px;flex-wrap:wrap}
+  .calc-input input{flex:1;min-width:200px;background:var(--panel2);border:1px solid var(--border);color:var(--ink);border-radius:8px;padding:12px 14px;font-family:inherit;font-size:15px}
+  .calc-input input:focus{outline:none;border-color:var(--neon)}
+  .btn-find{background:var(--neon);color:#04140F;border:none;border-radius:8px;padding:12px 28px;font-family:inherit;font-weight:800;font-size:15px;cursor:pointer}
+  .btn-find:disabled{opacity:.4;cursor:not-allowed}
+  .calc-status{font-size:13px;color:var(--muted);min-height:18px;margin-bottom:10px;font-family:monospace}
+  .calc-status.err{color:var(--red)}
+  .lu-summary{font-size:14px;color:var(--ink);margin:6px 0 16px}
+  .lu-summary b{color:var(--neon)}
+  .lu-row{border:1px solid var(--border);border-radius:10px;margin-bottom:8px;overflow:hidden;background:var(--panel2)}
+  .lu-head{display:flex;align-items:center;gap:14px;padding:13px 16px;cursor:pointer;transition:background .12s}
+  .lu-head:hover{background:rgba(184,240,74,.05)}
+  .lu-rank{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:18px;color:var(--muted);min-width:26px}
+  .lu-exp{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:22px;min-width:64px}
+  .lu-meta{flex:1;font-size:12px;color:var(--muted)}
+  .lu-spark{display:flex;gap:2px;align-items:flex-end;height:26px}
+  .lu-spark .sb{width:7px;border-radius:2px 2px 0 0}
+  .lu-caret{color:var(--muted);font-size:13px;transition:transform .15s}
+  .lu-row.open .lu-caret{transform:rotate(90deg)}
+  .lu-body{display:none;padding:4px 16px 14px;border-top:1px solid var(--border)}
+  .lu-row.open .lu-body{display:block}
+  .golfer{display:flex;align-items:center;gap:10px;padding:7px 0;border-bottom:1px solid rgba(19,58,45,.5)}
+  .golfer:last-child{border-bottom:none}
+  .golfer .gname{flex:1;font-size:14px}
+  .golfer .gname.unmatched{color:var(--red)}
+  .golfer .gbar{width:120px;height:8px;background:var(--panel);border-radius:4px;overflow:hidden}
+  .golfer .gbar i{display:block;height:100%;border-radius:4px}
+  .golfer .gpct{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:15px;min-width:44px;text-align:right}
+  .lu-dist{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
+  .lu-dist .d{font-size:12px;color:var(--muted)}
+  .lu-dist .d b{font-family:'Barlow Condensed',sans-serif;font-size:15px}
 </style>
 </head>
 <body>
@@ -53,6 +84,18 @@
   <div class="container">
     <div class="result-card" id="card">
       <div class="loading" id="loading"><div class="spinner"></div><div>Loading the latest cut projection…</div></div>
+    </div>
+
+    <div class="result-card" id="calc-card" style="margin-top:18px">
+      <div class="rc-eyebrow">CHECK YOUR OWN TEAM</div>
+      <div class="rc-title" style="font-size:clamp(22px,3.5vw,32px)">FIND MY LINEUP</div>
+      <div class="rc-sub">Enter your DraftKings username to see your cut-survival odds. Multi-entry? We'll rank all your lineups.</div>
+      <div class="calc-input">
+        <input type="text" id="user-input" placeholder="Your DK username" autocomplete="off">
+        <button class="btn-find" id="find-btn">Find</button>
+      </div>
+      <div class="calc-status" id="calc-status"></div>
+      <div id="calc-results"></div>
     </div>
   </div>
 <script>
@@ -110,6 +153,66 @@ function swatchStyle(i){
   if(i===1)return 'background:transparent;border:2px solid '+c+';';
   return 'background:repeating-linear-gradient(45deg,'+c+','+c+' 3px,transparent 3px,transparent 6px);border:1px solid '+c+';';
 }
+function tierColor(p){ // p is 0..1 make-cut
+  if(p>=0.75)return TIER_COLORS[6];
+  if(p>=0.6)return TIER_COLORS[5];
+  if(p>=0.45)return TIER_COLORS[4];
+  if(p>=0.3)return TIER_COLORS[3];
+  if(p>=0.15)return TIER_COLORS[2];
+  return TIER_COLORS[1];
+}
+const ci=document.getElementById('user-input'), cb=document.getElementById('find-btn');
+cb.addEventListener('click',findMe);
+ci.addEventListener('keydown',e=>{if(e.key==='Enter')findMe();});
+async function findMe(){
+  const user=ci.value.trim();
+  if(!user){setCalc("Enter your DK username.","err");return;}
+  cb.disabled=true;setCalc("Looking up your lineups…");
+  document.getElementById('calc-results').innerHTML="";
+  try{
+    const r=await fetch('/api/golf-lookup?user='+encodeURIComponent(user));
+    const data=await r.json();
+    if(data.error){setCalc(data.error,"err");cb.disabled=false;return;}
+    if(!data.found){setCalc(data.note||"No lineups found for that username.","err");cb.disabled=false;return;}
+    setCalc("");
+    renderMe(data);
+  }catch(e){setCalc("Lookup failed. Try again.","err");}
+  cb.disabled=false;
+}
+function setCalc(m,cls){const s=document.getElementById('calc-status');s.textContent=m;s.className="calc-status"+(cls?" "+cls:"");}
+function renderMe(data){
+  const lus=data.lineups;
+  const best=lus[0], avg=(lus.reduce((a,l)=>a+l.expected,0)/lus.length).toFixed(2);
+  let html='<div class="lu-summary">Found <b>'+data.count+'</b> '+(data.count===1?'lineup':'lineups')+' for <b>'+escapeHtml(data.user)+'</b> · '+data.event_name
+    +' · avg expected survivors <b>'+avg+'/6</b>'+(data.count>1?' · best <b>'+best.expected+'/6</b>':'')+'</div>';
+  lus.forEach((lu,idx)=>{
+    const maxd=Math.max(...lu.dist,1);
+    const spark=[6,5,4,3,2,1,0].map(lvl=>'<div class="sb" style="height:'+(Math.max(lu.dist[lvl]/maxd*26,2))+'px;background:'+TIER_COLORS[lvl]+'"></div>').join('');
+    const sweep=lu.dist[6], wipe=lu.dist[0];
+    html+='<div class="lu-row" data-idx="'+idx+'">'
+      +'<div class="lu-head">'
+        +'<span class="lu-rank">#'+(idx+1)+'</span>'
+        +'<span class="lu-exp" style="color:'+expColor(lu.expected)+'">'+lu.expected.toFixed(1)+'</span>'
+        +'<span class="lu-meta">expected survivors · '+sweep.toFixed(1)+'% sweep · '+wipe.toFixed(1)+'% wipeout</span>'
+        +'<span class="lu-spark">'+spark+'</span>'
+        +'<span class="lu-caret">▶</span>'
+      +'</div>'
+      +'<div class="lu-body">'
+        +lu.golfers.map(g=>{
+          const pct=g.matched?(g.make_cut*100):0;
+          return '<div class="golfer"><span class="gname'+(g.matched?'':' unmatched')+'">'+escapeHtml(g.name)+(g.matched?'':' (no odds)')+'</span>'
+            +'<span class="gbar"><i style="width:'+pct+'%;background:'+(g.matched?tierColor(g.make_cut):'#444')+'"></i></span>'
+            +'<span class="gpct" style="color:'+(g.matched?tierColor(g.make_cut):'#777')+'">'+(g.matched?pct.toFixed(0)+'%':'—')+'</span></div>';
+        }).join('')
+        +'<div class="lu-dist">'+[6,5,4,3,2,1,0].map(lvl=>'<span class="d">'+lvl+'/6 <b style="color:'+TIER_COLORS[lvl]+'">'+lu.dist[lvl].toFixed(1)+'%</b></span>').join('')+'</div>'
+      +'</div>'
+    +'</div>';
+  });
+  document.getElementById('calc-results').innerHTML=html;
+  document.querySelectorAll('.lu-head').forEach(h=>h.addEventListener('click',()=>h.parentElement.classList.toggle('open')));
+}
+function expColor(e){return e>=4.5?TIER_COLORS[6]:e>=3.5?TIER_COLORS[5]:e>=2.5?TIER_COLORS[4]:e>=1.5?TIER_COLORS[3]:TIER_COLORS[2];}
+function escapeHtml(s){return (s||"").replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));}
 load();
 </script>
 </body>
