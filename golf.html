@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cut Probabilities — Burning Edges</title>
+<meta name="description" content="Live golf DFS cut-survival distribution across DraftKings contests.">
+<style>
+  :root{--bg:#061F18;--panel:#0A2B21;--panel2:#04140F;--ink:#EDE7D5;--neon:#B8F04A;--green:#8FD96B;--amber:#F2C14E;--orange:#E8954A;--red:#E5604C;--red2:#D14B3C;--red3:#B23A2E;--muted:#6E8B7E;--border:#133A2D}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--ink);font-family:'Barlow','Segoe UI',system-ui,sans-serif;min-height:100vh;padding:0 0 60px;background-image:radial-gradient(circle at 50% -5%, #0A2B21 0%, #061F18 55%)}
+  header{display:flex;align-items:center;gap:10px;padding:16px 24px;border-bottom:1px solid var(--border)}
+  header a.home{display:flex;align-items:center;gap:8px;text-decoration:none;color:inherit}
+  .logo-text{font-family:'Barlow Condensed','Barlow',sans-serif;font-weight:900;font-size:20px;letter-spacing:2px}
+  .logo-sub{font-family:monospace;font-size:10px;color:var(--neon);border:1px solid var(--neon);border-radius:10px;padding:1px 7px;letter-spacing:1px;margin-left:2px}
+  .container{max-width:1080px;margin:0 auto;padding:28px 24px}
+  .result-card{background:var(--panel);border:1px solid var(--border);border-radius:16px;padding:28px}
+  .badge{float:right;font-size:12px;letter-spacing:1.5px;color:var(--neon);border:2px solid var(--neon);border-radius:20px;padding:4px 14px;font-weight:700;font-family:'Barlow Condensed',sans-serif}
+  .rc-eyebrow{font-size:13px;letter-spacing:2px;color:var(--muted);font-weight:700;text-transform:uppercase;font-family:'Barlow Condensed',sans-serif}
+  .rc-title{font-family:'Barlow Condensed','Barlow',sans-serif;font-weight:800;font-size:clamp(28px,5vw,46px);letter-spacing:1px;margin:2px 0 6px;line-height:1}
+  .rc-sub{color:var(--muted);font-size:15px;margin-bottom:14px}
+  .legend{display:flex;gap:18px;flex-wrap:wrap;margin-bottom:20px}
+  .legend-item{display:flex;align-items:center;gap:7px;font-size:13px;font-weight:700;font-family:'Barlow Condensed',sans-serif;letter-spacing:.5px}
+  .sw{width:16px;height:16px;border-radius:3px}
+  .bars{display:flex;align-items:flex-end;gap:2.5%;height:380px;padding:10px 0 0;border-bottom:1px solid var(--border);margin-bottom:6px}
+  .barcol{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%}
+  .barwrap{display:flex;align-items:flex-end;justify-content:center;gap:3px;width:100%;height:100%}
+  .barvals{display:flex;gap:6px;justify-content:center;margin-bottom:6px;flex-wrap:wrap}
+  .barval{font-weight:800;font-size:clamp(11px,1.5vw,15px);font-family:'Barlow Condensed',sans-serif}
+  .bar{flex:1;max-width:34px;border-radius:5px 5px 0 0;min-height:2px;transition:height .6s ease}
+  .barlabels{display:flex;gap:2.5%;margin-top:10px}
+  .barlabel{flex:1;text-align:center}
+  .barlabel .lvl{font-family:'Barlow Condensed','Barlow',sans-serif;font-weight:800;font-size:clamp(18px,2.8vw,26px)}
+  .barlabel .tag{font-size:10px;letter-spacing:1px;font-weight:700;margin-top:2px}
+  .footer-note{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-top:20px;font-size:11px;color:var(--muted);font-family:monospace}
+  .loading,.empty{text-align:center;padding:80px 20px;color:var(--muted)}
+  .spinner{width:36px;height:36px;border:3px solid var(--border);border-top-color:var(--neon);border-radius:50%;margin:0 auto 16px;animation:spin .8s linear infinite}
+  @keyframes spin{to{transform:rotate(360deg)}}
+</style>
+</head>
+<body>
+  <header>
+    <a class="home" href="/">
+      <svg width="30" height="30" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M34 9 L51 13 L34 19 Z" fill="#E5604C"/><line x1="34" y1="7" x2="34" y2="45" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"/>
+        <ellipse cx="32" cy="46" rx="16" ry="6" fill="#0A2B21" stroke="#FFFFFF" stroke-width="1.8"/><ellipse cx="32" cy="46" rx="10" ry="3.5" fill="#04140F"/>
+        <circle cx="43" cy="42" r="9" fill="#EDE7D5" stroke="#0A2B21" stroke-width="1"/>
+        <path d="M38 35.5 Q41.5 42 38 48.5" stroke="#E5604C" stroke-width="1.3" fill="none" stroke-linecap="round"/><path d="M48 35.5 Q44.5 42 48 48.5" stroke="#E5604C" stroke-width="1.3" fill="none" stroke-linecap="round"/>
+      </svg>
+      <span class="logo-text">BURNING EDGES</span><span class="logo-sub">BETA</span>
+    </a>
+  </header>
+  <div class="container">
+    <div class="result-card" id="card">
+      <div class="loading" id="loading"><div class="spinner"></div><div>Loading the latest cut projection…</div></div>
+    </div>
+  </div>
+<script>
+const TIER_COLORS={6:"#B8F04A",5:"#8FD96B",4:"#F2C14E",3:"#E8954A",2:"#E5604C",1:"#D14B3C",0:"#B23A2E"};
+const TIER_TAG={6:"CLEAN SWEEP",0:"WIPEOUT"};
+async function load(){
+  try{
+    const r=await fetch('/api/golf-cut?mode=predicted');
+    const data=await r.json();
+    if(data.error){showEmpty(data.error);return;}
+    if(!data.dists||!data.dists.length||!data.dists.some(d=>d.n)){showEmpty(data.note||"No projection available yet — check back when the tournament is underway.");return;}
+    render(data);
+  }catch(e){showEmpty("Couldn't load the projection right now.");}
+}
+function showEmpty(msg){document.getElementById('card').innerHTML='<div class="empty"><div style="font-size:40px;margin-bottom:10px">⛳</div><div>'+msg+'</div></div>';}
+function render(data){
+  const isFinal=data.mode==='final';
+  const event=data.event_name||'Tournament';
+  const dists=data.dists.filter(d=>d.n>0);
+  const levels=[6,5,4,3,2,1,0];
+  let maxv=1;
+  dists.forEach(d=>d.dist.forEach(v=>{if(v>maxv)maxv=v;}));
+  // legend
+  const styleName=i=>i===0?'solid':i===1?'outlined':'striped';
+  let legend=dists.map((d,i)=>'<div class="legend-item"><span class="sw" style="'+swatchStyle(i)+'"></span>'+d.label.toUpperCase()+'</div>').join('');
+  // bars
+  let bars='',labels='';
+  for(const lvl of levels){
+    let vals='',group='';
+    dists.forEach((d,i)=>{
+      const v=d.dist[lvl]||0;
+      vals+='<span class="barval" style="color:'+TIER_COLORS[lvl]+'">'+v.toFixed(1)+'</span>';
+      group+='<div class="bar" style="height:'+(v/maxv*100)+'%;'+barStyle(i,TIER_COLORS[lvl])+'"></div>';
+    });
+    bars+='<div class="barcol"><div class="barvals">'+vals+'</div><div class="barwrap">'+group+'</div></div>';
+    labels+='<div class="barlabel"><div class="lvl">'+lvl+'/6</div>'+(TIER_TAG[lvl]?'<div class="tag" style="color:'+TIER_COLORS[lvl]+'">'+TIER_TAG[lvl]+'</div>':'')+'</div>';
+  }
+  document.getElementById('card').innerHTML=
+    '<div class="badge">'+(isFinal?'FINAL RESULTS':'LIVE PROJECTION')+'</div>'
+    +'<div class="rc-eyebrow">DRAFTKINGS LINEUPS × '+(isFinal?'FINAL CUT RESULTS':'LIVE CUT PROJECTION')+'</div>'
+    +'<div class="rc-title">'+(isFinal?'HOW MANY SURVIVED THE CUT?':'HOW MANY WILL SURVIVE THE CUT?')+'</div>'
+    +'<div class="rc-sub">'+(isFinal?'Actual':'Projected')+' share of teams by golfers through · '+event+'</div>'
+    +'<div class="legend">'+legend+'</div>'
+    +'<div class="bars">'+bars+'</div><div class="barlabels">'+labels+'</div>'
+    +'<div class="footer-note"><span>'+(isFinal?'FINAL: ACTUAL SURVIVOR COUNT PER TEAM AFTER THE 36-HOLE CUT':'LIVE: POISSON-BINOMIAL OVER DATAGOLF MAKE-CUT ODDS, AVERAGED ACROSS ALL TEAMS')+'</span><span>'+(data.dg_last_update?('DATA: '+data.dg_last_update):'')+'</span></div>';
+}
+function barStyle(i,color){
+  if(i===0)return 'background:'+color+';';
+  if(i===1)return 'background:transparent;border:2px solid '+color+';';
+  return 'background:repeating-linear-gradient(45deg,'+color+','+color+' 3px,transparent 3px,transparent 6px);border:1px solid '+color+';';
+}
+function swatchStyle(i){
+  const c='var(--neon)';
+  if(i===0)return 'background:'+c+';';
+  if(i===1)return 'background:transparent;border:2px solid '+c+';';
+  return 'background:repeating-linear-gradient(45deg,'+c+','+c+' 3px,transparent 3px,transparent 6px);border:1px solid '+c+';';
+}
+load();
+</script>
+</body>
+</html>

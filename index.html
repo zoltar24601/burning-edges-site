@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Burning Edges — Sports Betting & DFS Intelligence</title>
+<meta name="description" content="Live golf cut probabilities and MLB DFS tools. Find your edge.">
+<style>
+  :root{
+    --bg:#061F18; --panel:#0A2B21; --ink:#EDE7D5; --neon:#B8F04A;
+    --amber:#F2C14E; --red:#E5604C; --muted:#6E8B7E; --border:#133A2D;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    background:var(--bg); color:var(--ink);
+    font-family:'Barlow','Segoe UI',system-ui,sans-serif;
+    min-height:100vh; display:flex; flex-direction:column;
+    align-items:center; justify-content:center; padding:24px;
+    background-image:radial-gradient(circle at 50% 0%, #0A2B21 0%, #061F18 60%);
+  }
+  .wrap{max-width:760px; width:100%; text-align:center}
+  .logo-mark{margin-bottom:18px}
+  h1{
+    font-family:'Barlow Condensed','Barlow',sans-serif;
+    font-weight:800; font-size:clamp(36px,7vw,60px);
+    letter-spacing:2px; line-height:1; margin-bottom:10px;
+  }
+  .beta{
+    display:inline-block; font-size:11px; letter-spacing:2px;
+    color:var(--neon); border:1px solid var(--neon);
+    border-radius:20px; padding:2px 10px; vertical-align:middle;
+    margin-left:8px; font-weight:700;
+  }
+  .tagline{
+    color:var(--muted); font-size:clamp(14px,2.5vw,18px);
+    margin-bottom:44px; letter-spacing:0.3px;
+  }
+  .prompt{
+    color:var(--ink); font-size:14px; letter-spacing:3px;
+    text-transform:uppercase; margin-bottom:20px; opacity:0.7;
+    font-family:'Barlow Condensed','Barlow',sans-serif; font-weight:700;
+  }
+  .cards{display:flex; gap:20px; justify-content:center; flex-wrap:wrap}
+  .card{
+    flex:1 1 300px; max-width:340px; min-height:220px;
+    background:var(--panel); border:2px solid var(--border);
+    border-radius:16px; padding:32px 24px; cursor:pointer;
+    text-decoration:none; color:inherit;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    transition:border-color .18s ease, transform .18s ease, box-shadow .18s ease;
+  }
+  .card:hover{
+    border-color:var(--neon); transform:translateY(-4px);
+    box-shadow:0 12px 32px rgba(184,240,74,0.12);
+  }
+  .card-icon{margin-bottom:16px}
+  .card-title{
+    font-family:'Barlow Condensed','Barlow',sans-serif;
+    font-weight:800; font-size:26px; letter-spacing:1px; margin-bottom:8px;
+  }
+  .card-desc{color:var(--muted); font-size:14px; line-height:1.4}
+  .card.golf:hover{border-color:var(--neon)}
+  .card.mlb:hover{border-color:var(--amber); box-shadow:0 12px 32px rgba(242,193,78,0.12)}
+  .card.mlb .card-title{color:var(--ink)}
+  .footer{margin-top:48px; color:var(--border); font-size:12px; letter-spacing:1px}
+  .footer a{color:var(--muted); text-decoration:none}
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="logo-mark">
+      <svg width="84" height="84" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Burning Edges">
+        <ellipse cx="32" cy="48" rx="27" ry="11" fill="#0E3A2A"/>
+        <ellipse cx="32" cy="48" rx="27" ry="11" fill="none" stroke="#B8F04A" stroke-width="0.8" opacity="0.4"/>
+        <path d="M34 9 L51 13 L34 19 Z" fill="#E5604C"/>
+        <line x1="34" y1="7" x2="34" y2="45" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"/>
+        <ellipse cx="32" cy="46" rx="14" ry="5" fill="#0A2B21" stroke="#FFFFFF" stroke-width="1.5"/>
+        <ellipse cx="32" cy="46" rx="9" ry="3" fill="#04140F"/>
+        <circle cx="42" cy="43" r="8.5" fill="#EDE7D5" stroke="#0A2B21" stroke-width="1"/>
+        <path d="M37.5 37.5 Q40.5 43 37.5 48.5" stroke="#E5604C" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+        <path d="M46.5 37.5 Q43.5 43 46.5 48.5" stroke="#E5604C" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <h1>BURNING EDGES<span class="beta">BETA</span></h1>
+    <div class="tagline">Find your edge — on the green and at the plate.</div>
+
+    <div class="prompt">What are you here for?</div>
+    <div class="cards">
+      <a class="card golf" href="/golf">
+        <div class="card-icon">
+          <svg width="52" height="52" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <ellipse cx="32" cy="48" rx="27" ry="11" fill="#0E3A2A"/>
+            <ellipse cx="32" cy="48" rx="27" ry="11" fill="none" stroke="#B8F04A" stroke-width="0.8" opacity="0.4"/>
+            <path d="M34 9 L51 13 L34 19 Z" fill="#E5604C"/>
+            <line x1="34" y1="7" x2="34" y2="45" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"/>
+            <ellipse cx="32" cy="46" rx="14" ry="5" fill="#0A2B21" stroke="#FFFFFF" stroke-width="1.5"/>
+            <ellipse cx="32" cy="46" rx="9" ry="3" fill="#04140F"/>
+            <circle cx="42" cy="43" r="8.5" fill="#EDE7D5" stroke="#0A2B21" stroke-width="1"/>
+            <path d="M37.5 37.5 Q40.5 43 37.5 48.5" stroke="#E5604C" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+            <path d="M46.5 37.5 Q43.5 43 46.5 48.5" stroke="#E5604C" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="card-title" style="color:var(--neon)">CUT PROBABILITIES</div>
+        <div class="card-desc">Live golf cut-survival odds. See how many of your 6 make the cut — and how the whole field stacks up.</div>
+      </a>
+      <a class="card mlb" href="/mlb">
+        <div class="card-icon">
+          <svg width="52" height="52" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="32" cy="32" r="22" fill="#EDE7D5" stroke="#0A2B21" stroke-width="2"/>
+            <path d="M18 16 Q25 32 18 48" stroke="#E5604C" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+            <path d="M46 16 Q39 32 46 48" stroke="#E5604C" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="card-title">MLB DFS</div>
+        <div class="card-desc">Matchup intelligence, projections, stacks, and a full DraftKings + FanDuel lineup optimizer.</div>
+      </a>
+    </div>
+
+    <div class="footer">BURNING EDGES · BETA</div>
+  </div>
+</body>
+</html>

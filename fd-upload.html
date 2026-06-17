@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EDGE DFS — FanDuel Slate Upload</title>
+  <style>
+    :root{--bg:#0a0c0f;--bg2:#111318;--bg3:#181c23;--border:#2a2f3d;--text:#e8eaf0;--text2:#8b92a8;--text3:#4a5168;--accent:#00e5a0;--red:#ff4757;--yellow:#ffd32a;--blue:#3d9eff;--mono:'Courier New',monospace}
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,sans-serif;padding:20px;max-width:900px;margin:0 auto}
+    h1{font-size:24px;margin-bottom:8px;color:var(--accent)}
+    h2{font-size:16px;margin:20px 0 8px;color:var(--text)}
+    p{font-size:13px;color:var(--text2);margin-bottom:12px;line-height:1.5}
+    .upload-zone{border:2px dashed var(--border);border-radius:10px;padding:30px;text-align:center;cursor:pointer;transition:all 0.2s;margin-bottom:12px;background:var(--bg2)}
+    .upload-zone:hover,.upload-zone.dragover{border-color:var(--accent);background:var(--bg3)}
+    .upload-zone.done{border-color:var(--accent);background:#00e5a010}
+    .upload-zone.error{border-color:var(--red);background:#ff475710}
+    .upload-title{font-size:14px;font-weight:700;margin-bottom:4px}
+    .upload-sub{font-size:11px;color:var(--text3)}
+    .upload-status{font-family:var(--mono);font-size:11px;margin-top:8px;color:var(--accent)}
+    input[type="file"]{display:none}
+    .log{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:12px;font-family:var(--mono);font-size:11px;color:var(--text2);max-height:300px;overflow-y:auto;white-space:pre-wrap;margin-top:16px}
+    .steps{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:16px;margin-bottom:20px}
+    .steps ol{padding-left:20px;font-size:12px;color:var(--text2);line-height:2}
+    .steps code{background:var(--bg3);padding:2px 6px;border-radius:3px;font-family:var(--mono);font-size:11px;color:var(--accent)}
+    .summary{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:12px;margin-top:16px;font-family:var(--mono);font-size:12px;color:var(--text2)}
+    .summary-row{display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid var(--border)}
+    .summary-row:last-child{border-bottom:none}
+    .clear-btn{background:var(--bg3);color:var(--text);border:1px solid var(--border);padding:6px 12px;border-radius:4px;font-family:var(--mono);font-size:11px;cursor:pointer;margin-top:12px}
+    .clear-btn:hover{background:var(--red);color:#fff;border-color:var(--red)}
+    a{color:var(--blue)}
+  </style>
+</head>
+<body>
+  <h1>🎯 FanDuel Slate Upload</h1>
+  <p>Upload a FanDuel slate CSV to use FD salaries and positions in EDGE. Toggle to FD mode in the main app after uploading.</p>
+
+  <div class="steps">
+    <h2>How to get the CSV:</h2>
+    <ol>
+      <li>Go to <a href="https://www.fanduel.com/games/mlb" target="_blank">FanDuel MLB</a> and enter (or open) any contest on tonight's slate</li>
+      <li>From the contest page → <strong>Edit Lineups</strong> → <strong>Download CSV</strong></li>
+      <li>File is named like <code>FanDuel-MLB-2026-XX-XX-XXXXX-entries-upload-template.csv</code></li>
+      <li>Drop it into the box below</li>
+    </ol>
+    <p style="margin-top:8px;font-size:11px;color:var(--text3)">
+      This CSV contains both your active contest entries (left side) AND the full player pool (right side).
+      EDGE parses both — entries get preserved for round-trip lineup edits, players become your FD salary pool.
+    </p>
+  </div>
+
+  <div class="upload-zone" id="zone-fd" onclick="document.getElementById('file-fd').click()" ondragover="event.preventDefault();this.classList.add('dragover')" ondragleave="this.classList.remove('dragover')" ondrop="event.preventDefault();this.classList.remove('dragover');handleFile(event.dataTransfer.files[0])">
+    <div class="upload-title">🎯 FanDuel Slate CSV</div>
+    <div class="upload-sub">Click or drag CSV here</div>
+    <div class="upload-status" id="status-fd"></div>
+  </div>
+  <input type="file" id="file-fd" accept=".csv" onchange="handleFile(event.target.files[0])">
+
+  <div id="summary-area"></div>
+
+  <div class="log" id="log">Drop a CSV to begin...</div>
+
+  <p style="margin-top:20px;font-size:11px;color:var(--text3)">
+    After upload: return to <a href="/">EDGE DFS main app</a> and click the FD toggle in the top header.
+  </p>
+
+  <script>
+    function log(msg) {
+      const el = document.getElementById('log');
+      el.textContent = (el.textContent === 'Drop a CSV to begin...' ? '' : el.textContent + '\n') + msg;
+      el.scrollTop = el.scrollHeight;
+    }
+
+    // Quote-aware CSV splitter (handles "" escapes and commas in quoted fields)
+    function splitCsvLine(line) {
+      const out = [];
+      let cur = '', inQ = false;
+      for (let i = 0; i < line.length; i++) {
+        const c = line[i];
+        if (c === '"') {
+          if (inQ && line[i+1] === '"') { cur += '"'; i++; continue; }
+          inQ = !inQ;
+          continue;
+        }
+        if (c === ',' && !inQ) { out.push(cur); cur = ''; continue; }
+        cur += c;
+      }
+      out.push(cur);
+      return out;
+    }
+
+    // Normalize names same as main app (strip accents, lowercase, alpha only)
+    function normalizeName(name) {
+      return (name||'').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/[^a-z ]/g, '').trim();
+    }
+
+    // FD team abbreviations match MLB standards mostly, but a few quirks
+    const FD_TEAM_FIX = {
+      'WSH': 'WSH', 'WAS': 'WSH',
+      'CWS': 'CWS', 'CHW': 'CWS',
+      'SD': 'SD', 'SDP': 'SD',
+      'SF': 'SF', 'SFG': 'SF',
+      'TB': 'TB', 'TBR': 'TB',
+      'KC': 'KC', 'KCR': 'KC',
+      'AZ': 'AZ', 'ARI': 'AZ',
+    };
+
+    async function handleFile(file) {
+      if (!file) return;
+      const zone = document.getElementById('zone-fd');
+      const status = document.getElementById('status-fd');
+      zone.classList.remove('done', 'error');
+      status.textContent = '⏳ parsing...';
+
+      try {
+        const text = await file.text();
+        const lines = text.split(/\r?\n/).filter(l => l.trim().length > 0);
+        if (lines.length < 2) throw new Error('CSV looks empty');
+
+        // FD's "entries upload template" CSV has TWO datasets concatenated horizontally:
+        //   - LEFT side (cols 0-13): entry_id, contest_id, contest_name, entry_fee, P, C/1B, 2B, 3B, SS, OF, OF, OF, UTIL, (blank), Instructions
+        //   - RIGHT side (col 14+): player pool with no header row — each player row has
+        //     [ID:Name, ID, Pos, FirstName, Nickname, LastName, FPPG, Played, Salary, Game, Team, Opponent, Injury, InjuryDetails, ...]
+        //
+        // We parse both. Entries are saved separately so the round-trip CSV export
+        // in the main app can preserve Entry IDs (Flow B for FD).
+        const headerLine = lines[0];
+        log('Header: ' + headerLine.slice(0, 100) + (headerLine.length > 100 ? '...' : ''));
+
+        // Player pool data starts at column 14 (after the entry section's blank col 13)
+        const PLAYER_COL_START = 14;
+        const POS_OFFSETS = {
+          idName: 0,
+          id: 1,
+          position: 2,
+          firstName: 3,
+          nickname: 4,
+          lastName: 5,
+          fppg: 6,
+          played: 7,
+          salary: 8,
+          game: 9,
+          team: 10,
+          opponent: 11,
+          injury: 12,
+          injuryDetails: 13,
+        };
+
+        const players = {};
+        const teamSet = new Set();
+        const positionCounts = {};
+        const entries = [];
+        let skipped = 0;
+
+        for (let i = 1; i < lines.length; i++) {
+          const cells = splitCsvLine(lines[i]);
+
+          // Check for entry on LEFT side — first column has a numeric Entry ID
+          const entryId = (cells[0] || '').trim();
+          if (entryId && /^\d+$/.test(entryId)) {
+            entries.push({
+              entryId,
+              contestId: (cells[1] || '').trim(),
+              contestName: (cells[2] || '').trim(),
+              entryFee: (cells[3] || '').trim(),
+            });
+          }
+
+          // Check for player on RIGHT side
+          const id = (cells[PLAYER_COL_START + POS_OFFSETS.id] || '').trim();
+          const name = (cells[PLAYER_COL_START + POS_OFFSETS.nickname] || '').trim();
+          const pos = (cells[PLAYER_COL_START + POS_OFFSETS.position] || '').trim();
+          const salaryRaw = cells[PLAYER_COL_START + POS_OFFSETS.salary];
+          const salary = parseInt(salaryRaw) || 0;
+          let team = ((cells[PLAYER_COL_START + POS_OFFSETS.team] || '') + '').trim().toUpperCase();
+          team = FD_TEAM_FIX[team] || team;
+          const opponent = ((cells[PLAYER_COL_START + POS_OFFSETS.opponent] || '') + '').trim().toUpperCase();
+          const game = (cells[PLAYER_COL_START + POS_OFFSETS.game] || '').trim();
+          const injIndicator = (cells[PLAYER_COL_START + POS_OFFSETS.injury] || '').trim();
+          const injDetails = (cells[PLAYER_COL_START + POS_OFFSETS.injuryDetails] || '').trim();
+          const fppg = parseFloat(cells[PLAYER_COL_START + POS_OFFSETS.fppg]) || null;
+
+          if (!id || !name || !salary) { skipped++; continue; }
+
+          const nameKey = normalizeName(name);
+          const teamKey = nameKey + '_' + team;
+
+          const entry = {
+            id,
+            fdId: id,
+            name,
+            salary,
+            position: pos,
+            team,
+            opponent,
+            game,
+            injury: injIndicator || null,
+            injuryDetails: injDetails || null,
+            fppg,
+          };
+
+          players[teamKey] = entry;
+          if (!players[nameKey]) players[nameKey] = entry;  // fallback by name only
+          teamSet.add(team);
+          positionCounts[pos] = (positionCounts[pos] || 0) + 1;
+        }
+
+        const uniqueIds = new Set();
+        Object.values(players).forEach(p => uniqueIds.add(p.id));
+        const totalPlayers = uniqueIds.size;
+
+        log('Parsed ' + totalPlayers + ' unique players across ' + teamSet.size + ' teams');
+        log('Position breakdown: ' + Object.entries(positionCounts).map(([k,v]) => k + ':' + v).join(', '));
+        if (entries.length > 0) log('Found ' + entries.length + ' contest entries to preserve for round-trip export');
+        if (skipped > 0) log('Skipped ' + skipped + ' rows without complete player data');
+
+        if (totalPlayers === 0) {
+          throw new Error('No players parsed. Verify CSV format — expected FD entries-upload-template');
+        }
+
+        // Store in localStorage — main app reads from this key
+        const payload = {
+          ts: Date.now(),
+          slate: file.name.replace(/\.csv$/i, ''),
+          players,
+          teams: [...teamSet],
+          entries,
+        };
+        localStorage.setItem('edge_fd_slate', JSON.stringify(payload));
+
+        zone.classList.add('done');
+        status.textContent = '✓ ' + totalPlayers + ' players loaded · ' + teamSet.size + ' teams' +
+          (entries.length > 0 ? ' · ' + entries.length + ' entries' : '');
+
+        renderSummary(payload, totalPlayers, positionCounts);
+      } catch (err) {
+        zone.classList.add('error');
+        status.textContent = '✗ ' + err.message;
+        log('ERROR: ' + err.message);
+        console.error(err);
+      }
+    }
+
+    function renderSummary(payload, total, posCounts) {
+      const div = document.getElementById('summary-area');
+      const stamp = new Date(payload.ts).toLocaleString();
+      const entriesRow = (payload.entries && payload.entries.length)
+        ? '<div class="summary-row"><span>Imported entries</span><span>' + payload.entries.length + ' (for round-trip export)</span></div>'
+        : '';
+      div.innerHTML = '<div class="summary">' +
+        '<div class="summary-row"><span>Slate file</span><span>' + payload.slate + '</span></div>' +
+        '<div class="summary-row"><span>Uploaded</span><span>' + stamp + '</span></div>' +
+        '<div class="summary-row"><span>Total players</span><span>' + total + '</span></div>' +
+        '<div class="summary-row"><span>Teams</span><span>' + payload.teams.length + ' (' + payload.teams.join(', ') + ')</span></div>' +
+        entriesRow +
+        Object.entries(posCounts).map(([k,v]) =>
+          '<div class="summary-row"><span>Position ' + k + '</span><span>' + v + ' players</span></div>'
+        ).join('') +
+        '</div>' +
+        '<button class="clear-btn" onclick="clearFd()">🗑️ Clear FD Slate</button>';
+    }
+
+    function clearFd() {
+      if (!confirm('Clear the saved FD slate? You\'ll need to re-upload to use FD mode.')) return;
+      localStorage.removeItem('edge_fd_slate');
+      location.reload();
+    }
+
+    // On page load, show current state if any
+    window.addEventListener('DOMContentLoaded', () => {
+      const raw = localStorage.getItem('edge_fd_slate');
+      if (raw) {
+        try {
+          const payload = JSON.parse(raw);
+          const seen = new Set(); const counts = {};
+          Object.values(payload.players).forEach(p => {
+            if (seen.has(p.id)) return;
+            seen.add(p.id);
+            counts[p.position] = (counts[p.position] || 0) + 1;
+          });
+          const total = seen.size;
+          document.getElementById('zone-fd').classList.add('done');
+          const entryCount = (payload.entries && payload.entries.length) || 0;
+          document.getElementById('status-fd').textContent = '✓ ' + total + ' players loaded' +
+            (entryCount ? ' · ' + entryCount + ' entries' : '') + ' (from previous session)';
+          renderSummary(payload, total, counts);
+          log('Loaded existing FD slate from ' + new Date(payload.ts).toLocaleString());
+        } catch (e) { console.warn('Could not restore prev FD slate', e); }
+      }
+    });
+  </script>
+</body>
+</html>

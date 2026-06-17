@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EDGE DFS — FanGraphs Upload</title>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <style>
+    :root{--bg:#0a0c0f;--bg2:#111318;--bg3:#181c23;--border:#2a2f3d;--text:#e8eaf0;--text2:#8b92a8;--text3:#4a5168;--accent:#00e5a0;--red:#ff4757;--yellow:#ffd32a;--blue:#3d9eff;--mono:'Courier New',monospace}
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,sans-serif;padding:20px;max-width:900px;margin:0 auto}
+    h1{font-size:24px;margin-bottom:8px;color:var(--accent)}
+    h2{font-size:16px;margin:20px 0 8px;color:var(--text)}
+    p{font-size:13px;color:var(--text2);margin-bottom:12px;line-height:1.5}
+    .upload-zone{border:2px dashed var(--border);border-radius:10px;padding:30px;text-align:center;cursor:pointer;transition:all 0.2s;margin-bottom:12px;background:var(--bg2)}
+    .upload-zone:hover,.upload-zone.dragover{border-color:var(--accent);background:var(--bg3)}
+    .upload-zone.done{border-color:var(--accent);background:#00e5a010}
+    .upload-zone.error{border-color:var(--red);background:#ff475710}
+    .upload-label{font-family:var(--mono);font-size:12px;color:var(--text3);margin-bottom:4px}
+    .upload-title{font-size:14px;font-weight:700;margin-bottom:4px}
+    .upload-sub{font-size:11px;color:var(--text3)}
+    .upload-status{font-family:var(--mono);font-size:11px;margin-top:8px;color:var(--accent)}
+    input[type="file"]{display:none}
+    .grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .log{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:12px;font-family:var(--mono);font-size:11px;color:var(--text2);max-height:300px;overflow-y:auto;white-space:pre-wrap;margin-top:16px}
+    .steps{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:16px;margin-bottom:20px}
+    .steps ol{padding-left:20px;font-size:12px;color:var(--text2);line-height:2}
+    .steps code{background:var(--bg3);padding:2px 6px;border-radius:3px;font-family:var(--mono);font-size:11px;color:var(--accent)}
+    a{color:var(--blue)}
+  </style>
+</head>
+<body>
+  <h1>📊 FanGraphs Data Upload</h1>
+  <p>Upload FanGraphs leaderboard CSVs to enhance projections with wRC+, ISO (hitters) and SIERA, GB%, K-BB% (pitchers).</p>
+
+  <div class="steps">
+    <h2>How to get the CSVs:</h2>
+    <ol>
+      <li>Go to <a href="https://www.fangraphs.com/leaders/major-league?pos=all&stats=bat&lg=all&qual=50&type=8&season=2026&month=13&season1=2025" target="_blank">FG Hitters vs RHP</a> (2025-2026, min 50 PA) → Export → download CSV</li>
+      <li>Go to <a href="https://www.fangraphs.com/leaders/major-league?pos=all&stats=bat&lg=all&qual=20&type=8&season=2026&month=14&season1=2025" target="_blank">FG Hitters vs LHP</a> (2025-2026, min 20 PA) → Export → download CSV</li>
+      <li>Go to <a href="https://www.fangraphs.com/leaders/major-league?pos=all&stats=pit&lg=all&qual=10&type=8&season=2026&season1=2025" target="_blank">FG Pitchers Overall</a> (2025-2026, min 10 IP) → Export → download CSV</li>
+      <li>Drop each CSV into the matching box below</li>
+    </ol>
+    <p style="margin-top:8px;font-size:11px;color:var(--text3)">Need: wRC+, ISO, K%, Barrel% for hitters. SIERA, xFIP, GB%, K-BB%, Stuff+ for pitchers. Include MLBAMID column.</p>
+  </div>
+
+  <div class="grid" style="grid-template-columns:1fr 1fr 1fr">
+    <div class="upload-zone" id="zone-hit-r" onclick="document.getElementById('file-hit-r').click()" ondragover="event.preventDefault();this.classList.add('dragover')" ondragleave="this.classList.remove('dragover')" ondrop="event.preventDefault();this.classList.remove('dragover');handleFile(event.dataTransfer.files[0],'hitter','vs_R','zone-hit-r')">
+      <div class="upload-label">HITTERS</div>
+      <div class="upload-title">🔴 vs RHP</div>
+      <div class="upload-sub">Drop CSV or click to browse</div>
+      <div class="upload-status" id="status-hit-r"></div>
+      <input type="file" id="file-hit-r" accept=".csv" onchange="handleFile(this.files[0],'hitter','vs_R','zone-hit-r')">
+    </div>
+    <div class="upload-zone" id="zone-hit-l" onclick="document.getElementById('file-hit-l').click()" ondragover="event.preventDefault();this.classList.add('dragover')" ondragleave="this.classList.remove('dragover')" ondrop="event.preventDefault();this.classList.remove('dragover');handleFile(event.dataTransfer.files[0],'hitter','vs_L','zone-hit-l')">
+      <div class="upload-label">HITTERS</div>
+      <div class="upload-title">🔵 vs LHP</div>
+      <div class="upload-sub">Drop CSV or click to browse</div>
+      <div class="upload-status" id="status-hit-l"></div>
+      <input type="file" id="file-hit-l" accept=".csv" onchange="handleFile(this.files[0],'hitter','vs_L','zone-hit-l')">
+    </div>
+    <div class="upload-zone" id="zone-pit-o" onclick="document.getElementById('file-pit-o').click()" ondragover="event.preventDefault();this.classList.add('dragover')" ondragleave="this.classList.remove('dragover')" ondrop="event.preventDefault();this.classList.remove('dragover');handleFile(event.dataTransfer.files[0],'pitcher','overall','zone-pit-o')">
+      <div class="upload-label">PITCHERS</div>
+      <div class="upload-title">⚾ Overall</div>
+      <div class="upload-sub">Drop CSV or click to browse</div>
+      <div class="upload-status" id="status-pit-o"></div>
+      <input type="file" id="file-pit-o" accept=".csv" onchange="handleFile(this.files[0],'pitcher','overall','zone-pit-o')">
+    </div>
+  </div>
+
+  <div class="log" id="log">Ready. Upload FanGraphs CSVs above.\n</div>
+
+<script>
+const SUPABASE_URL = 'https://rklfzqqusainitumsvta.supabase.co';
+const SUPABASE_KEY = 'sb_publishable_cC-FD9GW_ALGutGuJliehg_BBCwSOHZ';
+const sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+const SEASON = 2026;
+
+function log(msg) {
+  const el = document.getElementById('log');
+  el.textContent += msg + '\n';
+  el.scrollTop = el.scrollHeight;
+}
+
+function normName(name) {
+  if (!name) return '';
+  // Strip HTML tags
+  name = name.replace(/<[^>]+>/g, '');
+  // Normalize unicode accents
+  name = name.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+  // Standardize quotes/apostrophes
+  name = name.replace(/[\u2018\u2019\u201c\u201d]/g, "'");
+  // Remove periods
+  name = name.replace(/\./g, '');
+  // Clean
+  return name.trim();
+}
+
+function cleanMatch(name) {
+  return normName(name).toLowerCase().replace(/\s+(jr|sr|ii|iii|iv)$/i, '').replace(/[^a-z ]/g, '').trim();
+}
+
+function parseCSV(text) {
+  const lines = text.split('\n').filter(l => l.trim());
+  if (lines.length < 2) return [];
+  
+  // Handle BOM
+  let header = lines[0].replace(/^\uFEFF/, '');
+  
+  // Parse header — handle quoted fields
+  const headers = parseCSVLine(header);
+  
+  const rows = [];
+  for (let i = 1; i < lines.length; i++) {
+    const vals = parseCSVLine(lines[i]);
+    if (vals.length < headers.length / 2) continue; // skip bad rows
+    const row = {};
+    headers.forEach((h, j) => { row[h.trim().replace(/"/g, '')] = (vals[j] || '').replace(/"/g, '').trim(); });
+    rows.push(row);
+  }
+  return rows;
+}
+
+function parseCSVLine(line) {
+  const result = [];
+  let current = '';
+  let inQuotes = false;
+  for (let i = 0; i < line.length; i++) {
+    const c = line[i];
+    if (c === '"') { inQuotes = !inQuotes; }
+    else if (c === ',' && !inQuotes) { result.push(current); current = ''; }
+    else { current += c; }
+  }
+  result.push(current);
+  return result;
+}
+
+function findCol(row, ...names) {
+  for (const n of names) {
+    // Try exact match first
+    if (row[n] !== undefined) return row[n];
+    // Try case-insensitive
+    const key = Object.keys(row).find(k => k.toLowerCase().replace(/[^a-z0-9+%]/g, '') === n.toLowerCase().replace(/[^a-z0-9+%]/g, ''));
+    if (key) return row[key];
+  }
+  return null;
+}
+
+function pctToNum(val) {
+  if (val === null || val === undefined || val === '') return null;
+  const s = String(val).replace('%', '').replace(' ', '').trim();
+  const n = parseFloat(s);
+  return isNaN(n) ? null : n;
+}
+
+async function handleFile(file, playerType, split, zoneId) {
+  if (!file) return;
+  const zone = document.getElementById(zoneId);
+  const status = document.getElementById('status-' + zoneId.replace('zone-', ''));
+  
+  log(`\nProcessing: ${file.name} (${playerType} ${split})`);
+  status.textContent = 'Reading...';
+  
+  const text = await file.text();
+  const rows = parseCSV(text);
+  log(`Parsed ${rows.length} rows`);
+  
+  if (rows.length === 0) {
+    status.textContent = '❌ No data found';
+    zone.classList.add('error');
+    return;
+  }
+  
+  // Log headers for debugging
+  const headers = Object.keys(rows[0]);
+  log(`Columns: ${headers.slice(0, 15).join(', ')}...`);
+  
+  let saved = 0, errors = 0;
+  
+  for (const row of rows) {
+    const name = findCol(row, 'Name', 'PlayerName', 'name');
+    const team = findCol(row, 'Team', 'team');
+    const fgId = findCol(row, 'playerid', 'PlayerId', 'IDfg', 'playerID');
+    const mlbId = findCol(row, 'MLBAMID', 'xMLBAMID', 'mlbamid');
+    const pa = pctToNum(findCol(row, 'PA', 'TBF', 'pa'));
+    
+    if (!name || !fgId) continue;
+    
+    const record = {
+      player_name: normName(name),
+      player_name_clean: cleanMatch(name),
+      team: team || '',
+      player_type: playerType,
+      split: split,
+      season: SEASON,
+      fg_player_id: String(fgId),
+      mlb_player_id: mlbId ? parseInt(mlbId) : null,
+      pa: pa ? Math.round(pa) : null,
+      updated_at: new Date().toISOString(),
+    };
+    
+    if (playerType === 'hitter') {
+      record.wrc_plus = pctToNum(findCol(row, 'wRC+', 'wRCplus', 'wrcplus'));
+      record.iso = pctToNum(findCol(row, 'ISO', 'iso'));
+      record.k_pct = pctToNum(findCol(row, 'K%', 'Kpct', 'k_pct'));
+      record.barrel_pct = pctToNum(findCol(row, 'Barrel%', 'BarrelPct', 'barrel_pct', 'Barrel'));
+    } else {
+      record.siera = pctToNum(findCol(row, 'SIERA', 'siera'));
+      record.xfip = pctToNum(findCol(row, 'xFIP', 'xfip'));
+      record.gb_pct = pctToNum(findCol(row, 'GB%', 'GBpct', 'gb_pct'));
+      record.k_bb_pct = pctToNum(findCol(row, 'K-BB%', 'KBBpct', 'k_bb_pct'));
+      // Stuff+ may or may not be in the export
+      record.stuff_plus = pctToNum(findCol(row, 'Stuff+', 'StuffPlus', 'stuff_plus'));
+    }
+    
+    const { error } = await sb.from('edge_fangraphs_cache').upsert(record, { onConflict: 'fg_player_id,season,player_type,split' });
+    if (error) {
+      errors++;
+      if (errors <= 3) log(`  Error: ${name} — ${error.message}`);
+    } else {
+      saved++;
+    }
+  }
+  
+  log(`✓ Saved ${saved} ${playerType}s (${split}), ${errors} errors`);
+  status.textContent = `✓ ${saved} saved`;
+  zone.classList.remove('error');
+  zone.classList.add('done');
+}
+</script>
+</body>
+</html>
