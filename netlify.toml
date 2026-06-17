@@ -12,6 +12,11 @@
   to = "/.netlify/functions/golf-upload"
   status = 200
 
+[[redirects]]
+  from = "/api/golf-lookup"
+  to = "/.netlify/functions/golf-lookup"
+  status = 200
+
 [[headers]]
   for = "/*"
   [headers.values]
