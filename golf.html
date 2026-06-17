@@ -13,21 +13,24 @@
   header a.home{display:flex;align-items:center;gap:8px;text-decoration:none;color:inherit}
   .logo-text{font-family:'Barlow Condensed','Barlow',sans-serif;font-weight:900;font-size:20px;letter-spacing:2px}
   .logo-sub{font-family:monospace;font-size:10px;color:var(--neon);border:1px solid var(--neon);border-radius:10px;padding:1px 7px;letter-spacing:1px;margin-left:2px}
-  .container{max-width:1080px;margin:0 auto;padding:28px 24px}
-  .result-card{background:var(--panel);border:1px solid var(--border);border-radius:16px;padding:28px}
+  .container{max-width:1280px;margin:0 auto;padding:28px 24px}
+  .split{display:flex;gap:18px;align-items:stretch}
+  .split>.result-card{flex:1 1 0;min-width:0}
+  @media(max-width:880px){.split{flex-direction:column}}
+  .result-card{background:var(--panel);border:1px solid var(--border);border-radius:16px;padding:22px}
   .badge{float:right;font-size:12px;letter-spacing:1.5px;color:var(--neon);border:2px solid var(--neon);border-radius:20px;padding:4px 14px;font-weight:700;font-family:'Barlow Condensed',sans-serif}
   .rc-eyebrow{font-size:13px;letter-spacing:2px;color:var(--muted);font-weight:700;text-transform:uppercase;font-family:'Barlow Condensed',sans-serif}
-  .rc-title{font-family:'Barlow Condensed','Barlow',sans-serif;font-weight:800;font-size:clamp(28px,5vw,46px);letter-spacing:1px;margin:2px 0 6px;line-height:1}
-  .rc-sub{color:var(--muted);font-size:15px;margin-bottom:14px}
-  .legend{display:flex;gap:18px;flex-wrap:wrap;margin-bottom:20px}
+  .rc-title{font-family:'Barlow Condensed','Barlow',sans-serif;font-weight:800;font-size:clamp(24px,4vw,38px);letter-spacing:1px;margin:2px 0 6px;line-height:1}
+  .rc-sub{color:var(--muted);font-size:14px;margin-bottom:12px}
+  .legend{display:flex;gap:18px;flex-wrap:wrap;margin-bottom:14px}
   .legend-item{display:flex;align-items:center;gap:7px;font-size:13px;font-weight:700;font-family:'Barlow Condensed',sans-serif;letter-spacing:.5px}
   .sw{width:16px;height:16px;border-radius:3px}
-  .bars{display:flex;align-items:flex-end;gap:2.5%;height:380px;padding:10px 0 0;border-bottom:1px solid var(--border);margin-bottom:6px}
+  .bars{display:flex;align-items:flex-end;gap:1.5%;height:240px;padding:8px 0 0;border-bottom:1px solid var(--border);margin-bottom:6px}
   .barcol{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%}
-  .barwrap{display:flex;align-items:flex-end;justify-content:center;gap:3px;width:100%;height:100%}
-  .barvals{display:flex;gap:6px;justify-content:center;margin-bottom:6px;flex-wrap:wrap}
-  .barval{font-weight:800;font-size:clamp(11px,1.5vw,15px);font-family:'Barlow Condensed',sans-serif}
-  .bar{flex:1;max-width:34px;border-radius:5px 5px 0 0;min-height:2px;transition:height .6s ease}
+  .barwrap{display:flex;align-items:flex-end;justify-content:center;gap:2px;width:100%;height:100%}
+  .barvals{display:flex;flex-direction:column;gap:0;align-items:center;margin-bottom:5px}
+  .barval{font-weight:800;font-size:clamp(9px,1.1vw,12px);font-family:'Barlow Condensed',sans-serif;line-height:1.15}
+  .bar{flex:1;max-width:18px;border-radius:4px 4px 0 0;min-height:2px;transition:height .6s ease}
   .barlabels{display:flex;gap:2.5%;margin-top:10px}
   .barlabel{flex:1;text-align:center}
   .barlabel .lvl{font-family:'Barlow Condensed','Barlow',sans-serif;font-weight:800;font-size:clamp(18px,2.8vw,26px)}
@@ -82,20 +85,22 @@
     </a>
   </header>
   <div class="container">
-    <div class="result-card" id="card">
-      <div class="loading" id="loading"><div class="spinner"></div><div>Loading the latest cut projection…</div></div>
-    </div>
-
-    <div class="result-card" id="calc-card" style="margin-top:18px">
-      <div class="rc-eyebrow">CHECK YOUR OWN TEAM</div>
-      <div class="rc-title" style="font-size:clamp(22px,3.5vw,32px)">FIND MY LINEUP</div>
-      <div class="rc-sub">Enter your DraftKings username to see your cut-survival odds. Multi-entry? We'll rank all your lineups.</div>
-      <div class="calc-input">
-        <input type="text" id="user-input" placeholder="Your DK username" autocomplete="off">
-        <button class="btn-find" id="find-btn">Find</button>
+    <div class="split">
+      <div class="result-card" id="card">
+        <div class="loading" id="loading"><div class="spinner"></div><div>Loading the latest cut projection…</div></div>
       </div>
-      <div class="calc-status" id="calc-status"></div>
-      <div id="calc-results"></div>
+
+      <div class="result-card" id="calc-card">
+        <div class="rc-eyebrow">CHECK YOUR OWN TEAM</div>
+        <div class="rc-title" style="font-size:clamp(22px,3.5vw,32px)">FIND MY LINEUP</div>
+        <div class="rc-sub">Enter your DraftKings username to see your cut-survival odds. Multi-entry? We'll rank all your lineups.</div>
+        <div class="calc-input">
+          <input type="text" id="user-input" placeholder="Your DK username" autocomplete="off">
+          <button class="btn-find" id="find-btn">Find</button>
+        </div>
+        <div class="calc-status" id="calc-status"></div>
+        <div id="calc-results"></div>
+      </div>
     </div>
   </div>
 <script>
