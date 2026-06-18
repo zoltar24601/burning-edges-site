@@ -58,6 +58,15 @@ export async function handler(event) {
     // rank by expected survivors, desc
     results.sort((a, b) => b.expected - a.expected);
 
+    // fire-and-forget analytics log (never blocks or breaks the user's result)
+    const bestExp = results.length ? results[0].expected : null;
+    logLookup(SB_URL, SB_KEY, {
+      username: user,
+      event_name: dg.event_name || ev.event_name || "",
+      n_lineups: results.length,
+      best_exp: bestExp,
+    });
+
     return json(200, {
       found: true, user, event_name: dg.event_name || ev.event_name || "",
       count: results.length, dg_last_update: dg.last_update || "",
@@ -102,4 +111,15 @@ function resolve(lookup,name){ const fk=normKey(name); if(lookup.primary.has(fk)
 function poissonBinomial(probs){ let dist=[1.0]; for(let p of probs){ p=Math.max(0,Math.min(1,p)); const nx=new Array(dist.length+1).fill(0); for(let k=0;k<dist.length;k++){ nx[k]+=dist[k]*(1-p); nx[k+1]+=dist[k]*p; } dist=nx; } return dist; }
 
 async function sbLatest(url, key, table, orderCol){ const r=await fetch(`${url}/rest/v1/${table}?select=*&order=${orderCol}.desc&limit=1`,{headers:{apikey:key,Authorization:`Bearer ${key}`}}); if(!r.ok)throw new Error(`Supabase select ${table} ${r.status}`); const rows=await r.json(); return rows[0]||null; }
+// Fire-and-forget analytics: record who looked up a lineup. Any failure is
+// swallowed so it can never break or slow the user's result.
+function logLookup(url, key, row){
+  try{
+    fetch(`${url}/rest/v1/golf_lookups`,{
+      method:"POST",
+      headers:{apikey:key,Authorization:`Bearer ${key}`,"Content-Type":"application/json",Prefer:"return=minimal"},
+      body:JSON.stringify(row),
+    }).catch(()=>{});
+  }catch(e){/* ignore */}
+}
 function json(s, b){ return { statusCode:s, headers:{"Content-Type":"application/json","Access-Control-Allow-Origin":"*","Cache-Control":"public, max-age=120"}, body:JSON.stringify(b) }; }
