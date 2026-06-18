@@ -1,4 +1,4 @@
-// Burning Edges — "Find my lineup" lookup. Route: /api/golf-lookup?user=NAME
+// Burning Edges - "Find my lineup" lookup. Route: /api/golf-lookup?user=NAME
 // Finds a DK username's entries in the stored event, computes each lineup's
 // cut-survival odds against the cached DataGolf make-cut probabilities,
 // returns them ranked by expected survivors (desc).
@@ -18,13 +18,19 @@ export async function handler(event) {
       return json(200, { found: false, note: "No contest data uploaded yet." });
     }
 
-    // collect this user's entries across all contests (case-insensitive exact match on cleaned name)
+    // collect this user's entries across all contests (case-insensitive exact match)
+    // Compact form: entry = {n:name, l:[indices]} + shared ev.dict.
+    // Legacy form: entry = {name, lineup:[names]}.
+    const dict = Array.isArray(ev.dict) ? ev.dict : null;
     const target = user.toLowerCase();
     const matches = [];
     for (const c of ev.contests) {
       for (const e of (c.entries || [])) {
-        if ((e.name || "").toLowerCase() === target) {
-          matches.push({ contest: c.label, lineup: e.lineup });
+        const nm = e.n != null ? e.n : e.name;
+        if ((nm || "").toLowerCase() === target) {
+          const lineup = Array.isArray(e.lineup) ? e.lineup
+                        : (dict && Array.isArray(e.l)) ? e.l.map(i => dict[i]) : [];
+          matches.push({ contest: c.label, lineup });
         }
       }
     }
