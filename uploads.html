@@ -99,12 +99,30 @@ $("slots").innerHTML=[0,1,2].map(i=>`
 function loadInto(i,file){const r=new FileReader();r.onload=()=>{try{const entries=parseDk(r.result);contests[i]={label:$("label"+i).value||("Contest "+(i+1)),entries};$("dz"+i).classList.add("loaded");$("dzt"+i).textContent="✓ "+file.name;$("dzs"+i).textContent=entries.length+" lineups";refreshBtn();setStatus("");}catch(err){setStatus("Contest "+(i+1)+" error: "+err.message,"err");}};r.readAsText(file);}
 function refreshBtn(){$("upload-btn").disabled=!contests[0];}
 function setStatus(m,cls){const s=$("status");s.textContent=m;s.className="status"+(cls?" "+cls:"");}
+// Encode contests compactly: a shared dictionary of unique golfer names, and
+// each lineup becomes [6 indices] into that dictionary. Slashes payload size
+// for large fields (129K lineups share ~156 unique names).
+function encodeContests(active){
+  const dict=[]; const idx=new Map();
+  const id=name=>{ if(idx.has(name))return idx.get(name); const i=dict.length; dict.push(name); idx.set(name,i); return i; };
+  const enc=active.map(c=>({
+    label:c.label,
+    entries:c.entries.map(e=>({n:e.name, l:e.lineup.map(id)}))
+  }));
+  return {dict, contests:enc};
+}
 $("upload-btn").addEventListener("click",async()=>{
   const active=contests.map((c,i)=>c?{label:$("label"+i).value||c.label,entries:c.entries}:null).filter(Boolean);
   if(!active.length){setStatus("Load at least one contest CSV.","err");return;}
-  $("upload-btn").disabled=true;setStatus("Uploading "+active.length+" contest(s)…");
+  const total=active.reduce((a,c)=>a+c.entries.length,0);
+  $("upload-btn").disabled=true;setStatus("Encoding "+total.toLocaleString()+" lineups…");
   try{
-    const up=await fetch('/api/golf-upload',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({event_name:$("event").value,tour:$("tour").value,cut_rule:$("cut").value,contests:active})});
+    const enc=encodeContests(active);
+    const payload=JSON.stringify({event_name:$("event").value,tour:$("tour").value,cut_rule:$("cut").value,encoded:enc});
+    setStatus("Compressing & uploading "+total.toLocaleString()+" lineups…");
+    // gzip in the browser to stay well under the function request-size limit
+    const gzBlob=await new Response(new Blob([payload]).stream().pipeThrough(new CompressionStream('gzip'))).blob();
+    const up=await fetch('/api/golf-upload',{method:'POST',headers:{'Content-Type':'application/octet-stream'},body:gzBlob});
     const upd=await up.json();
     if(upd.error)throw new Error(upd.error);
     setStatus("Stored. Computing projection…");
