@@ -1,4 +1,4 @@
-// Burning Edges — Golf lineup uploader (private). Route: /api/golf-upload (POST)
+// Burning Edges - Golf lineup uploader (private). Route: /api/golf-upload (POST)
 // Accepts a gzipped, dictionary-encoded payload (handles 100K+ lineups).
 // Stores the COMPACT encoded form in Supabase (dict + index arrays) to keep
 // the row small; the cut/lookup functions decode in-memory.
