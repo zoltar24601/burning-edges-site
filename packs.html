@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pack Analytics · Burning Edges</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700;800&family=Barlow:wght@400;500;600&display=swap');
+  :root{
+    --pine:#0d2818; --pine-2:#123a22; --pine-3:#0a1f12;
+    --card:#13301f; --card-2:#0f2618; --border:#1f4a30; --border-bright:#2d6344;
+    --gold:#e8c468; --gold-dim:#b89540; --cream:#f4efe1; --text:#e8efe6; --text-dim:#8fab97; --text-faint:#5a7563;
+    --green:#5ed68a; --red:#e8736a; --flame:#ff7a3c; --purple:#b89be0;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{background:var(--pine-3);color:var(--text);font-family:'Barlow',sans-serif;-webkit-font-smoothing:antialiased;line-height:1.5;}
+  body::before{content:'';position:fixed;inset:0;background:
+    radial-gradient(circle at 20% 10%,rgba(232,196,104,0.04),transparent 40%),
+    radial-gradient(circle at 80% 90%,rgba(94,214,138,0.03),transparent 40%);
+    pointer-events:none;z-index:0;}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 24px;position:relative;z-index:1;}
+  header{border-bottom:1px solid var(--border);background:rgba(10,31,18,0.9);backdrop-filter:blur(10px);position:sticky;top:0;z-index:100;}
+  .header-inner{max-width:1080px;margin:0 auto;padding:16px 24px;display:flex;justify-content:space-between;align-items:center;}
+  .brand{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:22px;letter-spacing:1px;color:var(--cream);text-transform:uppercase;display:flex;align-items:center;gap:10px;}
+  .brand .flame{color:var(--flame);}
+  .nav-meta{font-family:'Barlow Condensed',sans-serif;font-size:13px;letter-spacing:1.5px;color:var(--text-faint);text-transform:uppercase;}
+
+  .hero{padding:40px 0 26px;text-align:center;}
+  .release-name{font-family:'Barlow Condensed',sans-serif;font-size:14px;letter-spacing:3px;color:var(--gold-dim);text-transform:uppercase;margin-bottom:10px;}
+  .hero h1{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:clamp(38px,7vw,64px);line-height:0.98;text-transform:uppercase;letter-spacing:0.5px;color:var(--cream);margin-bottom:6px;}
+  .hero h1 .flame{color:var(--flame);}
+  .updated{font-family:'Barlow Condensed',sans-serif;font-size:13px;letter-spacing:2px;color:var(--text-faint);text-transform:uppercase;margin-top:14px;}
+  .updated .dot{display:inline-block;width:7px;height:7px;background:var(--green);border-radius:50%;margin-right:7px;vertical-align:middle;animation:pulse 2s infinite;}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:0.35}}
+
+  .toggle{display:flex;justify-content:center;gap:0;margin:6px 0 34px;}
+  .toggle-inner{display:inline-flex;background:var(--card-2);border:1px solid var(--border-bright);border-radius:10px;padding:5px;}
+  .tg-btn{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:16px;letter-spacing:1.5px;text-transform:uppercase;padding:10px 28px;border:none;background:transparent;color:var(--text-dim);cursor:pointer;border-radius:7px;transition:all 0.18s;}
+  .tg-btn.active{background:var(--gold);color:var(--pine-3);}
+  .tg-btn .sub{display:block;font-size:11px;letter-spacing:0.5px;font-weight:500;opacity:0.7;margin-top:1px;}
+
+  .price-band{display:grid;grid-template-columns:1.4fr 1fr;gap:16px;margin:0 0 40px;}
+  @media(max-width:720px){.price-band{grid-template-columns:1fr;}}
+  .price-card{background:linear-gradient(160deg,var(--card),var(--card-2));border:1px solid var(--border-bright);border-radius:14px;padding:30px 32px;position:relative;overflow:hidden;}
+  .price-card.predicted{border-color:var(--gold-dim);box-shadow:0 0 40px rgba(232,196,104,0.08) inset;}
+  .price-card .label{font-family:'Barlow Condensed',sans-serif;font-size:13px;letter-spacing:2.5px;text-transform:uppercase;color:var(--text-dim);margin-bottom:8px;}
+  .price-card.predicted .label{color:var(--gold);}
+  .price-big{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:54px;line-height:1;color:var(--cream);}
+  .price-card.predicted .price-big{color:var(--gold);font-size:60px;}
+  .price-range{font-family:'Barlow Condensed',sans-serif;font-size:18px;color:var(--text-dim);margin-top:8px;letter-spacing:1px;}
+  .price-sub{font-size:13px;color:var(--text-faint);margin-top:10px;}
+  .vs-mint{display:inline-block;margin-top:12px;padding:4px 12px;border-radius:20px;background:rgba(94,214,138,0.12);border:1px solid rgba(94,214,138,0.3);font-family:'Barlow Condensed',sans-serif;font-size:14px;letter-spacing:1px;color:var(--green);text-transform:uppercase;}
+
+  .section-label{font-family:'Barlow Condensed',sans-serif;font-size:13px;letter-spacing:3px;text-transform:uppercase;color:var(--gold-dim);margin:0 0 6px;}
+  .section-title{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:34px;text-transform:uppercase;letter-spacing:0.5px;color:var(--cream);margin-bottom:4px;}
+  .section-desc{color:var(--text-dim);font-size:14px;margin-bottom:22px;}
+
+  .hits-summary{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:24px;}
+  .hsum{background:var(--card-2);border:1px solid var(--border);border-radius:10px;padding:14px 20px;flex:1;min-width:130px;}
+  .hsum .n{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:32px;color:var(--gold);line-height:1;}
+  .hsum .t{font-family:'Barlow Condensed',sans-serif;font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:var(--text-faint);margin-top:5px;}
+
+  .hits{display:flex;flex-direction:column;gap:0;border:1px solid var(--border);border-radius:12px;overflow:hidden;}
+  .hit-row{display:grid;grid-template-columns:48px 1fr auto auto;gap:16px;align-items:center;padding:13px 20px;border-bottom:1px solid var(--border);background:var(--card-2);transition:background 0.12s;}
+  .hit-row:last-child{border-bottom:none;}
+  .hit-row:hover{background:var(--card);}
+  .hit-row.tier-mega{background:linear-gradient(90deg,rgba(232,196,104,0.07),var(--card-2));}
+  .hit-row.tier-fotl{background:linear-gradient(90deg,rgba(184,155,224,0.07),var(--card-2));}
+  .hit-rank{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:15px;color:var(--text-faint);text-align:center;}
+  .hit-name{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:18px;color:var(--cream);letter-spacing:0.3px;line-height:1.1;display:flex;align-items:center;gap:8px;}
+  .fotl-tag{font-size:9px;letter-spacing:1px;padding:2px 6px;border-radius:4px;background:rgba(184,155,224,0.15);border:1px solid var(--purple);color:var(--purple);text-transform:uppercase;font-weight:700;}
+  .hit-set{font-size:12.5px;color:var(--text-dim);margin-top:1px;}
+  .hit-serial{font-family:'Barlow Condensed',sans-serif;font-size:14px;letter-spacing:1px;color:var(--gold-dim);text-align:right;white-space:nowrap;}
+  .hit-serial .copies{display:block;font-size:11px;color:var(--text-faint);letter-spacing:0.5px;}
+  .hit-val{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:21px;color:var(--gold);text-align:right;white-space:nowrap;}
+  .hit-row.tier-mega .hit-val{font-size:24px;}
+
+  .toolbar{display:flex;gap:10px;margin-bottom:16px;flex-wrap:wrap;}
+  .fbtn{font-family:'Barlow Condensed',sans-serif;font-size:13px;letter-spacing:1.5px;padding:8px 16px;border:1px solid var(--border-bright);background:transparent;color:var(--text-dim);cursor:pointer;text-transform:uppercase;border-radius:6px;transition:all 0.15s;}
+  .fbtn:hover,.fbtn.active{border-color:var(--gold-dim);color:var(--gold);}
+
+  .pools{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:14px 0 40px;}
+  @media(max-width:720px){.pools{grid-template-columns:1fr 1fr;}}
+  .pool{background:var(--card-2);border:1px solid var(--border);border-radius:10px;padding:16px 18px;}
+  .pool .pl{font-family:'Barlow Condensed',sans-serif;font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:var(--text-faint);margin-bottom:6px;}
+  .pool .pv{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:24px;color:var(--cream);}
+  .pool .ps{font-size:11px;color:var(--text-faint);margin-top:2px;}
+
+  .disclaimer{background:var(--card-2);border:1px solid var(--border);border-left:3px solid var(--gold-dim);border-radius:8px;padding:16px 20px;margin:30px 0;font-size:13px;color:var(--text-dim);line-height:1.6;}
+  .disclaimer strong{color:var(--text);}
+  .fotl-note{background:rgba(184,155,224,0.06);border-color:var(--border);border-left-color:var(--purple);}
+
+  footer{border-top:1px solid var(--border);margin-top:50px;padding:28px 0;text-align:center;}
+  .foot-brand{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:15px;letter-spacing:2px;color:var(--text-faint);text-transform:uppercase;}
+  .foot-sub{font-size:12px;color:var(--text-faint);margin-top:6px;}
+  .divider{height:1px;background:var(--border);margin:38px 0;}
+</style>
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <div class="brand"><span class="flame">▲</span> Burning Edges</div>
+    <div class="nav-meta">Pack Analytics</div>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="hero">
+    <div class="release-name" id="releaseName">—</div>
+    <h1 id="packTitle">Base Pack <span class="flame">Value</span></h1>
+    <div class="updated"><span class="dot"></span><span id="updated">—</span></div>
+  </div>
+
+  <div class="toggle">
+    <div class="toggle-inner">
+      <button class="tg-btn active" data-pack="base">Base Pack<span class="sub" id="tgBaseSub">—</span></button>
+      <button class="tg-btn" data-pack="fotl">FOTL Pack<span class="sub" id="tgFotlSub">—</span></button>
+    </div>
+  </div>
+
+  <div class="price-band">
+    <div class="price-card predicted">
+      <div class="label">Predicted Price</div>
+      <div class="price-big" id="predMid">—</div>
+      <div class="price-range" id="predRange">—</div>
+      <div class="price-sub">Estimated secondary market value once supply locks. Typically 2–3× book.</div>
+    </div>
+    <div class="price-card">
+      <div class="label">Book Value</div>
+      <div class="price-big" id="book">—</div>
+      <div class="vs-mint" id="vsMint">—</div>
+      <div class="price-sub">Raw expected card value per pack (the math floor).</div>
+    </div>
+  </div>
+
+  <div id="fotlNote" style="display:none;" class="disclaimer fotl-note">
+    <strong>FOTL packs pull from the same pool as base packs</strong> — plus a guaranteed First-Off-The-Line exclusive parallel (Aguila, Maple Leaf, Old Glory, or Nebula) worth <span id="fotlSlotVal" style="color:var(--purple);font-weight:600;">—</span> per pack on average. Cards marked <span class="fotl-tag">FOTL</span> below can <em>only</em> be pulled from FOTL packs.
+  </div>
+
+  <div class="section-label">The Chase</div>
+  <div class="section-title">Hits Remaining</div>
+  <div class="section-desc" id="hitsDesc">The big cards still sealed in unopened packs. Pull one of these and the pack pays for itself many times over.</div>
+
+  <div class="hits-summary" id="hitsSummary"></div>
+  <div class="toolbar" id="toolbar"></div>
+  <div class="hits" id="hitsList"></div>
+
+  <div class="divider"></div>
+
+  <div class="section-label">Under The Hood</div>
+  <div class="section-title">Pack Pools</div>
+  <div class="section-desc">Average value per card in each slot of the pack.</div>
+  <div class="pools" id="pools"></div>
+
+  <div class="disclaimer">
+    <strong>How this works:</strong> Book value is the expected card value per pack, computed from current unclaimed counts and live marketplace prices. Predicted price reflects where sealed packs typically trade on the secondary market once the print run sells out — historically 2–3× book. <strong>This is an estimate, not financial advice.</strong> Most individual packs return less than the average; the value is carried by rare big hits.
+  </div>
+</div>
+
+<footer>
+  <div class="foot-brand">▲ Burning Edges · Pack Analytics</div>
+  <div class="foot-sub">@Money4HairPlugs · data updated manually · not affiliated with Panini</div>
+</footer>
+
+<script>
+const SNAP = {"updated": "2026-06-24", "release": "2026 Panini NFT Prizm World Cup Soccer", "totalUnclaimed": 170116, "packs": {"base": {"name": "Base Pack", "mint": 25, "book": 86.18, "predLow": 172, "predMid": 215, "predHigh": 259, "packsLeft": 33418, "hits": [{"a": "Lionel Messi", "s": "Base Prizms Black", "r": 1, "u": 1, "p": 218751}, {"a": "Kylian Mbappe", "s": "Base Prizms Black", "r": 1, "u": 1, "p": 43750}, {"a": "Erling Haaland", "s": "Base Prizms Black", "r": 1, "u": 1, "p": 37500}, {"a": "Lamine Yamal", "s": "Base Prizms Gold", "r": 10, "u": 7, "p": 27500}, {"a": "Lionel Messi", "s": "Base Prizms Gold", "r": 10, "u": 6, "p": 25300}, {"a": "Cristiano Ronaldo", "s": "Base Prizms Black", "r": 1, "u": 1, "p": 25000}, {"a": "Lionel Messi", "s": "National Landmarks Prizms Black", "r": 1, "u": 1, "p": 25000}, {"a": "Lamine Yamal", "s": "National Landmarks Prizms Gold", "r": 10, "u": 6, "p": 18750}, {"a": "Cristiano Ronaldo", "s": "Base Prizms Gold", "r": 10, "u": 5, "p": 15000}, {"a": "Erling Haaland", "s": "Base Prizms Gold", "r": 10, "u": 9, "p": 15000}, {"a": "Michael Olise", "s": "Base Prizms Gold", "r": 10, "u": 5, "p": 15000}, {"a": "Diego Maradona", "s": "Base Prizms Gold", "r": 10, "u": 5, "p": 13889}, {"a": "Diego Maradona", "s": "Base Prizms Black", "r": 1, "u": 1, "p": 12512}, {"a": "Lamine Yamal", "s": "Base Choice Prizms Zebra", "r": 5, "u": 5, "p": 12500}, {"a": "Erling Haaland", "s": "National Landmarks Prizms Black", "r": 1, "u": 1, "p": 12000}, {"a": "Cristiano Ronaldo", "s": "National Landmarks Prizms Black", "r": 1, "u": 1, "p": 12000}, {"a": "Lionel Messi", "s": "Color Blast", "r": 25, "u": 13, "p": 9692}, {"a": "Kylian Mbappe", "s": "Base Prizms Gold", "r": 10, "u": 5, "p": 9375}, {"a": "Michael Olise", "s": "Base Prizms Black", "r": 1, "u": 1, "p": 9375}, {"a": "Lionel Messi", "s": "Base Choice Prizms Zebra", "r": 5, "u": 5, "p": 8750}, {"a": "Lionel Messi", "s": "Manga", "r": 25, "u": 16, "p": 8188}, {"a": "Lamine Yamal", "s": "Base Prizms Cracked Ice", "r": 25, "u": 16, "p": 6797}, {"a": "Lionel Messi", "s": "National Landmarks Prizms Gold", "r": 10, "u": 6, "p": 6562}, {"a": "Lionel Messi", "s": "Base Prizms Cracked Ice", "r": 25, "u": 13, "p": 6362}, {"a": "Erling Haaland", "s": "National Landmarks Prizms Gold", "r": 10, "u": 7, "p": 6250}, {"a": "Lamine Yamal", "s": "Manga", "r": 25, "u": 14, "p": 6214}, {"a": "Diego Maradona", "s": "Manga", "r": 25, "u": 14, "p": 6000}, {"a": "Lamine Yamal", "s": "Color Blast", "r": 25, "u": 20, "p": 4800}, {"a": "Kylian Mbappe", "s": "Base Prizms Cracked Ice", "r": 25, "u": 14, "p": 4464}, {"a": "Zinedine Zidane", "s": "Base Prizms Black", "r": 1, "u": 1, "p": 3750}, {"a": "Desire Doue", "s": "Base Prizms Black", "r": 1, "u": 1, "p": 3750}, {"a": "Lionel Messi", "s": "Scorers Club Prizms Black", "r": 1, "u": 1, "p": 3250}, {"a": "Erling Haaland", "s": "Base Choice Prizms Zebra", "r": 5, "u": 5, "p": 3125}, {"a": "Lionel Messi", "s": "Phenomenon Prizms Black", "r": 1, "u": 1, "p": 2594}, {"a": "Lionel Messi", "s": "Prizmania", "r": 25, "u": 17, "p": 2500}, {"a": "Erling Haaland", "s": "Scorers Club Prizms Gold", "r": 10, "u": 5, "p": 2500}, {"a": "Cristiano Ronaldo", "s": "Manga", "r": 25, "u": 20, "p": 2500}, {"a": "Michael Olise", "s": "Base Choice Prizms Zebra", "r": 5, "u": 3, "p": 2500}, {"a": "Lennart Karl", "s": "Base Prizms Black", "r": 1, "u": 1, "p": 2500}, {"a": "Diego Maradona", "s": "Base Prizms Cracked Ice", "r": 25, "u": 12, "p": 2499}, {"a": "Estevao", "s": "Base Prizms Black", "r": 1, "u": 1, "p": 2250}, {"a": "Zinedine Zidane", "s": "National Landmarks Prizms Black", "r": 1, "u": 1, "p": 2188}, {"a": "Luka Modric", "s": "National Landmarks Prizms Black", "r": 1, "u": 1, "p": 2188}, {"a": "Lamine Yamal", "s": "Color Wheel", "r": 25, "u": 16, "p": 2000}, {"a": "Cristiano Ronaldo", "s": "Base Prizms Cracked Ice", "r": 25, "u": 16, "p": 1875}, {"a": "Lamine Yamal", "s": "New Era Prizms Gold", "r": 10, "u": 6, "p": 1875}, {"a": "Nico Paz", "s": "Base Prizms Black", "r": 1, "u": 1, "p": 1875}, {"a": "Lamine Yamal", "s": "New Era Prizms Black", "r": 1, "u": 1, "p": 1625}, {"a": "Diego Maradona", "s": "Base Choice Prizms Zebra", "r": 5, "u": 3, "p": 1625}, {"a": "Cristiano Ronaldo", "s": "Color Blast", "r": 25, "u": 15, "p": 1500}, {"a": "Erling Haaland", "s": "Color Blast", "r": 25, "u": 17, "p": 1500}, {"a": "Desire Doue", "s": "Base Choice Prizms Zebra", "r": 5, "u": 1, "p": 1500}, {"a": "Desire Doue", "s": "Base Prizms Gold", "r": 10, "u": 7, "p": 1500}, {"a": "Endrick", "s": "Base Prizms Black", "r": 1, "u": 1, "p": 1386}, {"a": "Cristiano Ronaldo", "s": "Scorers Club Prizms Black", "r": 1, "u": 1, "p": 1375}, {"a": "Wayne Rooney", "s": "National Landmarks Prizms Black", "r": 1, "u": 1, "p": 1375}, {"a": "Franz Beckenbauer", "s": "Base Prizms Gold", "r": 10, "u": 6, "p": 1300}, {"a": "Lamine Yamal", "s": "Prizmania", "r": 25, "u": 12, "p": 1250}, {"a": "Cristiano Ronaldo", "s": "Base Choice Prizms Zebra", "r": 5, "u": 4, "p": 1250}, {"a": "Johan Manzambi", "s": "Base Prizms Black", "r": 1, "u": 1, "p": 1250}, {"a": "Gilberto Mora", "s": "Base Prizms Black", "r": 1, "u": 1, "p": 1250}, {"a": "Gilberto Mora", "s": "National Landmarks Prizms Black", "r": 1, "u": 1, "p": 1250}, {"a": "Manuel Neuer", "s": "National Landmarks Prizms Black", "r": 1, "u": 1, "p": 1250}, {"a": "Pedri", "s": "Base Prizms Black", "r": 1, "u": 1, "p": 1150}, {"a": "Cristiano Ronaldo", "s": "Trophy Hunting Prizms Black", "r": 1, "u": 1, "p": 1125}, {"a": "Kylian Mbappe", "s": "Base Choice Prizms Zebra", "r": 5, "u": 4, "p": 1062}, {"a": "Andres Iniesta", "s": "Base Prizms Black", "r": 1, "u": 1, "p": 1050}, {"a": "Lionel Messi", "s": "Color Wheel", "r": 25, "u": 18, "p": 1000}, {"a": "Yan Diomande", "s": "Base Prizms Gold", "r": 10, "u": 6, "p": 1000}, {"a": "Erling Haaland", "s": "Base Prizms Cracked Ice", "r": 25, "u": 18, "p": 975}, {"a": "Kylian Mbappe", "s": "Color Blast", "r": 25, "u": 17, "p": 863}, {"a": "Fermin Lopez", "s": "Base Prizms Gold", "r": 10, "u": 6, "p": 750}, {"a": "Michael Olise", "s": "Base Prizms Cracked Ice", "r": 25, "u": 13, "p": 700}, {"a": "Mohamed Salah", "s": "National Landmarks Prizms Gold", "r": 10, "u": 8, "p": 694}, {"a": "Ousmane Dembele", "s": "Base Prizms Gold", "r": 10, "u": 6, "p": 680}, {"a": "Lamine Yamal", "s": "Base Prizms Red", "r": 124, "u": 71, "p": 650}, {"a": "Lionel Messi", "s": "Base Prizms Red", "r": 124, "u": 74, "p": 650}, {"a": "Christian Pulisic", "s": "Base Prizms Gold", "r": 10, "u": 6, "p": 650}, {"a": "Diego Maradona", "s": "Prizmania", "r": 25, "u": 13, "p": 650}, {"a": "Cristiano Ronaldo", "s": "Prizmania", "r": 25, "u": 15, "p": 600}, {"a": "Gilberto Mora", "s": "Base Prizms Gold", "r": 10, "u": 5, "p": 599}, {"a": "Ronaldo", "s": "Color Blast", "r": 25, "u": 16, "p": 599}, {"a": "Diego Maradona", "s": "Color Blast", "r": 25, "u": 15, "p": 592}, {"a": "Lamine Yamal", "s": "National Pride", "r": 25, "u": 15, "p": 555}, {"a": "Vinicius Junior", "s": "Color Blast", "r": 25, "u": 14, "p": 550}, {"a": "Jude Bellingham", "s": "Base Choice Prizms Zebra", "r": 5, "u": 3, "p": 525}, {"a": "Estevao", "s": "Manga", "r": 25, "u": 15, "p": 500}, {"a": "Zinedine Zidane", "s": "National Landmarks Prizms Gold", "r": 10, "u": 5, "p": 500}], "pools": {"silver": 1.2, "nonsilver": 31.66, "insert": 90.12}}, "fotl": {"name": "FOTL Pack", "mint": 25, "book": 170.66, "predLow": 341, "predMid": 427, "predHigh": 512, "packsLeft": 6708, "hits": [{"a": "Lionel Messi", "s": "Base Prizms Black", "r": 1, "u": 1, "p": 218751}, {"a": "Kylian Mbappe", "s": "Base Prizms Black", "r": 1, "u": 1, "p": 43750}, {"a": "Erling Haaland", "s": "Base Prizms Black", "r": 1, "u": 1, "p": 37500}, {"a": "Kylian Mbappe", "s": "Base Choice Prizms Nebula", "r": 1, "u": 1, "p": 27562}, {"a": "Lamine Yamal", "s": "Base Prizms Gold", "r": 10, "u": 7, "p": 27500}, {"a": "Lionel Messi", "s": "Base Prizms Gold", "r": 10, "u": 6, "p": 25300}, {"a": "Cristiano Ronaldo", "s": "Base Prizms Black", "r": 1, "u": 1, "p": 25000}, {"a": "Lionel Messi", "s": "National Landmarks Prizms Black", "r": 1, "u": 1, "p": 25000}, {"a": "Lamine Yamal", "s": "National Landmarks Prizms Gold", "r": 10, "u": 6, "p": 18750}, {"a": "Cristiano Ronaldo", "s": "Base Prizms Gold", "r": 10, "u": 5, "p": 15000}, {"a": "Erling Haaland", "s": "Base Prizms Gold", "r": 10, "u": 9, "p": 15000}, {"a": "Michael Olise", "s": "Base Prizms Gold", "r": 10, "u": 5, "p": 15000}, {"a": "Lionel Messi", "s": "Base Prizms Old Glory", "r": 7, "u": 3, "p": 15000}, {"a": "Diego Maradona", "s": "Base Prizms Gold", "r": 10, "u": 5, "p": 13889}, {"a": "Lamine Yamal", "s": "Base Prizms Old Glory", "r": 7, "u": 2, "p": 13610}, {"a": "Diego Maradona", "s": "Base Prizms Black", "r": 1, "u": 1, "p": 12512}, {"a": "Lamine Yamal", "s": "Base Choice Prizms Zebra", "r": 5, "u": 5, "p": 12500}, {"a": "Lionel Messi", "s": "Base Prizms Maple Leaf", "r": 9, "u": 4, "p": 12500}, {"a": "Cristiano Ronaldo", "s": "Base Prizms Maple Leaf", "r": 9, "u": 4, "p": 12500}, {"a": "Kylian Mbappe", "s": "Base Prizms Old Glory", "r": 7, "u": 3, "p": 12500}, {"a": "Erling Haaland", "s": "National Landmarks Prizms Black", "r": 1, "u": 1, "p": 12000}, {"a": "Cristiano Ronaldo", "s": "National Landmarks Prizms Black", "r": 1, "u": 1, "p": 12000}, {"a": "Michael Olise", "s": "Base Choice Prizms Nebula", "r": 1, "u": 1, "p": 10625}, {"a": "Diego Maradona", "s": "Base Choice Prizms Nebula", "r": 1, "u": 1, "p": 10012}, {"a": "Lionel Messi", "s": "Color Blast", "r": 25, "u": 13, "p": 9692}, {"a": "Kylian Mbappe", "s": "Base Prizms Gold", "r": 10, "u": 5, "p": 9375}, {"a": "Michael Olise", "s": "Base Prizms Black", "r": 1, "u": 1, "p": 9375}, {"a": "Diego Maradona", "s": "Base Prizms Old Glory", "r": 7, "u": 2, "p": 9375}, {"a": "Lionel Messi", "s": "Base Choice Prizms Zebra", "r": 5, "u": 5, "p": 8750}, {"a": "Lionel Messi", "s": "Manga", "r": 25, "u": 16, "p": 8188}, {"a": "Lionel Messi", "s": "Base Prizms Aguila", "r": 11, "u": 5, "p": 7125}, {"a": "Lamine Yamal", "s": "Base Prizms Cracked Ice", "r": 25, "u": 16, "p": 6797}, {"a": "Lionel Messi", "s": "National Landmarks Prizms Gold", "r": 10, "u": 6, "p": 6562}, {"a": "Lionel Messi", "s": "Base Prizms Cracked Ice", "r": 25, "u": 13, "p": 6362}, {"a": "Erling Haaland", "s": "National Landmarks Prizms Gold", "r": 10, "u": 7, "p": 6250}, {"a": "Cristiano Ronaldo", "s": "Base Prizms Old Glory", "r": 7, "u": 2, "p": 6250}, {"a": "Lamine Yamal", "s": "Manga", "r": 25, "u": 14, "p": 6214}, {"a": "Diego Maradona", "s": "Manga", "r": 25, "u": 14, "p": 6000}, {"a": "Lamine Yamal", "s": "Base Prizms Maple Leaf", "r": 9, "u": 4, "p": 5125}, {"a": "Lamine Yamal", "s": "Color Blast", "r": 25, "u": 20, "p": 4800}, {"a": "Zinedine Zidane", "s": "Base Choice Prizms Nebula", "r": 1, "u": 1, "p": 4500}, {"a": "Kylian Mbappe", "s": "Base Prizms Cracked Ice", "r": 25, "u": 14, "p": 4464}, {"a": "Zinedine Zidane", "s": "Base Prizms Black", "r": 1, "u": 1, "p": 3750}, {"a": "Desire Doue", "s": "Base Prizms Black", "r": 1, "u": 1, "p": 3750}, {"a": "Lionel Messi", "s": "Scorers Club Prizms Black", "r": 1, "u": 1, "p": 3250}, {"a": "Erling Haaland", "s": "Base Choice Prizms Zebra", "r": 5, "u": 5, "p": 3125}, {"a": "Desire Doue", "s": "Base Choice Prizms Nebula", "r": 1, "u": 1, "p": 3000}, {"a": "Christian Pulisic", "s": "Base Choice Prizms Nebula", "r": 1, "u": 1, "p": 2750}, {"a": "Lionel Messi", "s": "Phenomenon Prizms Black", "r": 1, "u": 1, "p": 2594}, {"a": "Lionel Messi", "s": "Prizmania", "r": 25, "u": 17, "p": 2500}, {"a": "Erling Haaland", "s": "Scorers Club Prizms Gold", "r": 10, "u": 5, "p": 2500}, {"a": "Cristiano Ronaldo", "s": "Manga", "r": 25, "u": 20, "p": 2500}, {"a": "Michael Olise", "s": "Base Choice Prizms Zebra", "r": 5, "u": 3, "p": 2500}, {"a": "Lennart Karl", "s": "Base Prizms Black", "r": 1, "u": 1, "p": 2500}, {"a": "Diego Maradona", "s": "Base Prizms Cracked Ice", "r": 25, "u": 12, "p": 2499}, {"a": "Heung-min Son", "s": "Base Choice Prizms Nebula", "r": 1, "u": 1, "p": 2429}, {"a": "Estevao", "s": "Base Choice Prizms Nebula", "r": 1, "u": 1, "p": 2375}, {"a": "Kylian Mbappe", "s": "Base Prizms Maple Leaf", "r": 9, "u": 4, "p": 2360}, {"a": "Estevao", "s": "Base Prizms Black", "r": 1, "u": 1, "p": 2250}, {"a": "Yan Diomande", "s": "Base Choice Prizms Nebula", "r": 1, "u": 1, "p": 2250}, {"a": "Harry Kane", "s": "Base Choice Prizms Nebula", "r": 1, "u": 1, "p": 2250}, {"a": "Zinedine Zidane", "s": "National Landmarks Prizms Black", "r": 1, "u": 1, "p": 2188}, {"a": "Luka Modric", "s": "National Landmarks Prizms Black", "r": 1, "u": 1, "p": 2188}, {"a": "Lamine Yamal", "s": "Color Wheel", "r": 25, "u": 16, "p": 2000}, {"a": "Diego Maradona", "s": "Base Prizms Aguila", "r": 11, "u": 4, "p": 2000}, {"a": "Erling Haaland", "s": "Base Prizms Maple Leaf", "r": 9, "u": 4, "p": 2000}, {"a": "Erling Haaland", "s": "Base Prizms Old Glory", "r": 7, "u": 3, "p": 2000}, {"a": "Cristiano Ronaldo", "s": "Base Prizms Cracked Ice", "r": 25, "u": 16, "p": 1875}, {"a": "Lamine Yamal", "s": "New Era Prizms Gold", "r": 10, "u": 6, "p": 1875}, {"a": "Nico Paz", "s": "Base Prizms Black", "r": 1, "u": 1, "p": 1875}, {"a": "Lamine Yamal", "s": "Base Prizms Aguila", "r": 11, "u": 8, "p": 1875}, {"a": "Lamine Yamal", "s": "New Era Prizms Black", "r": 1, "u": 1, "p": 1625}, {"a": "Diego Maradona", "s": "Base Choice Prizms Zebra", "r": 5, "u": 3, "p": 1625}, {"a": "Diego Maradona", "s": "Base Prizms Maple Leaf", "r": 9, "u": 3, "p": 1600}, {"a": "Cristiano Ronaldo", "s": "Color Blast", "r": 25, "u": 15, "p": 1500}, {"a": "Erling Haaland", "s": "Color Blast", "r": 25, "u": 17, "p": 1500}, {"a": "Desire Doue", "s": "Base Choice Prizms Zebra", "r": 5, "u": 1, "p": 1500}, {"a": "Desire Doue", "s": "Base Prizms Gold", "r": 10, "u": 7, "p": 1500}, {"a": "Gilberto Mora", "s": "Base Choice Prizms Nebula", "r": 1, "u": 1, "p": 1500}, {"a": "Nico Paz", "s": "Base Choice Prizms Nebula", "r": 1, "u": 1, "p": 1438}, {"a": "Endrick", "s": "Base Prizms Black", "r": 1, "u": 1, "p": 1386}, {"a": "Cristiano Ronaldo", "s": "Scorers Club Prizms Black", "r": 1, "u": 1, "p": 1375}, {"a": "Wayne Rooney", "s": "National Landmarks Prizms Black", "r": 1, "u": 1, "p": 1375}, {"a": "Florian Wirtz", "s": "Base Choice Prizms Nebula", "r": 1, "u": 1, "p": 1375}, {"a": "Franz Beckenbauer", "s": "Base Prizms Gold", "r": 10, "u": 6, "p": 1300}, {"a": "Lamine Yamal", "s": "Prizmania", "r": 25, "u": 12, "p": 1250}, {"a": "Cristiano Ronaldo", "s": "Base Choice Prizms Zebra", "r": 5, "u": 4, "p": 1250}, {"a": "Johan Manzambi", "s": "Base Prizms Black", "r": 1, "u": 1, "p": 1250}, {"a": "Gilberto Mora", "s": "Base Prizms Black", "r": 1, "u": 1, "p": 1250}, {"a": "Gilberto Mora", "s": "National Landmarks Prizms Black", "r": 1, "u": 1, "p": 1250}, {"a": "Manuel Neuer", "s": "National Landmarks Prizms Black", "r": 1, "u": 1, "p": 1250}, {"a": "Michael Olise", "s": "Base Prizms Aguila", "r": 11, "u": 5, "p": 1250}, {"a": "Pedri", "s": "Base Prizms Black", "r": 1, "u": 1, "p": 1150}, {"a": "Cristiano Ronaldo", "s": "Trophy Hunting Prizms Black", "r": 1, "u": 1, "p": 1125}, {"a": "Cristiano Ronaldo", "s": "Base Prizms Aguila", "r": 11, "u": 5, "p": 1111}, {"a": "Kylian Mbappe", "s": "Base Choice Prizms Zebra", "r": 5, "u": 4, "p": 1062}, {"a": "Andres Iniesta", "s": "Base Prizms Black", "r": 1, "u": 1, "p": 1050}, {"a": "Lionel Messi", "s": "Color Wheel", "r": 25, "u": 18, "p": 1000}, {"a": "Yan Diomande", "s": "Base Prizms Gold", "r": 10, "u": 6, "p": 1000}, {"a": "Kylian Mbappe", "s": "Base Prizms Aguila", "r": 11, "u": 7, "p": 1000}, {"a": "Erling Haaland", "s": "Base Prizms Cracked Ice", "r": 25, "u": 18, "p": 975}, {"a": "Kylian Mbappe", "s": "Color Blast", "r": 25, "u": 17, "p": 863}, {"a": "Estevao", "s": "Base Prizms Maple Leaf", "r": 9, "u": 5, "p": 777}, {"a": "Fermin Lopez", "s": "Base Prizms Gold", "r": 10, "u": 6, "p": 750}, {"a": "Yan Diomande", "s": "Base Prizms Maple Leaf", "r": 9, "u": 4, "p": 750}, {"a": "Estevao", "s": "Base Prizms Aguila", "r": 11, "u": 5, "p": 750}, {"a": "Michael Olise", "s": "Base Prizms Cracked Ice", "r": 25, "u": 13, "p": 700}, {"a": "Mohamed Salah", "s": "National Landmarks Prizms Gold", "r": 10, "u": 8, "p": 694}, {"a": "Ousmane Dembele", "s": "Base Prizms Gold", "r": 10, "u": 6, "p": 680}, {"a": "Lamine Yamal", "s": "Base Prizms Red", "r": 124, "u": 71, "p": 650}, {"a": "Lionel Messi", "s": "Base Prizms Red", "r": 124, "u": 74, "p": 650}, {"a": "Christian Pulisic", "s": "Base Prizms Gold", "r": 10, "u": 6, "p": 650}, {"a": "Diego Maradona", "s": "Prizmania", "r": 25, "u": 13, "p": 650}, {"a": "Cristiano Ronaldo", "s": "Prizmania", "r": 25, "u": 15, "p": 600}, {"a": "Gilberto Mora", "s": "Base Prizms Gold", "r": 10, "u": 5, "p": 599}, {"a": "Ronaldo", "s": "Color Blast", "r": 25, "u": 16, "p": 599}, {"a": "Diego Maradona", "s": "Color Blast", "r": 25, "u": 15, "p": 592}, {"a": "Lamine Yamal", "s": "National Pride", "r": 25, "u": 15, "p": 555}, {"a": "Vinicius Junior", "s": "Color Blast", "r": 25, "u": 14, "p": 550}, {"a": "Michael Olise", "s": "Base Prizms Old Glory", "r": 7, "u": 2, "p": 550}, {"a": "Michael Olise", "s": "Base Prizms Maple Leaf", "r": 9, "u": 2, "p": 543}, {"a": "Jude Bellingham", "s": "Base Choice Prizms Zebra", "r": 5, "u": 3, "p": 525}, {"a": "Estevao", "s": "Manga", "r": 25, "u": 15, "p": 500}, {"a": "Zinedine Zidane", "s": "National Landmarks Prizms Gold", "r": 10, "u": 5, "p": 500}], "pools": {"silver": 1.2, "nonsilver": 31.66, "insert": 90.12}, "fotlSlot": 84.49}}};
+let currentPack = 'base';
+
+function money(n){ return '$'+Math.round(n).toLocaleString('en-US'); }
+const FOTL_SETS = new Set(['Base Choice Prizms Nebula','Base Prizms Aguila','Base Prizms Maple Leaf','Base Prizms Old Glory']);
+function isFotlOnly(h){ return FOTL_SETS.has(h.s); }
+function tierClass(h){ if(h.p>=50000) return 'tier-mega'; if(isFotlOnly(h)) return 'tier-fotl'; return ''; }
+
+function render(){
+  document.getElementById('releaseName').textContent = SNAP.release;
+  document.getElementById('updated').textContent = 'Last updated ' + formatDate(SNAP.updated);
+  // toggle subs
+  document.getElementById('tgBaseSub').textContent = '~'+money(SNAP.packs.base.predMid);
+  document.getElementById('tgFotlSub').textContent = '~'+money(SNAP.packs.fotl.predMid);
+  renderPack();
+}
+
+function renderPack(){
+  const P = SNAP.packs[currentPack];
+  document.getElementById('packTitle').innerHTML = (currentPack==='fotl'?'FOTL':'Base')+' Pack <span class="flame">Value</span>';
+  document.getElementById('predMid').textContent = '~'+money(P.predMid);
+  document.getElementById('predRange').textContent = money(P.predLow)+' – '+money(P.predHigh);
+  document.getElementById('book').textContent = money(P.book);
+  document.getElementById('vsMint').textContent = (P.book/P.mint).toFixed(1)+'× mint ($'+P.mint+')';
+
+  // fotl note
+  const note=document.getElementById('fotlNote');
+  if(currentPack==='fotl'){ note.style.display='block'; document.getElementById('fotlSlotVal').textContent=money(P.fotlSlot); }
+  else note.style.display='none';
+
+  // hits desc
+  document.getElementById('hitsDesc').textContent = currentPack==='fotl'
+    ? 'Everything in a base pack PLUS the FOTL-exclusive parallels. Cards marked FOTL can only come from these packs.'
+    : 'The big cards still sealed in unopened packs. Pull one of these and the pack pays for itself many times over.';
+
+  // summary
+  const over50k=P.hits.filter(h=>h.p>=50000).length;
+  const over10k=P.hits.filter(h=>h.p>=10000).length;
+  const over1k=P.hits.filter(h=>h.p>=1000).length;
+  document.getElementById('hitsSummary').innerHTML=[
+    [over50k,'cards $50k+'],[over10k,'cards $10k+'],[over1k,'cards $1k+'],[P.hits.length,'total hits left'],
+  ].map(([n,t])=>`<div class="hsum"><div class="n">${n}</div><div class="t">${t}</div></div>`).join('');
+
+  buildToolbar();
+  renderHits('all');
+
+  // pools
+  const poolDefs=[
+    ['Silver /259','$'+P.pools.silver.toFixed(2),'2 per pack'],
+    ['Non-Silver','$'+P.pools.nonsilver.toFixed(2),'~1.65 per pack'],
+    ['Insert','$'+P.pools.insert.toFixed(2),'35% slot'],
+    currentPack==='fotl'?['FOTL Slot','$'+P.fotlSlot.toFixed(2),'guaranteed exclusive']:['Packs Left',P.packsLeft.toLocaleString(),'sealed'],
+  ];
+  document.getElementById('pools').innerHTML=poolDefs.map(([l,v,s])=>`<div class="pool"><div class="pl">${l}</div><div class="pv">${v}</div><div class="ps">${s}</div></div>`).join('');
+}
+
+let activeFilter='all';
+function buildToolbar(){
+  const tb=document.getElementById('toolbar');
+  const filters=[['all','All hits'],['50000','$50k+'],['10000','$10k+'],['1000','$1k+']];
+  tb.innerHTML=filters.map(([k,l])=>`<button class="fbtn ${k==='all'?'active':''}" data-f="${k}">${l}</button>`).join('');
+  tb.querySelectorAll('.fbtn').forEach(b=>b.addEventListener('click',()=>{
+    tb.querySelectorAll('.fbtn').forEach(x=>x.classList.remove('active'));
+    b.classList.add('active'); renderHits(b.dataset.f);
+  }));
+}
+function renderHits(filter){
+  const P=SNAP.packs[currentPack];
+  const min=filter==='all'?0:parseInt(filter);
+  const list=P.hits.filter(h=>h.p>=min);
+  document.getElementById('hitsList').innerHTML=list.map((h,i)=>{
+    const fotlTag = (currentPack==='fotl' && isFotlOnly(h)) ? '<span class="fotl-tag">FOTL</span>' : '';
+    return `<div class="hit-row ${tierClass(h)}">
+      <div class="hit-rank">${i+1}</div>
+      <div><div class="hit-name">${h.a}${fotlTag}</div><div class="hit-set">${h.s}</div></div>
+      <div class="hit-serial">/${h.r}<span class="copies">${h.u} left</span></div>
+      <div class="hit-val">${money(h.p)}</div>
+    </div>`;
+  }).join('');
+}
+function formatDate(s){ const d=new Date(s+'T00:00:00'); return d.toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'}); }
+
+document.querySelectorAll('.tg-btn').forEach(b=>b.addEventListener('click',()=>{
+  document.querySelectorAll('.tg-btn').forEach(x=>x.classList.remove('active'));
+  b.classList.add('active'); currentPack=b.dataset.pack; renderPack();
+  window.scrollTo({top:0,behavior:'smooth'});
+}));
+
+render();
+</script>
+</body>
+</html>
