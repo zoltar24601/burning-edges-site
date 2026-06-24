@@ -1,57 +1,51 @@
 [build]
   publish = "."
   functions = "netlify/functions"
-
 [[redirects]]
   from = "/api/golf-cut"
   to = "/.netlify/functions/golf-cut"
   status = 200
-
 [[redirects]]
   from = "/api/golf-upload"
   to = "/.netlify/functions/golf-upload"
   status = 200
-
 [[redirects]]
   from = "/api/golf-lookup"
   to = "/.netlify/functions/golf-lookup"
   status = 200
-
 [[headers]]
   for = "/*"
   [headers.values]
     Access-Control-Allow-Origin = "*"
-
 [[redirects]]
   from = "/dk-contests/*"
   to = "https://www.draftkings.com/lobby/:splat"
   status = 200
   force = true
-
 [[redirects]]
   from = "/dk-api/*"
   to = "https://api.draftkings.com/:splat"
   status = 200
   force = true
-
 [[redirects]]
   from = "/odds-api/*"
   to = "https://api.the-odds-api.com/:splat"
   status = 200
   force = true
-
 # Clean URLs for the page sections (splash links point to /mlb and /golf)
 [[redirects]]
   from = "/mlb"
   to = "/mlb.html"
   status = 200
-
 [[redirects]]
   from = "/golf"
   to = "/golf.html"
   status = 200
-
 [[redirects]]
   from = "/uploads"
   to = "/uploads.html"
+  status = 200
+[[redirects]]
+  from = "/panini"
+  to = "/packs.html"
   status = 200
