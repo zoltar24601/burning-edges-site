@@ -20,7 +20,7 @@
   .header-inner{max-width:1080px;margin:0 auto;padding:16px 24px;display:flex;justify-content:space-between;align-items:center;}
   .brand{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:22px;letter-spacing:1px;color:var(--cream);text-transform:uppercase;display:flex;align-items:center;gap:10px;}
   .brand .flame{color:var(--flame);}
-  .nav-meta{font-family:'Barlow Condensed',sans-serif;font-size:13px;letter-spacing:1.5px;color:var(--text-faint);text-transform:uppercase;}
+  .nav-meta{font-family:'Barlow Condensed',sans-serif;font-size:13px;letter-spacing:1.5px;color:var(--text-faint);text-transform:uppercase;}.topnav{display:flex;gap:18px;align-items:center;}.topnav a{font-family:'Barlow Condensed',sans-serif;font-size:13px;letter-spacing:1.5px;color:var(--text-faint);text-transform:uppercase;text-decoration:none;transition:color .15s;}.topnav a:hover{color:var(--gold);}.topnav a.active{color:var(--gold);}
   .hero{padding:40px 0 22px;text-align:center;}
   .release-name{font-family:'Barlow Condensed',sans-serif;font-size:14px;letter-spacing:3px;color:var(--gold-dim);text-transform:uppercase;margin-bottom:10px;}
   .hero h1{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:clamp(38px,7vw,64px);line-height:0.98;text-transform:uppercase;letter-spacing:0.5px;color:var(--cream);margin-bottom:6px;}
@@ -115,8 +115,8 @@
 <body>
 <header>
   <div class="header-inner">
-    <div class="brand"><span class="flame">▲</span> Burning Edges</div>
-    <div class="nav-meta">Pack Analytics</div>
+    <a href="/pbc" style="text-decoration:none;color:inherit;"><div class="brand"><span class="flame">▲</span> Burning Edges</div></a>
+    <div class="topnav"><a href="/panini" class="active">Pack Analytics</a><a href="/value">Value My Card</a><a href="/start">Start Here</a></div>
   </div>
 </header>
 
