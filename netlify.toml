@@ -49,3 +49,15 @@
   from = "/panini"
   to = "/packs.html"
   status = 200
+[[redirects]]
+  from = "/pbc"
+  to = "/pbc.html"
+  status = 200
+[[redirects]]
+  from = "/value"
+  to = "/value.html"
+  status = 200
+[[redirects]]
+  from = "/start"
+  to = "/start.html"
+  status = 200
