@@ -264,11 +264,12 @@ function visibleCards(){
 
 function renderSummary(){
   const list=visibleCards();
-  const o50=list.filter(c=>c.price>=50000).length;
-  const o10=list.filter(c=>c.price>=10000).length;
-  const o1=list.filter(c=>c.price>=1000).length;
+  const sumCopies=(arr)=>arr.reduce((t,c)=>t+(c.u||1),0);
+  const o50=sumCopies(list.filter(c=>c.price>=50000));
+  const o10=sumCopies(list.filter(c=>c.price>=10000));
+  const o1=sumCopies(list.filter(c=>c.price>=1000));
   document.getElementById('hitsSummary').innerHTML=[
-    [o50,'cards $50k+'],[o10,'cards $10k+'],[o1,'cards $1k+'],[list.length, editMode?'cards shown':'total hits left'],
+    [o50,'hits $50k+'],[o10,'hits $10k+'],[o1,'hits $1k+'],[editMode?list.length:sumCopies(list), editMode?'cards shown':'total hits left'],
   ].map(([n,t])=>`<div class="hsum"><div class="n">${n}</div><div class="t">${t}</div></div>`).join('');
 }
 
