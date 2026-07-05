@@ -387,8 +387,9 @@ header{display:flex;align-items:center;justify-content:space-between;padding:0 2
             <div style="font-family:var(--mono);font-size:10px;color:var(--text3);margin-bottom:4px">STRATEGY</div>
             <select id="opt-strategy" style="width:100%;padding:6px;background:var(--bg);border:1px solid var(--border);color:var(--text);border-radius:4px;font-family:var(--mono);font-size:11px">
               <option value="best">Best Projected (no stack)</option>
+              <option value="allstacks" selected>★ All Stack Types (best mix)</option>
               <option value="stack44">4-4 Stack</option>
-              <option value="stack53" selected>5-3 Stack</option>
+              <option value="stack53">5-3 Stack</option>
               <option value="stack431">4-3-1 Stack</option>
               <option value="stack5">5 Stack</option>
               <option value="stack4">4 Stack</option>
@@ -4033,10 +4034,15 @@ function quickBuildStacks() {
 function runOptimizer() {
   // Wrapper that handles progress UI then calls the async core.
   showOptProgress(0, 0, null);
+  const strategy = document.getElementById('opt-strategy').value;
   // Kick off via setTimeout so the spinner paints before the heavy loop starts.
   setTimeout(async () => {
     try {
-      await runOptimizerCore();
+      if (strategy === 'allstacks') {
+        await runAllStacks();
+      } else {
+        await runOptimizerCore();
+      }
     } catch (e) {
       console.error('Optimizer error:', e);
       showToast('⚠️ Optimizer failed: ' + e.message);
@@ -4044,6 +4050,61 @@ function runOptimizer() {
       hideOptProgress();
     }
   }, 50);
+}
+
+// "All Stack Types" — build the best lineups across every stack shape
+// (5-3, 4-4, 4-3-1, 5, 4) and return the top N overall by projected FP.
+// Reuses runOptimizerCore per shape (so all the enumeration/dedup logic is
+// shared), then pools, dedupes across shapes, and keeps the best.
+async function runAllStacks() {
+  const strategySelect = document.getElementById('opt-strategy');
+  const numInput = document.getElementById('opt-num-lineups');
+  const savedStrategy = strategySelect.value;
+  const finalN = parseInt(numInput.value) || 5;
+  const savedNum = numInput.value;
+
+  // Each shape contributes candidates; overbuild per shape so the final
+  // top-N has genuine competition across shapes. Cap per-shape work so the
+  // total stays responsive.
+  const shapes = ['stack53', 'stack44', 'stack431', 'stack5', 'stack4'];
+  const perShape = Math.max(3, Math.min(finalN, 6));
+
+  const pooled = [];
+  for (let i = 0; i < shapes.length; i++) {
+    const shape = shapes[i];
+    // Drive the core via the dropdown value (it reads strategy from there).
+    strategySelect.value = shape;
+    numInput.value = perShape;
+    showOptProgress(i, shapes.length, null);
+    await runOptimizerCore();       // populates S.optResults for this shape
+    (S.optResults || []).forEach(l => pooled.push({ ...l, _shape: shape }));
+  }
+
+  // Restore user's selections
+  strategySelect.value = savedStrategy;
+  numInput.value = savedNum;
+
+  // Dedupe across shapes by roster identity, then rank by total FP.
+  const seen = new Set();
+  const unique = [];
+  pooled.sort((a, b) => b.totalFP - a.totalFP);
+  for (const l of pooled) {
+    const key = l.lineup.map(p => p.name).sort().join('|');
+    if (seen.has(key)) continue;
+    seen.add(key);
+    unique.push(l);
+    if (unique.length >= finalN) break;
+  }
+
+  S.optResults = unique;
+
+  // Switch to results view (mirrors what runOptimizerCore does at the end)
+  document.querySelectorAll('[id^="opt-pool-tab-"]').forEach(b => b.classList.remove('active'));
+  const resultsTab = document.getElementById('opt-pool-tab-results');
+  if (resultsTab) resultsTab.classList.add('active');
+  S.optPoolView = 'results';
+  renderOptPool();
+  showToast('✓ Built ' + unique.length + ' lineups across all stack types');
 }
 
 // ============================================================
