@@ -4052,6 +4052,13 @@ function runOptimizer() {
   }, 50);
 }
 
+// Shared cutoff for lossless branch-and-bound pruning during "All Stack
+// Types" runs: FP of the Nth-best UNIQUE lineup pooled so far across shapes.
+// null = pool not yet full (shape-level pruning inactive). Only non-null
+// while runAllStacks is executing; single-shape runs never see it.
+// Set window.OPT_DISABLE_PRUNE = true in the console to turn all pruning off.
+let optAllstacksCutoff = null;
+
 // "All Stack Types" — build the best lineups across every stack shape
 // (5-3, 4-4, 4-3-1, 5, 4) and return the top N overall by projected FP.
 // Reuses runOptimizerCore per shape (so all the enumeration/dedup logic is
@@ -4070,19 +4077,44 @@ async function runAllStacks() {
   const perShape = Math.max(3, Math.min(finalN, 6));
 
   const pooled = [];
-  for (let i = 0; i < shapes.length; i++) {
-    const shape = shapes[i];
-    // Drive the core via the dropdown value (it reads strategy from there).
-    strategySelect.value = shape;
-    numInput.value = perShape;
-    showOptProgress(i, shapes.length, null);
-    await runOptimizerCore();       // populates S.optResults for this shape
-    (S.optResults || []).forEach(l => pooled.push({ ...l, _shape: shape }));
-  }
+  optAllstacksCutoff = null;
+  try {
+    for (let i = 0; i < shapes.length; i++) {
+      const shape = shapes[i];
+      // Drive the core via the dropdown value (it reads strategy from there).
+      strategySelect.value = shape;
+      numInput.value = perShape;
+      showOptProgress(i, shapes.length, null);
+      await runOptimizerCore();       // populates S.optResults for this shape
+      (S.optResults || []).forEach(l => pooled.push({ ...l, _shape: shape }));
 
-  // Restore user's selections
-  strategySelect.value = savedStrategy;
-  numInput.value = savedNum;
+      // Update the shared pruning cutoff: FP of the Nth-best UNIQUE lineup
+      // pooled so far. Mirrors the final selection below exactly, so any
+      // lineup at or below the cutoff provably cannot make the final top N
+      // (the pool only improves; stable sort means later equal-FP entries
+      // never displace earlier ones).
+      const ranked = [...pooled].sort((a, b) => b.totalFP - a.totalFP);
+      const seenCut = new Set();
+      let uniques = 0;
+      optAllstacksCutoff = null;
+      for (const l of ranked) {
+        const k = l.lineup.map(p => p.name).sort().join('|');
+        if (seenCut.has(k)) continue;
+        seenCut.add(k);
+        uniques++;
+        if (uniques === finalN) { optAllstacksCutoff = l.totalFP; break; }
+      }
+      if (optAllstacksCutoff != null) {
+        console.log('[prune] cutoff after ' + shape + ': ' + optAllstacksCutoff);
+      }
+    }
+  } finally {
+    // Always deactivate shape-level pruning and restore user's selections,
+    // even if a shape run throws.
+    optAllstacksCutoff = null;
+    strategySelect.value = savedStrategy;
+    numInput.value = savedNum;
+  }
 
   // Dedupe across shapes by roster identity, then rank by total FP.
   const seen = new Set();
@@ -4278,6 +4310,77 @@ async function runOptimizerCore() {
   }
 
   // ============================================================
+  //  LOSSLESS BRANCH-AND-BOUND PRUNING (ceilings ignore salary cap)
+  // ============================================================
+  // Optimistic FP ceiling for a stack assignment: best possible s1/s2/s3
+  // hitters from each stack team (whole team group, not just the candidate
+  // pool) + best remaining hitters overall + best eligible pitchers. Ignores
+  // salary, position slots, and usage penalties, so it is always >= the FP
+  // of ANY complete lineup the assignment can produce. Skipping on
+  // ceiling <= comparison value therefore never changes results:
+  //  - combo level compares against the best lineup found SO FAR THIS ROUND
+  //    (a skipped combo can at most tie, and ties never replace the winner),
+  //  - shape level compares against the allstacks pool cutoff (shape runs
+  //    are self-contained, so a shape whose ceiling cannot beat the Nth-best
+  //    pooled lineup contributes nothing to the final top N).
+  const pruneOff = (typeof OPT_DISABLE_PRUNE !== 'undefined' && OPT_DISABLE_PRUNE);
+  const prSlots = getPlatformSlots();
+  const prNumP = prSlots.filter(sl => sl === 'P').length;
+  const prHitterSlots = prSlots.length - prNumP;
+  const prSortedHitters = [...hitters].sort((a, b) => b.projFP - a.projFP);
+  const prHitterPrefix = [0];
+  for (let i = 0; i < prSortedHitters.length; i++) prHitterPrefix.push(prHitterPrefix[i] + prSortedHitters[i].projFP);
+  const prSortedPitchers = [...pitchers].sort((a, b) => b.projFP - a.projFP);
+  const prLockedP = new Set(lockedPitchers.map(p => p.name));
+  const prRestSum = prHitterPrefix[Math.min(Math.max(0, prHitterSlots - s1 - s2 - s3), prSortedHitters.length)];
+  const prTeamTopCache = {};
+  function prTeamTop(team, size) {
+    if (!team || !size) return 0;
+    const key = team + '_' + size;
+    if (prTeamTopCache[key] == null) {
+      const g = teamGroups[team] || [];
+      let sum = 0;
+      for (let i = 0; i < Math.min(size, g.length); i++) sum += g[i].projFP;
+      prTeamTopCache[key] = sum;
+    }
+    return prTeamTopCache[key];
+  }
+  function prPitcherTop(t1, t2, t3) {
+    // Locked pitchers bypass the stack-team exclusion in optBuildLineup,
+    // so they stay eligible for the ceiling too.
+    const ex = new Set([t1, t2, t3].filter(Boolean));
+    [...ex].forEach(t => { if (TEAM_ALIAS[t]) ex.add(TEAM_ALIAS[t]); });
+    let sum = 0, n = 0;
+    for (const p of prSortedPitchers) {
+      if (n >= prNumP) break;
+      if (prLockedP.has(p.name) || (!ex.has(p.team) && !ex.has(p.oppTeam))) { sum += p.projFP; n++; }
+    }
+    return sum;
+  }
+  function prComboCeiling(t1, t2, t3) {
+    return prTeamTop(t1, s1) + prTeamTop(t2, s2) + prTeamTop(t3, s3) + prRestSum + prPitcherTop(t1, t2, t3);
+  }
+  const prComboCeilCache = new Array(stackCombos.length).fill(null);
+  let prCombosEvaluated = 0, prCombosSkipped = 0;
+
+  // Shape-level skip (allstacks only): if even the best conceivable lineup
+  // of this shape cannot beat the pool cutoff, skip the whole enumeration.
+  if (!pruneOff && optAllstacksCutoff != null && stackCombos.length) {
+    let m1 = 0, m2 = 0, m3 = 0;
+    for (const t of teamPool) {
+      if (s1) m1 = Math.max(m1, prTeamTop(t, s1));
+      if (s2) m2 = Math.max(m2, prTeamTop(t, s2));
+      if (s3) m3 = Math.max(m3, prTeamTop(t, s3));
+    }
+    const shapeCeil = m1 + m2 + m3 + prRestSum + prPitcherTop(null, null, null);
+    if (Math.round(shapeCeil * 10) / 10 <= optAllstacksCutoff) {
+      console.log('[prune] shape ' + strategy + ' skipped entirely: ceiling ' + shapeCeil.toFixed(1) + ' <= cutoff ' + optAllstacksCutoff);
+      S.optResults = [];
+      return;
+    }
+  }
+
+  // ============================================================
   //  ENUMERATE — try every team-combo × stack-composition × pitcher seed
   // ============================================================
   const lineups = [];
@@ -4312,7 +4415,8 @@ async function runOptimizerCore() {
     let bestComboLabel = null;
     let innerIterCount = 0;
 
-    for (const [t1, t2, t3] of stackCombos) {
+    for (let ci = 0; ci < stackCombos.length; ci++) {
+      const [t1, t2, t3] = stackCombos[ci];
       const stack1Combos = getCachedCombos(t1, s1);
       if (stack1Combos.length === 1 && stack1Combos[0] === null) continue; // not enough hitters
       const stack2Combos = getCachedCombos(t2, s2);
@@ -4320,6 +4424,22 @@ async function runOptimizerCore() {
       const stack3Combos = getCachedCombos(t3, s3);
       if (stack3Combos.length === 1 && stack3Combos[0] === null) continue;
 
+      // Branch-and-bound: if this stack assignment's optimistic ceiling
+      // cannot strictly beat the best lineup already found this round,
+      // nothing inside it can win the round - skip all its inner work.
+      // (Ceilings are usage-independent, so cache them across rounds.)
+      if (!pruneOff && bestThisRound) {
+        let ceil = prComboCeilCache[ci];
+        if (ceil == null) { ceil = prComboCeiling(t1, t2, t3); prComboCeilCache[ci] = ceil; }
+        if (Math.round(ceil * 10) / 10 <= bestThisRound.totalFP) { prCombosSkipped++; continue; }
+      }
+      prCombosEvaluated++;
+
+      // NOTE: no pruning below the team-combo level. A composition's exact
+      // FP sum does NOT upper-bound the lineups built from it: when a stack
+      // member fails to place (salary/slot), the greedy filler can
+      // substitute a HIGHER-projected teammate, so a lineup can outscore
+      // its own composition. Only the whole-team ceiling above is sound.
       for (const sc1 of stack1Combos) {
         for (const sc2 of stack2Combos) {
           for (const sc3 of stack3Combos) {
@@ -4373,6 +4493,9 @@ async function runOptimizerCore() {
   console.log('Strategy:', strategy, '| s1:', s1, 's2:', s2, 's3:', s3, '| team1:', stackTeam || 'auto', '| team2:', stackTeam2 || 'auto');
   console.log('Locks:', [...S.optLocked], '| Excludes:', [...S.optExcluded]);
   console.log('Enumerated', stackCombos.length, 'team-combos × up to', TOP_COMBOS_PER_TEAM, 'stack-compositions × ' + PITCHER_SEEDS + ' pitcher seeds = ' + totalIterations + ' total lineups evaluated');
+  const prVisits = prCombosEvaluated + prCombosSkipped;
+  console.log('[prune] ' + strategy + ': team-combo visits evaluated ' + prCombosEvaluated + ', skipped ' + prCombosSkipped +
+    (prVisits ? ' (' + Math.round(prCombosSkipped / prVisits * 100) + '% pruned)' : ''));
 
   // Sort by total FP descending
   lineups.sort((a,b) => b.totalFP - a.totalFP);
