@@ -14,6 +14,10 @@
   to = "/.netlify/functions/golf-lookup"
   status = 200
 [[redirects]]
+  from = "/api/golf-field"
+  to = "/.netlify/functions/golf-field"
+  status = 200
+[[redirects]]
   from = "/api/pbc-data"
   to = "/.netlify/functions/pbc-data"
   status = 200
