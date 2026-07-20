@@ -73,3 +73,7 @@
   from = "/household"
   to = "/household.html"
   status = 200
+[[redirects]]
+  from = "/household-fountain"
+  to = "/household-fountain.html"
+  status = 200
