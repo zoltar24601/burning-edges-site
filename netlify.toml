@@ -69,3 +69,7 @@
   from = "/start"
   to = "/start.html"
   status = 200
+[[redirects]]
+  from = "/household"
+  to = "/household.html"
+  status = 200

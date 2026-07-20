@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Household Review — DIY, Thrifting, Baking & Backyard Birds</title>
+<meta name="description" content="Shannon's DIY, thrifting, crafting, baking, and bird-loving corner of the internet. Saving a buck by doing it myself.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  /* ==========================================================
+     THE HOUSEHOLD REVIEW - single-file site (modern minimal)
+     Shannon's portrait is embedded directly in the page (hero +
+     about) as a data URI, so this one file is fully self-contained.
+     ========================================================== */
+  :root{
+    --bg:#FAF9F6; --panel:#FFFFFF; --ink:#171514; --soft:#6B6560;
+    --line:#E7E3DC; --accent:#B0623F; --accent-ink:#8A4A2E;
+    --max:1120px; --gutter:clamp(20px,5vw,64px);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg); color:var(--ink); font-family:'Inter','Segoe UI',system-ui,sans-serif; font-size:17px; line-height:1.6; -webkit-font-smoothing:antialiased}
+  img{max-width:100%; display:block}
+  a{color:inherit}
+  h1,h2,h3,h4{font-family:'Fraunces','Georgia',serif; font-weight:500; line-height:1.08; letter-spacing:-0.01em}
+  .eyebrow{font-family:'Inter',sans-serif; font-weight:600; font-size:12px; letter-spacing:0.18em; text-transform:uppercase; color:var(--accent-ink)}
+  .lead{font-size:clamp(18px,2.2vw,21px); color:var(--soft); line-height:1.55}
+  .container{max-width:var(--max); margin:0 auto; padding:0 var(--gutter)}
+  .section{padding:clamp(56px,9vw,110px) 0}
+  .center{text-align:center}
+  .divider{height:1px; background:var(--line); border:0; margin:0}
+
+  .site-header{position:sticky; top:0; z-index:40; background:rgba(250,249,246,0.86); backdrop-filter:saturate(140%) blur(10px); border-bottom:1px solid var(--line)}
+  .nav{max-width:var(--max); margin:0 auto; padding:16px var(--gutter); display:flex; align-items:center; justify-content:space-between; gap:20px}
+  .brand{font-family:'Fraunces',serif; font-weight:600; font-size:21px; letter-spacing:0.01em; text-decoration:none; white-space:nowrap}
+  .brand .dot{color:var(--accent)}
+  .nav-links{display:flex; align-items:center; gap:26px; list-style:none}
+  .nav-links a{text-decoration:none; font-size:14px; font-weight:500; color:var(--ink); padding:6px 0; opacity:0.82; transition:opacity .15s ease}
+  .nav-links a:hover{opacity:1}
+  .nav-ig{display:inline-flex; align-items:center; gap:7px; font-size:13px; font-weight:600; text-decoration:none; border:1px solid var(--ink); border-radius:100px; padding:7px 14px; opacity:1!important; transition:background .15s ease, color .15s ease}
+  .nav-ig:hover{background:var(--ink); color:var(--bg)}
+  .nav-toggle{display:none; background:none; border:0; cursor:pointer; padding:6px}
+  .nav-toggle svg{width:24px; height:24px}
+
+  .hero{padding:clamp(48px,8vw,96px) 0 clamp(40px,6vw,72px)}
+  .hero-grid{display:grid; grid-template-columns:1.05fr 0.95fr; gap:clamp(28px,5vw,64px); align-items:center}
+  .hero h1{font-size:clamp(38px,6.6vw,72px); margin:14px 0 20px}
+  .hero .lead{max-width:46ch}
+  .hero-cta{margin-top:30px; display:flex; gap:14px; flex-wrap:wrap}
+
+  .btn{display:inline-flex; align-items:center; gap:8px; font-size:14px; font-weight:600; text-decoration:none; cursor:pointer; border:1px solid var(--ink); padding:12px 22px; border-radius:100px; background:var(--ink); color:var(--bg); transition:transform .15s ease}
+  .btn:hover{transform:translateY(-1px)}
+  .btn.ghost{background:transparent; color:var(--ink)}
+  .btn.ghost:hover{background:var(--ink); color:var(--bg)}
+  .btn.clay{background:var(--accent); border-color:var(--accent); color:#fff}
+
+  .ph{position:relative; background:linear-gradient(135deg,#EDE8E0 0%,#E3DBD0 100%); border:1px solid var(--line); border-radius:14px; overflow:hidden; display:flex; align-items:center; justify-content:center; color:#B3A99B; font-size:12px; letter-spacing:0.12em; text-transform:uppercase; font-weight:600; text-align:center; padding:16px}
+  .ph.tall{aspect-ratio:4/5}
+  .ph.wide{aspect-ratio:16/10}
+  .ph.square{aspect-ratio:1/1}
+  .portrait{width:100%; border-radius:14px; object-fit:cover}
+  .portrait.tall{aspect-ratio:4/5}
+
+  .grid{display:grid; gap:clamp(24px,3.5vw,40px)}
+  .grid.cols-3{grid-template-columns:repeat(3,1fr)}
+  .card{text-decoration:none; color:inherit; display:flex; flex-direction:column; gap:13px}
+  .card .ph{transition:transform .3s ease}
+  .card:hover .ph{transform:translateY(-4px)}
+  .card .cat{font-size:12px; font-weight:600; letter-spacing:0.14em; text-transform:uppercase; color:var(--accent-ink)}
+  .card h3{font-size:23px; margin-top:2px}
+  .card .meta{font-size:13px; color:var(--soft)}
+  .card p{font-size:15px; color:var(--soft); line-height:1.5}
+
+  .feature{display:grid; grid-template-columns:1.15fr 1fr; gap:clamp(24px,4vw,52px); align-items:center}
+  .feature .ph{aspect-ratio:5/4; border-radius:16px}
+  .feature h2{font-size:clamp(28px,4vw,44px); margin:12px 0 16px}
+
+  .section-head{display:flex; align-items:flex-end; justify-content:space-between; gap:20px; margin-bottom:clamp(28px,4vw,48px); flex-wrap:wrap}
+  .section-head h2{font-size:clamp(26px,3.6vw,40px)}
+  .section-head .link{font-size:14px; font-weight:600; text-decoration:none; color:var(--ink); border-bottom:2px solid var(--accent); padding-bottom:2px}
+
+  .split{display:grid; grid-template-columns:1fr 1fr; gap:clamp(28px,5vw,72px); align-items:center}
+  .split.alt{background:var(--panel); border-radius:20px; padding:clamp(28px,5vw,64px)}
+
+  .shop-item{display:flex; flex-direction:column; gap:12px; text-decoration:none; color:inherit}
+  .shop-item .ph{aspect-ratio:1/1; border-radius:12px}
+  .shop-item .name{font-weight:600; font-size:16px; font-family:'Fraunces',serif}
+  .shop-item .price{font-size:14px; color:var(--soft)}
+  .tag{display:inline-block; font-size:11px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:var(--accent-ink); background:rgba(176,98,63,0.10); padding:3px 9px; border-radius:100px}
+  .pills{display:flex; gap:8px; flex-wrap:wrap; margin-top:22px}
+
+  .band{background:var(--ink); color:var(--bg); border-radius:22px; padding:clamp(36px,6vw,72px); text-align:center}
+  .band h2{font-size:clamp(28px,4.5vw,48px); color:var(--bg); margin-bottom:14px}
+  .band .lead{color:rgba(250,249,246,0.7)}
+  .subscribe{margin:28px auto 0; max-width:460px; display:flex; gap:10px; flex-wrap:wrap}
+  .subscribe input{flex:1 1 220px; padding:13px 18px; border-radius:100px; border:1px solid rgba(250,249,246,0.28); background:transparent; color:var(--bg); font-size:15px; font-family:inherit}
+  .subscribe input::placeholder{color:rgba(250,249,246,0.5)}
+
+  .site-footer{border-top:1px solid var(--line); padding:clamp(40px,6vw,72px) 0 40px; margin-top:40px}
+  .footer-grid{display:flex; justify-content:space-between; gap:32px; flex-wrap:wrap; align-items:flex-start}
+  .footer-grid .brand{font-size:26px}
+  .footer-links{display:flex; gap:40px; flex-wrap:wrap}
+  .footer-col h4{font-family:'Inter',sans-serif; font-size:12px; letter-spacing:0.14em; text-transform:uppercase; color:var(--soft); margin-bottom:14px; font-weight:600}
+  .footer-col a{display:block; text-decoration:none; font-size:15px; margin-bottom:9px; opacity:0.85}
+  .footer-col a:hover{opacity:1; color:var(--accent-ink)}
+  .footer-bottom{margin-top:44px; padding-top:24px; border-top:1px solid var(--line); font-size:13px; color:var(--soft); display:flex; justify-content:space-between; gap:16px; flex-wrap:wrap}
+
+  @media (max-width:860px){
+    .hero-grid,.feature,.split{grid-template-columns:1fr}
+    .feature .ph{order:-1}
+    .grid.cols-3{grid-template-columns:repeat(2,1fr)}
+    .nav-links{position:fixed; inset:64px 0 auto 0; flex-direction:column; gap:0; background:var(--bg); border-bottom:1px solid var(--line); padding:8px var(--gutter) 20px; display:none}
+    .nav-links.open{display:flex}
+    .nav-links a{padding:14px 0; border-bottom:1px solid var(--line); width:100%}
+    .nav-toggle{display:block}
+  }
+  @media (max-width:560px){.grid.cols-3{grid-template-columns:1fr}.footer-bottom{flex-direction:column}}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <nav class="nav">
+    <a class="brand" href="#home">The Household Review<span class="dot">.</span></a>
+    <button class="nav-toggle" onclick="document.querySelector('.nav-links').classList.toggle('open')" aria-label="Menu">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+    </button>
+    <ul class="nav-links">
+      <li><a href="#home">Home</a></li>
+      <li><a href="#blog">Blog</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#shop">Shop</a></li>
+      <li><a href="#contact">Contact</a></li>
+      <li><a class="nav-ig" href="https://www.instagram.com/thehouseholdreview/" target="_blank" rel="noopener">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+        Follow</a></li>
+    </ul>
+  </nav>
+</header>
+
+<!-- HERO -->
+<section class="hero container" id="home">
+  <div class="hero-grid">
+    <div>
+      <span class="eyebrow">DIY &middot; Thrifting &middot; Crafting &middot; Baking &middot; Birds</span>
+      <h1>Saving a buck<br>by doing it myself.</h1>
+      <p class="lead">Hi, I'm Shannon &mdash; mom of five, thrifter, baker, and backyard bird enthusiast. This is where I share the projects, flips, and recipes that make our full house feel like home.</p>
+      <div class="hero-cta">
+        <a class="btn" href="#blog">Read the blog</a>
+        <a class="btn ghost" href="https://www.instagram.com/thehouseholdreview/" target="_blank" rel="noopener">See it on Instagram</a>
+      </div>
+    </div>
+    <img src="data:image/jpeg;base64,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" alt="Shannon" class="portrait tall">
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- FEATURED -->
+<section class="section container">
+  <div class="feature">
+    <div class="ph">Featured photo</div>
+    <div>
+      <span class="eyebrow">Featured &middot; DIY &amp; Thrifting</span>
+      <h2>The $12 thrift-flip nightstand</h2>
+      <p class="lead">One sad garage-sale table, a tin of clay paint, and an afternoon on the porch. Here's every step &mdash; and the two mistakes I'd skip next time.</p>
+      <div class="hero-cta"><a class="btn ghost" href="#blog">Read the makeover</a></div>
+    </div>
+  </div>
+</section>
+
+<!-- BLOG -->
+<section class="section container" id="blog" style="padding-top:0">
+  <div class="section-head">
+    <div><span class="eyebrow">The journal</span><h2>Latest posts</h2></div>
+    <a class="link" href="https://www.instagram.com/thehouseholdreview/" target="_blank" rel="noopener">Follow for more</a>
+  </div>
+  <div class="grid cols-3">
+    <a class="card" href="#blog">
+      <div class="ph wide">Photo</div>
+      <span class="cat">DIY &middot; Thrifting</span>
+      <h3>The $12 thrift-flip nightstand</h3>
+      <p>A garage-sale rescue, start to finish, with a clay-paint finish anyone can do.</p>
+      <span class="meta">8 min read</span>
+    </a>
+    <a class="card" href="#blog">
+      <div class="ph wide">Photo</div>
+      <span class="cat">Baking</span>
+      <h3>Big-batch banana bread for a full house</h3>
+      <p>The forgiving, freezer-friendly loaf I make three at a time for five hungry kids.</p>
+      <span class="meta">5 min read</span>
+    </a>
+    <a class="card" href="#blog">
+      <div class="ph wide">Photo</div>
+      <span class="cat">Bird loving</span>
+      <h3>The DIY bird feeder my kids actually help build</h3>
+      <p>Scrap wood, a jar, and an afternoon &mdash; plus the seed that brings the best visitors.</p>
+      <span class="meta">6 min read</span>
+    </a>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="section container" id="about">
+  <div class="split alt">
+    <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/7QCEUGhvdG9zaG9wIDMuMAA4QklNBAQAAAAAAGgcAigAYkZCTUQwYTAwMGFhODAxMDAwMDk2MDMwMDAwYzAwNTAwMDA1ZjA2MDAwMGVhMDYwMDAwYjIwODAwMDAxNjBkMDAwMDZmMGQwMDAwM2MwZTAwMDBkNzBlMDAwMDhlMTQwMDAwAP/bAIQABQYGCwgLCwsLCw0LCwsNDg4NDQ4ODw0ODg4NDxAQEBEREBAQEA8TEhMPEBETFBQTERMWFhYTFhUVFhkWGRYWEgEFBQUKBwoICQkICwgKCAsKCgkJCgoMCQoJCgkMDQsKCwsKCw0MCwsICwsMDAwNDQwMDQoLCg0MDQ0MExQTExOc/8IAEQgAlgCWAwEiAAIRAQMRAf/EAHMAAAEFAQEAAAAAAAAAAAAAAAQBAgMFBgAHEAACAQIEAwQIBwEBAQAAAAAAAQIDERASITEEIEETUWFxIjAygZGx0fAFFEJyocHhUpLxEQABAwMCBgMBAQAAAAAAAAABABEhMUFRYXEQgZGhsfDB0eEg8f/aAAwDAQACAAMAAAAB3b2KJNzuanZ2r2wMUtiDkJEXXXXmupRNHHnr50NRk9ximyS7rEbGVkhVm4iMLyf2Xxp6bl0HCzTsbD3TPqKBes8hWxMfr7fLa1ktfscns0gdiN1iV5+vyusmZevilKi7xr2Xxpe3KyRhkDjnDp1P59vfPnJEXVWCPsDqkni/TtHQucAbjdjkYnO1eW0UjL8jPTER2PknqXlq96GvILMwM6Hupsju6t7fPqv1HKdJXb7K+qMmlDMinBBrdUK12cuRC2OuLOptiI+8a9l8acnoCVRQk8w0YyKudssUjyJRkgO1BuRv5YVjZQqmoDrynKJFfiOQUpHPbYV/qXlsg24qjoB+rR7MVFos7osYq3DKONs2gfWztJudRg3Knshnjhcom1x6RsniKDNV2pzdlWrHsB5YGiiiGC8tZjNzkXMDk0Y7JM4FqwHLUGFPV8E1fMkp74CeeriiU6su0Xk1cEkPBDiEi9wuZv6JUPhWqjlKNpbvunVHNXnhr05bIE6adwjnNMmCN7tINj45a7UiZ+buMaZpVTz2q1mejkfZAzseaJ0ac8eRHp3Bs4uxWs5VtLjJa1UhjK59cI8jlSz0mI7uvMVc9DLnZb3mupWXvd2Zfo+d2aF1/K/N6F/P7Ab/ALkl/9oACAEBAAEFAsLCdyvwZQrukQqqa7WKdPiVJ4NFVYRFKy3FSYqS5VIr8MqgnKk6lPOUYqIuKsofiMGUqnaRrLCJ+lc9ym9OJr00PjJROHrZsJUMxwkHFVthC9hbYZTNg2SkcTxXZr2iaL5IUrTXaZDh6udVdhEfYhthfC1hsmcXK84M3dSznw941KUo3Kuwin7FP2R1YoaLNFySJqxxW6Kb1t6Ud5UlUVGqVMEQdoQc5L8u2Lho4tDiSRxVC6l+H1MtODRY4Xgo2sVIKoXcCUHFoh7HD7crOtZaS42MCpGVaSiyCshYOnlJU7EGsvDvTG5cbLletgmU6mYhXmifFVER4+Y/xGofnahKrKWEXIXESQq1Q/MxRmTGy5Oejd3gmQrXOIgRiKkR4ds/JSQ4pMRw7jKJKhBjhJDnJFStEjvLQuXM5GqUalGRCMC5x1TS5KQjhpu2YcsGVtjVicoimXLmYhXcT81M7bMaMVPWxSeXBjQyqtOqi2ZLErF2iMztDQzozoznaHanbLBjGViK9Kw5CpXJQjeNNlSFlKhO64WR+TFwkRcNA7CmdlDBjGViG7ZlHVzFOmR9KUtC+NzMXLlxsbGVHcSNUTbkU9SnLSnoqjL2Lly+N8GxyHJEmQgVZWKl5yl6Tjq+tbaTulo7ly5cualmZGKBTpXIUEcbRy1KKIEZWaKmyZP0i5czGY7S3LSIn4jG8NjZyE8GrCZIaKdFzfE/h6o0slz/2gAIAQMAAT8BwjPozs/gVKVldCeDMxfGxstxOy38ypSs7oRLmRbTYev9ru/wiS5WynF72ditKyVnuXFL7+mD5Ixu0Iq0b6r4EIqS9lX66HZJfpSNOjXuHEc1/wA4xqZWLifDQUiSv4eK0J8Pf9V/Mpwyq2Eqd+uNjIaoVRoTv+ks+4syzx7sFhRl05Ll8FryQldFzNyR5KZOTvFd5Y//2gAIAQIAAT8BwlDqjtCNS+n2x22wjsKmZV3YXLlrslC+pB5rX0a/ke5HZi5IoaEJf54/6PciJ+BrjFEpLYhqWuSh/wDfr3rxEiOy5M2jwjK25drqzP4svboKRbHLdHZFiwqlug5XZcz4pmcUjQ0/6M0e8zIzLux6MsS0wa5LGXDYYsLFi3JPlii5/9oACAEBAAY/AsNMM0N+4+aLonm8PkW+F9+ePkd/PqX2keK38TPF6dV1Xv7jTfv6l303Ovh4l+SP7fVSvq79DRJDcku7RGZPQUqdo23j99DXrryR/byaafI105LLd6EcFqld3NN2vkdzNre7kj5MXLp8OReGHloRy6fQeiv39eWPvFhvzXL4PzE+4UlpL73MstH97ci8zTY9KXOz0Vm+ZaSs/hgpS1bNCN+5/wBFp6rpL64+/wBSyyWZ/wAGa/pFmrMXksI+X0LPVfe5/wBQ7uq8hNO8XsPXr6hlsbPfo/r4DUtGnv8AfQ9o3v7jp8D2vgat4bG7Ruz0rw/cv72NHfFj5EpdNmX6PZ+P+46I10O+2N0ksNrPvWnyNJ/+tfozWN/2v+nY7vPTDw5Lbru6HpKxol8zQS68m5ty6YeHLoz2ma64XusN18eXzQ8NX6vfl9yJe7DRXPoWXpM2R6Pzuv5LbeRubs6/E2PZRsuZmheTsaejDv6vyLLRfyyT6R094u5L6Hl6x+ZvoZpez0XeZ2e6+HvRf3M8Onqd8bW1FAUV7MR4e9HiNd+vx9RvyeFrjkMeH84eJ4+rT8bfEtz37sLEpXvLTy3w/9oACAEBAQE/IUFCeixQN1wnoGuz2+uiNMJF3419Kc39jQqUAA9fhd9lNZL1QJg8jGsahBNwWAUArkcKBEuptO+B0CJqWGAg9eLoh98qxyGx+ioBuZ3+0d2IwW0IhEl0/vOgILcFSY8xunEVNHnbwquActB93ygAEM9sFQFAIKrwfIQQP4fg6KwkL0d+qck8kxmp2Ro8DBBJnxZPAd5DOC/goZPBr1IuMFfB0R/BmARLuN2xRBJAV3KGq7l2KpbDjGvZ9LclhJ2Ox+2R4DKOS0Anc6Xcnclk4T7dABSQWb0AYU5q03T62E6v2KL4LyRc9PKepAGqzpp3VZASdyr1Nb2XEAYocFEIn8inK48KzQ4PxYolJeyVKgRajy6MoM4EdNe6IUQEkOTTKLqTNCRAMaJ0Tqorncqvku9Hyu04V8fPhBNVaF9D9roOvrJ8MQjUSMGvX76ofEowsgtxHZFm6PWVCY7CA+ERN4Ag5eyFBbb6HX6KgppO6CeS2UaZjQEPH6rtKFsTz4MnEQU6FORQp5YClmWAWZzqns3EQ5PiVO+Y1APtMAsYcoTIGptQcFVTvrgfKnFDINigldla+/8ADp+A/JBOtHUhCYzGjnfknFc0ABmDCzJ84BYph48CNFVvpQELt28PlNWAf36uY0rhXIR3wUwiFFwgODiuRxdFDwd7A+VVC6B4AWFYNdjjL0ELKjWAF3pBg7Mo2cZgAKCWMEOF0RQghtmOQeAqonLybpyEBI7mUQ43IVt1SrAbUA6H7kBXAGQX8cAsTQMt2XOSbjAEioGpyOhBKECAk7WHW9VT4CIVVw7BRCMzeE2n1LPwa4h2KArEIAuijDt3H1YqvHQB3j5F3bOeR5TJndgCfdTJ7yiN75XG6nwhDgGBKlJckyS9yyCk8ZH+kNrSyqOok7M0osVkVNFBOABDZErlylB23hEujUyCLgQo6JHjdazuQCgCAKCqCNih+2iUhBG90chHf6RRNACKhA8jqpzg5ETwDwg1KbDc7lAwQAJk5VFPOyFR47R+pyjkopFQC8bwmY6buhmTcoakzPAH+Dap+L06AMgUd7MBuSrg8gYfaElYRQbkuyumCcnoGIJUwJYlmoHYlnXQsQDUWOvrI6vagF+0FkIHy3JQUAFOkEeAkaOToB4ChvgdkajuSB2TumDVzPnQC5QcGZuTU+WoiDJaNlU8hHMpjADEsOaFwF6T7qEITo8SFPEBqYTUruPYBDQBVAPYvGc2Rl1EUwAMDAoMlGlSTMPQdO6jjMnmgjmB90TMMrBn2ytYuUlkfef4gUEJWogZHULCdQhm4TvUnqUN7ljWQujD/KsE1zZCx0bunnpCN0o9oBwdQgsAY3GQ1BfwtVeFiHDbMdEc3YL0ALUQKljppNwdMHuE+T1JYKvN0QjLBGxJzqmkhgh234mmIPdQOCwXuiV6K6jI+v4pGosiERwBViNBpBHQD8UNCyCCp1TydWdDwKc0YKCAIlFCYINAOA3KAr//2gAMAwEBAgEDAQAAEBU+mx/pYd4oznI1Thod6OEmyTYrKiYJ7518F1jeqMdZt6bTAEgsTfK2zQLFi3mv3vf91LIWuY4fF/WdYgNr3fPkWaKEswc44ws8gv/aAAgBAwEBPxDhroN0Z1ldYIuKkINigVWjhCdng3BLAJGuMMBCenHj8VKqG6P8E0U02xN1eFtxFCqRGqjX+J4C5BGjDqjDJwm8zei/zsdcDpREuyqO54shuhr0/eDWN7Dyo6kjSAYGKstUwQc4K3At0XP5IIkWe44sJIeChPJAr4/E7QoFZJZHfvNEL5j/ACg5lzkoB3dPnDX14yIQALAWVUlHkCXqK2Ov4tYcbo6lwqluESim4jrucCqTcKS67o/yU/wUnZBCGCD6zwf/2gAIAQIBAT8Q4qIahPOxCIymY2g9HTMgQd5WgT8AcmUF8cvxgUU7D5CoGw/orEzHVZQyVJ2+QisGIxsE+I/myYuKKxaPK91fZqTQIPEEIlFnpVM6pk/ZIOvc0MjmtJBX4TrIaw62of4MhfkqYKbZOCPBgFPKFupItqC1HRb/AE/VrOB4A/gACHALuQDLw4g4jsIcav4CcBRNf//aAAgBAQEBPxAIkSOg9S9AdRzThYKlR+a0Tw1RgTSI0dzwD8Qdci4uYLH0LUepMYlLygwAjg/YOpxXguSF5ih8UMl3J0omP6r7VVB9o8Kwks+/aE8Qm1AUCo9xRMEMgn1Ox0VuKnt9S4TJ/YE2fB6IKsyxHIL4BSLXOC55C2qEcGIWiWagaqHqhf5xoB2obuibpASqCo+tF0pVtz5Xg/Kaf1ChBgABhTjXYoZInCihEEFiDUGicASTVnmHgIPg/rhDDSjJMpuahWqibwhF+NkxbwdGkCpdwDu5iotSBzIgXK/MkkgqAxgB8dIU3oldoEDk9AI39SOJq8gcvSrdXQaWXKOX7Tyc0RNwDvXz8AqiTpUBug5c+S0NoyXWIZxcgJqonIe6AF2wBgLh0OWtDeEYqnUEu70h90KTVdgvQLoZ2Dyg5ARPseJ2rYDyseRKdBBDg1BkHkqpjUPM+zQgGQPXN3g5hVkQnOBhoIDQn/XyUAYexiMJqI0BAUJ5TuUGWhlW3qU0qXwKENF2CA9S6qeqqXsGQnSJZEGHOAXeSAsAI1WBPVqurogYL4rtjUhGAIwU/c0Q2u2QyMqErEekIIXE7GVXYLmc1N2KI/k84CYehWUigHJ/K2kwqUFg/APVLg/hdsu/eV7GqOSP8q2pqtdV1X6QHPmOyDzufohwDAggEYKrONwcjUd9lXg5Y0Oxp4RM0FZEF6pGGx0aBaX7GWM80HHEcKAANpVnugcmUwFgQCPSjcQAIN0BLRAEUy8A8incjpspsj2y7AoHL1cL3dOLcBFEE0hoC7LRMOhJ1gCV4Zq9HTTsBBnmxVrOqnIVJitP12KpsfCD17I4AUCoGwgQ5f2jPoEGQaCfQEIYMl5iL5Q/qhrxgsiHnqjhRe/1BPAqWPoAXQUMEWRm9l2AO0ZCEG2QBfRiIwmIZjARpCGehFgZhsLshj8upoDmWAPwIgaiHZK+HRrUGcAagXSqJbE+wyLHr+apFJd9NbIepEcI9BUEa250dA8JyGRUxejCDOGriGQ8I3cMPwdC30I4QSAI6h8IgAAYDxIB+UIwEKDJIMbZROqN2QABlEtFEQHdrrHK5wwddM83VITHfZqUsYxvY2KGER/54Q/IlEHjW91QmQxOwxqEAB3QIUTGqOix/mC81FQm1lzNJ5wheKvuwTGDD03sIcsGEMy6ltkBDhpIg1KeADuRdMANZEUjIQ3kB9Crk8g+UIdBB2L8AQQDjBkKFIxCGbNgr06COU0LNvpDMPmOGsEM/NFHI6g8J+/cI7fMbg+YOENPpx+SAHAAJHPI2RP0/lDD1BrxhPoI4oLm/lPF3LjoDwiB2YDvA5VQqLd8kDvFA/PMwQ9QFtGtV+N3PICVQVsPkqLDe2Qwm6/1UBIBDgIDqHUI0SNEqBx3HPyhCECMhRH2ANfbaL25LQedFJq4QedfZMA0JuRhGsyYWasJAZgI+f67QkdC3Q5g6JnLJbAdXlXq2+hDCT83wqg5qvlDfW6p79sIkXGIjD6KN/npP2qUY1l0ACaGxKG5qEea7QXsA9r/AAF3kTCbsZFOIehrWxs4O3cCJDwImppxFyUXK2OgWiOiLuAnSXqCheLp0rCw3RU7qpP3LYgqBGbdkhTVyAO259I+opl/eZAEsNne26IiqHw+6MYm76Sixb0UdMcSGLOoQvud17m8oFBNiEdgiaoaHZOgSTl/yNFSNHWFUYwm6ATuLUJrmCAMCggOSjjH7otQCDqKDovrshozXCAxBBmKHUaESmLW4AUm+h8usJ66IE9HhHzPRNzHTEEgdwENj9xdjqvgym6bJcV5ugyUcYDoQ5Y5hxJlPRGUjlAIJEYMvjRHPTTinpPZLRQ6k4IEmtt3FwAE1wIgswgc93FMxGAKQck90xHJLc/4mGyyQCskAw9kRCIY7gcJwA5bGUJyeAHdp5FGRu1Uo5B0RAk1X//Z" alt="Shannon" class="portrait">
+    <div>
+      <span class="eyebrow">Hi, I'm Shannon</span>
+      <h2 style="font-size:clamp(26px,3.6vw,40px); margin:12px 0 16px">A little about The Household Review</h2>
+      <p class="lead">Mom of five, and a firm believer that you can make almost anything yourself for a fraction of the price. I share thrift flips, crafts, from-scratch baking, and my not-so-secret love of backyard birds &mdash; honest budgets, real timelines, no perfection required.</p>
+      <div class="pills">
+        <span class="tag">DIY</span><span class="tag">Thrifting</span><span class="tag">Crafting</span><span class="tag">Baking</span><span class="tag">Bird loving</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SHOP -->
+<section class="section container" id="shop" style="padding-top:0">
+  <div class="section-head">
+    <div><span class="eyebrow">Shop the look</span><h2>Tools &amp; things I love</h2></div>
+    <a class="link" href="https://linktr.ee/thehouseholdreview" target="_blank" rel="noopener">All my links</a>
+  </div>
+  <div class="grid cols-3">
+    <a class="shop-item" href="https://linktr.ee/thehouseholdreview" target="_blank" rel="noopener"><div class="ph">Product</div><span class="tag">DIY kit</span><span class="name">Clay &amp; chalk paint set</span><span class="price">The exact nightstand finish</span></a>
+    <a class="shop-item" href="https://linktr.ee/thehouseholdreview" target="_blank" rel="noopener"><div class="ph">Product</div><span class="tag">Baking</span><span class="name">Big-batch loaf pans</span><span class="price">For baking three at once</span></a>
+    <a class="shop-item" href="https://linktr.ee/thehouseholdreview" target="_blank" rel="noopener"><div class="ph">Product</div><span class="tag">Birds</span><span class="name">No-mess seed blend</span><span class="price">The one they actually eat</span></a>
+  </div>
+  <p class="center" style="margin-top:22px; font-size:13px; color:var(--soft)">Some links may be affiliate links &mdash; they support the blog at no cost to you.</p>
+</section>
+
+<!-- CONTACT / NEWSLETTER -->
+<section class="section container" id="contact">
+  <div class="band">
+    <span class="eyebrow" style="color:var(--accent)">Stay in touch</span>
+    <h2>New project in your inbox, every week.</h2>
+    <p class="lead">Flips, recipes, and the occasional bird update. No spam, unsubscribe anytime.</p>
+    <form class="subscribe" onsubmit="event.preventDefault(); this.querySelector('input').value=''; document.getElementById('note').textContent='Thanks! (We\'ll connect this to email before launch.)';">
+      <input type="email" placeholder="you@email.com" required aria-label="Email">
+      <button class="btn clay" type="submit">Subscribe</button>
+    </form>
+    <p id="note" style="margin-top:14px; font-size:13px; color:rgba(250,249,246,0.75)"></p>
+    <p style="margin-top:20px; font-size:14px; color:rgba(250,249,246,0.7)">Brand collabs &amp; hellos: DM me on <a href="https://www.instagram.com/thehouseholdreview/" target="_blank" rel="noopener" style="color:#fff;font-weight:600">@thehouseholdreview</a></p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div style="max-width:300px">
+        <a class="brand" href="#home">The Household Review<span class="dot">.</span></a>
+        <p style="margin-top:12px; font-size:14px; color:var(--soft)">Mom of five, saving a buck by doing it myself. DIY, thrifting, crafting, baking &amp; birds.</p>
+      </div>
+      <div class="footer-links">
+        <div class="footer-col"><h4>Explore</h4><a href="#blog">Blog</a><a href="#about">About</a><a href="#shop">Shop</a><a href="#contact">Contact</a></div>
+        <div class="footer-col"><h4>Follow</h4><a href="https://www.instagram.com/thehouseholdreview/" target="_blank" rel="noopener">Instagram</a><a href="https://linktr.ee/thehouseholdreview" target="_blank" rel="noopener">Linktree</a></div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; <span id="yr"></span> The Household Review. All rights reserved.</span>
+      <span>@thehouseholdreview</span>
+    </div>
+  </div>
+</footer>
+
+<script>document.getElementById("yr").textContent = new Date().getFullYear();</script>
+</body>
+</html>
