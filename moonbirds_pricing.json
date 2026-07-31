@@ -305,6 +305,13 @@
   },
   "cards_remaining": [
     {
+      "c": "Enlightened Professor",
+      "s": "Birbhalla #1",
+      "r": 49,
+      "u": 1,
+      "p": 10000
+    },
+    {
       "c": "Shift",
       "s": "Kaboom Green",
       "r": 1,
@@ -497,7 +504,7 @@
       "c": "Enlightened Professor",
       "s": "Birbhalla",
       "r": 49,
-      "u": 42,
+      "u": 41,
       "p": 500
     },
     {
