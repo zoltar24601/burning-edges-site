@@ -302,5 +302,515 @@
     "predicted_price": 318.18,
     "book_vs_mint": 2.55,
     "predicted_note": "2.5x borrowed from soccer - speculative ceiling, not a market figure"
-  }
+  },
+  "cards_remaining": [
+    {
+      "c": "Shift",
+      "s": "Kaboom Green",
+      "r": 1,
+      "u": 1,
+      "p": 5000
+    },
+    {
+      "c": "Pix",
+      "s": "Kaboom Green",
+      "r": 1,
+      "u": 1,
+      "p": 5000
+    },
+    {
+      "c": "Fizz",
+      "s": "Kaboom Green",
+      "r": 1,
+      "u": 1,
+      "p": 5000
+    },
+    {
+      "c": "Arthur",
+      "s": "Base Black",
+      "r": 1,
+      "u": 1,
+      "p": 2300
+    },
+    {
+      "c": "Ferno",
+      "s": "Base Black",
+      "r": 1,
+      "u": 1,
+      "p": 2300
+    },
+    {
+      "c": "Bonesy",
+      "s": "Base Black",
+      "r": 1,
+      "u": 1,
+      "p": 2300
+    },
+    {
+      "c": "Shade",
+      "s": "Base Black",
+      "r": 1,
+      "u": 1,
+      "p": 2300
+    },
+    {
+      "c": "Patch",
+      "s": "Base Black",
+      "r": 1,
+      "u": 1,
+      "p": 2300
+    },
+    {
+      "c": "Noct",
+      "s": "Base Black",
+      "r": 1,
+      "u": 1,
+      "p": 2300
+    },
+    {
+      "c": "Lumo",
+      "s": "Base Black",
+      "r": 1,
+      "u": 1,
+      "p": 2300
+    },
+    {
+      "c": "Lance",
+      "s": "Base Black",
+      "r": 1,
+      "u": 1,
+      "p": 2300
+    },
+    {
+      "c": "Kenji",
+      "s": "Base Black",
+      "r": 1,
+      "u": 1,
+      "p": 2300
+    },
+    {
+      "c": "Jet",
+      "s": "Base Black",
+      "r": 1,
+      "u": 1,
+      "p": 2300
+    },
+    {
+      "c": "Hex",
+      "s": "Base Black",
+      "r": 1,
+      "u": 1,
+      "p": 2300
+    },
+    {
+      "c": "Gustov",
+      "s": "Base Black",
+      "r": 1,
+      "u": 1,
+      "p": 2300
+    },
+    {
+      "c": "Bubbles",
+      "s": "Base Black",
+      "r": 1,
+      "u": 1,
+      "p": 2300
+    },
+    {
+      "c": "Bino",
+      "s": "Base Black",
+      "r": 1,
+      "u": 1,
+      "p": 2300
+    },
+    {
+      "c": "Sully",
+      "s": "Base Black",
+      "r": 1,
+      "u": 1,
+      "p": 2300
+    },
+    {
+      "c": "Mochi",
+      "s": "Base Black",
+      "r": 1,
+      "u": 1,
+      "p": 2300
+    },
+    {
+      "c": "Kapow",
+      "s": "Kaboom Gold",
+      "r": 10,
+      "u": 10,
+      "p": 1000
+    },
+    {
+      "c": "Fizz",
+      "s": "Kaboom Gold",
+      "r": 10,
+      "u": 8,
+      "p": 1000
+    },
+    {
+      "c": "Shift",
+      "s": "Kaboom Gold",
+      "r": 10,
+      "u": 8,
+      "p": 1000
+    },
+    {
+      "c": "Pix",
+      "s": "Kaboom Gold",
+      "r": 10,
+      "u": 5,
+      "p": 1000
+    },
+    {
+      "c": "Kapow",
+      "s": "Kaboom",
+      "r": 25,
+      "u": 18,
+      "p": 900
+    },
+    {
+      "c": "Pix",
+      "s": "Kaboom",
+      "r": 25,
+      "u": 18,
+      "p": 900
+    },
+    {
+      "c": "Shift",
+      "s": "Kaboom",
+      "r": 25,
+      "u": 18,
+      "p": 900
+    },
+    {
+      "c": "Fizz",
+      "s": "Kaboom",
+      "r": 25,
+      "u": 14,
+      "p": 900
+    },
+    {
+      "c": "Enlightened Professor",
+      "s": "Birbhalla",
+      "r": 49,
+      "u": 42,
+      "p": 500
+    },
+    {
+      "c": "Bino",
+      "s": "Base Holo Gold",
+      "r": 10,
+      "u": 9,
+      "p": 400
+    },
+    {
+      "c": "Gustov",
+      "s": "Base Holo Gold",
+      "r": 10,
+      "u": 8,
+      "p": 400
+    },
+    {
+      "c": "Patch",
+      "s": "Base Holo Gold",
+      "r": 10,
+      "u": 8,
+      "p": 400
+    },
+    {
+      "c": "Noct",
+      "s": "Base Holo Gold",
+      "r": 10,
+      "u": 8,
+      "p": 400
+    },
+    {
+      "c": "Nova",
+      "s": "Base Holo Gold",
+      "r": 10,
+      "u": 8,
+      "p": 400
+    },
+    {
+      "c": "Mochi",
+      "s": "Base Holo Gold",
+      "r": 10,
+      "u": 8,
+      "p": 400
+    },
+    {
+      "c": "Jet",
+      "s": "Base Holo Gold",
+      "r": 10,
+      "u": 8,
+      "p": 400
+    },
+    {
+      "c": "Shade",
+      "s": "Base Holo Gold",
+      "r": 10,
+      "u": 8,
+      "p": 400
+    },
+    {
+      "c": "Rango",
+      "s": "Base Holo Gold",
+      "r": 10,
+      "u": 7,
+      "p": 400
+    },
+    {
+      "c": "Sully",
+      "s": "Base Holo Gold",
+      "r": 10,
+      "u": 7,
+      "p": 400
+    },
+    {
+      "c": "Ferno",
+      "s": "Base Holo Gold",
+      "r": 10,
+      "u": 7,
+      "p": 400
+    },
+    {
+      "c": "Hex",
+      "s": "Base Holo Gold",
+      "r": 10,
+      "u": 7,
+      "p": 400
+    },
+    {
+      "c": "Zed",
+      "s": "Base Holo Gold",
+      "r": 10,
+      "u": 7,
+      "p": 400
+    },
+    {
+      "c": "Bubbles",
+      "s": "Base Holo Gold",
+      "r": 10,
+      "u": 7,
+      "p": 400
+    },
+    {
+      "c": "Lumo",
+      "s": "Base Holo Gold",
+      "r": 10,
+      "u": 7,
+      "p": 400
+    },
+    {
+      "c": "Merlin",
+      "s": "Base Holo Gold",
+      "r": 10,
+      "u": 7,
+      "p": 400
+    },
+    {
+      "c": "Bonesy",
+      "s": "Base Holo Gold",
+      "r": 10,
+      "u": 7,
+      "p": 400
+    },
+    {
+      "c": "Kenji",
+      "s": "Base Holo Gold",
+      "r": 10,
+      "u": 5,
+      "p": 400
+    },
+    {
+      "c": "Lance",
+      "s": "Base Holo Gold",
+      "r": 10,
+      "u": 4,
+      "p": 400
+    },
+    {
+      "c": "Arthur",
+      "s": "Base Holo Gold",
+      "r": 10,
+      "u": 4,
+      "p": 400
+    },
+    {
+      "c": "Noct",
+      "s": "Base Purple",
+      "r": 25,
+      "u": 23,
+      "p": 75
+    },
+    {
+      "c": "Kenji",
+      "s": "Base Purple",
+      "r": 25,
+      "u": 22,
+      "p": 75
+    },
+    {
+      "c": "Jet",
+      "s": "Base Purple",
+      "r": 25,
+      "u": 22,
+      "p": 75
+    },
+    {
+      "c": "Hex",
+      "s": "Base Purple",
+      "r": 25,
+      "u": 21,
+      "p": 75
+    },
+    {
+      "c": "Rango",
+      "s": "Base Purple",
+      "r": 25,
+      "u": 21,
+      "p": 75
+    },
+    {
+      "c": "Arthur",
+      "s": "Base Purple",
+      "r": 25,
+      "u": 21,
+      "p": 75
+    },
+    {
+      "c": "Bubbles",
+      "s": "Base Purple",
+      "r": 25,
+      "u": 21,
+      "p": 75
+    },
+    {
+      "c": "Bonesy",
+      "s": "Base Purple",
+      "r": 25,
+      "u": 20,
+      "p": 75
+    },
+    {
+      "c": "Lance",
+      "s": "Base Purple",
+      "r": 25,
+      "u": 20,
+      "p": 75
+    },
+    {
+      "c": "Shade",
+      "s": "Base Purple",
+      "r": 25,
+      "u": 20,
+      "p": 75
+    },
+    {
+      "c": "Bino",
+      "s": "Base Purple",
+      "r": 25,
+      "u": 20,
+      "p": 75
+    },
+    {
+      "c": "Mochi",
+      "s": "Base Purple",
+      "r": 25,
+      "u": 19,
+      "p": 75
+    },
+    {
+      "c": "Merlin",
+      "s": "Base Purple",
+      "r": 25,
+      "u": 19,
+      "p": 75
+    },
+    {
+      "c": "Zed",
+      "s": "Base Purple",
+      "r": 25,
+      "u": 19,
+      "p": 75
+    },
+    {
+      "c": "Patch",
+      "s": "Base Purple",
+      "r": 25,
+      "u": 18,
+      "p": 75
+    },
+    {
+      "c": "Gustov",
+      "s": "Base Purple",
+      "r": 25,
+      "u": 18,
+      "p": 75
+    },
+    {
+      "c": "Lumo",
+      "s": "Base Purple",
+      "r": 25,
+      "u": 18,
+      "p": 75
+    },
+    {
+      "c": "Nova",
+      "s": "Base Purple",
+      "r": 25,
+      "u": 18,
+      "p": 75
+    },
+    {
+      "c": "Ferno",
+      "s": "Base Purple",
+      "r": 25,
+      "u": 17,
+      "p": 75
+    },
+    {
+      "c": "Sully",
+      "s": "Base Purple",
+      "r": 25,
+      "u": 16,
+      "p": 75
+    }
+  ],
+  "chase_serials": [
+    {
+      "s": "Birbhalla",
+      "r": 49,
+      "s1": 10000,
+      "last": 5000
+    },
+    {
+      "s": "Kaboom Gold",
+      "r": 10,
+      "s1": 2000,
+      "last": 1500
+    },
+    {
+      "s": "Kaboom",
+      "r": 25,
+      "s1": 1500,
+      "last": 1500
+    },
+    {
+      "s": "Base Holo Gold",
+      "r": 10,
+      "s1": 450,
+      "last": 450
+    },
+    {
+      "s": "Base Purple",
+      "r": 25,
+      "s1": 150,
+      "last": 150
+    }
+  ]
 }

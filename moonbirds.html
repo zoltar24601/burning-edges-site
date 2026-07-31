@@ -54,6 +54,9 @@
 
   .section-label{font-family:'Barlow Condensed',sans-serif;font-size:13px;letter-spacing:3px;text-transform:uppercase;color:var(--purple);margin:40px 0 4px;}
   .section-sub{font-size:13px;color:var(--text-faint);margin-bottom:18px;}
+  .chase{background:rgba(184,155,224,0.08);border:1px solid var(--purple);border-radius:10px;padding:12px 16px;margin-bottom:16px;font-size:13.5px;color:var(--text-dim);line-height:1.8;}
+  .chase b{color:var(--gold);}
+  .chase .lbl{font-family:'Barlow Condensed',sans-serif;letter-spacing:1.5px;text-transform:uppercase;color:var(--purple);font-size:12px;margin-right:10px;display:inline-block;}
 
   /* slot-2 breakdown */
   table{width:100%;border-collapse:collapse;}
@@ -145,6 +148,17 @@
       <thead><tr><th>Slot / Parallel</th><th>Pull %</th><th>Avg value</th><th>EV contribution</th><th style="width:130px"></th></tr></thead>
       <tbody id="s2body"></tbody>
     </table>
+
+    <!-- hits remaining -->
+    <div id="hitsSection">
+    <div class="section-label">Hits remaining</div>
+    <div class="section-sub" id="hitsSub">&mdash;</div>
+    <div class="chase" id="chaseSerials"></div>
+    <table class="s2">
+      <thead><tr><th>Card</th><th>/Run</th><th>Left</th><th>Est. value each</th></tr></thead>
+      <tbody id="hitsBody"></tbody>
+    </table>
+    </div>
 
     <!-- serial lookup -->
     <div class="section-label">Look up a serial</div>
@@ -471,7 +485,517 @@ const FALLBACK_DATA = {
     "predicted_price": 318.18,
     "book_vs_mint": 2.55,
     "predicted_note": "2.5x borrowed from soccer - speculative ceiling, not a market figure"
-  }
+  },
+  "cards_remaining": [
+    {
+      "c": "Shift",
+      "s": "Kaboom Green",
+      "r": 1,
+      "u": 1,
+      "p": 5000
+    },
+    {
+      "c": "Pix",
+      "s": "Kaboom Green",
+      "r": 1,
+      "u": 1,
+      "p": 5000
+    },
+    {
+      "c": "Fizz",
+      "s": "Kaboom Green",
+      "r": 1,
+      "u": 1,
+      "p": 5000
+    },
+    {
+      "c": "Arthur",
+      "s": "Base Black",
+      "r": 1,
+      "u": 1,
+      "p": 2300
+    },
+    {
+      "c": "Ferno",
+      "s": "Base Black",
+      "r": 1,
+      "u": 1,
+      "p": 2300
+    },
+    {
+      "c": "Bonesy",
+      "s": "Base Black",
+      "r": 1,
+      "u": 1,
+      "p": 2300
+    },
+    {
+      "c": "Shade",
+      "s": "Base Black",
+      "r": 1,
+      "u": 1,
+      "p": 2300
+    },
+    {
+      "c": "Patch",
+      "s": "Base Black",
+      "r": 1,
+      "u": 1,
+      "p": 2300
+    },
+    {
+      "c": "Noct",
+      "s": "Base Black",
+      "r": 1,
+      "u": 1,
+      "p": 2300
+    },
+    {
+      "c": "Lumo",
+      "s": "Base Black",
+      "r": 1,
+      "u": 1,
+      "p": 2300
+    },
+    {
+      "c": "Lance",
+      "s": "Base Black",
+      "r": 1,
+      "u": 1,
+      "p": 2300
+    },
+    {
+      "c": "Kenji",
+      "s": "Base Black",
+      "r": 1,
+      "u": 1,
+      "p": 2300
+    },
+    {
+      "c": "Jet",
+      "s": "Base Black",
+      "r": 1,
+      "u": 1,
+      "p": 2300
+    },
+    {
+      "c": "Hex",
+      "s": "Base Black",
+      "r": 1,
+      "u": 1,
+      "p": 2300
+    },
+    {
+      "c": "Gustov",
+      "s": "Base Black",
+      "r": 1,
+      "u": 1,
+      "p": 2300
+    },
+    {
+      "c": "Bubbles",
+      "s": "Base Black",
+      "r": 1,
+      "u": 1,
+      "p": 2300
+    },
+    {
+      "c": "Bino",
+      "s": "Base Black",
+      "r": 1,
+      "u": 1,
+      "p": 2300
+    },
+    {
+      "c": "Sully",
+      "s": "Base Black",
+      "r": 1,
+      "u": 1,
+      "p": 2300
+    },
+    {
+      "c": "Mochi",
+      "s": "Base Black",
+      "r": 1,
+      "u": 1,
+      "p": 2300
+    },
+    {
+      "c": "Kapow",
+      "s": "Kaboom Gold",
+      "r": 10,
+      "u": 10,
+      "p": 1000
+    },
+    {
+      "c": "Fizz",
+      "s": "Kaboom Gold",
+      "r": 10,
+      "u": 8,
+      "p": 1000
+    },
+    {
+      "c": "Shift",
+      "s": "Kaboom Gold",
+      "r": 10,
+      "u": 8,
+      "p": 1000
+    },
+    {
+      "c": "Pix",
+      "s": "Kaboom Gold",
+      "r": 10,
+      "u": 5,
+      "p": 1000
+    },
+    {
+      "c": "Kapow",
+      "s": "Kaboom",
+      "r": 25,
+      "u": 18,
+      "p": 900
+    },
+    {
+      "c": "Pix",
+      "s": "Kaboom",
+      "r": 25,
+      "u": 18,
+      "p": 900
+    },
+    {
+      "c": "Shift",
+      "s": "Kaboom",
+      "r": 25,
+      "u": 18,
+      "p": 900
+    },
+    {
+      "c": "Fizz",
+      "s": "Kaboom",
+      "r": 25,
+      "u": 14,
+      "p": 900
+    },
+    {
+      "c": "Enlightened Professor",
+      "s": "Birbhalla",
+      "r": 49,
+      "u": 42,
+      "p": 500
+    },
+    {
+      "c": "Bino",
+      "s": "Base Holo Gold",
+      "r": 10,
+      "u": 9,
+      "p": 400
+    },
+    {
+      "c": "Gustov",
+      "s": "Base Holo Gold",
+      "r": 10,
+      "u": 8,
+      "p": 400
+    },
+    {
+      "c": "Patch",
+      "s": "Base Holo Gold",
+      "r": 10,
+      "u": 8,
+      "p": 400
+    },
+    {
+      "c": "Noct",
+      "s": "Base Holo Gold",
+      "r": 10,
+      "u": 8,
+      "p": 400
+    },
+    {
+      "c": "Nova",
+      "s": "Base Holo Gold",
+      "r": 10,
+      "u": 8,
+      "p": 400
+    },
+    {
+      "c": "Mochi",
+      "s": "Base Holo Gold",
+      "r": 10,
+      "u": 8,
+      "p": 400
+    },
+    {
+      "c": "Jet",
+      "s": "Base Holo Gold",
+      "r": 10,
+      "u": 8,
+      "p": 400
+    },
+    {
+      "c": "Shade",
+      "s": "Base Holo Gold",
+      "r": 10,
+      "u": 8,
+      "p": 400
+    },
+    {
+      "c": "Rango",
+      "s": "Base Holo Gold",
+      "r": 10,
+      "u": 7,
+      "p": 400
+    },
+    {
+      "c": "Sully",
+      "s": "Base Holo Gold",
+      "r": 10,
+      "u": 7,
+      "p": 400
+    },
+    {
+      "c": "Ferno",
+      "s": "Base Holo Gold",
+      "r": 10,
+      "u": 7,
+      "p": 400
+    },
+    {
+      "c": "Hex",
+      "s": "Base Holo Gold",
+      "r": 10,
+      "u": 7,
+      "p": 400
+    },
+    {
+      "c": "Zed",
+      "s": "Base Holo Gold",
+      "r": 10,
+      "u": 7,
+      "p": 400
+    },
+    {
+      "c": "Bubbles",
+      "s": "Base Holo Gold",
+      "r": 10,
+      "u": 7,
+      "p": 400
+    },
+    {
+      "c": "Lumo",
+      "s": "Base Holo Gold",
+      "r": 10,
+      "u": 7,
+      "p": 400
+    },
+    {
+      "c": "Merlin",
+      "s": "Base Holo Gold",
+      "r": 10,
+      "u": 7,
+      "p": 400
+    },
+    {
+      "c": "Bonesy",
+      "s": "Base Holo Gold",
+      "r": 10,
+      "u": 7,
+      "p": 400
+    },
+    {
+      "c": "Kenji",
+      "s": "Base Holo Gold",
+      "r": 10,
+      "u": 5,
+      "p": 400
+    },
+    {
+      "c": "Lance",
+      "s": "Base Holo Gold",
+      "r": 10,
+      "u": 4,
+      "p": 400
+    },
+    {
+      "c": "Arthur",
+      "s": "Base Holo Gold",
+      "r": 10,
+      "u": 4,
+      "p": 400
+    },
+    {
+      "c": "Noct",
+      "s": "Base Purple",
+      "r": 25,
+      "u": 23,
+      "p": 75
+    },
+    {
+      "c": "Kenji",
+      "s": "Base Purple",
+      "r": 25,
+      "u": 22,
+      "p": 75
+    },
+    {
+      "c": "Jet",
+      "s": "Base Purple",
+      "r": 25,
+      "u": 22,
+      "p": 75
+    },
+    {
+      "c": "Hex",
+      "s": "Base Purple",
+      "r": 25,
+      "u": 21,
+      "p": 75
+    },
+    {
+      "c": "Rango",
+      "s": "Base Purple",
+      "r": 25,
+      "u": 21,
+      "p": 75
+    },
+    {
+      "c": "Arthur",
+      "s": "Base Purple",
+      "r": 25,
+      "u": 21,
+      "p": 75
+    },
+    {
+      "c": "Bubbles",
+      "s": "Base Purple",
+      "r": 25,
+      "u": 21,
+      "p": 75
+    },
+    {
+      "c": "Bonesy",
+      "s": "Base Purple",
+      "r": 25,
+      "u": 20,
+      "p": 75
+    },
+    {
+      "c": "Lance",
+      "s": "Base Purple",
+      "r": 25,
+      "u": 20,
+      "p": 75
+    },
+    {
+      "c": "Shade",
+      "s": "Base Purple",
+      "r": 25,
+      "u": 20,
+      "p": 75
+    },
+    {
+      "c": "Bino",
+      "s": "Base Purple",
+      "r": 25,
+      "u": 20,
+      "p": 75
+    },
+    {
+      "c": "Mochi",
+      "s": "Base Purple",
+      "r": 25,
+      "u": 19,
+      "p": 75
+    },
+    {
+      "c": "Merlin",
+      "s": "Base Purple",
+      "r": 25,
+      "u": 19,
+      "p": 75
+    },
+    {
+      "c": "Zed",
+      "s": "Base Purple",
+      "r": 25,
+      "u": 19,
+      "p": 75
+    },
+    {
+      "c": "Patch",
+      "s": "Base Purple",
+      "r": 25,
+      "u": 18,
+      "p": 75
+    },
+    {
+      "c": "Gustov",
+      "s": "Base Purple",
+      "r": 25,
+      "u": 18,
+      "p": 75
+    },
+    {
+      "c": "Lumo",
+      "s": "Base Purple",
+      "r": 25,
+      "u": 18,
+      "p": 75
+    },
+    {
+      "c": "Nova",
+      "s": "Base Purple",
+      "r": 25,
+      "u": 18,
+      "p": 75
+    },
+    {
+      "c": "Ferno",
+      "s": "Base Purple",
+      "r": 25,
+      "u": 17,
+      "p": 75
+    },
+    {
+      "c": "Sully",
+      "s": "Base Purple",
+      "r": 25,
+      "u": 16,
+      "p": 75
+    }
+  ],
+  "chase_serials": [
+    {
+      "s": "Birbhalla",
+      "r": 49,
+      "s1": 10000,
+      "last": 5000
+    },
+    {
+      "s": "Kaboom Gold",
+      "r": 10,
+      "s1": 2000,
+      "last": 1500
+    },
+    {
+      "s": "Kaboom",
+      "r": 25,
+      "s1": 1500,
+      "last": 1500
+    },
+    {
+      "s": "Base Holo Gold",
+      "r": 10,
+      "s1": 450,
+      "last": 450
+    },
+    {
+      "s": "Base Purple",
+      "r": 25,
+      "s1": 150,
+      "last": 150
+    }
+  ]
 };
 
 let DATA = null;
@@ -528,6 +1052,17 @@ function render(d){
     + '<td><span class="bar" style="width:' + Math.max(2, r.contrib/maxC*120) + 'px"></span></td></tr>'
   ).join('');
   $('s2body').innerHTML = html;
+
+  // hits remaining - every scarce card (/25 & rarer + grail) still sealed, with est value
+  const cr = d.cards_remaining || [];
+  $('hitsSection').style.display = cr.length ? '' : 'none';
+  const totalCopies = cr.reduce((a,c)=>a+c.u,0);
+  $('hitsSub').textContent = cr.length + ' scarce cards / ' + totalCopies + ' copies still sealed (/25 and rarer, plus the Birbhalla grail) and what we estimate each at. The report gives counts, not which exact serials remain.';
+  $('chaseSerials').innerHTML = '<span class="lbl">Chase serials</span>' + (d.chase_serials||[]).map(l => l.s + ' #1 <b>' + money(l.s1) + '</b> &middot; #' + l.r + ' <b>' + money(l.last) + '</b>').join(' &nbsp;&middot;&nbsp; ');
+  $('hitsBody').innerHTML = cr.map(c =>
+    '<tr><td>' + c.c + ' <span style="color:var(--text-faint);font-weight:400">' + c.s + '</span></td>'
+    + '<td>/' + c.r + '</td><td>' + c.u + '</td><td>' + money(c.p) + '</td></tr>'
+  ).join('');
 
   // tier board (priced_cards grail + tier_rules), most valuable first
   const all = [
