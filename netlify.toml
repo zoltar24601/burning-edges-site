@@ -85,3 +85,7 @@
   from = "/moonbirds"
   to = "/moonbirds.html"
   status = 200
+[[redirects]]
+  from = "/packs"
+  to = "/packs-hub.html"
+  status = 200
