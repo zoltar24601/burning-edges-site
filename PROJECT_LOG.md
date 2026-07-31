@@ -38,8 +38,8 @@ The flagship. Pricing engine + pack EV + Value My Card + whale tracker for 2026 
 - **Current report:** Panini Collection Report `__13_` (typed-in pack counts are authoritative over report-implied counts)
 
 ## Files / artifacts
-- `pbc_engine.py` — **self-contained pricing engine.** Reads sales JSON + collection report CSV, outputs data for pages. **NOW LIVES IN THE REPO** (was previously loose-file, re-uploaded each session — that caused stale-copy risk). Run: `python3 pbc_engine.py <sales_db.json> <report.csv> <base_packs> <fotl_packs> <offers.json>`
-- `burning_edges_sales_db.json` — all recorded marketplace sales; the one file that must carry across chats
+- `pbc_engine.py` — **self-contained pricing engine.** Reads sales JSON + collection report CSV, outputs data for pages. **PENDING COMMIT — not yet in repo as of 2026-07-31; canonical version currently exists only in the chat sandbox that generated the overrides. Must be added before it can be trusted.** (was previously loose-file, re-uploaded each session — that caused stale-copy risk). Run: `python3 pbc_engine.py <sales_db.json> <report.csv> <base_packs> <fotl_packs> <offers.json>`
+- `burning_edges_sales_db.json` — all recorded marketplace sales; the one file that must carry across chats. **NOT committed — currently exists only in Downloads as of 2026-07-31; must be added to the repo.**
 - `offers_2026-06-22.json` — stale standing-offers snapshot (optional 5th arg; drives with-offers model)
 - `PBC_DATA_CONTRACT.md` — data contract explaining engine internals + field meanings
 - Pages (all live): `packs.html` (pack EV / predicted price, Customize mode), `value.html` (Value My Card w/ derivation + comps + serial tiers), `top.html` (Buyers & Sellers whale tracker), `pbc.html` (hub), `index.html`, `start.html`
@@ -77,7 +77,7 @@ Send new tier sales files (epic / ultra_rare / rare / uncommon / legend) + usual
 
 ## GOTCHAS (PBC)
 - **Comps-vs-manual-value gap:** value.html shows offer/sale comps next to assigned values. When a value is manually overridden well above visible comps, the page can look self-contradictory. Consider suppressing comps or labeling "manual valuation" on overridden cards.
-- **Stale-engine risk:** if a session runs the *old* engine, the $50k/$60k overrides vanish. Now mitigated by keeping engine in repo — always use the repo version.
+- **Stale-engine risk:** if a session runs the *old* engine, the $50k/$60k overrides vanish. NOT yet mitigated — engine is not in the repo yet (PENDING COMMIT as of 2026-07-31); until it is committed, confirm any session uses the canonical engine that carries the $50k/$60k overrides.
 - **`re.sub` escape bug:** card data contains `\u` unicode escapes; use literal string splicing (find markers, slice) to swap DATA blocks, not regex replacement.
 - **Report column naming:** engine handles both `CARD SET` (with space) and `CARDSET`.
 
@@ -151,11 +151,12 @@ No sales exist, so **outstanding offers are the sole signal** (this is the offer
 
 # Cross-project standing decisions
 - **Documentation practice (2026-07-31):** maintain this master log as work happens, committed to the repo as canonical, to make chat handoffs clean. Pricing decisions from chat + backend changes from Claude Code both land here.
-- **Engine-in-repo (2026-07-31):** `pbc_engine.py` now lives in the repo (via Claude Code), ending the loose-file re-upload workflow and its stale-copy risk.
+- **Engine-in-repo (PENDING):** goal is to commit `pbc_engine.py` to the repo to end the loose-file/stale-copy risk. As of 2026-07-31 this has NOT happened — engine verified absent from repo and machine.
 
 ---
 
 ## Changelog
+- **2026-07-31 (correction)** — Corrected engine-location claims: `pbc_engine.py` verified NOT in the repo and not present anywhere on the machine; `burning_edges_sales_db.json` exists only in Downloads. Changed all engine-in-repo statements to PENDING COMMIT. The earlier "engine-in-repo migration" note (same day) was premature.
 - **2026-07-31** — Created master log. Started Moonbirds tracking (Birbhalla serial tiers set). Established doc-as-canonical practice. Noted engine-in-repo migration.
 - **2026-07-09** — PBC pricing run: 11,950 base / 4,030 FOTL. Added Messi Gold base $50k + Mbappe Black/Nebula /1 $60k as persistent engine overrides. Applied +10% Messi/Mbappe/Yamal (output-only).
 - **~2026-07-01** — Prior PBC baseline: 18,476 base / 5,365 FOTL; sales DB at 14,848; engine + data contract established.
