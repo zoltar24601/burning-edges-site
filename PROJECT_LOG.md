@@ -30,12 +30,14 @@
 
 The flagship. Pricing engine + pack EV + Value My Card + whale tracker for 2026 Prizm World Cup Soccer NFTs.
 
-## Current state (as of last pricing run, 2026-07-09)
-- **Pack counts:** 11,950 base / 4,030 FOTL remaining
-- **Book value:** base $127.17 → predicted ~$318 · FOTL $203.59 → predicted ~$509 (with-offers model, incl. active bumps/overrides)
+## Current state (as of last pricing run, 2026-07-31)
+- **Pack counts:** 7,217 base / 2,141 FOTL remaining (typed in this run; ~40% of base / ~47% of FOTL packs opened since 07-09)
+- **Book value:** base $88.96 → predicted ~$222 · FOTL $139.43 → predicted ~$349
+- **Methodology (changed this run):** CLEAN canonical `pbc_engine.py` output — persistent overrides applied (Messi Gold /10 $50k, Mbappe Black/Nebula /1 $60k), but **NO stale offers file and NO +10% Messi/Mbappe/Yamal bump** (both were wrapper-only, not in the engine). The prior 07-09 live number ($127 → $318) used with-offers + the bump; John chose the clean version on 2026-07-31 (offers file 5 weeks stale; "arguably more honest"). So part of the $127→$89 drop is packs sold, part is this methodology change.
 - **Mint:** base $25 / FOTL $150 · **Insert odds:** 35% · **Predicted multiplier:** 2.5x
-- **Sales DB:** 14,848 unique sales (`burning_edges_sales_db.json`), through ~July 1 2026
-- **Current report:** Panini Collection Report `__13_` (typed-in pack counts are authoritative over report-implied counts)
+- **Sales DB:** 14,848 unique sales (`burning_edges_sales_db.json`), unchanged this run (no new sales files sent — only remaining counts updated from the report)
+- **Current report:** Panini Collection Report `__15_`, **White Sparkle rows excluded** (separate pack product — do NOT include in the calc). Typed-in pack counts authoritative over report-implied.
+- **Published as:** `pbc_snapshots` id=11 (`published=true`; id=10 retired) — first live run through the publish-gated workflow.
 
 ## Files / artifacts
 - `pbc_engine.py` — **self-contained pricing engine.** Reads sales JSON + collection report CSV, outputs data for pages. **COMMITTED to the repo 2026-07-31** (verified: compiles clean + runs end-to-end before commit; the Messi Gold /10 $50k and Mbappe Base Black/Nebula /1 $60k overrides are now version-controlled here, ending the loose-file/stale-copy risk). (was previously loose-file, re-uploaded each session — that caused stale-copy risk). Run: `python3 pbc_engine.py <sales_db.json> <report.csv> <base_packs> <fotl_packs> <offers.json>`
@@ -177,6 +179,7 @@ NOTE: the MLB loaders live in a SEPARATE repo, `zoltar24601/edge-dfs-loader` (Gi
 ---
 
 ## Changelog
+- **2026-07-31 (pricing run — report #15)** — First live pricing update via the new publish-gated workflow. Re-priced on report #15 (White Sparkle rows excluded — separate pack), pack counts 7,217 base / 2,141 FOTL. Clean canonical engine (no offers, no +10% bump — John's call). Base book $88.96 → ~$222, FOTL $139.43 → ~$349 (down from $127/$318: ~40% of packs opened + the methodology change). Inserted as `pbc_snapshots` id=11 (`published=false`) → verified shape/numbers → flipped to `published=true`, id=10 retired. Verified live on packs.html (base ~$222, updated 2026-07-31).
 - **2026-07-31 (Step 5 LIVE)** — Merged `step5-supabase-wireup` → main (commit 9cb8c7a); packs.html/value.html now serve from Supabase via the `published`-filtered `/api/pbc-data`, with a baked `FALLBACK_DATA` disaster floor + boot() shape-check. Ran migrations/001 (published column added; current snapshot id=10 published — no dark window). Verified on the live deploy: packs Base ~$318 with overrides, value search works, both through the filter. Update routine is now publish-gated (insert `published=false` → inspect → flip to true; no HTML paste).
 - **2026-07-31 (Step 5 built on branch)** — Implemented the Supabase wire-up on branch `step5-supabase-wireup` (NOT merged). packs.html/value.html now fetch `/api/pbc-data` and fall back to a baked `FALLBACK_DATA` on fetch/shape-check failure; `boot()` validates payload shape first. Function filters `published=eq.true`; added `migrations/001_pbc_published.sql` (publish gate) and `PBC_DATA_CONTRACT.md` (field contract). QA passed: live==baked numbers, both pages render from fetch, forced failure falls back cleanly. Pending: John's diff review → run migration → merge.
 - **2026-07-31 (engine committed)** — Added `pbc_engine.py` (canonical, with Messi Gold /10 $50k + Mbappe Base Black/Nebula /1 $60k overrides) and `burning_edges_sales_db.json` (14,848 sales) to the repo. Verified before commit: engine compiles clean and runs end-to-end (BASE ~$92 book), overrides confirmed in output. Flipped all engine-location + sales-DB lines from PENDING to committed; the earlier PENDING correction is now resolved.
