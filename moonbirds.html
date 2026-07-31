@@ -171,10 +171,10 @@ const FALLBACK_DATA = {
   "product": "2026 Panini NFT Moonbirds - Birbs Beyond",
   "type": "art_nft",
   "status": "live_first_sales",
-  "pricing_mechanism": "first-day sales (2026-07-31, ~98 sales) + report remaining counts + owner judgment",
+  "pricing_mechanism": "running sales log (143 sales) + report remaining counts + owner judgment",
   "valuation_principle": "cards clear above offers; floor = ordinary-serial best offer, breakouts priced per special serial; scarce serials marked up on fresh drop per owner (market expert) call",
   "updated": "2026-07-31",
-  "data_note": "Values from ~98 first-day sales (2026-07-31). Pull odds use REAL remaining counts from the collection report (slot-2 remaining 3103). Packs left ~3048.",
+  "data_note": "Values from the running de-duped sales log (moonbirds_sales_log.json, 143 sales as of 2026-07-31). Pull odds from collection-report remaining counts. Packs left ~2929.",
   "structure": {
     "characters": 25,
     "total_cards": 133,
@@ -236,19 +236,19 @@ const FALLBACK_DATA = {
       "character": "Enlightened Professor",
       "parallel": "Birbhalla",
       "run": 49,
-      "floor_value": 450,
+      "floor_value": 500,
       "market_anchored": true,
-      "floor_basis": "7-31 ordinary sales $230-499 -> $450",
+      "floor_basis": "7-31 ordinary sales $230-700 -> $500",
       "serial_breakouts": [
         {
           "serial": 1,
           "value": 10000,
-          "basis": "offer-anchored $10k (17 offers), #1 premium"
+          "basis": "offer-anchored $10k, #1 premium"
         },
         {
           "serial": 49,
           "value": 5000,
-          "basis": "last-serial premium (judgment)"
+          "basis": "last-serial premium"
         }
       ]
     }
@@ -260,7 +260,7 @@ const FALLBACK_DATA = {
       "cards": 4,
       "pool": "insert",
       "market_anchored": false,
-      "basis": "top insert 1-of-1; still NO sale/offer - owner estimate",
+      "basis": "top insert 1/1; still NO sale - estimate",
       "flat_value": 5000
     },
     {
@@ -269,8 +269,8 @@ const FALLBACK_DATA = {
       "cards": 20,
       "pool": "base",
       "market_anchored": true,
-      "basis": "7-31: Nova 1/1 perfect-mint sold $1,669 (now market-anchored, was $2k estimate)",
-      "flat_value": 1669
+      "basis": "7-31: two 1/1 perfect-mint sales $1,669 & $3,000 -> ~$2,300",
+      "flat_value": 2300
     },
     {
       "parallel": "Kaboom Gold",
@@ -278,7 +278,7 @@ const FALLBACK_DATA = {
       "cards": 4,
       "pool": "insert",
       "market_anchored": true,
-      "basis": "7-31: #1 sold $1000, #8 sold $750; owner KEEPS #1 at $2000; floor $1000 (kept >= Kaboom base)",
+      "basis": "7-31: #1 $1000 (owner keeps $2000); #10 perfect-mint sold $1500; #8 $750; floor $1000",
       "floor_value": 1000,
       "serial_breakouts": [
         {
@@ -287,7 +287,7 @@ const FALLBACK_DATA = {
         },
         {
           "serial": 10,
-          "value": 2000
+          "value": 1500
         }
       ]
     },
@@ -297,8 +297,8 @@ const FALLBACK_DATA = {
       "cards": 4,
       "pool": "insert",
       "market_anchored": true,
-      "basis": "7-31: 6 sales, ordinary med $900 [333-1000] -> floor $800 (up from $500); specials $1500",
-      "floor_value": 800,
+      "basis": "7-31: 8 sales, ordinary med $925 -> floor $900; specials $1500",
+      "floor_value": 900,
       "serial_breakouts": [
         {
           "serial": 1,
@@ -316,7 +316,7 @@ const FALLBACK_DATA = {
       "cards": 20,
       "pool": "base",
       "market_anchored": true,
-      "basis": "7-31: #2 sold $250 & $500 -> floor $400; #1 sold $450",
+      "basis": "7-31: #2 sold $250/$500; #1 sold $450",
       "floor_value": 400,
       "serial_breakouts": [
         {
@@ -335,7 +335,7 @@ const FALLBACK_DATA = {
       "cards": 20,
       "pool": "base",
       "market_anchored": true,
-      "basis": "7-31: #1 sold $150; #14 sold $110 -> floor $75 (thin, 1 ordinary)",
+      "basis": "7-31: #1 sold $150; #25 perfect-mint sold $150; floor $75",
       "floor_value": 75,
       "serial_breakouts": [
         {
@@ -344,7 +344,7 @@ const FALLBACK_DATA = {
         },
         {
           "serial": 25,
-          "value": 100
+          "value": 150
         }
       ]
     },
@@ -354,7 +354,7 @@ const FALLBACK_DATA = {
       "cards": 20,
       "pool": "base",
       "market_anchored": true,
-      "basis": "7-31: 15 sales, ordinary med $35 [12-50] -> floor $35; specials $70 judgment",
+      "basis": "7-31: 20 sales, ordinary med $32 -> floor $35",
       "floor_value": 35,
       "serial_breakouts": [
         {
@@ -373,8 +373,8 @@ const FALLBACK_DATA = {
       "cards": 20,
       "pool": "base",
       "market_anchored": true,
-      "basis": "7-31: 17 sales med $20; #1 sold $85; #99 perfect-mint sold $250",
-      "floor_value": 18,
+      "basis": "7-31: 27 sales med $20; #1 $85; #99 perfect-mint sold $250 & $100 -> $175",
+      "floor_value": 20,
       "serial_breakouts": [
         {
           "serial": 1,
@@ -382,7 +382,7 @@ const FALLBACK_DATA = {
         },
         {
           "serial": 99,
-          "value": 250
+          "value": 175
         }
       ]
     },
@@ -392,7 +392,7 @@ const FALLBACK_DATA = {
       "cards": 20,
       "pool": "base",
       "market_anchored": true,
-      "basis": "7-31: 50 sales, ordinary med $13; #1 sold $180 & $150 -> $165; last judgment",
+      "basis": "7-31: 74 sales med $12; #1 $180/$150 -> $165; #194 perfect-mint sold $99",
       "floor_value": 12,
       "serial_breakouts": [
         {
@@ -401,7 +401,7 @@ const FALLBACK_DATA = {
         },
         {
           "serial": 194,
-          "value": 50
+          "value": 99
         }
       ]
     }
@@ -412,18 +412,18 @@ const FALLBACK_DATA = {
   ],
   "pack_ev": {
     "total_packs": 3873,
-    "packs_remaining": 3048,
+    "packs_remaining": 2929,
     "slot2_remaining": 3103,
     "cards_per_pack": 2,
-    "slot1_silver_avg": 12.98,
-    "slot2_ev": 106.97,
-    "pack_book_ev": 119.95,
+    "slot1_silver_avg": 13.24,
+    "slot2_ev": 113.4,
+    "pack_book_ev": 126.64,
     "method": "pull odds = REMAINING per-parallel counts (collection report); avg value from floor + serial breakouts",
     "slot2_breakdown": {
       "Base Blue": {
         "copies": 1587,
         "p": 0.5114,
-        "avg_value": 21.02
+        "avg_value": 22.22
       },
       "Base Red": {
         "copies": 785,
@@ -433,7 +433,7 @@ const FALLBACK_DATA = {
       "Base Purple": {
         "copies": 412,
         "p": 0.1328,
-        "avg_value": 79
+        "avg_value": 81
       },
       "Base Holo Gold": {
         "copies": 151,
@@ -443,22 +443,22 @@ const FALLBACK_DATA = {
       "Kaboom": {
         "copies": 73,
         "p": 0.0235,
-        "avg_value": 856
+        "avg_value": 948
       },
       "Birbhalla": {
         "copies": 43,
         "p": 0.0139,
-        "avg_value": 737.76
+        "avg_value": 785.71
       },
       "Kaboom Gold": {
         "copies": 33,
         "p": 0.0106,
-        "avg_value": 1200
+        "avg_value": 1150
       },
       "Base Black": {
         "copies": 16,
         "p": 0.0052,
-        "avg_value": 1669
+        "avg_value": 2300
       },
       "Kaboom Green": {
         "copies": 3,
@@ -468,8 +468,8 @@ const FALLBACK_DATA = {
     },
     "mint": 50,
     "multiplier": 2.5,
-    "predicted_price": 299.88,
-    "book_vs_mint": 2.4,
+    "predicted_price": 316.6,
+    "book_vs_mint": 2.53,
     "predicted_note": "2.5x borrowed from soccer - speculative ceiling, not a market figure"
   }
 };
