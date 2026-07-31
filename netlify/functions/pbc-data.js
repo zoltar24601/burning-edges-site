@@ -25,8 +25,11 @@ export async function handler(event) {
   const type = (event.queryStringParameters?.type || "calc").toLowerCase();
 
   try {
-    // pull the newest snapshot row
-    const url = `${SB_URL}/rest/v1/pbc_snapshots?select=payload,valuer,computed_at&order=computed_at.desc&limit=1`;
+    // pull the newest PUBLISHED snapshot row (publish gate: compute -> inspect
+    // -> flip published, so an un-reviewed insert never goes live). Requires the
+    // `published` column (see migrations/001_pbc_published.sql) - if that column
+    // is missing this query errors and the pages fall back to their baked snapshot.
+    const url = `${SB_URL}/rest/v1/pbc_snapshots?select=payload,valuer,computed_at&published=eq.true&order=computed_at.desc&limit=1`;
     const res = await fetch(url, {
       headers: {
         apikey: SB_KEY,
