@@ -89,3 +89,4 @@
   from = "/packs"
   to = "/packs-hub.html"
   status = 200
+  force = true
