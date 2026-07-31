@@ -68,7 +68,7 @@ The flagship. Pricing engine + pack EV + Value My Card + whale tracker for 2026 
 - **OPEN QUESTION:** should the +10% be persisted into the engine as a per-player multiplier so it stops reverting? Not yet decided.
 
 ## Standing to-dos (PBC)
-1. **Step 5 wire-up** — make pages fetch from Supabase `/api/pbc-data` instead of baked-in DATA blocks, so an update = one SQL insert, no HTML paste. *(Good Claude Code task.)*
+1. **Step 5 wire-up** — make pages fetch from Supabase `/api/pbc-data` instead of baked-in DATA blocks, so an update = one SQL insert, no HTML paste. **PLAN APPROVED 2026-07-31; deferred (not urgent).** Verified: live endpoint returns exact shapes (payload keys <-> packs.html `DATA`; valuer `{cards,comps}` <-> value.html), 5-min CDN cache, and the served data equals the baked 2026-07-09 run (no surprise change). Approach: replace `const DATA` with `let DATA=null`, move synchronous init (cardPrices/tailPrices/cfg + first `render()`) into an `init()` run after a `fetch('/api/pbc-data?type=calc')`; value.html does the same for `cards`/`comps` via `?type=valuer`; leave calc/search/edit logic and `SPECIAL_SERIALS`/`JERSEY` untouched. Decisions (John delegated): error banner on fetch failure (no baked fallback); insert-then-verify rather than a `published` gate for now; deploy to main with quick-revert. Risks to watch: async-init ordering; no review gate (any insert goes live within 5 min); output-contract coupling (engine must keep emitting these field names). *(Claude Code task.)*
 2. Deploy `top.html` + `/top` route. *(Claude Code task.)*
 3. Considered reframing packs page around **median** (~$22, 56% under mint) instead of **mean** — decision pending.
 
@@ -170,6 +170,7 @@ NOTE: the MLB loaders live in a SEPARATE repo, `zoltar24601/edge-dfs-loader` (Gi
 ---
 
 ## Changelog
+- **2026-07-31 (Step 5 plan)** — Reviewed `pbc-data.js` + `packs.html` + `value.html` + the `pbc_snapshots` schema for the Supabase wire-up. Confirmed stored `payload`/`valuer` shapes exactly match the pages and the live endpoint serves them (5-min cache). Plan approved and recorded in PBC standing to-dos; implementation deferred (not urgent). No code changed.
 - **2026-07-31 (log review)** — Reviewed MLB + Golf sections against actual code. MLB: rebuild is DONE and live (daily-loader.yml runs hitter-loader-v3 + pitcher-loader-v4); documented the pitcher-side rebuild (pitcher-loader-v4 + edge_statcast_pitch_daily twin table) that was missing; noted loaders live in the separate edge-dfs-loader repo; verified schema-v2 columns. Golf: confirmed golf.html cut-survival page + 4 Netlify functions (golf-cut/field/lookup/upload); corrected the utf-8-sig/abbr/fix-dict "parsing conventions" (not present in the repo); documented the actual splitLineup + CompressionStream/magic-byte upload path.
 - **2026-07-31 (correction)** — Corrected engine-location claims: `pbc_engine.py` verified NOT in the repo and not present anywhere on the machine; `burning_edges_sales_db.json` exists only in Downloads. Changed all engine-in-repo statements to PENDING COMMIT. The earlier "engine-in-repo migration" note (same day) was premature.
 - **2026-07-31** — Created master log. Started Moonbirds tracking (Birbhalla serial tiers set). Established doc-as-canonical practice. Noted engine-in-repo migration.
