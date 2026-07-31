@@ -122,30 +122,44 @@ No sales exist, so **outstanding offers are the sole signal** (this is the offer
 
 # PROJECT 3 — MLB DFS
 
-## Current focus: data-loading infrastructure rebuild (July 2026)
-- Replacing a fragile full-season Savant crawler (`hitter-loader.js`) that had repeated GitHub Actions runner failures.
-- **Replacement:** `edge_statcast_daily` table — one row per (player + game_date + p_throws + pitch_type), **raw counts/sums only, never averages** → enables exact rolling-window recomputation by summing rows.
-- **Schema v2 patch:** added singles/doubles/triples/HR/HBP/la_sum/la_n/fb_bip/bip_typed → for outcome wOBA, average launch angle, fly-ball %.
-- Chunked backfill script in progress.
+## Data-loading infrastructure rebuild - DONE and live (verified against code 2026-07-31)
+NOTE: the MLB loaders live in a SEPARATE repo, `zoltar24601/edge-dfs-loader` (GitHub Actions -> Supabase), NOT in burning-edges-site. The app UI is `mlb.html` in this repo.
+
+- **Daily pipeline** (`.github/workflows/daily-loader.yml`, cron 6am UTC): `results-backfill.js` -> `hitter-loader-v3.js` -> `pitcher-loader-v4.js` -> `catcher-loader.js`.
+- **Hitter side:** `hitter-loader-v3.js` is CURRENT (~10 min). Ingests missing dates into `edge_statcast_daily` (1 bulk Savant CSV per date, self-healing from the max stored game_date), then computes pitch splits (2025+2026), L7/L14/L28/season windows, hot score, emerging/cooling flags FROM the table. Writes `edge_matchup_cache` (vsR/vsL) + `edge_hot_history`. Replaced the retired 90-min per-player crawler `hitter-loader.js` (kept as rollback only).
+- **Pitcher side (was entirely missing from this log):** `pitcher-loader-v4.js` is CURRENT, in the daily pipeline since 2026-07-10 (~3 min vs the old 66). Incremental on the twin table `edge_statcast_pitch_daily`; writes `edge_pitcher_cache`. Replaced retired `pitcher-loader.js` (rollback only). v4 arsenals are regular-season only by design (old loader included spring/postseason).
+- **Tables:** `edge_statcast_daily` (hitter) + `edge_statcast_pitch_daily` (pitcher twin; adds velo_sum/velo_n). One row per player/pitcher + game_date + hand/side + pitch_type. **Raw COUNTS and SUMS only, never averages** -> any window/split rebuilds exactly by summing rows; rates computed at read time. Backfilled 2025-03 -> present, **regular season only (hfGT=R)**.
+- **Schema-v2 columns (verified present in loader code):** singles, doubles, triples, home_runs, hbp, la_sum, la_n, fb_bip, bip_typed, zone_swing -> outcome wOBA, average launch angle, fly-ball %.
+- **Backfill scripts (complete, not "in progress"):** `statcast-backfill.js` (hitter) and `pitcher-statcast-backfill.js` (pitcher) - date-range, one bulk Savant CSV per date, idempotent upserts, safe to re-run any range.
+- **Architecture rules (from the loaders):** counts-not-averages; bulk-per-date, never per-player (per-player crawls caused the old 60-90 min runs); idempotent upserts with explicit on_conflict; per-item try/catch so one player/date failure never kills a run; self-healing ingest.
+- **Supporting loaders:** `catcher-loader.js`, `results-backfill.js`, `park-factors-loader.js`, `fangraphs-loader.py`, `clear-hitters.js`, `dump-pitcher-cache.js`.
+- **Manual-dispatch workflows:** `hitter-loader-v3.yml`, `pitcher-loader-v4.yml`, `statcast-backfill.yml`, `pitcher-backfill.yml`. Secrets: SUPABASE_URL, SUPABASE_KEY (service role).
+- **GOTCHA:** GitHub disables scheduled workflows after 60 days of repo inactivity - if daily runs stop, re-enable in the Actions tab.
 
 ## Standing to-dos (MLB)
-- **Branch-and-bound pruning** optimization for the MLB optimizer — designed, Claude Code prompt drafted, **not yet built**. *(Claude Code task.)*
+- **Branch-and-bound pruning** for the MLB optimizer in `mlb.html` - logged as designed but not yet built. (Could not verify in code; carried over as a planning item.)
 
 ## History
-- Origins (early 2026): first Burning Edges tool — baseball DFS matchup tool (weighted wOBA by pitch type + hot-streak scorer). Established the core stack (vanilla HTML/CSS/JS + Supabase + Netlify) and deployment workflow used by all later projects.
+- Origins (early 2026): first Burning Edges tool - baseball DFS matchup tool (weighted wOBA by pitch type + hot-streak scorer). Established the core stack (vanilla HTML/CSS/JS + Supabase + Netlify) used by all later projects.
 
 ---
 
 # PROJECT 4 — Golf DFS
 
-## Tools
-- **Cut-probability public page** — 50/50 side-by-side desktop layout (field graphic left, "Find My Lineup" calculator right); stacks vertically at 880px breakpoint.
-- **Cut-survival tool** (June 2026, RBC Canadian Open) — pipeline ingesting DataGolf make-cut probabilities + DraftKings contest CSVs; computes per-lineup clean-sweep probabilities; builds field-wide Poisson-binomial survivor distribution graphic; updated with actual final-cut results.
-- `golf_lookups` analytics table in Supabase (RLS enabled, fire-and-forget logging).
+## Tools (all in THIS repo: `golf.html` + `netlify/functions/` + `uploads.html`)
+- **Cut-survival public page (`golf.html`)** - the live public tool (the "cut-probability page" and "cut-survival tool" in the old log are the same page). 50/50 side-by-side desktop layout (`.split` flexbox, two equal result cards: field distribution + "Find My Lineup"); stacks vertically at the 880px breakpoint. Two DataGolf-driven modes: **LIVE** = Poisson-binomial survivor distribution over DataGolf make-cut odds, averaged across all contest teams; **FINAL** = actual survivor count per team after the 36-hole cut. First run was RBC Canadian Open (June 2026); the page is generic/live per event.
+- **"Find My Lineup"** - enter a DK username; ranks all that user's lineups by expected survivors, with clean-sweep / wipeout %.
+- **Netlify functions:**
+  - `golf-cut.js` (/api/golf-cut) - field cut-survival distribution per contest (up to 3) vs shared DataGolf make-cut odds; 30-min throttle so public traffic never hits DataGolf's 45 req/min limit.
+  - `golf-field.js` (/api/golf-field) - raw DataGolf in-play field feed (positions, scores, cut/win/top-N odds); module-scope cache; deliberately NOT cached in `golf_distribution`.
+  - `golf-lookup.js` (/api/golf-lookup?user=) - finds a DK username's entries (case-insensitive exact match) in the stored event, computes each lineup's cut-survival odds, returns them ranked by expected survivors. Fire-and-forget analytics log to `golf_lookups` (never blocks the user's result).
+  - `golf-upload.js` (/api/golf-upload, POST, private) - accepts a gzipped, dictionary-encoded payload (handles 100K+ lineups); stores the compact encoded form (dict + index arrays) in Supabase; `gunzipSync`.
 
 ## Technical notes / gotchas (Golf)
-- **U.S. Open upload bug fix:** browser-side dictionary encoding + gzip via `CompressionStream` reduced ~16MB payload to <1MB, staying within Netlify's 6MB function limit. Used magic-byte detection (`0x1f 0x8b`) instead of headers.
-- **Parsing conventions:** DK lineup strings split on `" G "` after stripping leading `"G "`; CSVs use `utf-8-sig` encoding; DataGolf `"F. Last"` abbreviation format needs a programmatic `abbr()` helper + manual fix-dict for edge cases.
+- **Large-upload handling (`uploads.html` + `golf-upload.js`):** browser-side dictionary-encode + gzip via `CompressionStream` before POST, to stay under Netlify's ~6MB function request limit; the server detects gzip by magic bytes `0x1f 0x8b` (not headers) then `gunzipSync`s. (This is the "U.S. Open upload fix"; originally cut a ~16MB payload to <1MB.)
+- **Lineup parsing (`uploads.html`):** `splitLineup()` splits a DK lineup string on the `G ` position markers (regex `/(?:^|\s)G\s/`), trims, and drops blanks.
+- **CORRECTION (2026-07-31):** the previously logged `utf-8-sig` / `abbr()` / manual "F. Last" fix-dict parsing conventions are NOT present anywhere in the committed repo. Current name-matching (`golf-lookup.js`) is case-insensitive on stored lineup names vs DataGolf `player_name`. If those Python-side conventions still exist, they live in an uncommitted prep step, not this repo.
+- `golf_lookups` analytics table is written fire-and-forget by `golf-lookup.js`. (RLS is a Supabase table-level setting, not verifiable from repo code.)
 
 ---
 
@@ -156,6 +170,7 @@ No sales exist, so **outstanding offers are the sole signal** (this is the offer
 ---
 
 ## Changelog
+- **2026-07-31 (log review)** — Reviewed MLB + Golf sections against actual code. MLB: rebuild is DONE and live (daily-loader.yml runs hitter-loader-v3 + pitcher-loader-v4); documented the pitcher-side rebuild (pitcher-loader-v4 + edge_statcast_pitch_daily twin table) that was missing; noted loaders live in the separate edge-dfs-loader repo; verified schema-v2 columns. Golf: confirmed golf.html cut-survival page + 4 Netlify functions (golf-cut/field/lookup/upload); corrected the utf-8-sig/abbr/fix-dict "parsing conventions" (not present in the repo); documented the actual splitLineup + CompressionStream/magic-byte upload path.
 - **2026-07-31 (correction)** — Corrected engine-location claims: `pbc_engine.py` verified NOT in the repo and not present anywhere on the machine; `burning_edges_sales_db.json` exists only in Downloads. Changed all engine-in-repo statements to PENDING COMMIT. The earlier "engine-in-repo migration" note (same day) was premature.
 - **2026-07-31** — Created master log. Started Moonbirds tracking (Birbhalla serial tiers set). Established doc-as-canonical practice. Noted engine-in-repo migration.
 - **2026-07-09** — PBC pricing run: 11,950 base / 4,030 FOTL. Added Messi Gold base $50k + Mbappe Black/Nebula /1 $60k as persistent engine overrides. Applied +10% Messi/Mbappe/Yamal (output-only).
