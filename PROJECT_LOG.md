@@ -38,8 +38,8 @@ The flagship. Pricing engine + pack EV + Value My Card + whale tracker for 2026 
 - **Current report:** Panini Collection Report `__13_` (typed-in pack counts are authoritative over report-implied counts)
 
 ## Files / artifacts
-- `pbc_engine.py` — **self-contained pricing engine.** Reads sales JSON + collection report CSV, outputs data for pages. **PENDING COMMIT — not yet in repo as of 2026-07-31; canonical version currently exists only in the chat sandbox that generated the overrides. Must be added before it can be trusted.** (was previously loose-file, re-uploaded each session — that caused stale-copy risk). Run: `python3 pbc_engine.py <sales_db.json> <report.csv> <base_packs> <fotl_packs> <offers.json>`
-- `burning_edges_sales_db.json` — all recorded marketplace sales; the one file that must carry across chats. **NOT committed — currently exists only in Downloads as of 2026-07-31; must be added to the repo.**
+- `pbc_engine.py` — **self-contained pricing engine.** Reads sales JSON + collection report CSV, outputs data for pages. **COMMITTED to the repo 2026-07-31** (verified: compiles clean + runs end-to-end before commit; the Messi Gold /10 $50k and Mbappe Base Black/Nebula /1 $60k overrides are now version-controlled here, ending the loose-file/stale-copy risk). (was previously loose-file, re-uploaded each session — that caused stale-copy risk). Run: `python3 pbc_engine.py <sales_db.json> <report.csv> <base_packs> <fotl_packs> <offers.json>`
+- `burning_edges_sales_db.json` — all recorded marketplace sales; the one file that must carry across chats. **COMMITTED to the repo 2026-07-31** (14,848 sales; verified valid JSON before commit).
 - `offers_2026-06-22.json` — stale standing-offers snapshot (optional 5th arg; drives with-offers model)
 - `PBC_DATA_CONTRACT.md` — data contract explaining engine internals + field meanings
 - Pages (all live): `packs.html` (pack EV / predicted price, Customize mode), `value.html` (Value My Card w/ derivation + comps + serial tiers), `top.html` (Buyers & Sellers whale tracker), `pbc.html` (hub), `index.html`, `start.html`
@@ -77,7 +77,7 @@ Send new tier sales files (epic / ultra_rare / rare / uncommon / legend) + usual
 
 ## GOTCHAS (PBC)
 - **Comps-vs-manual-value gap:** value.html shows offer/sale comps next to assigned values. When a value is manually overridden well above visible comps, the page can look self-contradictory. Consider suppressing comps or labeling "manual valuation" on overridden cards.
-- **Stale-engine risk:** if a session runs the *old* engine, the $50k/$60k overrides vanish. NOT yet mitigated — engine is not in the repo yet (PENDING COMMIT as of 2026-07-31); until it is committed, confirm any session uses the canonical engine that carries the $50k/$60k overrides.
+- **Stale-engine risk:** if a session runs the *old* engine, the $50k/$60k overrides vanish. Mitigated 2026-07-31: the canonical engine (carrying the $50k/$60k overrides) is now committed in the repo — always run the repo copy.
 - **`re.sub` escape bug:** card data contains `\u` unicode escapes; use literal string splicing (find markers, slice) to swap DATA blocks, not regex replacement.
 - **Report column naming:** engine handles both `CARD SET` (with space) and `CARDSET`.
 
@@ -165,11 +165,12 @@ NOTE: the MLB loaders live in a SEPARATE repo, `zoltar24601/edge-dfs-loader` (Gi
 
 # Cross-project standing decisions
 - **Documentation practice (2026-07-31):** maintain this master log as work happens, committed to the repo as canonical, to make chat handoffs clean. Pricing decisions from chat + backend changes from Claude Code both land here.
-- **Engine-in-repo (PENDING):** goal is to commit `pbc_engine.py` to the repo to end the loose-file/stale-copy risk. As of 2026-07-31 this has NOT happened — engine verified absent from repo and machine.
+- **Engine-in-repo (DONE 2026-07-31):** `pbc_engine.py` and `burning_edges_sales_db.json` are committed in the repo, ending the loose-file re-upload / stale-copy risk. The $50k/$60k overrides are version-controlled. Engine was verified (compiles + runs end-to-end) before committing.
 
 ---
 
 ## Changelog
+- **2026-07-31 (engine committed)** — Added `pbc_engine.py` (canonical, with Messi Gold /10 $50k + Mbappe Base Black/Nebula /1 $60k overrides) and `burning_edges_sales_db.json` (14,848 sales) to the repo. Verified before commit: engine compiles clean and runs end-to-end (BASE ~$92 book), overrides confirmed in output. Flipped all engine-location + sales-DB lines from PENDING to committed; the earlier PENDING correction is now resolved.
 - **2026-07-31 (Step 5 plan)** — Reviewed `pbc-data.js` + `packs.html` + `value.html` + the `pbc_snapshots` schema for the Supabase wire-up. Confirmed stored `payload`/`valuer` shapes exactly match the pages and the live endpoint serves them (5-min cache). Plan approved and recorded in PBC standing to-dos; implementation deferred (not urgent). No code changed.
 - **2026-07-31 (log review)** — Reviewed MLB + Golf sections against actual code. MLB: rebuild is DONE and live (daily-loader.yml runs hitter-loader-v3 + pitcher-loader-v4); documented the pitcher-side rebuild (pitcher-loader-v4 + edge_statcast_pitch_daily twin table) that was missing; noted loaders live in the separate edge-dfs-loader repo; verified schema-v2 columns. Golf: confirmed golf.html cut-survival page + 4 Netlify functions (golf-cut/field/lookup/upload); corrected the utf-8-sig/abbr/fix-dict "parsing conventions" (not present in the repo); documented the actual splitLineup + CompressionStream/magic-byte upload path.
 - **2026-07-31 (correction)** — Corrected engine-location claims: `pbc_engine.py` verified NOT in the repo and not present anywhere on the machine; `burning_edges_sales_db.json` exists only in Downloads. Changed all engine-in-repo statements to PENDING COMMIT. The earlier "engine-in-repo migration" note (same day) was premature.
