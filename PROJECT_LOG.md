@@ -99,8 +99,8 @@ Send new tier sales files (epic / ultra_rare / rare / uncommon / legend) + usual
 
 Brand-new Panini NFT drop. **First-ever Panini Moonbirds product — no secondary market history exists.** Art/PFP NFT, not sports.
 
-## Status: TRACKING ONLY (no engine yet)
-Decision (2026-07-31): just track numbers for now. Do NOT force this through `pbc_engine.py` — different pools, tiers, and valuation logic entirely. A dedicated Moonbirds engine is a *later* build if the product warrants it.
+## Status: LIVE PUBLIC PAGE (built 2026-07-31 on branch `moonbirds-page`, pending merge)
+Was tracking-only; now a public pack-pricing page at **/moonbirds** (`moonbirds.html`), modeled on `packs.html`. Architecture = **Option A** (same as PBC Step 5): the page fetches `/api/moonbirds-data` (function `moonbirds-data.js`) which serves the newest **published** row of a new **`moonbirds_snapshots`** table (publish gate), with a baked `FALLBACK_DATA` disaster floor + `boot()` shape-check. Data lives in `moonbirds_pricing.json` (the baked fallback AND the payload inserted to Supabase). Table DDL: `migrations/002_moonbirds_snapshots.sql` (John runs once; Claude cannot run DDL over the service key). NOT merged to main yet. Still NOT run through `pbc_engine.py` (different pools/tiers/logic).
 
 ## Set structure (from checklist `2026_Panini_NFT_Moonbirds_-_Birbs_Beyond.csv`)
 - **25 characters** (Kenji, Ferno, Merlin, Enlightened Professor, etc.) — not athletes
@@ -110,22 +110,20 @@ Decision (2026-07-31): just track numbers for now. Do NOT force this through `pb
   - Kaboom inserts: Green /1 · Gold /10 · base /25 (4 cards each)
   - **Birbhalla /49** — the grail; single card (Enlightened Professor), 49 copies
 
-## Pricing mechanism: OFFERS ONLY
-No sales exist, so **outstanding offers are the sole signal** (this is the offer-based fallback tier of the soccer engine, run as the *primary* path). Offer boards are per-serial and can be deep (13–17 offers per card on the grail).
+## Pricing: now first-day-sales-informed (2026-07-31)
+Was offers-only. On 2026-07-31, **41 first-day sales** drove a repricing (full values in `moonbirds_pricing.json`). Key moves: Holo Gold /10 floor $50 -> $300 (serial #2 sold $250 & $500); Kaboom /25 floor $250 -> $500 (one $1k mid-serial sale, thin); Birbhalla floor $1,000 -> $450 (ordinary sold $230-499); special serials up (Silver #1 $180, Blue #99 perfect-mint $250, Purple #1 $150). **Kaboom Gold #1 kept at $2,000 per John despite a $1,000 sale** (clears-above-offers). Pack model: 2 cards/pack, mint $50, pull odds exact (print-run population); **pack book EV = $102.51 (2.05x mint)**, predicted ~$256 @2.5x (borrowed multiplier, labeled speculative, not a market figure). Pack count NOT yet updated (3,233 left per John; per-parallel remaining counts pending -> odds still on original 3,873 population).
 
-**Valuation principle (John, market expert):** *cards clear ABOVE offers* — offers are a floor/ceiling, real clearing is higher for scarce serials. John is comfortable pricing scarce serials above the visible offer book on a fresh drop. (Flagged the comps-gap risk; John accepted it.)
+**Valuation principle (John, market expert):** cards clear ABOVE offers; scarce serials priced above the visible book on a fresh drop.
 
-## Values set so far
-| Card | Serial | Value | Basis |
-|---|---|---|---|
-| Birbhalla (Enlightened Professor) | 1/49 | $10,000 | observed best offer (17 offers); #1 collector premium (gold badge) |
-| Birbhalla (Enlightened Professor) | 49/49 | $5,000 | manual — last-serial premium |
-| Birbhalla (Enlightened Professor) | 2–48/49 | $1,000 | manual — observed offers were $200 (13 offers on #2,#3); marked up per "clears above offers" |
+**Market-anchored now:** 8 of 10 tiers have real 7-31 sales/offers; only **Base Black /1** and **Kaboom Green /1** are pure estimates. Caveat still holds: fresh product, scarce-serial premiums are directional -> revisit as more sales accumulate.
+
+## Values (full board in `moonbirds_pricing.json` -> tier_rules + priced_cards)
+Per-parallel floor + #1/last-serial breakouts, expanded on the page. Birbhalla: #1 $10,000 / floor $450 / #49 $5,000. Kaboom Gold: #1 $2,000 / floor $1,000 / #10 $2,000. Top slot-2 EV contributors: Holo Gold ($18/pack), Kaboom ($14), Kaboom Gold ($12), Base Black ($10), Birbhalla ($9).
 
 ## Still needed for Moonbirds
-- Offer data for the **other 132 cards** (all parallels × characters). Best: a marketplace **export** (JSON/CSV). Else: tier-by-tier best-offer ranges from the boards.
-- **Mint price** of a pack (needed for predicted-multiple framing)
-- **Pack recipe** — cards/pack + parallel/insert odds (needed to roll card values into pack EV). Without it: card-value table only, no pack EV.
+- **Remaining per-parallel pack counts** (John pulling) -> refine pull odds + show "packs left".
+- Real sales/offers for **Base Black /1** and **Kaboom Green /1** (still pure estimates).
+- Run `migrations/002_moonbirds_snapshots.sql`, then Claude inserts + publishes the payload, then merge the branch.
 
 ---
 
@@ -179,6 +177,7 @@ NOTE: the MLB loaders live in a SEPARATE repo, `zoltar24601/edge-dfs-loader` (Gi
 ---
 
 ## Changelog
+- **2026-07-31 (Moonbirds page built)** — Built the Moonbirds pack-pricing page at /moonbirds on branch `moonbirds-page`, Option A architecture (new `moonbirds_snapshots` table + `/api/moonbirds-data` function + published gate + baked fallback + boot() shape-check), a sibling of packs.html. Repriced from 41 first-day sales: pack book EV $102.51 (2.05x mint); Holo Gold/Kaboom floors up, Birbhalla floor down, Kaboom Gold #1 held at $2k per John. QA passed (EV display, Kaboom Gold/Birbhalla tier expansion, 8 market / 2 estimate badges, fallback render). NOT merged - pending John running `migrations/002_moonbirds_snapshots.sql` + reviewing the preview, then Claude inserts+publishes.
 - **2026-07-31 (direct DB writes enabled)** — Claude can now read+write `pbc_snapshots` directly via the service-role key, through `tools/pbc-db.mjs` (key lives only in `~/.burning-edges/supabase.env`, gitignored/outside repo, never printed). MCP OAuth write path abandoned — removing `read_only` from the URL just broke the MCP connection (needs re-auth; same wall as 2026-07-10). Future pricing publishes are Claude end-to-end: engine → `pbc-db.mjs insert <calc> <valuer>` → show numbers → `pbc-db.mjs publish <id>`. No more SQL paste.
 - **2026-07-31 (pricing run — report #15)** — First live pricing update via the new publish-gated workflow. Re-priced on report #15 (White Sparkle rows excluded — separate pack), pack counts 7,217 base / 2,141 FOTL. Clean canonical engine (no offers, no +10% bump — John's call). Base book $88.96 → ~$222, FOTL $139.43 → ~$349 (down from $127/$318: ~40% of packs opened + the methodology change). Inserted as `pbc_snapshots` id=11 (`published=false`) → verified shape/numbers → flipped to `published=true`, id=10 retired. Verified live on packs.html (base ~$222, updated 2026-07-31).
 - **2026-07-31 (Step 5 LIVE)** — Merged `step5-supabase-wireup` → main (commit 9cb8c7a); packs.html/value.html now serve from Supabase via the `published`-filtered `/api/pbc-data`, with a baked `FALLBACK_DATA` disaster floor + boot() shape-check. Ran migrations/001 (published column added; current snapshot id=10 published — no dark window). Verified on the live deploy: packs Base ~$318 with overrides, value search works, both through the filter. Update routine is now publish-gated (insert `published=false` → inspect → flip to true; no HTML paste).

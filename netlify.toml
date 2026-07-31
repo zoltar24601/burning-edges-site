@@ -77,3 +77,11 @@
   from = "/household-fountain"
   to = "/household-fountain.html"
   status = 200
+[[redirects]]
+  from = "/api/moonbirds-data"
+  to = "/.netlify/functions/moonbirds-data"
+  status = 200
+[[redirects]]
+  from = "/moonbirds"
+  to = "/moonbirds.html"
+  status = 200

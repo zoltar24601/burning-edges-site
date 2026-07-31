@@ -1,0 +1,305 @@
+{
+  "product": "2026 Panini NFT Moonbirds - Birbs Beyond",
+  "type": "art_nft",
+  "status": "live_first_sales",
+  "pricing_mechanism": "first_day_sales (2026-07-31) + offers + owner judgment",
+  "valuation_principle": "cards clear above offers; floor = ordinary-serial best offer, breakouts priced per special serial; scarce serials marked up on fresh drop per owner (market expert) call",
+  "updated": "2026-07-31",
+  "data_note": "Values updated from 41 first-day sales (2026-07-31). Pack count NOT yet updated - pull odds still use original print-run population; remaining per-parallel counts pending from owner.",
+  "structure": {
+    "characters": 25,
+    "total_cards": 133,
+    "parallels": {
+      "Base Black": {
+        "run": 1,
+        "cards": 20,
+        "pool": "base"
+      },
+      "Base Holo Gold": {
+        "run": 10,
+        "cards": 20,
+        "pool": "base"
+      },
+      "Base Purple": {
+        "run": 25,
+        "cards": 20,
+        "pool": "base"
+      },
+      "Base Red": {
+        "run": 49,
+        "cards": 20,
+        "pool": "base"
+      },
+      "Base Blue": {
+        "run": 99,
+        "cards": 20,
+        "pool": "base"
+      },
+      "Base Silver": {
+        "run": 194,
+        "cards": 20,
+        "pool": "base"
+      },
+      "Kaboom Green": {
+        "run": 1,
+        "cards": 4,
+        "pool": "insert"
+      },
+      "Kaboom Gold": {
+        "run": 10,
+        "cards": 4,
+        "pool": "insert"
+      },
+      "Kaboom": {
+        "run": 25,
+        "cards": 4,
+        "pool": "insert"
+      },
+      "Birbhalla": {
+        "run": 49,
+        "cards": 1,
+        "pool": "grail"
+      }
+    }
+  },
+  "priced_cards": [
+    {
+      "character": "Enlightened Professor",
+      "parallel": "Birbhalla",
+      "run": 49,
+      "floor_value": 450,
+      "market_anchored": true,
+      "floor_basis": "7-31 ordinary sales $230-499 -> $450 (was $1000 offer-markup)",
+      "serial_breakouts": [
+        {
+          "serial": 1,
+          "value": 10000,
+          "basis": "offer-anchored $10k best offer (17 offers), #1 collector premium"
+        },
+        {
+          "serial": 49,
+          "value": 5000,
+          "basis": "last-serial premium (judgment)"
+        }
+      ]
+    }
+  ],
+  "tier_rules": [
+    {
+      "parallel": "Kaboom Green",
+      "run": 1,
+      "cards": 4,
+      "pool": "insert",
+      "market_anchored": false,
+      "basis": "top insert 1-of-1; NO sale/offer yet - owner estimate",
+      "flat_value": 5000
+    },
+    {
+      "parallel": "Base Black",
+      "run": 1,
+      "cards": 20,
+      "pool": "base",
+      "market_anchored": false,
+      "basis": "1-of-1 base chase; NO sale/offer yet - owner estimate",
+      "flat_value": 2000
+    },
+    {
+      "parallel": "Kaboom Gold",
+      "run": 10,
+      "cards": 4,
+      "pool": "insert",
+      "market_anchored": true,
+      "basis": "7-31: #1 sold $1000; owner KEEPS #1 at $2000 (clears-above-offers); floor $1000",
+      "floor_value": 1000,
+      "serial_breakouts": [
+        {
+          "serial": 1,
+          "value": 2000
+        },
+        {
+          "serial": 10,
+          "value": 2000
+        }
+      ]
+    },
+    {
+      "parallel": "Kaboom",
+      "run": 25,
+      "cards": 4,
+      "pool": "insert",
+      "market_anchored": true,
+      "basis": "7-31: ONE mid-serial (#23) sold $1000 -> floor $500 (thin, 1 sale); specials judgment",
+      "floor_value": 500,
+      "serial_breakouts": [
+        {
+          "serial": 1,
+          "value": 1000
+        },
+        {
+          "serial": 25,
+          "value": 1000
+        }
+      ]
+    },
+    {
+      "parallel": "Base Holo Gold",
+      "run": 10,
+      "cards": 20,
+      "pool": "base",
+      "market_anchored": true,
+      "basis": "7-31 sales: serial #2 sold $250 and $500 -> floor $300; #1/last premium (judgment)",
+      "floor_value": 300,
+      "serial_breakouts": [
+        {
+          "serial": 1,
+          "value": 600
+        },
+        {
+          "serial": 10,
+          "value": 500
+        }
+      ]
+    },
+    {
+      "parallel": "Base Purple",
+      "run": 25,
+      "cards": 20,
+      "pool": "base",
+      "market_anchored": true,
+      "basis": "7-31: #1 sold $150; floor/last = judgment (no ordinary sale yet)",
+      "floor_value": 35,
+      "serial_breakouts": [
+        {
+          "serial": 1,
+          "value": 150
+        },
+        {
+          "serial": 25,
+          "value": 100
+        }
+      ]
+    },
+    {
+      "parallel": "Base Red",
+      "run": 49,
+      "cards": 20,
+      "pool": "base",
+      "market_anchored": true,
+      "basis": "7-31: 3 ordinary sales $12-30 -> floor $20; #1/last judgment",
+      "floor_value": 20,
+      "serial_breakouts": [
+        {
+          "serial": 1,
+          "value": 60
+        },
+        {
+          "serial": 49,
+          "value": 60
+        }
+      ]
+    },
+    {
+      "parallel": "Base Blue",
+      "run": 99,
+      "cards": 20,
+      "pool": "base",
+      "market_anchored": true,
+      "basis": "7-31: ordinary $8-25 (med $16); #99 perfect-mint sold $250; #1 judgment",
+      "floor_value": 15,
+      "serial_breakouts": [
+        {
+          "serial": 1,
+          "value": 100
+        },
+        {
+          "serial": 99,
+          "value": 250
+        }
+      ]
+    },
+    {
+      "parallel": "Base Silver",
+      "run": 194,
+      "cards": 20,
+      "pool": "base",
+      "market_anchored": true,
+      "basis": "7-31: 23 sales, ordinary $5-25 (med $15); #1 sold $180; last = judgment",
+      "floor_value": 12,
+      "serial_breakouts": [
+        {
+          "serial": 1,
+          "value": 175
+        },
+        {
+          "serial": 194,
+          "value": 50
+        }
+      ]
+    }
+  ],
+  "pending": [
+    "remaining per-parallel pack counts (for exact pull odds)",
+    "Base Black /1 and Kaboom Green /1 still have NO sales - pure estimates"
+  ],
+  "pack_ev": {
+    "total_packs": 3873,
+    "packs_remaining": null,
+    "cards_per_pack": 2,
+    "slot1_silver_avg": 13.04,
+    "slot2_ev": 89.48,
+    "pack_book_ev": 102.51,
+    "method": "print-run = pull odds (original population; pack count not yet updated); avg parallel value accounts for serial breakouts",
+    "slot2_breakdown": {
+      "Base Blue": {
+        "copies": 1980,
+        "p": 0.5112,
+        "avg_value": 18.23
+      },
+      "Base Red": {
+        "copies": 980,
+        "p": 0.253,
+        "avg_value": 21.63
+      },
+      "Birbhalla": {
+        "copies": 49,
+        "p": 0.0127,
+        "avg_value": 737.76
+      },
+      "Base Purple": {
+        "copies": 500,
+        "p": 0.1291,
+        "avg_value": 42.2
+      },
+      "Kaboom": {
+        "copies": 100,
+        "p": 0.0258,
+        "avg_value": 540
+      },
+      "Base Holo Gold": {
+        "copies": 200,
+        "p": 0.0516,
+        "avg_value": 350
+      },
+      "Kaboom Gold": {
+        "copies": 40,
+        "p": 0.0103,
+        "avg_value": 1200
+      },
+      "Base Black": {
+        "copies": 20,
+        "p": 0.0052,
+        "avg_value": 2000
+      },
+      "Kaboom Green": {
+        "copies": 4,
+        "p": 0.001,
+        "avg_value": 5000
+      }
+    },
+    "mint": 50,
+    "multiplier": 2.5,
+    "predicted_price": 256.28,
+    "book_vs_mint": 2.05,
+    "predicted_note": "2.5x multiplier borrowed from soccer product - speculative ceiling, not a market figure"
+  }
+}

@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Moonbirds Pack Analytics &middot; Burning Edges</title>
+<meta name="description" content="Birbs Beyond pack pricing: pack EV, slot-2 pull breakdown, and the full card value board.">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700;800&family=Barlow:wght@400;500;600&display=swap');
+  :root{
+    --pine:#0d2818;--pine-2:#123a22;--pine-3:#0a1f12;
+    --card:#13301f;--card-2:#0f2618;--border:#1f4a30;--border-bright:#2d6344;
+    --gold:#e8c468;--gold-dim:#b89540;--cream:#f4efe1;--text:#e8efe6;--text-dim:#8fab97;--text-faint:#5a7563;
+    --green:#5ed68a;--red:#e8736a;--flame:#ff7a3c;--purple:#b89be0;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{background:var(--pine-3);color:var(--text);font-family:'Barlow',sans-serif;-webkit-font-smoothing:antialiased;line-height:1.5;padding-bottom:60px;}
+  body::before{content:'';position:fixed;inset:0;background:radial-gradient(circle at 20% 10%,rgba(184,155,224,0.05),transparent 40%),radial-gradient(circle at 80% 90%,rgba(94,214,138,0.03),transparent 40%);pointer-events:none;z-index:0;}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 24px;position:relative;z-index:1;}
+  a{color:inherit;}
+  header{border-bottom:1px solid var(--border);background:rgba(10,31,18,0.9);backdrop-filter:blur(10px);position:sticky;top:0;z-index:100;}
+  .header-inner{max-width:1080px;margin:0 auto;padding:16px 24px;display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;}
+  .brand{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:22px;letter-spacing:1px;color:var(--cream);text-transform:uppercase;text-decoration:none;}
+  .brand .flame{color:var(--flame);}
+  .topnav{display:flex;gap:18px;align-items:center;flex-wrap:wrap;}
+  .topnav a{font-family:'Barlow Condensed',sans-serif;font-size:13px;letter-spacing:1.5px;color:var(--text-faint);text-transform:uppercase;text-decoration:none;transition:color .15s;}
+  .topnav a:hover{color:var(--gold);}
+  .topnav a.active{color:var(--purple);}
+
+  .hero{padding:40px 0 18px;text-align:center;}
+  .release-name{font-family:'Barlow Condensed',sans-serif;font-size:14px;letter-spacing:3px;color:var(--purple);text-transform:uppercase;margin-bottom:10px;}
+  .hero h1{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:clamp(38px,7vw,64px);line-height:0.98;text-transform:uppercase;letter-spacing:0.5px;color:var(--cream);}
+  .hero h1 .accent{color:var(--purple);}
+  .updated{font-family:'Barlow Condensed',sans-serif;font-size:13px;letter-spacing:2px;color:var(--text-faint);text-transform:uppercase;margin-top:14px;}
+  .updated .dot{display:inline-block;width:7px;height:7px;background:var(--green);border-radius:50%;margin-right:7px;vertical-align:middle;animation:pulse 2s infinite;}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:0.35}}
+
+  .disclaimer{background:rgba(232,196,104,0.07);border:1px solid var(--gold-dim);border-left:3px solid var(--gold);border-radius:10px;padding:16px 20px;margin:14px 0 30px;font-size:13.5px;color:var(--text-dim);line-height:1.6;}
+  .disclaimer strong{color:var(--gold);}
+
+  .price-band{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:16px;margin:0 0 14px;}
+  @media(max-width:760px){.price-band{grid-template-columns:1fr;}}
+  .price-card{background:linear-gradient(160deg,var(--card),var(--card-2));border:1px solid var(--border-bright);border-radius:14px;padding:26px 30px;}
+  .price-card.book{border-color:var(--green);box-shadow:0 0 40px rgba(94,214,138,0.07) inset;}
+  .price-card.predicted{border-color:var(--gold-dim);}
+  .price-card .label{font-family:'Barlow Condensed',sans-serif;font-size:13px;letter-spacing:2.5px;text-transform:uppercase;color:var(--text-dim);margin-bottom:8px;}
+  .price-card.book .label{color:var(--green);}
+  .price-card.predicted .label{color:var(--gold);}
+  .price-big{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:52px;line-height:1;color:var(--cream);}
+  .price-card.predicted .price-big{color:var(--gold);}
+  .price-sub{font-size:12.5px;color:var(--text-faint);margin-top:10px;}
+  .tag-est{display:inline-block;margin-top:8px;padding:3px 10px;border-radius:16px;background:rgba(232,196,104,0.12);border:1px solid var(--gold-dim);font-family:'Barlow Condensed',sans-serif;font-size:12px;letter-spacing:1px;color:var(--gold);text-transform:uppercase;}
+  .vs-mint{display:inline-block;margin-top:12px;padding:4px 12px;border-radius:20px;background:rgba(94,214,138,0.12);border:1px solid rgba(94,214,138,0.3);font-family:'Barlow Condensed',sans-serif;font-size:14px;letter-spacing:1px;color:var(--green);text-transform:uppercase;}
+
+  .section-label{font-family:'Barlow Condensed',sans-serif;font-size:13px;letter-spacing:3px;text-transform:uppercase;color:var(--purple);margin:40px 0 4px;}
+  .section-sub{font-size:13px;color:var(--text-faint);margin-bottom:18px;}
+
+  /* slot-2 breakdown */
+  table{width:100%;border-collapse:collapse;}
+  .s2 th{font-family:'Barlow Condensed',sans-serif;font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:var(--text-faint);text-align:right;padding:8px 10px;border-bottom:1px solid var(--border);}
+  .s2 th:first-child{text-align:left;}
+  .s2 td{padding:9px 10px;border-bottom:1px solid rgba(31,74,48,0.5);font-size:14px;text-align:right;}
+  .s2 td:first-child{text-align:left;font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:15px;color:var(--cream);letter-spacing:0.3px;}
+  .s2 .bar{height:7px;border-radius:4px;background:linear-gradient(90deg,var(--purple),var(--gold));display:inline-block;vertical-align:middle;min-width:2px;}
+  .s2 tr.slot1 td{color:var(--green);}
+  .s2 tr.slot1 td:first-child{color:var(--green);}
+  .grade{font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:1px;text-transform:uppercase;padding:2px 7px;border-radius:12px;}
+  .grade.mkt{background:rgba(94,214,138,0.14);color:var(--green);border:1px solid rgba(94,214,138,0.3);}
+  .grade.est{background:rgba(232,196,104,0.12);color:var(--gold);border:1px solid var(--gold-dim);}
+
+  /* tier board */
+  .tier{background:var(--card-2);border:1px solid var(--border);border-radius:12px;padding:16px 18px;margin-bottom:12px;display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr auto;gap:12px;align-items:center;}
+  @media(max-width:760px){.tier{grid-template-columns:1fr 1fr;}}
+  .tier .tname{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:18px;color:var(--cream);letter-spacing:0.3px;}
+  .tier .trun{font-family:'Barlow Condensed',sans-serif;font-size:12px;letter-spacing:1px;color:var(--text-faint);text-transform:uppercase;}
+  .tier .tpool{display:inline-block;margin-left:8px;font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--pine-3);background:var(--gold-dim);padding:2px 7px;border-radius:4px;vertical-align:middle;}
+  .tier.grail .tpool{background:var(--purple);}
+  .tier.insert .tpool{background:var(--flame);color:var(--cream);}
+  .tier .cell{font-family:'Barlow Condensed',sans-serif;}
+  .tier .clabel{font-size:10.5px;letter-spacing:1px;text-transform:uppercase;color:var(--text-faint);}
+  .tier .cval{font-weight:700;font-size:19px;color:var(--cream);}
+  .tier .cval.hi{color:var(--gold);}
+  .tier .basis{grid-column:1/-1;font-size:12px;color:var(--text-faint);border-top:1px solid var(--border);padding-top:8px;margin-top:2px;line-height:1.5;}
+
+  /* lookup */
+  .lookup{background:var(--card-2);border:1px solid var(--border-bright);border-radius:12px;padding:18px 20px;margin-bottom:14px;display:flex;gap:12px;align-items:flex-end;flex-wrap:wrap;}
+  .lookup label{display:block;font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:1px;color:var(--text-faint);text-transform:uppercase;margin-bottom:5px;}
+  .lookup select,.lookup input{background:var(--pine-3);border:1px solid var(--border-bright);color:var(--cream);font-family:'Barlow Condensed',sans-serif;font-size:16px;font-weight:600;padding:8px 10px;border-radius:6px;}
+  .lookup .out{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:26px;color:var(--gold);margin-left:auto;}
+  .lookup .out small{display:block;font-size:12px;font-weight:500;color:var(--text-faint);letter-spacing:1px;text-transform:uppercase;}
+
+  .foot{margin-top:44px;font-size:12px;color:var(--text-faint);border-top:1px solid var(--border);padding-top:20px;line-height:1.6;}
+  .loading{text-align:center;color:var(--text-faint);font-family:'Barlow Condensed',sans-serif;letter-spacing:2px;text-transform:uppercase;padding:40px;}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <a class="brand" href="/">BURNING <span class="flame">EDGES</span></a>
+    <nav class="topnav">
+      <a href="/panini">Panini Soccer</a>
+      <a href="/moonbirds" class="active">Moonbirds</a>
+      <a href="/value">Value My Card</a>
+    </nav>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="hero">
+    <div class="release-name" id="release">2026 Panini NFT Moonbirds &mdash; Birbs Beyond</div>
+    <h1>MOONBIRDS <span class="accent">PACK VALUE</span></h1>
+    <div class="updated"><span class="dot"></span><span id="updated">&mdash;</span></div>
+  </div>
+
+  <div class="disclaimer" id="disclaimer">Loading&hellip;</div>
+
+  <div id="body" style="display:none;">
+    <!-- pack economics -->
+    <div class="price-band">
+      <div class="price-card book">
+        <div class="label">Book EV / Pack</div>
+        <div class="price-big" id="bookEv">&mdash;</div>
+        <span class="vs-mint" id="vsMint">&mdash;</span>
+        <div class="price-sub">Expected card value per pack (2 cards: guaranteed Silver + 1 hit). The defensible number.</div>
+      </div>
+      <div class="price-card">
+        <div class="label">Pack Mint</div>
+        <div class="price-big" id="mint">&mdash;</div>
+        <div class="price-sub">Cost to open one pack.</div>
+      </div>
+      <div class="price-card predicted">
+        <div class="label">Predicted Price</div>
+        <div class="price-big" id="predicted">&mdash;</div>
+        <span class="tag-est">Estimate only</span>
+        <div class="price-sub">2.5&times; multiplier borrowed from the soccer product &mdash; no Moonbirds sales justify it. A speculative ceiling, not a market figure.</div>
+      </div>
+    </div>
+
+    <!-- slot 2 breakdown -->
+    <div class="section-label">Where the pack value comes from</div>
+    <div class="section-sub">Slot 1 is a guaranteed Base Silver. Slot 2 is the one hit &mdash; pull odds are exact (print-run population). Contribution = pull % &times; average value.</div>
+    <table class="s2">
+      <thead><tr><th>Slot / Parallel</th><th>Pull %</th><th>Avg value</th><th>EV contribution</th><th style="width:130px"></th></tr></thead>
+      <tbody id="s2body"></tbody>
+    </table>
+
+    <!-- serial lookup -->
+    <div class="section-label">Look up a serial</div>
+    <div class="section-sub">Pick a parallel and serial to see its estimated value (floor, or the #1 / last-serial premium).</div>
+    <div class="lookup">
+      <div><label>Parallel</label><select id="lkParallel"></select></div>
+      <div><label>Serial #</label><input id="lkSerial" type="number" min="1" value="1" style="width:110px"></div>
+      <div class="out"><span id="lkOut">&mdash;</span><small id="lkNote"></small></div>
+    </div>
+
+    <!-- tier board -->
+    <div class="section-label">Card value board</div>
+    <div class="section-sub">Every parallel, most valuable first. <span class="grade mkt">Market</span> = backed by a real 7-31 sale or offer. <span class="grade est">Estimate</span> = owner judgment, no market data yet.</div>
+    <div id="tierboard"></div>
+
+    <div class="foot" id="foot"></div>
+  </div>
+</div>
+
+<script>
+/* FALLBACK_DATA: last-known baked snapshot (disaster floor only). The live page
+   fetches /api/moonbirds-data; this is used if that fetch or shape-check fails. */
+const FALLBACK_DATA = {
+  "product": "2026 Panini NFT Moonbirds - Birbs Beyond",
+  "type": "art_nft",
+  "status": "live_first_sales",
+  "pricing_mechanism": "first_day_sales (2026-07-31) + offers + owner judgment",
+  "valuation_principle": "cards clear above offers; floor = ordinary-serial best offer, breakouts priced per special serial; scarce serials marked up on fresh drop per owner (market expert) call",
+  "updated": "2026-07-31",
+  "data_note": "Values updated from 41 first-day sales (2026-07-31). Pack count NOT yet updated - pull odds still use original print-run population; remaining per-parallel counts pending from owner.",
+  "structure": {
+    "characters": 25,
+    "total_cards": 133,
+    "parallels": {
+      "Base Black": {
+        "run": 1,
+        "cards": 20,
+        "pool": "base"
+      },
+      "Base Holo Gold": {
+        "run": 10,
+        "cards": 20,
+        "pool": "base"
+      },
+      "Base Purple": {
+        "run": 25,
+        "cards": 20,
+        "pool": "base"
+      },
+      "Base Red": {
+        "run": 49,
+        "cards": 20,
+        "pool": "base"
+      },
+      "Base Blue": {
+        "run": 99,
+        "cards": 20,
+        "pool": "base"
+      },
+      "Base Silver": {
+        "run": 194,
+        "cards": 20,
+        "pool": "base"
+      },
+      "Kaboom Green": {
+        "run": 1,
+        "cards": 4,
+        "pool": "insert"
+      },
+      "Kaboom Gold": {
+        "run": 10,
+        "cards": 4,
+        "pool": "insert"
+      },
+      "Kaboom": {
+        "run": 25,
+        "cards": 4,
+        "pool": "insert"
+      },
+      "Birbhalla": {
+        "run": 49,
+        "cards": 1,
+        "pool": "grail"
+      }
+    }
+  },
+  "priced_cards": [
+    {
+      "character": "Enlightened Professor",
+      "parallel": "Birbhalla",
+      "run": 49,
+      "floor_value": 450,
+      "market_anchored": true,
+      "floor_basis": "7-31 ordinary sales $230-499 -> $450 (was $1000 offer-markup)",
+      "serial_breakouts": [
+        {
+          "serial": 1,
+          "value": 10000,
+          "basis": "offer-anchored $10k best offer (17 offers), #1 collector premium"
+        },
+        {
+          "serial": 49,
+          "value": 5000,
+          "basis": "last-serial premium (judgment)"
+        }
+      ]
+    }
+  ],
+  "tier_rules": [
+    {
+      "parallel": "Kaboom Green",
+      "run": 1,
+      "cards": 4,
+      "pool": "insert",
+      "market_anchored": false,
+      "basis": "top insert 1-of-1; NO sale/offer yet - owner estimate",
+      "flat_value": 5000
+    },
+    {
+      "parallel": "Base Black",
+      "run": 1,
+      "cards": 20,
+      "pool": "base",
+      "market_anchored": false,
+      "basis": "1-of-1 base chase; NO sale/offer yet - owner estimate",
+      "flat_value": 2000
+    },
+    {
+      "parallel": "Kaboom Gold",
+      "run": 10,
+      "cards": 4,
+      "pool": "insert",
+      "market_anchored": true,
+      "basis": "7-31: #1 sold $1000; owner KEEPS #1 at $2000 (clears-above-offers); floor $1000",
+      "floor_value": 1000,
+      "serial_breakouts": [
+        {
+          "serial": 1,
+          "value": 2000
+        },
+        {
+          "serial": 10,
+          "value": 2000
+        }
+      ]
+    },
+    {
+      "parallel": "Kaboom",
+      "run": 25,
+      "cards": 4,
+      "pool": "insert",
+      "market_anchored": true,
+      "basis": "7-31: ONE mid-serial (#23) sold $1000 -> floor $500 (thin, 1 sale); specials judgment",
+      "floor_value": 500,
+      "serial_breakouts": [
+        {
+          "serial": 1,
+          "value": 1000
+        },
+        {
+          "serial": 25,
+          "value": 1000
+        }
+      ]
+    },
+    {
+      "parallel": "Base Holo Gold",
+      "run": 10,
+      "cards": 20,
+      "pool": "base",
+      "market_anchored": true,
+      "basis": "7-31 sales: serial #2 sold $250 and $500 -> floor $300; #1/last premium (judgment)",
+      "floor_value": 300,
+      "serial_breakouts": [
+        {
+          "serial": 1,
+          "value": 600
+        },
+        {
+          "serial": 10,
+          "value": 500
+        }
+      ]
+    },
+    {
+      "parallel": "Base Purple",
+      "run": 25,
+      "cards": 20,
+      "pool": "base",
+      "market_anchored": true,
+      "basis": "7-31: #1 sold $150; floor/last = judgment (no ordinary sale yet)",
+      "floor_value": 35,
+      "serial_breakouts": [
+        {
+          "serial": 1,
+          "value": 150
+        },
+        {
+          "serial": 25,
+          "value": 100
+        }
+      ]
+    },
+    {
+      "parallel": "Base Red",
+      "run": 49,
+      "cards": 20,
+      "pool": "base",
+      "market_anchored": true,
+      "basis": "7-31: 3 ordinary sales $12-30 -> floor $20; #1/last judgment",
+      "floor_value": 20,
+      "serial_breakouts": [
+        {
+          "serial": 1,
+          "value": 60
+        },
+        {
+          "serial": 49,
+          "value": 60
+        }
+      ]
+    },
+    {
+      "parallel": "Base Blue",
+      "run": 99,
+      "cards": 20,
+      "pool": "base",
+      "market_anchored": true,
+      "basis": "7-31: ordinary $8-25 (med $16); #99 perfect-mint sold $250; #1 judgment",
+      "floor_value": 15,
+      "serial_breakouts": [
+        {
+          "serial": 1,
+          "value": 100
+        },
+        {
+          "serial": 99,
+          "value": 250
+        }
+      ]
+    },
+    {
+      "parallel": "Base Silver",
+      "run": 194,
+      "cards": 20,
+      "pool": "base",
+      "market_anchored": true,
+      "basis": "7-31: 23 sales, ordinary $5-25 (med $15); #1 sold $180; last = judgment",
+      "floor_value": 12,
+      "serial_breakouts": [
+        {
+          "serial": 1,
+          "value": 175
+        },
+        {
+          "serial": 194,
+          "value": 50
+        }
+      ]
+    }
+  ],
+  "pending": [
+    "remaining per-parallel pack counts (for exact pull odds)",
+    "Base Black /1 and Kaboom Green /1 still have NO sales - pure estimates"
+  ],
+  "pack_ev": {
+    "total_packs": 3873,
+    "packs_remaining": null,
+    "cards_per_pack": 2,
+    "slot1_silver_avg": 13.04,
+    "slot2_ev": 89.48,
+    "pack_book_ev": 102.51,
+    "method": "print-run = pull odds (original population; pack count not yet updated); avg parallel value accounts for serial breakouts",
+    "slot2_breakdown": {
+      "Base Blue": {
+        "copies": 1980,
+        "p": 0.5112,
+        "avg_value": 18.23
+      },
+      "Base Red": {
+        "copies": 980,
+        "p": 0.253,
+        "avg_value": 21.63
+      },
+      "Birbhalla": {
+        "copies": 49,
+        "p": 0.0127,
+        "avg_value": 737.76
+      },
+      "Base Purple": {
+        "copies": 500,
+        "p": 0.1291,
+        "avg_value": 42.2
+      },
+      "Kaboom": {
+        "copies": 100,
+        "p": 0.0258,
+        "avg_value": 540
+      },
+      "Base Holo Gold": {
+        "copies": 200,
+        "p": 0.0516,
+        "avg_value": 350
+      },
+      "Kaboom Gold": {
+        "copies": 40,
+        "p": 0.0103,
+        "avg_value": 1200
+      },
+      "Base Black": {
+        "copies": 20,
+        "p": 0.0052,
+        "avg_value": 2000
+      },
+      "Kaboom Green": {
+        "copies": 4,
+        "p": 0.001,
+        "avg_value": 5000
+      }
+    },
+    "mint": 50,
+    "multiplier": 2.5,
+    "predicted_price": 256.28,
+    "book_vs_mint": 2.05,
+    "predicted_note": "2.5x multiplier borrowed from soccer product - speculative ceiling, not a market figure"
+  }
+};
+
+let DATA = null;
+const $ = id => document.getElementById(id);
+const money = n => '$' + Math.round(n).toLocaleString('en-US');
+
+// expand a tier/card to the value for a given serial
+function serialValue(rule, serial){
+  if(rule.flat_value != null) return rule.flat_value;
+  const bo = (rule.serial_breakouts||[]).find(b => b.serial === serial);
+  return bo ? bo.value : rule.floor_value;
+}
+function topValue(rule){
+  if(rule.flat_value != null) return rule.flat_value;
+  const specials = (rule.serial_breakouts||[]).map(b=>b.value);
+  return Math.max(rule.floor_value, ...specials);
+}
+
+function validMoonbirds(d){
+  return !!d && typeof d==='object' && d.structure && Array.isArray(d.tier_rules)
+    && d.tier_rules.length>0 && d.pack_ev && Array.isArray(d.priced_cards);
+}
+
+function render(d){
+  DATA = d;
+  $('release').textContent = d.product;
+  $('updated').textContent = 'Last updated ' + d.updated + (d.pack_ev.packs_remaining ? ' · ' + d.pack_ev.packs_remaining.toLocaleString() + ' packs left' : '');
+
+  // honesty disclaimer
+  const est = d.tier_rules.filter(t=>!t.market_anchored).map(t=>t.parallel);
+  $('disclaimer').innerHTML = '<strong>Read the labels.</strong> Values are now informed by first-day (7-31) sales plus offers and owner judgment on a brand-new product — treat scarce-serial premiums as directional, not settled. '
+    + (est.length ? 'No market data yet on: <strong>' + est.join(', ') + '</strong> (pure estimates). ' : '')
+    + 'The predicted price uses a borrowed 2.5&times; multiplier and is speculative.';
+
+  // pack economics (display the stored computed numbers, do not recompute)
+  const pe = d.pack_ev;
+  $('bookEv').textContent = money(pe.pack_book_ev);
+  $('mint').textContent = money(pe.mint);
+  $('predicted').textContent = '~' + money(pe.predicted_price);
+  $('vsMint').textContent = pe.book_vs_mint + '× mint';
+
+  // slot-2 breakdown
+  const rows = Object.entries(pe.slot2_breakdown)
+    .map(([k,v]) => ({name:k, p:v.p, avg:v.avg_value, contrib:v.p*v.avg_value}))
+    .sort((a,b)=>b.contrib-a.contrib);
+  const maxC = Math.max(...rows.map(r=>r.contrib));
+  let html = '<tr class="slot1"><td>Slot 1 &mdash; Base Silver <span style="color:var(--text-faint);font-weight:400">(guaranteed)</span></td>'
+    + '<td>100%</td><td>' + money(pe.slot1_silver_avg) + '</td><td>' + money(pe.slot1_silver_avg) + '</td><td></td></tr>';
+  html += rows.map(r =>
+    '<tr><td>' + r.name + '</td>'
+    + '<td>' + (r.p*100).toFixed(2) + '%</td>'
+    + '<td>' + money(r.avg) + '</td>'
+    + '<td>' + money(r.contrib) + '</td>'
+    + '<td><span class="bar" style="width:' + Math.max(2, r.contrib/maxC*120) + 'px"></span></td></tr>'
+  ).join('');
+  $('s2body').innerHTML = html;
+
+  // tier board (priced_cards grail + tier_rules), most valuable first
+  const all = [
+    ...d.priced_cards.map(c => ({parallel:c.parallel, run:c.run, pool:'grail',
+      floor_value:c.floor_value, serial_breakouts:c.serial_breakouts, market_anchored:c.market_anchored,
+      basis:(c.floor_basis||'') })),
+    ...d.tier_rules
+  ].sort((a,b)=>topValue(b)-topValue(a));
+
+  $('tierboard').innerHTML = all.map(t => {
+    const pool = t.pool || 'base';
+    const s1 = t.flat_value!=null ? null : serialValue(t, 1);
+    const last = t.flat_value!=null ? null : serialValue(t, t.run);
+    const floorTxt = t.flat_value!=null ? money(t.flat_value) : money(t.floor_value);
+    const floorLbl = t.flat_value!=null ? 'Flat (all serials)' : 'Floor (ordinary)';
+    const badge = t.market_anchored ? '<span class="grade mkt">Market</span>' : '<span class="grade est">Estimate</span>';
+    return '<div class="tier ' + pool + '">'
+      + '<div><span class="tname">' + t.parallel + '</span><span class="tpool">' + pool + '</span><div class="trun">/' + t.run + ' · ' + (t.cards||1) + ' card' + ((t.cards||1)>1?'s':'') + '</div></div>'
+      + '<div class="cell"><div class="clabel">' + floorLbl + '</div><div class="cval">' + floorTxt + '</div></div>'
+      + (s1!=null ? '<div class="cell"><div class="clabel">Serial #1</div><div class="cval hi">' + money(s1) + '</div></div>' : '<div></div>')
+      + (last!=null ? '<div class="cell"><div class="clabel">Last (/' + t.run + ')</div><div class="cval hi">' + money(last) + '</div></div>' : '<div></div>')
+      + '<div style="text-align:right">' + badge + '</div>'
+      + (t.basis ? '<div class="basis">' + t.basis + '</div>' : '')
+      + '</div>';
+  }).join('');
+
+  // serial lookup
+  const sel = $('lkParallel');
+  sel.innerHTML = all.map(t => '<option value="' + t.parallel + '">' + t.parallel + ' /' + t.run + '</option>').join('');
+  const lkRule = name => all.find(t => t.parallel === name);
+  function doLookup(){
+    const t = lkRule(sel.value); if(!t) return;
+    let s = parseInt($('lkSerial').value,10) || 1;
+    s = Math.max(1, Math.min(t.run, s)); $('lkSerial').value = s; $('lkSerial').max = t.run;
+    const v = serialValue(t, s);
+    $('lkOut').textContent = money(v);
+    const isSpecial = t.flat_value==null && (t.serial_breakouts||[]).some(b=>b.serial===s);
+    $('lkNote').textContent = t.flat_value!=null ? 'flat value' : (isSpecial ? (s===1?'#1 premium':'last-serial premium') : 'ordinary floor');
+  }
+  sel.onchange = doLookup; $('lkSerial').oninput = doLookup; doLookup();
+
+  // footer
+  $('foot').innerHTML = 'Pack model: 2 cards/pack, ' + pe.total_packs.toLocaleString() + ' print-run population. '
+    + 'Book EV = guaranteed Silver ($' + pe.slot1_silver_avg + ') + slot-2 EV ($' + pe.slot2_ev + '). '
+    + (d.data_note ? '<br>' + d.data_note : '')
+    + '<br>This is an estimate, not financial advice.';
+
+  $('disclaimer').style.display='';
+  $('body').style.display='';
+}
+
+function boot(){
+  fetch('/api/moonbirds-data')
+    .then(r => { if(!r.ok) throw new Error('HTTP '+r.status); return r.json(); })
+    .then(d => { if(!validMoonbirds(d)) throw new Error('moonbirds payload failed shape-check'); render(d); })
+    .catch(err => { console.warn('[moonbirds] live fetch failed, using baked FALLBACK_DATA:', err.message); render(FALLBACK_DATA); });
+}
+boot();
+</script>
+</body>
+</html>
