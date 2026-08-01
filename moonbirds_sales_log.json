@@ -1,8 +1,8 @@
 {
   "product": "2026 Panini NFT Moonbirds - Birbs Beyond",
   "note": "Running de-duped sales log (append new files, dedupe on character|parallel|serial|price). Source: marketplace sale exports 2026-07-31.",
-  "updated": "2026-07-31T18:55:23.548Z",
-  "count": 237,
+  "updated": "2026-08-01T12:17:14.826Z",
+  "count": 413,
   "sales": [
     {
       "character": "Nova",
@@ -1662,6 +1662,1238 @@
       "serial": 127,
       "run": 194,
       "price": 8
+    },
+    {
+      "character": "Shade",
+      "parallel": "Base Blue",
+      "serial": 14,
+      "run": 99,
+      "price": 25
+    },
+    {
+      "character": "Bonesy",
+      "parallel": "Base Blue",
+      "serial": 43,
+      "run": 99,
+      "price": 7
+    },
+    {
+      "character": "Zed",
+      "parallel": "Base Silver",
+      "serial": 13,
+      "run": 194,
+      "price": 5
+    },
+    {
+      "character": "Hex",
+      "parallel": "Base Blue",
+      "serial": 31,
+      "run": 99,
+      "price": 8
+    },
+    {
+      "character": "Arthur",
+      "parallel": "Base Blue",
+      "serial": 37,
+      "run": 99,
+      "price": 25
+    },
+    {
+      "character": "Ferno",
+      "parallel": "Base Silver",
+      "serial": 57,
+      "run": 194,
+      "price": 10
+    },
+    {
+      "character": "Nova",
+      "parallel": "Base Purple",
+      "serial": 10,
+      "run": 25,
+      "price": 89
+    },
+    {
+      "character": "Sully",
+      "parallel": "Base Silver",
+      "serial": 76,
+      "run": 194,
+      "price": 10
+    },
+    {
+      "character": "Kenji",
+      "parallel": "Base Silver",
+      "serial": 47,
+      "run": 194,
+      "price": 7
+    },
+    {
+      "character": "Pix",
+      "parallel": "Kaboom",
+      "serial": 6,
+      "run": 25,
+      "price": 300
+    },
+    {
+      "character": "Noct",
+      "parallel": "Base Silver",
+      "serial": 45,
+      "run": 194,
+      "price": 10
+    },
+    {
+      "character": "Lance",
+      "parallel": "Base Red",
+      "serial": 19,
+      "run": 49,
+      "price": 12
+    },
+    {
+      "character": "Noct",
+      "parallel": "Base Silver",
+      "serial": 130,
+      "run": 194,
+      "price": 5
+    },
+    {
+      "character": "Patch",
+      "parallel": "Base Purple",
+      "serial": 24,
+      "run": 25,
+      "price": 47
+    },
+    {
+      "character": "Bino",
+      "parallel": "Base Silver",
+      "serial": 142,
+      "run": 194,
+      "price": 6
+    },
+    {
+      "character": "Jet",
+      "parallel": "Base Silver",
+      "serial": 34,
+      "run": 194,
+      "price": 5
+    },
+    {
+      "character": "Noct",
+      "parallel": "Base Holo Gold",
+      "serial": 5,
+      "run": 10,
+      "price": 185
+    },
+    {
+      "character": "Hex",
+      "parallel": "Base Silver",
+      "serial": 63,
+      "run": 194,
+      "price": 4
+    },
+    {
+      "character": "Mochi",
+      "parallel": "Base Silver",
+      "serial": 79,
+      "run": 194,
+      "price": 5
+    },
+    {
+      "character": "Merlin",
+      "parallel": "Base Silver",
+      "serial": 4,
+      "run": 194,
+      "price": 9
+    },
+    {
+      "character": "Zed",
+      "parallel": "Base Silver",
+      "serial": 104,
+      "run": 194,
+      "price": 5
+    },
+    {
+      "character": "Kenji",
+      "parallel": "Base Blue",
+      "serial": 19,
+      "run": 99,
+      "price": 6
+    },
+    {
+      "character": "Hex",
+      "parallel": "Base Silver",
+      "serial": 136,
+      "run": 194,
+      "price": 5
+    },
+    {
+      "character": "Noct",
+      "parallel": "Base Silver",
+      "serial": 120,
+      "run": 194,
+      "price": 5
+    },
+    {
+      "character": "Nova",
+      "parallel": "Base Red",
+      "serial": 20,
+      "run": 49,
+      "price": 15
+    },
+    {
+      "character": "Merlin",
+      "parallel": "Base Silver",
+      "serial": 79,
+      "run": 194,
+      "price": 10
+    },
+    {
+      "character": "Lumo",
+      "parallel": "Base Silver",
+      "serial": 9,
+      "run": 194,
+      "price": 8
+    },
+    {
+      "character": "Sully",
+      "parallel": "Base Blue",
+      "serial": 38,
+      "run": 99,
+      "price": 6
+    },
+    {
+      "character": "Ferno",
+      "parallel": "Base Red",
+      "serial": 20,
+      "run": 49,
+      "price": 22
+    },
+    {
+      "character": "Sully",
+      "parallel": "Base Purple",
+      "serial": 12,
+      "run": 25,
+      "price": 18
+    },
+    {
+      "character": "Lance",
+      "parallel": "Base Blue",
+      "serial": 43,
+      "run": 99,
+      "price": 6
+    },
+    {
+      "character": "Merlin",
+      "parallel": "Base Silver",
+      "serial": 138,
+      "run": 194,
+      "price": 11
+    },
+    {
+      "character": "Bino",
+      "parallel": "Base Purple",
+      "serial": 10,
+      "run": 25,
+      "price": 51
+    },
+    {
+      "character": "Fizz",
+      "parallel": "Kaboom",
+      "serial": 22,
+      "run": 25,
+      "price": 400
+    },
+    {
+      "character": "Lance",
+      "parallel": "Base Silver",
+      "serial": 1,
+      "run": 194,
+      "price": 140
+    },
+    {
+      "character": "Gustov",
+      "parallel": "Base Purple",
+      "serial": 9,
+      "run": 25,
+      "price": 69
+    },
+    {
+      "character": "Patch",
+      "parallel": "Base Red",
+      "serial": 3,
+      "run": 49,
+      "price": 50
+    },
+    {
+      "character": "Shade",
+      "parallel": "Base Red",
+      "serial": 10,
+      "run": 49,
+      "price": 69
+    },
+    {
+      "character": "Bubbles",
+      "parallel": "Base Blue",
+      "serial": 7,
+      "run": 99,
+      "price": 14
+    },
+    {
+      "character": "Jet",
+      "parallel": "Base Silver",
+      "serial": 1,
+      "run": 194,
+      "price": 99
+    },
+    {
+      "character": "Rango",
+      "parallel": "Base Blue",
+      "serial": 23,
+      "run": 99,
+      "price": 9
+    },
+    {
+      "character": "Jet",
+      "parallel": "Base Silver",
+      "serial": 62,
+      "run": 194,
+      "price": 6
+    },
+    {
+      "character": "Hex",
+      "parallel": "Base Blue",
+      "serial": 10,
+      "run": 99,
+      "price": 7
+    },
+    {
+      "character": "Merlin",
+      "parallel": "Base Silver",
+      "serial": 145,
+      "run": 194,
+      "price": 13
+    },
+    {
+      "character": "Jet",
+      "parallel": "Base Purple",
+      "serial": 8,
+      "run": 25,
+      "price": 50
+    },
+    {
+      "character": "Bubbles",
+      "parallel": "Base Red",
+      "serial": 48,
+      "run": 49,
+      "price": 19
+    },
+    {
+      "character": "Noct",
+      "parallel": "Base Silver",
+      "serial": 1,
+      "run": 194,
+      "price": 180
+    },
+    {
+      "character": "Sully",
+      "parallel": "Base Silver",
+      "serial": 70,
+      "run": 194,
+      "price": 10
+    },
+    {
+      "character": "Bubbles",
+      "parallel": "Base Silver",
+      "serial": 193,
+      "run": 194,
+      "price": 9
+    },
+    {
+      "character": "Lance",
+      "parallel": "Base Silver",
+      "serial": 67,
+      "run": 194,
+      "price": 5
+    },
+    {
+      "character": "Gustov",
+      "parallel": "Base Blue",
+      "serial": 53,
+      "run": 99,
+      "price": 5
+    },
+    {
+      "character": "Lumo",
+      "parallel": "Base Blue",
+      "serial": 5,
+      "run": 99,
+      "price": 6
+    },
+    {
+      "character": "Bonesy",
+      "parallel": "Base Silver",
+      "serial": 76,
+      "run": 194,
+      "price": 5
+    },
+    {
+      "character": "Noct",
+      "parallel": "Base Silver",
+      "serial": 22,
+      "run": 194,
+      "price": 5
+    },
+    {
+      "character": "Bubbles",
+      "parallel": "Base Silver",
+      "serial": 193,
+      "run": 194,
+      "price": 6
+    },
+    {
+      "character": "Bubbles",
+      "parallel": "Base Blue",
+      "serial": 54,
+      "run": 99,
+      "price": 6
+    },
+    {
+      "character": "Bubbles",
+      "parallel": "Base Red",
+      "serial": 25,
+      "run": 49,
+      "price": 12
+    },
+    {
+      "character": "Zed",
+      "parallel": "Base Silver",
+      "serial": 54,
+      "run": 194,
+      "price": 5
+    },
+    {
+      "character": "Merlin",
+      "parallel": "Base Blue",
+      "serial": 54,
+      "run": 99,
+      "price": 9
+    },
+    {
+      "character": "Kenji",
+      "parallel": "Base Blue",
+      "serial": 52,
+      "run": 99,
+      "price": 8
+    },
+    {
+      "character": "Merlin",
+      "parallel": "Base Red",
+      "serial": 33,
+      "run": 49,
+      "price": 18
+    },
+    {
+      "character": "Lumo",
+      "parallel": "Base Blue",
+      "serial": 19,
+      "run": 99,
+      "price": 6
+    },
+    {
+      "character": "Hex",
+      "parallel": "Base Blue",
+      "serial": 57,
+      "run": 99,
+      "price": 8
+    },
+    {
+      "character": "Zed",
+      "parallel": "Base Purple",
+      "serial": 15,
+      "run": 25,
+      "price": 47
+    },
+    {
+      "character": "Jet",
+      "parallel": "Base Purple",
+      "serial": 19,
+      "run": 25,
+      "price": 43
+    },
+    {
+      "character": "Zed",
+      "parallel": "Base Silver",
+      "serial": 181,
+      "run": 194,
+      "price": 10
+    },
+    {
+      "character": "Sully",
+      "parallel": "Base Blue",
+      "serial": 26,
+      "run": 99,
+      "price": 8
+    },
+    {
+      "character": "Noct",
+      "parallel": "Base Red",
+      "serial": 27,
+      "run": 49,
+      "price": 21
+    },
+    {
+      "character": "Noct",
+      "parallel": "Base Silver",
+      "serial": 109,
+      "run": 194,
+      "price": 7
+    },
+    {
+      "character": "Lumo",
+      "parallel": "Base Silver",
+      "serial": 166,
+      "run": 194,
+      "price": 6
+    },
+    {
+      "character": "Bonesy",
+      "parallel": "Base Blue",
+      "serial": 24,
+      "run": 99,
+      "price": 6
+    },
+    {
+      "character": "Noct",
+      "parallel": "Base Silver",
+      "serial": 93,
+      "run": 194,
+      "price": 8
+    },
+    {
+      "character": "Ferno",
+      "parallel": "Base Silver",
+      "serial": 176,
+      "run": 194,
+      "price": 9
+    },
+    {
+      "character": "Shade",
+      "parallel": "Base Purple",
+      "serial": 21,
+      "run": 25,
+      "price": 50
+    },
+    {
+      "character": "Shade",
+      "parallel": "Base Silver",
+      "serial": 99,
+      "run": 194,
+      "price": 5
+    },
+    {
+      "character": "Ferno",
+      "parallel": "Base Blue",
+      "serial": 11,
+      "run": 99,
+      "price": 12
+    },
+    {
+      "character": "Mochi",
+      "parallel": "Base Blue",
+      "serial": 8,
+      "run": 99,
+      "price": 12
+    },
+    {
+      "character": "Kenji",
+      "parallel": "Base Blue",
+      "serial": 70,
+      "run": 99,
+      "price": 8
+    },
+    {
+      "character": "Zed",
+      "parallel": "Base Silver",
+      "serial": 106,
+      "run": 194,
+      "price": 5
+    },
+    {
+      "character": "Ferno",
+      "parallel": "Base Blue",
+      "serial": 20,
+      "run": 99,
+      "price": 10
+    },
+    {
+      "character": "Patch",
+      "parallel": "Base Silver",
+      "serial": 174,
+      "run": 194,
+      "price": 6
+    },
+    {
+      "character": "Kapow",
+      "parallel": "Kaboom",
+      "serial": 13,
+      "run": 25,
+      "price": 1100
+    },
+    {
+      "character": "Sully",
+      "parallel": "Base Red",
+      "serial": 5,
+      "run": 49,
+      "price": 18
+    },
+    {
+      "character": "Hex",
+      "parallel": "Base Blue",
+      "serial": 20,
+      "run": 99,
+      "price": 15
+    },
+    {
+      "character": "Hex",
+      "parallel": "Base Silver",
+      "serial": 111,
+      "run": 194,
+      "price": 10
+    },
+    {
+      "character": "Lumo",
+      "parallel": "Base Silver",
+      "serial": 152,
+      "run": 194,
+      "price": 8
+    },
+    {
+      "character": "Patch",
+      "parallel": "Base Silver",
+      "serial": 85,
+      "run": 194,
+      "price": 12
+    },
+    {
+      "character": "Kenji",
+      "parallel": "Base Purple",
+      "serial": 22,
+      "run": 25,
+      "price": 50
+    },
+    {
+      "character": "Shift",
+      "parallel": "Kaboom Gold",
+      "serial": 3,
+      "run": 10,
+      "price": 2000
+    },
+    {
+      "character": "Rango",
+      "parallel": "Base Silver",
+      "serial": 132,
+      "run": 194,
+      "price": 8
+    },
+    {
+      "character": "Lance",
+      "parallel": "Base Silver",
+      "serial": 110,
+      "run": 194,
+      "price": 5
+    },
+    {
+      "character": "Nova",
+      "parallel": "Base Silver",
+      "serial": 192,
+      "run": 194,
+      "price": 7
+    },
+    {
+      "character": "Gustov",
+      "parallel": "Base Silver",
+      "serial": 21,
+      "run": 194,
+      "price": 12
+    },
+    {
+      "character": "Bonesy",
+      "parallel": "Base Silver",
+      "serial": 41,
+      "run": 194,
+      "price": 6
+    },
+    {
+      "character": "Jet",
+      "parallel": "Base Blue",
+      "serial": 90,
+      "run": 99,
+      "price": 12
+    },
+    {
+      "character": "Bino",
+      "parallel": "Base Silver",
+      "serial": 25,
+      "run": 194,
+      "price": 9
+    },
+    {
+      "character": "Arthur",
+      "parallel": "Base Silver",
+      "serial": 68,
+      "run": 194,
+      "price": 7
+    },
+    {
+      "character": "Jet",
+      "parallel": "Base Silver",
+      "serial": 156,
+      "run": 194,
+      "price": 6
+    },
+    {
+      "character": "Shade",
+      "parallel": "Base Silver",
+      "serial": 46,
+      "run": 194,
+      "price": 5
+    },
+    {
+      "character": "Lance",
+      "parallel": "Base Blue",
+      "serial": 44,
+      "run": 99,
+      "price": 4
+    },
+    {
+      "character": "Sully",
+      "parallel": "Base Holo Gold",
+      "serial": 7,
+      "run": 10,
+      "price": 210
+    },
+    {
+      "character": "Rango",
+      "parallel": "Base Holo Gold",
+      "serial": 2,
+      "run": 10,
+      "price": 250
+    },
+    {
+      "character": "Patch",
+      "parallel": "Base Silver",
+      "serial": 98,
+      "run": 194,
+      "price": 8
+    },
+    {
+      "character": "Kenji",
+      "parallel": "Base Silver",
+      "serial": 104,
+      "run": 194,
+      "price": 7
+    },
+    {
+      "character": "Shade",
+      "parallel": "Base Silver",
+      "serial": 64,
+      "run": 194,
+      "price": 5
+    },
+    {
+      "character": "Bubbles",
+      "parallel": "Base Blue",
+      "serial": 64,
+      "run": 99,
+      "price": 7
+    },
+    {
+      "character": "Lumo",
+      "parallel": "Base Holo Gold",
+      "serial": 6,
+      "run": 10,
+      "price": 290
+    },
+    {
+      "character": "Lumo",
+      "parallel": "Base Blue",
+      "serial": 6,
+      "run": 99,
+      "price": 8
+    },
+    {
+      "character": "Ferno",
+      "parallel": "Base Blue",
+      "serial": 22,
+      "run": 99,
+      "price": 10
+    },
+    {
+      "character": "Rango",
+      "parallel": "Base Silver",
+      "serial": 29,
+      "run": 194,
+      "price": 9
+    },
+    {
+      "character": "Ferno",
+      "parallel": "Base Holo Gold",
+      "serial": 4,
+      "run": 10,
+      "price": 300
+    },
+    {
+      "character": "Merlin",
+      "parallel": "Base Holo Gold",
+      "serial": 8,
+      "run": 10,
+      "price": 799
+    },
+    {
+      "character": "Hex",
+      "parallel": "Base Silver",
+      "serial": 132,
+      "run": 194,
+      "price": 7
+    },
+    {
+      "character": "Sully",
+      "parallel": "Base Silver",
+      "serial": 174,
+      "run": 194,
+      "price": 10
+    },
+    {
+      "character": "Merlin",
+      "parallel": "Base Silver",
+      "serial": 5,
+      "run": 194,
+      "price": 13
+    },
+    {
+      "character": "Lumo",
+      "parallel": "Base Red",
+      "serial": 36,
+      "run": 49,
+      "price": 21
+    },
+    {
+      "character": "Merlin",
+      "parallel": "Base Silver",
+      "serial": 149,
+      "run": 194,
+      "price": 21
+    },
+    {
+      "character": "Shade",
+      "parallel": "Base Silver",
+      "serial": 149,
+      "run": 194,
+      "price": 7
+    },
+    {
+      "character": "Rango",
+      "parallel": "Base Red",
+      "serial": 4,
+      "run": 49,
+      "price": 23
+    },
+    {
+      "character": "Bonesy",
+      "parallel": "Base Silver",
+      "serial": 62,
+      "run": 194,
+      "price": 7
+    },
+    {
+      "character": "Rango",
+      "parallel": "Base Blue",
+      "serial": 81,
+      "run": 99,
+      "price": 9
+    },
+    {
+      "character": "Ferno",
+      "parallel": "Base Red",
+      "serial": 47,
+      "run": 49,
+      "price": 20
+    },
+    {
+      "character": "Merlin",
+      "parallel": "Base Purple",
+      "serial": 25,
+      "run": 25,
+      "price": 150
+    },
+    {
+      "character": "Gustov",
+      "parallel": "Base Red",
+      "serial": 35,
+      "run": 49,
+      "price": 10
+    },
+    {
+      "character": "Hex",
+      "parallel": "Base Silver",
+      "serial": 85,
+      "run": 194,
+      "price": 5
+    },
+    {
+      "character": "Noct",
+      "parallel": "Base Silver",
+      "serial": 103,
+      "run": 194,
+      "price": 8
+    },
+    {
+      "character": "Mochi",
+      "parallel": "Base Silver",
+      "serial": 7,
+      "run": 194,
+      "price": 7
+    },
+    {
+      "character": "Merlin",
+      "parallel": "Base Silver",
+      "serial": 172,
+      "run": 194,
+      "price": 15
+    },
+    {
+      "character": "Sully",
+      "parallel": "Base Blue",
+      "serial": 98,
+      "run": 99,
+      "price": 12
+    },
+    {
+      "character": "Enlightened Professor",
+      "parallel": "Birbhalla",
+      "serial": 34,
+      "run": 49,
+      "price": 600
+    },
+    {
+      "character": "Patch",
+      "parallel": "Base Silver",
+      "serial": 186,
+      "run": 194,
+      "price": 7
+    },
+    {
+      "character": "Patch",
+      "parallel": "Base Blue",
+      "serial": 61,
+      "run": 99,
+      "price": 6
+    },
+    {
+      "character": "Mochi",
+      "parallel": "Base Red",
+      "serial": 40,
+      "run": 49,
+      "price": 20
+    },
+    {
+      "character": "Arthur",
+      "parallel": "Base Silver",
+      "serial": 108,
+      "run": 194,
+      "price": 7
+    },
+    {
+      "character": "Shade",
+      "parallel": "Base Red",
+      "serial": 26,
+      "run": 49,
+      "price": 25
+    },
+    {
+      "character": "Hex",
+      "parallel": "Base Silver",
+      "serial": 3,
+      "run": 194,
+      "price": 5
+    },
+    {
+      "character": "Zed",
+      "parallel": "Base Silver",
+      "serial": 184,
+      "run": 194,
+      "price": 5
+    },
+    {
+      "character": "Lance",
+      "parallel": "Base Blue",
+      "serial": 92,
+      "run": 99,
+      "price": 5
+    },
+    {
+      "character": "Lance",
+      "parallel": "Base Silver",
+      "serial": 22,
+      "run": 194,
+      "price": 5
+    },
+    {
+      "character": "Fizz",
+      "parallel": "Kaboom Gold",
+      "serial": 10,
+      "run": 10,
+      "price": 2424
+    },
+    {
+      "character": "Hex",
+      "parallel": "Base Silver",
+      "serial": 163,
+      "run": 194,
+      "price": 7
+    },
+    {
+      "character": "Fizz",
+      "parallel": "Kaboom",
+      "serial": 1,
+      "run": 25,
+      "price": 450
+    },
+    {
+      "character": "Lumo",
+      "parallel": "Base Silver",
+      "serial": 63,
+      "run": 194,
+      "price": 7
+    },
+    {
+      "character": "Rango",
+      "parallel": "Base Blue",
+      "serial": 47,
+      "run": 99,
+      "price": 8
+    },
+    {
+      "character": "Bino",
+      "parallel": "Base Blue",
+      "serial": 42,
+      "run": 99,
+      "price": 8
+    },
+    {
+      "character": "Bonesy",
+      "parallel": "Base Red",
+      "serial": 13,
+      "run": 49,
+      "price": 15
+    },
+    {
+      "character": "Pix",
+      "parallel": "Kaboom Gold",
+      "serial": 8,
+      "run": 10,
+      "price": 1700
+    },
+    {
+      "character": "Pix",
+      "parallel": "Kaboom Gold",
+      "serial": 6,
+      "run": 10,
+      "price": 1600
+    },
+    {
+      "character": "Fizz",
+      "parallel": "Kaboom Gold",
+      "serial": 9,
+      "run": 10,
+      "price": 1600
+    },
+    {
+      "character": "Pix",
+      "parallel": "Kaboom",
+      "serial": 19,
+      "run": 25,
+      "price": 600
+    },
+    {
+      "character": "Gustov",
+      "parallel": "Base Holo Gold",
+      "serial": 3,
+      "run": 10,
+      "price": 150
+    },
+    {
+      "character": "Noct",
+      "parallel": "Base Red",
+      "serial": 11,
+      "run": 49,
+      "price": 23
+    },
+    {
+      "character": "Patch",
+      "parallel": "Base Blue",
+      "serial": 23,
+      "run": 99,
+      "price": 11
+    },
+    {
+      "character": "Nova",
+      "parallel": "Base Purple",
+      "serial": 12,
+      "run": 25,
+      "price": 52
+    },
+    {
+      "character": "Kenji",
+      "parallel": "Base Silver",
+      "serial": 131,
+      "run": 194,
+      "price": 7
+    },
+    {
+      "character": "Sully",
+      "parallel": "Base Silver",
+      "serial": 72,
+      "run": 194,
+      "price": 8
+    },
+    {
+      "character": "Shade",
+      "parallel": "Base Silver",
+      "serial": 60,
+      "run": 194,
+      "price": 7
+    },
+    {
+      "character": "Bonesy",
+      "parallel": "Base Silver",
+      "serial": 192,
+      "run": 194,
+      "price": 8
+    },
+    {
+      "character": "Gustov",
+      "parallel": "Base Silver",
+      "serial": 114,
+      "run": 194,
+      "price": 7
+    },
+    {
+      "character": "Sully",
+      "parallel": "Base Purple",
+      "serial": 24,
+      "run": 25,
+      "price": 40
+    },
+    {
+      "character": "Bonesy",
+      "parallel": "Base Silver",
+      "serial": 1,
+      "run": 194,
+      "price": 35
+    },
+    {
+      "character": "Gustov",
+      "parallel": "Base Silver",
+      "serial": 75,
+      "run": 194,
+      "price": 8
+    },
+    {
+      "character": "Enlightened Professor",
+      "parallel": "Birbhalla",
+      "serial": 40,
+      "run": 49,
+      "price": 650
+    },
+    {
+      "character": "Ferno",
+      "parallel": "Base Silver",
+      "serial": 25,
+      "run": 194,
+      "price": 10
+    },
+    {
+      "character": "Shade",
+      "parallel": "Base Blue",
+      "serial": 52,
+      "run": 99,
+      "price": 19
+    },
+    {
+      "character": "Bino",
+      "parallel": "Base Blue",
+      "serial": 65,
+      "run": 99,
+      "price": 17
+    },
+    {
+      "character": "Pix",
+      "parallel": "Kaboom Gold",
+      "serial": 3,
+      "run": 10,
+      "price": 1500
+    },
+    {
+      "character": "Arthur",
+      "parallel": "Base Blue",
+      "serial": 89,
+      "run": 99,
+      "price": 20
+    },
+    {
+      "character": "Nova",
+      "parallel": "Base Blue",
+      "serial": 38,
+      "run": 99,
+      "price": 19
+    },
+    {
+      "character": "Arthur",
+      "parallel": "Base Red",
+      "serial": 32,
+      "run": 49,
+      "price": 12
+    },
+    {
+      "character": "Bino",
+      "parallel": "Base Silver",
+      "serial": 94,
+      "run": 194,
+      "price": 7
+    },
+    {
+      "character": "Lumo",
+      "parallel": "Base Blue",
+      "serial": 74,
+      "run": 99,
+      "price": 9
+    },
+    {
+      "character": "Bubbles",
+      "parallel": "Base Silver",
+      "serial": 153,
+      "run": 194,
+      "price": 7
+    },
+    {
+      "character": "Sully",
+      "parallel": "Base Silver",
+      "serial": 96,
+      "run": 194,
+      "price": 9
+    },
+    {
+      "character": "Sully",
+      "parallel": "Base Blue",
+      "serial": 26,
+      "run": 99,
+      "price": 9
+    },
+    {
+      "character": "Arthur",
+      "parallel": "Base Holo Gold",
+      "serial": 7,
+      "run": 10,
+      "price": 250
     }
   ]
 }

@@ -187,7 +187,7 @@ const FALLBACK_DATA = {
   "status": "live_first_sales",
   "pricing_mechanism": "running sales log (143 sales) + report remaining counts + owner judgment",
   "valuation_principle": "cards clear above offers; floor = ordinary-serial best offer, breakouts priced per special serial; scarce serials marked up on fresh drop per owner (market expert) call",
-  "updated": "2026-07-31",
+  "updated": "2026-08-01",
   "data_note": "Values from the running sales log (3873-run product; 149 sales). Pull odds use the UPDATED collection report remaining counts. Packs left ~2898.",
   "structure": {
     "characters": 25,
@@ -426,67 +426,74 @@ const FALLBACK_DATA = {
   ],
   "pack_ev": {
     "total_packs": 3873,
-    "packs_remaining": 2715,
-    "slot2_remaining": 2755,
+    "packs_remaining": 2346,
+    "slot2_remaining": 2385,
     "cards_per_pack": 2,
     "slot1_silver_avg": 13.24,
-    "slot2_ev": 120.81,
-    "pack_book_ev": 134.05,
+    "slot2_ev": 123.03,
+    "pack_book_ev": 136.27,
     "method": "pull odds = REAL remaining per-parallel counts (updated collection report); avg from floor + serial breakouts",
     "slot2_breakdown": {
-      "Birbhalla": {
-        "copies": 39,
-        "p": 0.0142,
-        "avg_value": 1048.72
-      },
       "Base Black": {
-        "copies": 16,
-        "p": 0.0058,
+        "copies": 14,
+        "p": 0.0059,
         "avg_value": 2300
       },
-      "Base Purple": {
-        "copies": 367,
-        "p": 0.1332,
-        "avg_value": 75.54
-      },
-      "Kaboom Gold": {
-        "copies": 28,
-        "p": 0.0102,
-        "avg_value": 1285.71
-      },
-      "Base Red": {
-        "copies": 697,
-        "p": 0.253,
-        "avg_value": 35.1
-      },
       "Base Blue": {
-        "copies": 1409,
-        "p": 0.5114,
-        "avg_value": 20.16
-      },
-      "Base Holo Gold": {
-        "copies": 133,
-        "p": 0.0483,
-        "avg_value": 380.64
-      },
-      "Kaboom": {
-        "copies": 63,
-        "p": 0.0229,
-        "avg_value": 919.05
+        "copies": 1237,
+        "p": 0.5187,
+        "avg_value": 20.18
       },
       "Kaboom Green": {
         "copies": 3,
-        "p": 0.0011,
+        "p": 0.0013,
         "avg_value": 10000
+      },
+      "Base Holo Gold": {
+        "copies": 119,
+        "p": 0.0499,
+        "avg_value": 381.3
+      },
+      "Kaboom": {
+        "copies": 55,
+        "p": 0.0231,
+        "avg_value": 921.82
+      },
+      "Kaboom Gold": {
+        "copies": 21,
+        "p": 0.0088,
+        "avg_value": 1297.62
+      },
+      "Base Red": {
+        "copies": 591,
+        "p": 0.2478,
+        "avg_value": 35.12
+      },
+      "Birbhalla": {
+        "copies": 36,
+        "p": 0.0151,
+        "avg_value": 1077.78
+      },
+      "Base Purple": {
+        "copies": 309,
+        "p": 0.1296,
+        "avg_value": 75.65
       }
     },
     "mint": 50,
     "multiplier": 2.5,
-    "predicted_price": 335.13,
-    "book_vs_mint": 2.68,
+    "predicted_price": 340.68,
+    "book_vs_mint": 2.73,
     "predicted_note": "2.5x borrowed from soccer - speculative ceiling, not a market figure"
   },
   "cards_remaining": [
+    {
+      "c": "Shift",
+      "s": "Kaboom Green",
+      "r": 1,
+      "u": 1,
+      "p": 10000
+    },
     {
       "c": "Pix",
       "s": "Kaboom Green",
@@ -496,13 +503,6 @@ const FALLBACK_DATA = {
     },
     {
       "c": "Fizz",
-      "s": "Kaboom Green",
-      "r": 1,
-      "u": 1,
-      "p": 10000
-    },
-    {
-      "c": "Shift",
       "s": "Kaboom Green",
       "r": 1,
       "u": 1,
@@ -516,98 +516,7 @@ const FALLBACK_DATA = {
       "p": 10000
     },
     {
-      "c": "Bino",
-      "s": "Base Black",
-      "r": 1,
-      "u": 1,
-      "p": 2300
-    },
-    {
-      "c": "Bonesy",
-      "s": "Base Black",
-      "r": 1,
-      "u": 1,
-      "p": 2300
-    },
-    {
-      "c": "Mochi",
-      "s": "Base Black",
-      "r": 1,
-      "u": 1,
-      "p": 2300
-    },
-    {
-      "c": "Patch",
-      "s": "Base Black",
-      "r": 1,
-      "u": 1,
-      "p": 2300
-    },
-    {
-      "c": "Kenji",
-      "s": "Base Black",
-      "r": 1,
-      "u": 1,
-      "p": 2300
-    },
-    {
-      "c": "Jet",
-      "s": "Base Black",
-      "r": 1,
-      "u": 1,
-      "p": 2300
-    },
-    {
-      "c": "Sully",
-      "s": "Base Black",
-      "r": 1,
-      "u": 1,
-      "p": 2300
-    },
-    {
-      "c": "Bubbles",
-      "s": "Base Black",
-      "r": 1,
-      "u": 1,
-      "p": 2300
-    },
-    {
-      "c": "Gustov",
-      "s": "Base Black",
-      "r": 1,
-      "u": 1,
-      "p": 2300
-    },
-    {
-      "c": "Lance",
-      "s": "Base Black",
-      "r": 1,
-      "u": 1,
-      "p": 2300
-    },
-    {
-      "c": "Ferno",
-      "s": "Base Black",
-      "r": 1,
-      "u": 1,
-      "p": 2300
-    },
-    {
-      "c": "Shade",
-      "s": "Base Black",
-      "r": 1,
-      "u": 1,
-      "p": 2300
-    },
-    {
-      "c": "Lumo",
-      "s": "Base Black",
-      "r": 1,
-      "u": 1,
-      "p": 2300
-    },
-    {
-      "c": "Noct",
+      "c": "Hex",
       "s": "Base Black",
       "r": 1,
       "u": 1,
@@ -621,18 +530,88 @@ const FALLBACK_DATA = {
       "p": 2300
     },
     {
-      "c": "Hex",
+      "c": "Ferno",
       "s": "Base Black",
       "r": 1,
       "u": 1,
       "p": 2300
     },
     {
-      "c": "Shift",
-      "s": "Kaboom Gold",
-      "r": 10,
-      "u": 8,
-      "p": 1250
+      "c": "Kenji",
+      "s": "Base Black",
+      "r": 1,
+      "u": 1,
+      "p": 2300
+    },
+    {
+      "c": "Bonesy",
+      "s": "Base Black",
+      "r": 1,
+      "u": 1,
+      "p": 2300
+    },
+    {
+      "c": "Lance",
+      "s": "Base Black",
+      "r": 1,
+      "u": 1,
+      "p": 2300
+    },
+    {
+      "c": "Noct",
+      "s": "Base Black",
+      "r": 1,
+      "u": 1,
+      "p": 2300
+    },
+    {
+      "c": "Lumo",
+      "s": "Base Black",
+      "r": 1,
+      "u": 1,
+      "p": 2300
+    },
+    {
+      "c": "Bino",
+      "s": "Base Black",
+      "r": 1,
+      "u": 1,
+      "p": 2300
+    },
+    {
+      "c": "Shade",
+      "s": "Base Black",
+      "r": 1,
+      "u": 1,
+      "p": 2300
+    },
+    {
+      "c": "Patch",
+      "s": "Base Black",
+      "r": 1,
+      "u": 1,
+      "p": 2300
+    },
+    {
+      "c": "Mochi",
+      "s": "Base Black",
+      "r": 1,
+      "u": 1,
+      "p": 2300
+    },
+    {
+      "c": "Gustov",
+      "s": "Base Black",
+      "r": 1,
+      "u": 1,
+      "p": 2300
+    },
+    {
+      "c": "Jet",
+      "s": "Base Black",
+      "r": 1,
+      "u": 1,
+      "p": 2300
     },
     {
       "c": "Kapow",
@@ -642,28 +621,28 @@ const FALLBACK_DATA = {
       "p": 1250
     },
     {
+      "c": "Shift",
+      "s": "Kaboom Gold",
+      "r": 10,
+      "u": 6,
+      "p": 1250
+    },
+    {
       "c": "Fizz",
       "s": "Kaboom Gold",
       "r": 10,
-      "u": 8,
+      "u": 5,
       "p": 1250
     },
     {
       "c": "Pix",
       "s": "Kaboom Gold",
       "r": 10,
-      "u": 4,
+      "u": 2,
       "p": 1250
     },
     {
       "c": "Shift",
-      "s": "Kaboom",
-      "r": 25,
-      "u": 17,
-      "p": 900
-    },
-    {
-      "c": "Pix",
       "s": "Kaboom",
       "r": 25,
       "u": 16,
@@ -671,48 +650,34 @@ const FALLBACK_DATA = {
     },
     {
       "c": "Kapow",
-      "s": "Kaboom",
-      "r": 25,
-      "u": 16,
-      "p": 900
-    },
-    {
-      "c": "Fizz",
       "s": "Kaboom",
       "r": 25,
       "u": 14,
       "p": 900
     },
     {
+      "c": "Pix",
+      "s": "Kaboom",
+      "r": 25,
+      "u": 13,
+      "p": 900
+    },
+    {
+      "c": "Fizz",
+      "s": "Kaboom",
+      "r": 25,
+      "u": 12,
+      "p": 900
+    },
+    {
       "c": "Enlightened Professor",
       "s": "Birbhalla",
       "r": 49,
-      "u": 38,
+      "u": 35,
       "p": 700
     },
     {
-      "c": "Bino",
-      "s": "Base Holo Gold",
-      "r": 10,
-      "u": 9,
-      "p": 375
-    },
-    {
-      "c": "Shade",
-      "s": "Base Holo Gold",
-      "r": 10,
-      "u": 8,
-      "p": 375
-    },
-    {
-      "c": "Gustov",
-      "s": "Base Holo Gold",
-      "r": 10,
-      "u": 8,
-      "p": 375
-    },
-    {
-      "c": "Noct",
+      "c": "Patch",
       "s": "Base Holo Gold",
       "r": 10,
       "u": 8,
@@ -726,28 +691,21 @@ const FALLBACK_DATA = {
       "p": 375
     },
     {
-      "c": "Patch",
+      "c": "Bino",
       "s": "Base Holo Gold",
       "r": 10,
       "u": 8,
       "p": 375
     },
     {
-      "c": "Merlin",
+      "c": "Nova",
       "s": "Base Holo Gold",
       "r": 10,
       "u": 7,
       "p": 375
     },
     {
-      "c": "Hex",
-      "s": "Base Holo Gold",
-      "r": 10,
-      "u": 7,
-      "p": 375
-    },
-    {
-      "c": "Sully",
+      "c": "Shade",
       "s": "Base Holo Gold",
       "r": 10,
       "u": 7,
@@ -761,21 +719,21 @@ const FALLBACK_DATA = {
       "p": 375
     },
     {
-      "c": "Jet",
+      "c": "Noct",
       "s": "Base Holo Gold",
       "r": 10,
       "u": 7,
       "p": 375
     },
     {
-      "c": "Nova",
+      "c": "Hex",
       "s": "Base Holo Gold",
       "r": 10,
       "u": 7,
       "p": 375
     },
     {
-      "c": "Ferno",
+      "c": "Gustov",
       "s": "Base Holo Gold",
       "r": 10,
       "u": 7,
@@ -796,7 +754,28 @@ const FALLBACK_DATA = {
       "p": 375
     },
     {
-      "c": "Bubbles",
+      "c": "Sully",
+      "s": "Base Holo Gold",
+      "r": 10,
+      "u": 6,
+      "p": 375
+    },
+    {
+      "c": "Merlin",
+      "s": "Base Holo Gold",
+      "r": 10,
+      "u": 6,
+      "p": 375
+    },
+    {
+      "c": "Jet",
+      "s": "Base Holo Gold",
+      "r": 10,
+      "u": 6,
+      "p": 375
+    },
+    {
+      "c": "Ferno",
       "s": "Base Holo Gold",
       "r": 10,
       "u": 6,
@@ -810,20 +789,6 @@ const FALLBACK_DATA = {
       "p": 375
     },
     {
-      "c": "Lance",
-      "s": "Base Holo Gold",
-      "r": 10,
-      "u": 4,
-      "p": 375
-    },
-    {
-      "c": "Kenji",
-      "s": "Base Holo Gold",
-      "r": 10,
-      "u": 4,
-      "p": 375
-    },
-    {
       "c": "Arthur",
       "s": "Base Holo Gold",
       "r": 10,
@@ -831,94 +796,59 @@ const FALLBACK_DATA = {
       "p": 375
     },
     {
+      "c": "Bubbles",
+      "s": "Base Holo Gold",
+      "r": 10,
+      "u": 3,
+      "p": 375
+    },
+    {
+      "c": "Kenji",
+      "s": "Base Holo Gold",
+      "r": 10,
+      "u": 3,
+      "p": 375
+    },
+    {
+      "c": "Lance",
+      "s": "Base Holo Gold",
+      "r": 10,
+      "u": 2,
+      "p": 375
+    },
+    {
       "c": "Hex",
       "s": "Base Purple",
       "r": 25,
-      "u": 21,
-      "p": 75
-    },
-    {
-      "c": "Bubbles",
-      "s": "Base Purple",
-      "r": 25,
-      "u": 20,
-      "p": 75
-    },
-    {
-      "c": "Rango",
-      "s": "Base Purple",
-      "r": 25,
-      "u": 20,
+      "u": 19,
       "p": 75
     },
     {
       "c": "Bonesy",
       "s": "Base Purple",
       "r": 25,
-      "u": 20,
-      "p": 75
-    },
-    {
-      "c": "Noct",
-      "s": "Base Purple",
-      "r": 25,
-      "u": 20,
+      "u": 18,
       "p": 75
     },
     {
       "c": "Shade",
       "s": "Base Purple",
       "r": 25,
-      "u": 20,
+      "u": 17,
       "p": 75
     },
     {
-      "c": "Arthur",
+      "c": "Rango",
       "s": "Base Purple",
       "r": 25,
-      "u": 20,
-      "p": 75
-    },
-    {
-      "c": "Jet",
-      "s": "Base Purple",
-      "r": 25,
-      "u": 20,
+      "u": 17,
       "p": 75
     },
     {
       "c": "Kenji",
       "s": "Base Purple",
       "r": 25,
-      "u": 19,
-      "p": 75
-    },
-    {
-      "c": "Bino",
-      "s": "Base Purple",
-      "r": 25,
-      "u": 19,
-      "p": 75
-    },
-    {
-      "c": "Lance",
-      "s": "Base Purple",
-      "r": 25,
-      "u": 18,
-      "p": 75
-    },
-    {
-      "c": "Merlin",
-      "s": "Base Purple",
-      "r": 25,
-      "u": 18,
-      "p": 75
-    },
-    {
-      "c": "Patch",
-      "s": "Base Purple",
-      "r": 25,
-      "u": 18,
+      "u": 17,
       "p": 75
     },
     {
@@ -929,45 +859,101 @@ const FALLBACK_DATA = {
       "p": 75
     },
     {
-      "c": "Nova",
+      "c": "Patch",
       "s": "Base Purple",
       "r": 25,
-      "u": 17,
+      "u": 16,
       "p": 75
     },
     {
       "c": "Lumo",
       "s": "Base Purple",
       "r": 25,
-      "u": 17,
+      "u": 16,
       "p": 75
     },
     {
-      "c": "Ferno",
+      "c": "Jet",
       "s": "Base Purple",
       "r": 25,
-      "u": 17,
+      "u": 16,
+      "p": 75
+    },
+    {
+      "c": "Arthur",
+      "s": "Base Purple",
+      "r": 25,
+      "u": 16,
+      "p": 75
+    },
+    {
+      "c": "Bino",
+      "s": "Base Purple",
+      "r": 25,
+      "u": 15,
       "p": 75
     },
     {
       "c": "Zed",
       "s": "Base Purple",
       "r": 25,
-      "u": 17,
+      "u": 15,
+      "p": 75
+    },
+    {
+      "c": "Noct",
+      "s": "Base Purple",
+      "r": 25,
+      "u": 15,
+      "p": 75
+    },
+    {
+      "c": "Ferno",
+      "s": "Base Purple",
+      "r": 25,
+      "u": 15,
+      "p": 75
+    },
+    {
+      "c": "Bubbles",
+      "s": "Base Purple",
+      "r": 25,
+      "u": 15,
+      "p": 75
+    },
+    {
+      "c": "Merlin",
+      "s": "Base Purple",
+      "r": 25,
+      "u": 14,
+      "p": 75
+    },
+    {
+      "c": "Lance",
+      "s": "Base Purple",
+      "r": 25,
+      "u": 14,
       "p": 75
     },
     {
       "c": "Gustov",
       "s": "Base Purple",
       "r": 25,
-      "u": 17,
+      "u": 14,
+      "p": 75
+    },
+    {
+      "c": "Nova",
+      "s": "Base Purple",
+      "r": 25,
+      "u": 12,
       "p": 75
     },
     {
       "c": "Sully",
       "s": "Base Purple",
       "r": 25,
-      "u": 12,
+      "u": 11,
       "p": 75
     }
   ],
