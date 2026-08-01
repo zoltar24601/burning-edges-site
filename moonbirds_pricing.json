@@ -67,9 +67,9 @@
       "character": "Enlightened Professor",
       "parallel": "Birbhalla",
       "run": 49,
-      "floor_value": 700,
+      "floor_value": 650,
       "market_anchored": true,
-      "floor_basis": "7-31 ordinary sales cluster at $700 -> $700",
+      "floor_basis": "8-1 ordinary sales $600-700 -> $650",
       "serial_breakouts": [
         {
           "serial": 1,
@@ -109,8 +109,8 @@
       "cards": 4,
       "pool": "insert",
       "market_anchored": true,
-      "basis": "7-31: #10 perfect-mint $1500; mid #5 $1500 -> floor $1250; #1 $2000",
-      "floor_value": 1250,
+      "basis": "8-1: mids $1500-2000 (3/10 $2000, 8/10 $1700), perfect #10 $2424 -> floor $1600",
+      "floor_value": 1600,
       "serial_breakouts": [
         {
           "serial": 1,
@@ -118,7 +118,7 @@
         },
         {
           "serial": 10,
-          "value": 1500
+          "value": 2400
         }
       ]
     },
@@ -128,8 +128,8 @@
       "cards": 4,
       "pool": "insert",
       "market_anchored": true,
-      "basis": "7-31: 8 sales, ordinary med $925 -> floor $900; specials $1500",
-      "floor_value": 900,
+      "basis": "8-1: Kapow holds $1050-1100 but Fizz/Pix ordinaries $300-600 -> floor $600; #1/#25 $1500",
+      "floor_value": 600,
       "serial_breakouts": [
         {
           "serial": 1,
@@ -147,8 +147,8 @@
       "cards": 20,
       "pool": "base",
       "market_anchored": true,
-      "basis": "7-31: low serials $250-500; mid #8 $150; owner values top serials -> floor $375, #1/#10 $750",
-      "floor_value": 375,
+      "basis": "8-1: ordinaries cluster $150-300 (Merlin 8/10 $799 outlier) -> floor $300, #1/#10 $750",
+      "floor_value": 300,
       "serial_breakouts": [
         {
           "serial": 1,
@@ -247,8 +247,8 @@
     "slot2_remaining": 2385,
     "cards_per_pack": 2,
     "slot1_silver_avg": 13.24,
-    "slot2_ev": 123.03,
-    "pack_book_ev": 136.27,
+    "slot2_ev": 115.13,
+    "pack_book_ev": 128.37,
     "method": "pull odds = REAL remaining per-parallel counts (updated collection report); avg from floor + serial breakouts",
     "slot2_breakdown": {
       "Base Black": {
@@ -269,17 +269,17 @@
       "Base Holo Gold": {
         "copies": 119,
         "p": 0.0499,
-        "avg_value": 381.3
+        "avg_value": 307.56
       },
       "Kaboom": {
         "copies": 55,
         "p": 0.0231,
-        "avg_value": 921.82
+        "avg_value": 632.73
       },
       "Kaboom Gold": {
         "copies": 21,
         "p": 0.0088,
-        "avg_value": 1297.62
+        "avg_value": 1657.14
       },
       "Base Red": {
         "copies": 591,
@@ -289,7 +289,7 @@
       "Birbhalla": {
         "copies": 36,
         "p": 0.0151,
-        "avg_value": 1077.78
+        "avg_value": 1030.56
       },
       "Base Purple": {
         "copies": 309,
@@ -299,8 +299,8 @@
     },
     "mint": 50,
     "multiplier": 2.5,
-    "predicted_price": 340.68,
-    "book_vs_mint": 2.73,
+    "predicted_price": 320.93,
+    "book_vs_mint": 2.57,
     "predicted_note": "2.5x borrowed from soccer - speculative ceiling, not a market figure"
   },
   "cards_remaining": [
@@ -435,203 +435,203 @@
       "s": "Kaboom Gold",
       "r": 10,
       "u": 8,
-      "p": 1250
+      "p": 1600
     },
     {
       "c": "Shift",
       "s": "Kaboom Gold",
       "r": 10,
       "u": 6,
-      "p": 1250
+      "p": 1600
     },
     {
       "c": "Fizz",
       "s": "Kaboom Gold",
       "r": 10,
       "u": 5,
-      "p": 1250
+      "p": 1600
     },
     {
       "c": "Pix",
       "s": "Kaboom Gold",
       "r": 10,
       "u": 2,
-      "p": 1250
-    },
-    {
-      "c": "Shift",
-      "s": "Kaboom",
-      "r": 25,
-      "u": 16,
-      "p": 900
-    },
-    {
-      "c": "Kapow",
-      "s": "Kaboom",
-      "r": 25,
-      "u": 14,
-      "p": 900
-    },
-    {
-      "c": "Pix",
-      "s": "Kaboom",
-      "r": 25,
-      "u": 13,
-      "p": 900
-    },
-    {
-      "c": "Fizz",
-      "s": "Kaboom",
-      "r": 25,
-      "u": 12,
-      "p": 900
+      "p": 1600
     },
     {
       "c": "Enlightened Professor",
       "s": "Birbhalla",
       "r": 49,
       "u": 35,
-      "p": 700
+      "p": 650
+    },
+    {
+      "c": "Shift",
+      "s": "Kaboom",
+      "r": 25,
+      "u": 16,
+      "p": 600
+    },
+    {
+      "c": "Kapow",
+      "s": "Kaboom",
+      "r": 25,
+      "u": 14,
+      "p": 600
+    },
+    {
+      "c": "Pix",
+      "s": "Kaboom",
+      "r": 25,
+      "u": 13,
+      "p": 600
+    },
+    {
+      "c": "Fizz",
+      "s": "Kaboom",
+      "r": 25,
+      "u": 12,
+      "p": 600
     },
     {
       "c": "Patch",
       "s": "Base Holo Gold",
       "r": 10,
       "u": 8,
-      "p": 375
+      "p": 300
     },
     {
       "c": "Mochi",
       "s": "Base Holo Gold",
       "r": 10,
       "u": 8,
-      "p": 375
+      "p": 300
     },
     {
       "c": "Bino",
       "s": "Base Holo Gold",
       "r": 10,
       "u": 8,
-      "p": 375
+      "p": 300
     },
     {
       "c": "Nova",
       "s": "Base Holo Gold",
       "r": 10,
       "u": 7,
-      "p": 375
+      "p": 300
     },
     {
       "c": "Shade",
       "s": "Base Holo Gold",
       "r": 10,
       "u": 7,
-      "p": 375
+      "p": 300
     },
     {
       "c": "Rango",
       "s": "Base Holo Gold",
       "r": 10,
       "u": 7,
-      "p": 375
+      "p": 300
     },
     {
       "c": "Noct",
       "s": "Base Holo Gold",
       "r": 10,
       "u": 7,
-      "p": 375
+      "p": 300
     },
     {
       "c": "Hex",
       "s": "Base Holo Gold",
       "r": 10,
       "u": 7,
-      "p": 375
+      "p": 300
     },
     {
       "c": "Gustov",
       "s": "Base Holo Gold",
       "r": 10,
       "u": 7,
-      "p": 375
+      "p": 300
     },
     {
       "c": "Bonesy",
       "s": "Base Holo Gold",
       "r": 10,
       "u": 7,
-      "p": 375
+      "p": 300
     },
     {
       "c": "Lumo",
       "s": "Base Holo Gold",
       "r": 10,
       "u": 6,
-      "p": 375
+      "p": 300
     },
     {
       "c": "Sully",
       "s": "Base Holo Gold",
       "r": 10,
       "u": 6,
-      "p": 375
+      "p": 300
     },
     {
       "c": "Merlin",
       "s": "Base Holo Gold",
       "r": 10,
       "u": 6,
-      "p": 375
+      "p": 300
     },
     {
       "c": "Jet",
       "s": "Base Holo Gold",
       "r": 10,
       "u": 6,
-      "p": 375
+      "p": 300
     },
     {
       "c": "Ferno",
       "s": "Base Holo Gold",
       "r": 10,
       "u": 6,
-      "p": 375
+      "p": 300
     },
     {
       "c": "Zed",
       "s": "Base Holo Gold",
       "r": 10,
       "u": 5,
-      "p": 375
+      "p": 300
     },
     {
       "c": "Arthur",
       "s": "Base Holo Gold",
       "r": 10,
       "u": 3,
-      "p": 375
+      "p": 300
     },
     {
       "c": "Bubbles",
       "s": "Base Holo Gold",
       "r": 10,
       "u": 3,
-      "p": 375
+      "p": 300
     },
     {
       "c": "Kenji",
       "s": "Base Holo Gold",
       "r": 10,
       "u": 3,
-      "p": 375
+      "p": 300
     },
     {
       "c": "Lance",
       "s": "Base Holo Gold",
       "r": 10,
       "u": 2,
-      "p": 375
+      "p": 300
     },
     {
       "c": "Hex",
@@ -785,7 +785,7 @@
       "s": "Kaboom Gold",
       "r": 10,
       "s1": 2000,
-      "last": 1500
+      "last": 2400
     },
     {
       "s": "Kaboom",
