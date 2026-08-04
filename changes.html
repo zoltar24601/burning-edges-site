@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Price Moves &middot; Burning Edges</title>
+<meta name="description" content="Every major Panini NFT pack price adjustment, logged automatically from live blockchain sales.">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700;800&family=Barlow:wght@400;500;600&display=swap');
+  :root{--pine-3:#0a1f12;--card:#13301f;--card-2:#0f2618;--border:#1f4a30;--border-bright:#2d6344;
+    --gold:#e8c468;--gold-dim:#b89540;--cream:#f4efe1;--text:#e8efe6;--text-dim:#8fab97;--text-faint:#5a7563;
+    --green:#5ed68a;--red:#e8736a;--flame:#ff7a3c;--purple:#b89be0;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{background:var(--pine-3);color:var(--text);font-family:'Barlow',sans-serif;-webkit-font-smoothing:antialiased;line-height:1.5;padding-bottom:60px;}
+  a{color:inherit;}
+  header{border-bottom:1px solid var(--border);background:rgba(10,31,18,0.9);backdrop-filter:blur(10px);position:sticky;top:0;z-index:100;}
+  .header-inner{max-width:820px;margin:0 auto;padding:16px 24px;display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;}
+  .brand{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:22px;letter-spacing:1px;color:var(--cream);text-transform:uppercase;text-decoration:none;}
+  .brand .flame{color:var(--flame);}
+  .topnav a{font-family:'Barlow Condensed',sans-serif;font-size:13px;letter-spacing:1.5px;color:var(--text-faint);text-transform:uppercase;text-decoration:none;margin-left:18px;}
+  .topnav a:hover{color:var(--gold);}
+  .wrap{max-width:820px;margin:0 auto;padding:0 24px;}
+  .hero{padding:40px 0 10px;}
+  .eyebrow{font-family:'Barlow Condensed',sans-serif;font-size:14px;letter-spacing:3px;color:var(--flame);text-transform:uppercase;margin-bottom:10px;}
+  h1{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:clamp(34px,6vw,52px);line-height:1;text-transform:uppercase;color:var(--cream);}
+  .sub{color:var(--text-dim);margin-top:12px;font-size:14.5px;line-height:1.6;max-width:640px;}
+  .sub b{color:var(--gold);}
+  .feed{margin-top:30px;display:flex;flex-direction:column;gap:10px;}
+  .row{display:grid;grid-template-columns:auto 1fr auto;gap:14px;align-items:center;background:var(--card-2);border:1px solid var(--border);border-radius:12px;padding:14px 18px;}
+  .row .ic{width:34px;height:34px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:18px;}
+  .row.up .ic{background:rgba(94,214,138,0.14);color:var(--green);}
+  .row.down .ic{background:rgba(232,115,106,0.14);color:var(--red);}
+  .row.flat .ic{background:rgba(232,196,104,0.14);color:var(--gold);}
+  .row .hl{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:17px;color:var(--cream);letter-spacing:0.3px;}
+  .row .dt{font-size:13px;color:var(--text-faint);margin-top:2px;}
+  .row .ts{font-size:12px;color:var(--text-faint);font-family:'Barlow Condensed',sans-serif;letter-spacing:1px;text-transform:uppercase;text-align:right;white-space:nowrap;}
+  .empty{color:var(--text-faint);text-align:center;padding:40px;font-size:14px;}
+  .foot{margin-top:34px;font-size:12px;color:var(--text-faint);text-align:center;line-height:1.7;}
+</style>
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <a class="brand" href="/">BURNING <span class="flame">EDGES</span></a>
+    <nav class="topnav"><a href="/packs">Packs</a><a href="/moonbirds">Moonbirds</a></nav>
+  </div>
+</header>
+<div class="wrap">
+  <div class="hero">
+    <div class="eyebrow">Live price moves</div>
+    <h1>What changed &amp; why</h1>
+    <p class="sub">Every major price adjustment, logged automatically. Values update <b>hourly</b> from live Panini Blockchain sales &amp; offers via the <b>Panini Blockchain Tracker</b> &mdash; when a card meaningfully moves, it lands here. Nothing hand-edited.</p>
+  </div>
+  <div class="feed" id="feed"><div class="empty">Loading&hellip;</div></div>
+  <div class="foot">Major = pack book value moves &ge; $2, or a card's value moves &ge; 15%. Estimates, not financial advice.</div>
+</div>
+<script>
+const feed = document.getElementById('feed');
+const money = n => n==null ? '' : '$' + Math.round(n).toLocaleString('en-US');
+function ago(iso){
+  const d = new Date(iso.replace(' ','T') + (iso.includes('Z')?'':'Z'));
+  const m = Math.floor((Date.now()-d.getTime())/60000);
+  if(m<60) return m<=1?'just now':m+'m ago';
+  const h=Math.floor(m/60); if(h<24) return h+'h ago';
+  const dy=Math.floor(h/24); return dy+'d ago';
+}
+function dir(o,n){ if(o==null||n==null) return 'flat'; return n>o?'up':n<o?'down':'flat'; }
+function arrow(d){ return d==='up'?'&uarr;':d==='down'?'&darr;':'&middot;'; }
+fetch('/api/changes').then(r=>r.json()).then(j=>{
+  const rows = (j.changes||[]);
+  if(!rows.length){ feed.innerHTML='<div class="empty">No major moves logged yet &mdash; check back soon.</div>'; return; }
+  feed.innerHTML = rows.map(c=>{
+    const d = dir(c.old_value, c.new_value);
+    return '<div class="row '+d+'"><div class="ic">'+arrow(d)+'</div>'
+      + '<div><div class="hl">'+c.headline+'</div>'+(c.detail?'<div class="dt">'+c.detail+'</div>':'')+'</div>'
+      + '<div class="ts">'+ago(c.created_at)+'</div></div>';
+  }).join('');
+}).catch(e=>{ feed.innerHTML='<div class="empty">Feed unavailable right now.</div>'; });
+</script>
+</body>
+</html>

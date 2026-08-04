@@ -57,6 +57,20 @@ export function cardValue(c) {
   return Math.max(ref, offer) || defaultByRun(c.print_run || c.total_mints || 1);
 }
 
+// The ordinary (typical copy) value of a card: a real sale if it has traded,
+// else the manual reference, else a scarcity default. Offer does NOT lift the
+// ordinary -- an offer prices only the one best serial (see chaseValue).
+export function ordinaryValue(c) {
+  const ref = PARALLEL_FLOORS[c.cardset] || 0;
+  return hasRealSale(c) ? saleSignal(c) : (ref || defaultByRun(c.print_run || c.total_mints || 49));
+}
+
+// The best-serial value: highest of standing offer, top sale, ordinary, reference.
+export function chaseValue(c) {
+  const ref = PARALLEL_FLOORS[c.cardset] || 0;
+  return Math.max(c.best_offer || 0, c.top_sale || 0, ordinaryValue(c), ref);
+}
+
 // Value the whole remaining stack of a card = { copies, valueSum, avg }.
 // The single best_offer / top_sale belongs to the ONE best remaining serial, so
 // on multi-serial cards it prices just that one copy; the rest go at the ordinary

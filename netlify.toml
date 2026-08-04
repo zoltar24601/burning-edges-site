@@ -90,6 +90,14 @@
   to = "/.netlify/functions/silhouette-data"
   status = 200
 [[redirects]]
+  from = "/api/changes"
+  to = "/.netlify/functions/changes-data"
+  status = 200
+[[redirects]]
+  from = "/changes"
+  to = "/changes.html"
+  status = 200
+[[redirects]]
   from = "/silhouette"
   to = "/silhouette.html"
   status = 200
