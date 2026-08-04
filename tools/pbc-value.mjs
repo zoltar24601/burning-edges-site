@@ -15,10 +15,19 @@
 // Manual REFERENCE values: what a parallel is worth when nothing has sold yet.
 // These hold until a REAL sale moves them (an offer never marks them down). Edit
 // as John directs.
+// SOFT references: used only as a fallback when a card has no ordinary sale.
+// A real ordinary sale overrides them.
 export const PARALLEL_FLOORS = {
   "Kaboom Green": 20000,          // keep at 20k unless a real sale says otherwise
   "Base Black": 2300,             // 1/1 chases hold ~2.3k until one actually sells
   "Kaboom Gold": 3000,            // ordinary Kaboom Gold ~3k; the 6-7k sales were #1 serials
+};
+
+// HARD floors: a GLOBAL standing offer (a bid to buy ANY serial). Offers are
+// floors -- cards sell for more, never less -- so this is a minimum applied on
+// top of everything, even over lower ordinary sales.
+export const PARALLEL_OFFER_FLOORS = {
+  "Birbhalla": 2000,              // $2k global offer on any Birbhalla copy
 };
 
 // Fallback when a card has NO sales, NO offer, and NO reference -- a minimum by
@@ -77,11 +86,13 @@ function serialSales(c) {
 // No mid sale -> manual reference -> scarcity default. On /1 cards the sale IS the card.
 export function ordinaryValue(c) {
   const run = c.print_run || c.total_mints || 49;
-  const ref = PARALLEL_FLOORS[c.cardset] || 0;
+  const ref = PARALLEL_FLOORS[c.cardset] || 0;              // soft fallback
+  const hard = PARALLEL_OFFER_FLOORS[c.cardset] || 0;       // global-offer hard floor
   const { mid, all } = serialSales(c);
-  if (run <= 1) return all.length ? median(all) : (ref || defaultByRun(run));
-  if (mid.length) return median(mid);
-  return ref || defaultByRun(run);
+  let v;
+  if (run <= 1) v = all.length ? median(all) : (ref || defaultByRun(run));
+  else v = mid.length ? median(mid) : (ref || defaultByRun(run));
+  return Math.max(v, hard);
 }
 
 // The best-serial value -- for the tier board / serial lookup only (NOT the pull EV).
