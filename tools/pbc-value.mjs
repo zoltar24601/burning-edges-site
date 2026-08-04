@@ -18,6 +18,7 @@
 export const PARALLEL_FLOORS = {
   "Kaboom Green": 20000,          // keep at 20k unless a real sale says otherwise
   "Base Black": 2300,             // 1/1 chases hold ~2.3k until one actually sells
+  "Kaboom Gold": 3000,            // ordinary Kaboom Gold ~3k; the 6-7k sales were #1 serials
 };
 
 // Fallback when a card has NO sales, NO offer, and NO reference -- a minimum by
@@ -57,38 +58,47 @@ export function cardValue(c) {
   return Math.max(ref, offer) || defaultByRun(c.print_run || c.total_mints || 1);
 }
 
-// The ordinary (typical copy) value of a card: a real sale if it has traded,
-// else the manual reference, else a scarcity default. Offer does NOT lift the
-// ordinary -- an offer prices only the one best serial (see chaseValue).
-export function ordinaryValue(c) {
-  const ref = PARALLEL_FLOORS[c.cardset] || 0;
-  return hasRealSale(c) ? saleSignal(c) : (ref || defaultByRun(c.print_run || c.total_mints || 49));
+// Split a card's real sales into #1/last-serial (PREMIUM) vs mid-serial (ORDINARY),
+// using the exact serial (start_seq) the API gives on every sale.
+function serialSales(c) {
+  const run = c.print_run || c.total_mints || 0;
+  const sales = (c.recent_sales || []).filter(s => s.txn_amount > 0);
+  const isPrem = s => s.start_seq === 1 || (run > 1 && s.start_seq === run);
+  return {
+    prem: sales.filter(isPrem).map(s => s.txn_amount),
+    mid:  sales.filter(s => !isPrem(s)).map(s => s.txn_amount),
+    all:  sales.map(s => s.txn_amount),
+  };
 }
 
-// The best-serial value: highest of standing offer, top sale, ordinary, reference.
+// The ORDINARY (typical sealed copy) value. On multi-serial cards this uses
+// MID-serial sales only -- a #1 or last-serial sale (which is a premium, and by
+// definition already SOLD so it isn't sealed anymore) never drags the ordinary up.
+// No mid sale -> manual reference -> scarcity default. On /1 cards the sale IS the card.
+export function ordinaryValue(c) {
+  const run = c.print_run || c.total_mints || 49;
+  const ref = PARALLEL_FLOORS[c.cardset] || 0;
+  const { mid, all } = serialSales(c);
+  if (run <= 1) return all.length ? median(all) : (ref || defaultByRun(run));
+  if (mid.length) return median(mid);
+  return ref || defaultByRun(run);
+}
+
+// The best-serial value -- for the tier board / serial lookup only (NOT the pull EV).
+// Highest of standing offer, top sale, actual #1/last sales, ordinary, reference.
 export function chaseValue(c) {
   const ref = PARALLEL_FLOORS[c.cardset] || 0;
-  return Math.max(c.best_offer || 0, c.top_sale || 0, ordinaryValue(c), ref);
+  const { prem } = serialSales(c);
+  return Math.max(c.best_offer || 0, c.top_sale || 0, ...prem, ordinaryValue(c), ref);
 }
 
-// Value the whole remaining stack of a card = { copies, valueSum, avg }.
-// The single best_offer / top_sale belongs to the ONE best remaining serial, so
-// on multi-serial cards it prices just that one copy; the rest go at the ordinary
-// value. On /1 cards the reference/offer/sale prices the single copy. This is what
-// the pipeline sums across all cards to get pack EV.
+// Value the whole remaining stack = { copies, valueSum, avg }. Every SEALED copy is
+// valued at the ordinary price -- we do NOT bake a premium serial into the pull EV,
+// because the premium serials that set those big prices have generally already sold
+// (they're not in the packs anymore). Premiums live on the board as reference.
 export function stackValue(c) {
   const u = c.unopened_pack_count || 0;
   if (u <= 0) return { copies: 0, valueSum: 0, avg: 0 };
-  const run = c.print_run || c.total_mints || 49;
-  const ref = PARALLEL_FLOORS[c.cardset] || 0;
-  const offer = c.best_offer || 0, top = c.top_sale || 0;
-  let valueSum;
-  if (run <= 1) {
-    valueSum = cardValue(c) * u;
-  } else {
-    const ordinary = hasRealSale(c) ? saleSignal(c) : (ref || defaultByRun(run));
-    const chase = Math.max(offer, top, ordinary, ref);     // one best serial
-    valueSum = chase + ordinary * (u - 1);
-  }
-  return { copies: u, valueSum, avg: valueSum / u };
+  const v = ordinaryValue(c);
+  return { copies: u, valueSum: v * u, avg: v };
 }
