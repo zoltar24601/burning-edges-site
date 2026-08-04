@@ -97,7 +97,8 @@ GOLD_OVERRIDE   = {('Lamine Yamal', 'Base Prizms Gold', 10): 36000,
                    ('Lionel Messi', 'Base Prizms Gold', 10): 50000}
 PERCOPY_OVERRIDE = {('Mohamed Salah', 'Base Prizms Black', 1): 10000,
                     ('Kylian Mbappe', 'Base Prizms Black', 1): 60000,
-                    ('Kylian Mbappe', 'Base Choice Prizms Nebula', 1): 60000}
+                    ('Kylian Mbappe', 'Base Choice Prizms Nebula', 1): 60000,
+                    ('Cristiano Ronaldo', 'Base Prizms Black', 1): 40000}  # $30k offer; no sale to anchor otherwise
 
 # Gold /10 tier floor: only NAMED stars get a floor; role players fall to normal floor.
 def gold_floor(a):
