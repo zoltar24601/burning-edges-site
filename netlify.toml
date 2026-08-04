@@ -86,6 +86,14 @@
   to = "/moonbirds.html"
   status = 200
 [[redirects]]
+  from = "/api/silhouette-data"
+  to = "/.netlify/functions/silhouette-data"
+  status = 200
+[[redirects]]
+  from = "/silhouette"
+  to = "/silhouette.html"
+  status = 200
+[[redirects]]
   from = "/packs"
   to = "/packs-hub.html"
   status = 200

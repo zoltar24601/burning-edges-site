@@ -1,0 +1,1913 @@
+{
+  "product": "2024-25 Panini NFT Silhouette Basketball",
+  "type": "pack_analytics",
+  "pricing_mechanism": "player-tier x set x parallel; hit-slot value anchored to recent Panini Blockchain sales, base slots to parallel floors",
+  "valuation_principle": "Pack = 3 base-pool cards + 1 insert/Instant hit. Book EV = 3x(weighted base card) + (weighted hit card), weighted by real UNCLAIMED counts from the collection report.",
+  "updated": "2026-08-04",
+  "data_note": "Player tiers: S=Cooper Flagg; A=Harper/Edgecombe/Knueppel; B=notable rookies; V=vet stars; C=common. Hit value = recent-sale median where available, else tier x parallel anchor. Rookie chase market; prices move fast.",
+  "structure": {
+    "cards_per_pack": 4,
+    "base_slots": 3,
+    "hit_slots": 1,
+    "base_set_cards": 100,
+    "base_parallels": [
+      "Scope /179",
+      "Blue /99",
+      "Red /49",
+      "Cracked Ice /25",
+      "Gala /25",
+      "Holo Gold /10",
+      "Holo Platinum /1"
+    ],
+    "insert_sets": [
+      "White Night",
+      "Vanta",
+      "Contour",
+      "Superstars",
+      "Hand Crafted",
+      "Pillars of the Game",
+      "Game 7",
+      "The Kings Court"
+    ],
+    "instant_sets": [
+      "NBA Draft Night",
+      "Retro Rated Rookie",
+      "RPS First Look",
+      "Spotlight Rookies",
+      "Year One"
+    ]
+  },
+  "pack_ev": {
+    "cards_per_pack": 4,
+    "base_slots": 3,
+    "hit_slots": 1,
+    "base_pool_remaining": 8727,
+    "hit_pool_remaining": 2761,
+    "base_card_ev": 3.94,
+    "base_slots_ev": 11.82,
+    "hit_card_ev": 82.6,
+    "pack_book_ev": 94.42,
+    "multiplier": 2.5,
+    "predicted_price": 236.05,
+    "method": "pull odds = real UNCLAIMED counts per cardset; hit value tiered by player",
+    "base_breakdown": [
+      {
+        "cardset": "Base Holo Platinum",
+        "run": 1,
+        "uncl": 13,
+        "avg_value": 230.77
+      },
+      {
+        "cardset": "Base Cracked Ice",
+        "run": 25,
+        "uncl": 335,
+        "avg_value": 15.9
+      },
+      {
+        "cardset": "Base Gala",
+        "run": 25,
+        "uncl": 111,
+        "avg_value": 13.03
+      },
+      {
+        "cardset": "Base Holo Gold",
+        "run": 10,
+        "uncl": 132,
+        "avg_value": 12.37
+      },
+      {
+        "cardset": "Base Red",
+        "run": 49,
+        "uncl": 646,
+        "avg_value": 4.95
+      },
+      {
+        "cardset": "Base Blue",
+        "run": 99,
+        "uncl": 1428,
+        "avg_value": 3.7
+      },
+      {
+        "cardset": "Base",
+        "run": 256,
+        "uncl": 3550,
+        "avg_value": 2.44
+      },
+      {
+        "cardset": "Base Scope",
+        "run": 179,
+        "uncl": 2512,
+        "avg_value": 2.31
+      }
+    ],
+    "hit_breakdown": [
+      {
+        "cardset": "NBA Draft Night Black",
+        "run": 1,
+        "uncl": 4,
+        "avg_value": 4837.5
+      },
+      {
+        "cardset": "NBA Draft Night Green",
+        "run": 5,
+        "uncl": 19,
+        "avg_value": 806.58
+      },
+      {
+        "cardset": "Pillars of the Game Holo Platinum",
+        "run": 1,
+        "uncl": 5,
+        "avg_value": 630
+      },
+      {
+        "cardset": "Retro Rated Rookie Black",
+        "run": 1,
+        "uncl": 6,
+        "avg_value": 625
+      },
+      {
+        "cardset": "Superstars Holo Platinum",
+        "run": 1,
+        "uncl": 4,
+        "avg_value": 600
+      },
+      {
+        "cardset": "Spotlight Rookies Black",
+        "run": 1,
+        "uncl": 1,
+        "avg_value": 450
+      },
+      {
+        "cardset": "Hand Crafted Holo Platinum",
+        "run": 1,
+        "uncl": 2,
+        "avg_value": 450
+      },
+      {
+        "cardset": "RPS First Look Magma",
+        "run": 1,
+        "uncl": 4,
+        "avg_value": 375
+      },
+      {
+        "cardset": "Year One Black",
+        "run": 1,
+        "uncl": 7,
+        "avg_value": 364.29
+      },
+      {
+        "cardset": "RPS First Look Lightning",
+        "run": 5,
+        "uncl": 31,
+        "avg_value": 244.35
+      },
+      {
+        "cardset": "NBA Draft Night Blue",
+        "run": 25,
+        "uncl": 112,
+        "avg_value": 242.42
+      },
+      {
+        "cardset": "NBA Draft Night Red",
+        "run": 10,
+        "uncl": 50,
+        "avg_value": 202.6
+      },
+      {
+        "cardset": "RPS First Look Water",
+        "run": 10,
+        "uncl": 71,
+        "avg_value": 156.76
+      },
+      {
+        "cardset": "Hand Crafted Holo Gold",
+        "run": 10,
+        "uncl": 21,
+        "avg_value": 121.67
+      },
+      {
+        "cardset": "Game 7 Holo Gold",
+        "run": 10,
+        "uncl": 20,
+        "avg_value": 119
+      },
+      {
+        "cardset": "Spotlight Rookies Blue",
+        "run": 10,
+        "uncl": 53,
+        "avg_value": 100.08
+      },
+      {
+        "cardset": "Pillars of the Game Holo Gold",
+        "run": 10,
+        "uncl": 33,
+        "avg_value": 90.15
+      },
+      {
+        "cardset": "The Kings Court Holo Platinum",
+        "run": 1,
+        "uncl": 3,
+        "avg_value": 90
+      },
+      {
+        "cardset": "Superstars Holo Gold",
+        "run": 10,
+        "uncl": 49,
+        "avg_value": 89.29
+      },
+      {
+        "cardset": "Retro Rated Rookie Blue",
+        "run": 10,
+        "uncl": 36,
+        "avg_value": 85.42
+      },
+      {
+        "cardset": "White Night",
+        "run": 25,
+        "uncl": 84,
+        "avg_value": 77.33
+      },
+      {
+        "cardset": "NBA Draft Night",
+        "run": 49,
+        "uncl": 199,
+        "avg_value": 70.64
+      },
+      {
+        "cardset": "Retro Rated Rookie",
+        "run": 49,
+        "uncl": 257,
+        "avg_value": 68.79
+      },
+      {
+        "cardset": "Contour",
+        "run": 25,
+        "uncl": 92,
+        "avg_value": 65.67
+      },
+      {
+        "cardset": "Year One",
+        "run": 49,
+        "uncl": 266,
+        "avg_value": 51.59
+      },
+      {
+        "cardset": "Vanta",
+        "run": 25,
+        "uncl": 93,
+        "avg_value": 50.69
+      },
+      {
+        "cardset": "RPS First Look",
+        "run": 49,
+        "uncl": 353,
+        "avg_value": 50.61
+      },
+      {
+        "cardset": "Spotlight Rookies",
+        "run": 49,
+        "uncl": 254,
+        "avg_value": 38.51
+      },
+      {
+        "cardset": "The Kings Court Holo Gold",
+        "run": 10,
+        "uncl": 24,
+        "avg_value": 26.54
+      },
+      {
+        "cardset": "Game 7 Cracked Ice",
+        "run": 49,
+        "uncl": 83,
+        "avg_value": 21.77
+      },
+      {
+        "cardset": "Superstars Cracked Ice",
+        "run": 49,
+        "uncl": 202,
+        "avg_value": 20.69
+      },
+      {
+        "cardset": "Hand Crafted Cracked Ice",
+        "run": 49,
+        "uncl": 74,
+        "avg_value": 20.54
+      },
+      {
+        "cardset": "Pillars of the Game Cracked Ice",
+        "run": 49,
+        "uncl": 152,
+        "avg_value": 18.63
+      },
+      {
+        "cardset": "The Kings Court Cracked ice",
+        "run": 49,
+        "uncl": 97,
+        "avg_value": 4.49
+      }
+    ]
+  },
+  "cards_remaining": [
+    {
+      "c": "Cooper Flagg",
+      "s": "NBA Draft Night Black",
+      "r": 1,
+      "u": 1,
+      "p": 18000
+    },
+    {
+      "c": "Cooper Flagg",
+      "s": "NBA Draft Night Green",
+      "r": 5,
+      "u": 1,
+      "p": 10800
+    },
+    {
+      "c": "Cooper Flagg",
+      "s": "RPS First Look Water",
+      "r": 10,
+      "u": 1,
+      "p": 4200
+    },
+    {
+      "c": "Cooper Flagg",
+      "s": "NBA Draft Night Blue",
+      "r": 25,
+      "u": 6,
+      "p": 3000
+    },
+    {
+      "c": "Dylan Harper",
+      "s": "NBA Draft Night Red",
+      "r": 10,
+      "u": 2,
+      "p": 2000
+    },
+    {
+      "c": "Kon Knueppel",
+      "s": "Retro Rated Rookie Black",
+      "r": 1,
+      "u": 1,
+      "p": 1800
+    },
+    {
+      "c": "VJ Edgecombe",
+      "s": "NBA Draft Night Green",
+      "r": 5,
+      "u": 1,
+      "p": 1080
+    },
+    {
+      "c": "Kon Knueppel",
+      "s": "RPS First Look Lightning",
+      "r": 5,
+      "u": 1,
+      "p": 1080
+    },
+    {
+      "c": "Dylan Harper",
+      "s": "RPS First Look Lightning",
+      "r": 5,
+      "u": 1,
+      "p": 1080
+    },
+    {
+      "c": "Cooper Flagg",
+      "s": "RPS First Look",
+      "r": 49,
+      "u": 10,
+      "p": 960
+    },
+    {
+      "c": "Cooper Flagg",
+      "s": "Retro Rated Rookie",
+      "r": 49,
+      "u": 8,
+      "p": 960
+    },
+    {
+      "c": "Cooper Flagg",
+      "s": "Year One",
+      "r": 49,
+      "u": 7,
+      "p": 960
+    },
+    {
+      "c": "Cooper Flagg",
+      "s": "NBA Draft Night",
+      "r": 49,
+      "u": 5,
+      "p": 960
+    },
+    {
+      "c": "VJ Edgecombe",
+      "s": "NBA Draft Night Red",
+      "r": 10,
+      "u": 2,
+      "p": 775
+    },
+    {
+      "c": "Kon Knueppel",
+      "s": "NBA Draft Night Red",
+      "r": 10,
+      "u": 1,
+      "p": 750
+    },
+    {
+      "c": "Stephen Curry",
+      "s": "Hand Crafted Holo Platinum",
+      "r": 1,
+      "u": 1,
+      "p": 750
+    },
+    {
+      "c": "Stephon Castle",
+      "s": "Superstars Holo Platinum",
+      "r": 1,
+      "u": 1,
+      "p": 750
+    },
+    {
+      "c": "Stephon Castle",
+      "s": "Pillars of the Game Holo Platinum",
+      "r": 1,
+      "u": 1,
+      "p": 750
+    },
+    {
+      "c": "Anthony Edwards",
+      "s": "Superstars Holo Platinum",
+      "r": 1,
+      "u": 1,
+      "p": 750
+    },
+    {
+      "c": "Nikola Jokic",
+      "s": "Pillars of the Game Holo Platinum",
+      "r": 1,
+      "u": 1,
+      "p": 750
+    },
+    {
+      "c": "Kevin Durant",
+      "s": "Pillars of the Game Holo Platinum",
+      "r": 1,
+      "u": 1,
+      "p": 750
+    },
+    {
+      "c": "James Harden",
+      "s": "Superstars Holo Platinum",
+      "r": 1,
+      "u": 1,
+      "p": 750
+    },
+    {
+      "c": "Damian Lillard",
+      "s": "Pillars of the Game Holo Platinum",
+      "r": 1,
+      "u": 1,
+      "p": 750
+    },
+    {
+      "c": "Cooper Flagg",
+      "s": "Spotlight Rookies",
+      "r": 49,
+      "u": 7,
+      "p": 620
+    },
+    {
+      "c": "Dylan Harper",
+      "s": "Retro Rated Rookie",
+      "r": 49,
+      "u": 6,
+      "p": 550
+    },
+    {
+      "c": "Dylan Harper",
+      "s": "NBA Draft Night",
+      "r": 49,
+      "u": 7,
+      "p": 465
+    },
+    {
+      "c": "Kon Knueppel",
+      "s": "NBA Draft Night Blue",
+      "r": 25,
+      "u": 4,
+      "p": 455
+    },
+    {
+      "c": "Joan Beringer",
+      "s": "Retro Rated Rookie Black",
+      "r": 1,
+      "u": 1,
+      "p": 450
+    },
+    {
+      "c": "Jeremiah Fears",
+      "s": "RPS First Look Magma",
+      "r": 1,
+      "u": 1,
+      "p": 450
+    },
+    {
+      "c": "Ace Bailey",
+      "s": "Spotlight Rookies Black",
+      "r": 1,
+      "u": 1,
+      "p": 450
+    },
+    {
+      "c": "Carter Bryant",
+      "s": "Year One Black",
+      "r": 1,
+      "u": 1,
+      "p": 450
+    },
+    {
+      "c": "Carter Bryant",
+      "s": "NBA Draft Night Black",
+      "r": 1,
+      "u": 1,
+      "p": 450
+    },
+    {
+      "c": "Collin Murray-Boyles",
+      "s": "RPS First Look Magma",
+      "r": 1,
+      "u": 1,
+      "p": 450
+    },
+    {
+      "c": "Walter Clayton Jr.",
+      "s": "Year One Black",
+      "r": 1,
+      "u": 1,
+      "p": 450
+    },
+    {
+      "c": "Drake Powell",
+      "s": "Year One Black",
+      "r": 1,
+      "u": 1,
+      "p": 450
+    },
+    {
+      "c": "Thomas Sorber",
+      "s": "NBA Draft Night Black",
+      "r": 1,
+      "u": 1,
+      "p": 450
+    },
+    {
+      "c": "Asa Newell",
+      "s": "Retro Rated Rookie Black",
+      "r": 1,
+      "u": 1,
+      "p": 450
+    },
+    {
+      "c": "Walter Clayton Jr.",
+      "s": "NBA Draft Night Black",
+      "r": 1,
+      "u": 1,
+      "p": 450
+    },
+    {
+      "c": "Ryan Kalkbrenner",
+      "s": "Retro Rated Rookie Black",
+      "r": 1,
+      "u": 1,
+      "p": 450
+    },
+    {
+      "c": "Rasheer Fleming",
+      "s": "Retro Rated Rookie Black",
+      "r": 1,
+      "u": 1,
+      "p": 450
+    },
+    {
+      "c": "Koby Brea",
+      "s": "RPS First Look Magma",
+      "r": 1,
+      "u": 1,
+      "p": 450
+    },
+    {
+      "c": "Kasparas Jakucionis",
+      "s": "Year One Black",
+      "r": 1,
+      "u": 1,
+      "p": 450
+    },
+    {
+      "c": "Asa Newell",
+      "s": "Year One Black",
+      "r": 1,
+      "u": 1,
+      "p": 450
+    },
+    {
+      "c": "Dylan Harper",
+      "s": "RPS First Look Water",
+      "r": 10,
+      "u": 2,
+      "p": 420
+    },
+    {
+      "c": "Dylan Harper",
+      "s": "Spotlight Rookies Blue",
+      "r": 10,
+      "u": 2,
+      "p": 420
+    },
+    {
+      "c": "VJ Edgecombe",
+      "s": "RPS First Look Water",
+      "r": 10,
+      "u": 1,
+      "p": 420
+    },
+    {
+      "c": "Kon Knueppel",
+      "s": "RPS First Look Water",
+      "r": 10,
+      "u": 1,
+      "p": 420
+    },
+    {
+      "c": "Kon Knueppel",
+      "s": "Spotlight Rookies Blue",
+      "r": 10,
+      "u": 1,
+      "p": 420
+    },
+    {
+      "c": "LeBron James",
+      "s": "White Night",
+      "r": 25,
+      "u": 5,
+      "p": 399
+    },
+    {
+      "c": "VJ Edgecombe",
+      "s": "Spotlight Rookies Blue",
+      "r": 10,
+      "u": 1,
+      "p": 299
+    },
+    {
+      "c": "Dylan Harper",
+      "s": "RPS First Look",
+      "r": 49,
+      "u": 4,
+      "p": 278
+    },
+    {
+      "c": "Ace Bailey",
+      "s": "NBA Draft Night Green",
+      "r": 5,
+      "u": 2,
+      "p": 270
+    },
+    {
+      "c": "Jeremiah Fears",
+      "s": "RPS First Look Lightning",
+      "r": 5,
+      "u": 2,
+      "p": 270
+    },
+    {
+      "c": "Tre Johnson III",
+      "s": "RPS First Look Lightning",
+      "r": 5,
+      "u": 2,
+      "p": 270
+    },
+    {
+      "c": "Asa Newell",
+      "s": "RPS First Look Lightning",
+      "r": 5,
+      "u": 2,
+      "p": 270
+    },
+    {
+      "c": "Cedric Coward",
+      "s": "NBA Draft Night Green",
+      "r": 5,
+      "u": 1,
+      "p": 270
+    },
+    {
+      "c": "Drake Powell",
+      "s": "RPS First Look Lightning",
+      "r": 5,
+      "u": 1,
+      "p": 270
+    },
+    {
+      "c": "Derik Queen",
+      "s": "NBA Draft Night Green",
+      "r": 5,
+      "u": 1,
+      "p": 270
+    },
+    {
+      "c": "Jase Richardson",
+      "s": "RPS First Look Lightning",
+      "r": 5,
+      "u": 1,
+      "p": 270
+    },
+    {
+      "c": "Egor Demin",
+      "s": "NBA Draft Night Green",
+      "r": 5,
+      "u": 1,
+      "p": 270
+    },
+    {
+      "c": "Hansen Yang",
+      "s": "NBA Draft Night Green",
+      "r": 5,
+      "u": 1,
+      "p": 270
+    },
+    {
+      "c": "Khaman Maluach",
+      "s": "NBA Draft Night Green",
+      "r": 5,
+      "u": 1,
+      "p": 270
+    },
+    {
+      "c": "Joan Beringer",
+      "s": "NBA Draft Night Green",
+      "r": 5,
+      "u": 1,
+      "p": 270
+    },
+    {
+      "c": "Hugo Gonzalez",
+      "s": "RPS First Look Lightning",
+      "r": 5,
+      "u": 1,
+      "p": 270
+    },
+    {
+      "c": "Will Riley",
+      "s": "NBA Draft Night Green",
+      "r": 5,
+      "u": 1,
+      "p": 270
+    },
+    {
+      "c": "Tre Johnson III",
+      "s": "NBA Draft Night Green",
+      "r": 5,
+      "u": 1,
+      "p": 270
+    },
+    {
+      "c": "Kasparas Jakucionis",
+      "s": "RPS First Look Lightning",
+      "r": 5,
+      "u": 1,
+      "p": 270
+    },
+    {
+      "c": "Will Riley",
+      "s": "RPS First Look Lightning",
+      "r": 5,
+      "u": 1,
+      "p": 270
+    },
+    {
+      "c": "Collin Murray-Boyles",
+      "s": "RPS First Look Lightning",
+      "r": 5,
+      "u": 1,
+      "p": 270
+    },
+    {
+      "c": "Joan Beringer",
+      "s": "RPS First Look Lightning",
+      "r": 5,
+      "u": 1,
+      "p": 270
+    },
+    {
+      "c": "Koby Brea",
+      "s": "RPS First Look Lightning",
+      "r": 5,
+      "u": 1,
+      "p": 270
+    },
+    {
+      "c": "Thomas Sorber",
+      "s": "NBA Draft Night Green",
+      "r": 5,
+      "u": 1,
+      "p": 270
+    },
+    {
+      "c": "Rasheer Fleming",
+      "s": "RPS First Look Lightning",
+      "r": 5,
+      "u": 1,
+      "p": 270
+    },
+    {
+      "c": "Dylan Harper",
+      "s": "NBA Draft Night Blue",
+      "r": 25,
+      "u": 6,
+      "p": 264
+    },
+    {
+      "c": "VJ Edgecombe",
+      "s": "NBA Draft Night Blue",
+      "r": 25,
+      "u": 3,
+      "p": 264
+    },
+    {
+      "c": "Dylan Harper",
+      "s": "Year One",
+      "r": 49,
+      "u": 5,
+      "p": 255
+    },
+    {
+      "c": "Dylan Harper",
+      "s": "Spotlight Rookies",
+      "r": 49,
+      "u": 4,
+      "p": 250
+    },
+    {
+      "c": "Kon Knueppel",
+      "s": "Retro Rated Rookie",
+      "r": 49,
+      "u": 8,
+      "p": 225
+    },
+    {
+      "c": "VJ Edgecombe",
+      "s": "Retro Rated Rookie",
+      "r": 49,
+      "u": 4,
+      "p": 200
+    },
+    {
+      "c": "VJ Edgecombe",
+      "s": "NBA Draft Night",
+      "r": 49,
+      "u": 8,
+      "p": 195
+    },
+    {
+      "c": "VJ Edgecombe",
+      "s": "RPS First Look",
+      "r": 49,
+      "u": 8,
+      "p": 175
+    },
+    {
+      "c": "Nikola Jokic",
+      "s": "Superstars Holo Gold",
+      "r": 10,
+      "u": 5,
+      "p": 175
+    },
+    {
+      "c": "Nikola Jokic",
+      "s": "Game 7 Holo Gold",
+      "r": 10,
+      "u": 3,
+      "p": 175
+    },
+    {
+      "c": "Anthony Edwards",
+      "s": "Superstars Holo Gold",
+      "r": 10,
+      "u": 3,
+      "p": 175
+    },
+    {
+      "c": "LeBron James",
+      "s": "Game 7 Holo Gold",
+      "r": 10,
+      "u": 3,
+      "p": 175
+    },
+    {
+      "c": "Nikola Jokic",
+      "s": "Hand Crafted Holo Gold",
+      "r": 10,
+      "u": 3,
+      "p": 175
+    },
+    {
+      "c": "Stephen Curry",
+      "s": "Hand Crafted Holo Gold",
+      "r": 10,
+      "u": 3,
+      "p": 175
+    },
+    {
+      "c": "Nikola Jokic",
+      "s": "Pillars of the Game Holo Gold",
+      "r": 10,
+      "u": 3,
+      "p": 175
+    },
+    {
+      "c": "Kevin Durant",
+      "s": "Hand Crafted Holo Gold",
+      "r": 10,
+      "u": 3,
+      "p": 175
+    },
+    {
+      "c": "Allen Iverson",
+      "s": "Game 7 Holo Gold",
+      "r": 10,
+      "u": 2,
+      "p": 175
+    },
+    {
+      "c": "LeBron James",
+      "s": "Game 7 Holo Gold",
+      "r": 10,
+      "u": 2,
+      "p": 175
+    },
+    {
+      "c": "Luka Doncic",
+      "s": "Superstars Holo Gold",
+      "r": 10,
+      "u": 2,
+      "p": 175
+    },
+    {
+      "c": "LeBron James",
+      "s": "Hand Crafted Holo Gold",
+      "r": 10,
+      "u": 2,
+      "p": 175
+    },
+    {
+      "c": "Stephon Castle",
+      "s": "Pillars of the Game Holo Gold",
+      "r": 10,
+      "u": 2,
+      "p": 175
+    },
+    {
+      "c": "Luka Doncic",
+      "s": "Game 7 Holo Gold",
+      "r": 10,
+      "u": 2,
+      "p": 175
+    },
+    {
+      "c": "James Harden",
+      "s": "Superstars Holo Gold",
+      "r": 10,
+      "u": 2,
+      "p": 175
+    },
+    {
+      "c": "Stephon Castle",
+      "s": "Superstars Holo Gold",
+      "r": 10,
+      "u": 2,
+      "p": 175
+    },
+    {
+      "c": "Damian Lillard",
+      "s": "Pillars of the Game Holo Gold",
+      "r": 10,
+      "u": 2,
+      "p": 175
+    },
+    {
+      "c": "Shai Gilgeous-Alexander",
+      "s": "Pillars of the Game Holo Gold",
+      "r": 10,
+      "u": 1,
+      "p": 175
+    },
+    {
+      "c": "Luka Doncic",
+      "s": "Pillars of the Game Holo Gold",
+      "r": 10,
+      "u": 1,
+      "p": 175
+    },
+    {
+      "c": "Stephen Curry",
+      "s": "Superstars Holo Gold",
+      "r": 10,
+      "u": 1,
+      "p": 175
+    },
+    {
+      "c": "LeBron James",
+      "s": "Hand Crafted Holo Gold",
+      "r": 10,
+      "u": 1,
+      "p": 175
+    },
+    {
+      "c": "Shai Gilgeous-Alexander",
+      "s": "Superstars Holo Gold",
+      "r": 10,
+      "u": 1,
+      "p": 175
+    },
+    {
+      "c": "Victor Wembanyama",
+      "s": "Superstars Holo Gold",
+      "r": 10,
+      "u": 1,
+      "p": 175
+    },
+    {
+      "c": "Jayson Tatum",
+      "s": "Superstars Holo Gold",
+      "r": 10,
+      "u": 1,
+      "p": 175
+    },
+    {
+      "c": "LeBron James",
+      "s": "Hand Crafted Holo Gold",
+      "r": 10,
+      "u": 1,
+      "p": 175
+    },
+    {
+      "c": "Victor Wembanyama",
+      "s": "Pillars of the Game Holo Gold",
+      "r": 10,
+      "u": 1,
+      "p": 175
+    },
+    {
+      "c": "Stephen Curry",
+      "s": "Pillars of the Game Holo Gold",
+      "r": 10,
+      "u": 1,
+      "p": 175
+    },
+    {
+      "c": "Kevin Durant",
+      "s": "Superstars Holo Gold",
+      "r": 10,
+      "u": 1,
+      "p": 175
+    },
+    {
+      "c": "Kevin Durant",
+      "s": "Pillars of the Game Holo Gold",
+      "r": 10,
+      "u": 1,
+      "p": 175
+    },
+    {
+      "c": "Anthony Edwards",
+      "s": "Pillars of the Game Holo Gold",
+      "r": 10,
+      "u": 1,
+      "p": 175
+    },
+    {
+      "c": "Kon Knueppel",
+      "s": "NBA Draft Night",
+      "r": 49,
+      "u": 4,
+      "p": 165
+    },
+    {
+      "c": "Hansen Yang",
+      "s": "NBA Draft Night Red",
+      "r": 10,
+      "u": 3,
+      "p": 160
+    },
+    {
+      "c": "Cedric Coward",
+      "s": "NBA Draft Night Blue",
+      "r": 25,
+      "u": 3,
+      "p": 150
+    },
+    {
+      "c": "Alijah Martin",
+      "s": "RPS First Look Magma",
+      "r": 1,
+      "u": 1,
+      "p": 150
+    },
+    {
+      "c": "Yanic Konan Niederhauser",
+      "s": "Year One Black",
+      "r": 1,
+      "u": 1,
+      "p": 150
+    },
+    {
+      "c": "Paolo Banchero",
+      "s": "Pillars of the Game Holo Platinum",
+      "r": 1,
+      "u": 1,
+      "p": 150
+    },
+    {
+      "c": "Nolan Traore",
+      "s": "Year One Black",
+      "r": 1,
+      "u": 1,
+      "p": 150
+    },
+    {
+      "c": "Nolan Traore",
+      "s": "Retro Rated Rookie Black",
+      "r": 1,
+      "u": 1,
+      "p": 150
+    },
+    {
+      "c": "Jaylen Brown",
+      "s": "Hand Crafted Holo Platinum",
+      "r": 1,
+      "u": 1,
+      "p": 150
+    },
+    {
+      "c": "Ja Morant",
+      "s": "Superstars Holo Platinum",
+      "r": 1,
+      "u": 1,
+      "p": 150
+    },
+    {
+      "c": "Jalen Brunson",
+      "s": "Superstars Cracked Ice",
+      "r": 49,
+      "u": 6,
+      "p": 125
+    },
+    {
+      "c": "Egor Demin",
+      "s": "RPS First Look Lightning",
+      "r": 5,
+      "u": 3,
+      "p": 125
+    },
+    {
+      "c": "LeBron James | Austin Reaves | Luka Doncic",
+      "s": "The Kings Court Holo Gold",
+      "r": 10,
+      "u": 2,
+      "p": 120
+    },
+    {
+      "c": "Kon Knueppel",
+      "s": "Year One",
+      "r": 49,
+      "u": 6,
+      "p": 113
+    },
+    {
+      "c": "Stephen Curry",
+      "s": "White Night",
+      "r": 25,
+      "u": 9,
+      "p": 110
+    },
+    {
+      "c": "Luka Doncic",
+      "s": "Contour",
+      "r": 25,
+      "u": 8,
+      "p": 110
+    },
+    {
+      "c": "Kevin Durant",
+      "s": "Contour",
+      "r": 25,
+      "u": 8,
+      "p": 110
+    },
+    {
+      "c": "Shai Gilgeous-Alexander",
+      "s": "Vanta",
+      "r": 25,
+      "u": 6,
+      "p": 110
+    },
+    {
+      "c": "Stephen Curry",
+      "s": "Contour",
+      "r": 25,
+      "u": 6,
+      "p": 110
+    },
+    {
+      "c": "Anthony Edwards",
+      "s": "Vanta",
+      "r": 25,
+      "u": 5,
+      "p": 110
+    },
+    {
+      "c": "Nikola Jokic",
+      "s": "Contour",
+      "r": 25,
+      "u": 5,
+      "p": 110
+    },
+    {
+      "c": "Nikola Jokic",
+      "s": "Vanta",
+      "r": 25,
+      "u": 5,
+      "p": 110
+    },
+    {
+      "c": "Shai Gilgeous-Alexander",
+      "s": "White Night",
+      "r": 25,
+      "u": 4,
+      "p": 110
+    },
+    {
+      "c": "Victor Wembanyama",
+      "s": "Contour",
+      "r": 25,
+      "u": 4,
+      "p": 110
+    },
+    {
+      "c": "Jayson Tatum",
+      "s": "Vanta",
+      "r": 25,
+      "u": 4,
+      "p": 110
+    },
+    {
+      "c": "Jayson Tatum",
+      "s": "White Night",
+      "r": 25,
+      "u": 4,
+      "p": 110
+    },
+    {
+      "c": "Anthony Edwards",
+      "s": "Contour",
+      "r": 25,
+      "u": 4,
+      "p": 110
+    },
+    {
+      "c": "Victor Wembanyama",
+      "s": "Vanta",
+      "r": 25,
+      "u": 3,
+      "p": 110
+    },
+    {
+      "c": "Stephon Castle",
+      "s": "Contour",
+      "r": 25,
+      "u": 3,
+      "p": 110
+    },
+    {
+      "c": "Anthony Edwards",
+      "s": "White Night",
+      "r": 25,
+      "u": 3,
+      "p": 110
+    },
+    {
+      "c": "Luka Doncic",
+      "s": "Vanta",
+      "r": 25,
+      "u": 3,
+      "p": 110
+    },
+    {
+      "c": "Stephon Castle",
+      "s": "Vanta",
+      "r": 25,
+      "u": 3,
+      "p": 110
+    },
+    {
+      "c": "Kevin Durant",
+      "s": "White Night",
+      "r": 25,
+      "u": 3,
+      "p": 110
+    },
+    {
+      "c": "Nikola Jokic",
+      "s": "White Night",
+      "r": 25,
+      "u": 3,
+      "p": 110
+    },
+    {
+      "c": "Stephon Castle",
+      "s": "White Night",
+      "r": 25,
+      "u": 2,
+      "p": 110
+    },
+    {
+      "c": "Damian Lillard",
+      "s": "Contour",
+      "r": 25,
+      "u": 2,
+      "p": 110
+    },
+    {
+      "c": "LeBron James",
+      "s": "Vanta",
+      "r": 25,
+      "u": 2,
+      "p": 110
+    },
+    {
+      "c": "Jayson Tatum",
+      "s": "Contour",
+      "r": 25,
+      "u": 2,
+      "p": 110
+    },
+    {
+      "c": "James Harden",
+      "s": "White Night",
+      "r": 25,
+      "u": 2,
+      "p": 110
+    },
+    {
+      "c": "Victor Wembanyama",
+      "s": "White Night",
+      "r": 25,
+      "u": 1,
+      "p": 110
+    },
+    {
+      "c": "Shai Gilgeous-Alexander",
+      "s": "Contour",
+      "r": 25,
+      "u": 1,
+      "p": 110
+    },
+    {
+      "c": "Cedric Coward",
+      "s": "RPS First Look Water",
+      "r": 10,
+      "u": 4,
+      "p": 105
+    },
+    {
+      "c": "Noah Penda",
+      "s": "NBA Draft Night Red",
+      "r": 10,
+      "u": 4,
+      "p": 105
+    },
+    {
+      "c": "Jeremiah Fears",
+      "s": "Retro Rated Rookie Blue",
+      "r": 10,
+      "u": 3,
+      "p": 105
+    },
+    {
+      "c": "Carter Bryant",
+      "s": "RPS First Look Water",
+      "r": 10,
+      "u": 3,
+      "p": 105
+    },
+    {
+      "c": "Walter Clayton Jr.",
+      "s": "NBA Draft Night Red",
+      "r": 10,
+      "u": 3,
+      "p": 105
+    },
+    {
+      "c": "Ace Bailey",
+      "s": "NBA Draft Night Red",
+      "r": 10,
+      "u": 3,
+      "p": 105
+    },
+    {
+      "c": "Hugo Gonzalez",
+      "s": "Retro Rated Rookie Blue",
+      "r": 10,
+      "u": 3,
+      "p": 105
+    },
+    {
+      "c": "Jase Richardson",
+      "s": "RPS First Look Water",
+      "r": 10,
+      "u": 3,
+      "p": 105
+    },
+    {
+      "c": "Tre Johnson III",
+      "s": "RPS First Look Water",
+      "r": 10,
+      "u": 3,
+      "p": 105
+    },
+    {
+      "c": "Hansen Yang",
+      "s": "Spotlight Rookies Blue",
+      "r": 10,
+      "u": 3,
+      "p": 105
+    },
+    {
+      "c": "Collin Murray-Boyles",
+      "s": "Spotlight Rookies Blue",
+      "r": 10,
+      "u": 3,
+      "p": 105
+    },
+    {
+      "c": "Jase Richardson",
+      "s": "Spotlight Rookies Blue",
+      "r": 10,
+      "u": 3,
+      "p": 105
+    },
+    {
+      "c": "Walter Clayton Jr.",
+      "s": "Spotlight Rookies Blue",
+      "r": 10,
+      "u": 3,
+      "p": 105
+    },
+    {
+      "c": "Asa Newell",
+      "s": "RPS First Look Water",
+      "r": 10,
+      "u": 3,
+      "p": 105
+    },
+    {
+      "c": "Cedric Coward",
+      "s": "Retro Rated Rookie Blue",
+      "r": 10,
+      "u": 2,
+      "p": 105
+    },
+    {
+      "c": "Maxime Raynaud",
+      "s": "RPS First Look Water",
+      "r": 10,
+      "u": 2,
+      "p": 105
+    },
+    {
+      "c": "Egor Demin",
+      "s": "NBA Draft Night Red",
+      "r": 10,
+      "u": 2,
+      "p": 105
+    },
+    {
+      "c": "Joan Beringer",
+      "s": "NBA Draft Night Red",
+      "r": 10,
+      "u": 2,
+      "p": 105
+    },
+    {
+      "c": "Kasparas Jakucionis",
+      "s": "Retro Rated Rookie Blue",
+      "r": 10,
+      "u": 2,
+      "p": 105
+    },
+    {
+      "c": "Thomas Sorber",
+      "s": "NBA Draft Night Red",
+      "r": 10,
+      "u": 2,
+      "p": 105
+    },
+    {
+      "c": "Tre Johnson III",
+      "s": "Retro Rated Rookie Blue",
+      "r": 10,
+      "u": 2,
+      "p": 105
+    },
+    {
+      "c": "Hansen Yang",
+      "s": "Retro Rated Rookie Blue",
+      "r": 10,
+      "u": 2,
+      "p": 105
+    },
+    {
+      "c": "Khaman Maluach",
+      "s": "Retro Rated Rookie Blue",
+      "r": 10,
+      "u": 2,
+      "p": 105
+    },
+    {
+      "c": "Egor Demin",
+      "s": "RPS First Look Water",
+      "r": 10,
+      "u": 2,
+      "p": 105
+    },
+    {
+      "c": "Derik Queen",
+      "s": "Spotlight Rookies Blue",
+      "r": 10,
+      "u": 2,
+      "p": 105
+    },
+    {
+      "c": "Hugo Gonzalez",
+      "s": "RPS First Look Water",
+      "r": 10,
+      "u": 2,
+      "p": 105
+    },
+    {
+      "c": "Khaman Maluach",
+      "s": "Spotlight Rookies Blue",
+      "r": 10,
+      "u": 2,
+      "p": 105
+    },
+    {
+      "c": "Ace Bailey",
+      "s": "RPS First Look Water",
+      "r": 10,
+      "u": 2,
+      "p": 105
+    },
+    {
+      "c": "Chaz Lanier",
+      "s": "RPS First Look Water",
+      "r": 10,
+      "u": 2,
+      "p": 105
+    },
+    {
+      "c": "Noah Penda",
+      "s": "Retro Rated Rookie Blue",
+      "r": 10,
+      "u": 2,
+      "p": 105
+    },
+    {
+      "c": "Noah Penda",
+      "s": "RPS First Look Water",
+      "r": 10,
+      "u": 2,
+      "p": 105
+    },
+    {
+      "c": "Tyrese Proctor",
+      "s": "RPS First Look Water",
+      "r": 10,
+      "u": 2,
+      "p": 105
+    },
+    {
+      "c": "Asa Newell",
+      "s": "NBA Draft Night Red",
+      "r": 10,
+      "u": 2,
+      "p": 105
+    },
+    {
+      "c": "Will Riley",
+      "s": "RPS First Look Water",
+      "r": 10,
+      "u": 2,
+      "p": 105
+    },
+    {
+      "c": "Walter Clayton Jr.",
+      "s": "RPS First Look Water",
+      "r": 10,
+      "u": 2,
+      "p": 105
+    },
+    {
+      "c": "Drake Powell",
+      "s": "RPS First Look Water",
+      "r": 10,
+      "u": 2,
+      "p": 105
+    },
+    {
+      "c": "Tre Johnson III",
+      "s": "NBA Draft Night Red",
+      "r": 10,
+      "u": 1,
+      "p": 105
+    },
+    {
+      "c": "Koby Brea",
+      "s": "NBA Draft Night Red",
+      "r": 10,
+      "u": 1,
+      "p": 105
+    },
+    {
+      "c": "Egor Demin",
+      "s": "Retro Rated Rookie Blue",
+      "r": 10,
+      "u": 1,
+      "p": 105
+    },
+    {
+      "c": "Jeremiah Fears",
+      "s": "NBA Draft Night Red",
+      "r": 10,
+      "u": 1,
+      "p": 105
+    },
+    {
+      "c": "Cedric Coward",
+      "s": "NBA Draft Night Red",
+      "r": 10,
+      "u": 1,
+      "p": 105
+    },
+    {
+      "c": "Ryan Kalkbrenner",
+      "s": "Retro Rated Rookie Blue",
+      "r": 10,
+      "u": 1,
+      "p": 105
+    },
+    {
+      "c": "Rasheer Fleming",
+      "s": "Retro Rated Rookie Blue",
+      "r": 10,
+      "u": 1,
+      "p": 105
+    },
+    {
+      "c": "Rasheer Fleming",
+      "s": "NBA Draft Night Red",
+      "r": 10,
+      "u": 1,
+      "p": 105
+    },
+    {
+      "c": "Will Riley",
+      "s": "NBA Draft Night Red",
+      "r": 10,
+      "u": 1,
+      "p": 105
+    },
+    {
+      "c": "Tre Johnson III",
+      "s": "Spotlight Rookies Blue",
+      "r": 10,
+      "u": 1,
+      "p": 105
+    },
+    {
+      "c": "Ace Bailey",
+      "s": "Retro Rated Rookie Blue",
+      "r": 10,
+      "u": 1,
+      "p": 105
+    },
+    {
+      "c": "Liam McNeeley",
+      "s": "Spotlight Rookies Blue",
+      "r": 10,
+      "u": 1,
+      "p": 105
+    },
+    {
+      "c": "Cedric Coward",
+      "s": "Spotlight Rookies Blue",
+      "r": 10,
+      "u": 1,
+      "p": 105
+    },
+    {
+      "c": "Rasheer Fleming",
+      "s": "Spotlight Rookies Blue",
+      "r": 10,
+      "u": 1,
+      "p": 105
+    },
+    {
+      "c": "Rasheer Fleming",
+      "s": "RPS First Look Water",
+      "r": 10,
+      "u": 1,
+      "p": 105
+    },
+    {
+      "c": "Liam McNeeley",
+      "s": "RPS First Look Water",
+      "r": 10,
+      "u": 1,
+      "p": 105
+    },
+    {
+      "c": "Kasparas Jakucionis",
+      "s": "Spotlight Rookies Blue",
+      "r": 10,
+      "u": 1,
+      "p": 105
+    },
+    {
+      "c": "Joan Beringer",
+      "s": "RPS First Look Water",
+      "r": 10,
+      "u": 1,
+      "p": 105
+    },
+    {
+      "c": "Will Riley",
+      "s": "Retro Rated Rookie Blue",
+      "r": 10,
+      "u": 1,
+      "p": 105
+    },
+    {
+      "c": "Thomas Sorber",
+      "s": "Spotlight Rookies Blue",
+      "r": 10,
+      "u": 1,
+      "p": 105
+    },
+    {
+      "c": "Drake Powell",
+      "s": "Spotlight Rookies Blue",
+      "r": 10,
+      "u": 1,
+      "p": 105
+    },
+    {
+      "c": "Drake Powell",
+      "s": "Retro Rated Rookie Blue",
+      "r": 10,
+      "u": 1,
+      "p": 105
+    },
+    {
+      "c": "Chaz Lanier",
+      "s": "Spotlight Rookies Blue",
+      "r": 10,
+      "u": 1,
+      "p": 105
+    },
+    {
+      "c": "Carter Bryant",
+      "s": "Spotlight Rookies Blue",
+      "r": 10,
+      "u": 1,
+      "p": 105
+    },
+    {
+      "c": "Chaz Lanier",
+      "s": "Retro Rated Rookie Blue",
+      "r": 10,
+      "u": 1,
+      "p": 105
+    },
+    {
+      "c": "Noah Penda",
+      "s": "Spotlight Rookies Blue",
+      "r": 10,
+      "u": 1,
+      "p": 105
+    },
+    {
+      "c": "Asa Newell",
+      "s": "Spotlight Rookies Blue",
+      "r": 10,
+      "u": 1,
+      "p": 105
+    },
+    {
+      "c": "Tyrese Proctor",
+      "s": "Retro Rated Rookie Blue",
+      "r": 10,
+      "u": 1,
+      "p": 105
+    },
+    {
+      "c": "Kasparas Jakucionis",
+      "s": "RPS First Look Water",
+      "r": 10,
+      "u": 1,
+      "p": 105
+    },
+    {
+      "c": "Ryan Kalkbrenner",
+      "s": "RPS First Look Water",
+      "r": 10,
+      "u": 1,
+      "p": 105
+    },
+    {
+      "c": "Hugo Gonzalez",
+      "s": "Spotlight Rookies Blue",
+      "r": 10,
+      "u": 1,
+      "p": 105
+    },
+    {
+      "c": "Derik Queen",
+      "s": "RPS First Look Water",
+      "r": 10,
+      "u": 1,
+      "p": 105
+    },
+    {
+      "c": "Will Riley",
+      "s": "Spotlight Rookies Blue",
+      "r": 10,
+      "u": 1,
+      "p": 105
+    },
+    {
+      "c": "Kon Knueppel",
+      "s": "Spotlight Rookies",
+      "r": 49,
+      "u": 8,
+      "p": 100
+    },
+    {
+      "c": "VJ Edgecombe",
+      "s": "Year One",
+      "r": 49,
+      "u": 7,
+      "p": 100
+    },
+    {
+      "c": "Kon Knueppel",
+      "s": "RPS First Look",
+      "r": 49,
+      "u": 5,
+      "p": 100
+    },
+    {
+      "c": "LeBron James",
+      "s": "Contour",
+      "r": 25,
+      "u": 3,
+      "p": 100
+    }
+  ],
+  "chase_serials": [
+    {
+      "s": "Cooper Flagg — Draft Night Black /1",
+      "p": 18000
+    },
+    {
+      "s": "Cooper Flagg — Draft Night Green /5",
+      "p": 10800
+    },
+    {
+      "s": "Cooper Flagg — RPS Water /10",
+      "p": 4200
+    },
+    {
+      "s": "Cooper Flagg — Draft Night Blue /25",
+      "p": 3000
+    },
+    {
+      "s": "Cooper Flagg — base inserts /49",
+      "p": 960
+    },
+    {
+      "s": "Kon Knueppel — RRR Black /1",
+      "p": 1800
+    }
+  ]
+}

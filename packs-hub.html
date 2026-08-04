@@ -36,6 +36,7 @@
   .pack.soccer{--accent:var(--gold);}
   .pack.fotl{--accent:var(--flame);}
   .pack.moon{--accent:var(--purple);order:-1;}
+  .pack.silo{--accent:var(--flame);order:-1;}
   .pack .tagrow{display:flex;align-items:center;gap:8px;margin-bottom:14px;}
   .pack .chip{font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--pine-3);background:var(--accent);padding:3px 10px;border-radius:5px;font-weight:700;}
   .pack .rel{font-family:'Barlow Condensed',sans-serif;font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:var(--text-faint);}
@@ -100,6 +101,19 @@
       <div class="go"><span>View analytics</span><span class="arw">&rarr;</span></div>
     </a>
 
+    <a class="pack silo" href="/silhouette">
+      <div class="tagrow"><span class="chip">Pack</span><span class="rel">Silhouette Basketball</span></div>
+      <h2>2024-25 NBA<br>Silhouette</h2>
+      <div class="sub">4 cards &mdash; 3 base + 1 insert/Instant hit; Cooper Flagg &amp; the rookie-class chases.</div>
+      <div class="stats">
+        <div class="stat"><div class="l">Predicted</div><div class="v accent" id="silo_pred">&mdash;</div><span class="est" id="silo_est" style="display:none">Estimate</span></div>
+        <div class="stat"><div class="l">Book value</div><div class="v" id="silo_book">&mdash;</div></div>
+        <div class="stat"><div class="l">Hit slot</div><div class="v" id="silo_hit">&mdash;</div></div>
+        <div class="stat"><div class="l">Cards/pack</div><div class="v">4</div></div>
+      </div>
+      <div class="go"><span>View analytics</span><span class="arw">&rarr;</span></div>
+    </a>
+
     <a class="pack moon" href="/moonbirds">
       <div class="tagrow"><span class="chip">Pack</span><span class="rel">Birbs Beyond</span></div>
       <h2>Moonbirds<br>Birbs Beyond</h2>
@@ -148,6 +162,14 @@ fetch('/api/moonbirds-data').then(r=>r.json()).then(D=>{
   fill('moon', pe.pack_book_ev, pe.predicted_price, pe.mint);
   $('moon_est').style.display='';
 }).catch(e=>console.warn('[hub] moonbirds fetch failed', e.message));
+
+fetch('/api/silhouette-data').then(r=>r.json()).then(D=>{
+  const pe = D.pack_ev;
+  $('silo_book').textContent = money(pe.pack_book_ev);
+  $('silo_pred').innerHTML = '~' + money(pe.predicted_price);
+  $('silo_hit').textContent = money(pe.hit_card_ev);
+  $('silo_est').style.display='';
+}).catch(e=>console.warn('[hub] silhouette fetch failed', e.message));
 </script>
 </body>
 </html>

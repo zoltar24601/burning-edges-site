@@ -1,0 +1,3696 @@
+{
+  "product": "2024-25 Panini NFT Silhouette Basketball",
+  "updated": "2026-08-04T20:03:11.013Z",
+  "count": 527,
+  "sales": [
+    {
+      "character": "Terrence Shannon Jr.",
+      "parallel": "Base Cracked Ice",
+      "serial": 10,
+      "run": 25,
+      "price": 4
+    },
+    {
+      "character": "Ace Bailey",
+      "parallel": "Year One",
+      "serial": 23,
+      "run": 49,
+      "price": 27
+    },
+    {
+      "character": "VJ Edgecombe",
+      "parallel": "NBA Draft Night Red",
+      "serial": 6,
+      "run": 10,
+      "price": 775
+    },
+    {
+      "character": "Kon Knueppel",
+      "parallel": "NBA Draft Night Red",
+      "serial": 4,
+      "run": 10,
+      "price": 750
+    },
+    {
+      "character": "VJ Edgecombe",
+      "parallel": "NBA Draft Night Red",
+      "serial": 2,
+      "run": 10,
+      "price": 774
+    },
+    {
+      "character": "Derik Queen",
+      "parallel": "NBA Draft Night",
+      "serial": 10,
+      "run": 49,
+      "price": 20
+    },
+    {
+      "character": "Ace Bailey",
+      "parallel": "Year One",
+      "serial": 22,
+      "run": 49,
+      "price": 29
+    },
+    {
+      "character": "Hugo Gonzalez",
+      "parallel": "Spotlight Rookies",
+      "serial": 35,
+      "run": 49,
+      "price": 5
+    },
+    {
+      "character": "Rasheer Fleming",
+      "parallel": "Spotlight Rookies",
+      "serial": 7,
+      "run": 49,
+      "price": 4
+    },
+    {
+      "character": "Tyrese Proctor",
+      "parallel": "Spotlight Rookies",
+      "serial": 24,
+      "run": 49,
+      "price": 7
+    },
+    {
+      "character": "Chaz Lanier",
+      "parallel": "Year One",
+      "serial": 8,
+      "run": 49,
+      "price": 4
+    },
+    {
+      "character": "Stephon Castle",
+      "parallel": "Base Blue",
+      "serial": 59,
+      "run": 99,
+      "price": 3
+    },
+    {
+      "character": "Nikola Jokic",
+      "parallel": "Base Red",
+      "serial": 38,
+      "run": 49,
+      "price": 3
+    },
+    {
+      "character": "Derik Queen",
+      "parallel": "Spotlight Rookies",
+      "serial": 17,
+      "run": 49,
+      "price": 15
+    },
+    {
+      "character": "VJ Edgecombe",
+      "parallel": "Year One",
+      "serial": 10,
+      "run": 49,
+      "price": 119
+    },
+    {
+      "character": "VJ Edgecombe",
+      "parallel": "Spotlight Rookies",
+      "serial": 42,
+      "run": 49,
+      "price": 109
+    },
+    {
+      "character": "VJ Edgecombe",
+      "parallel": "NBA Draft Night",
+      "serial": 18,
+      "run": 49,
+      "price": 222
+    },
+    {
+      "character": "VJ Edgecombe",
+      "parallel": "NBA Draft Night",
+      "serial": 43,
+      "run": 49,
+      "price": 195
+    },
+    {
+      "character": "VJ Edgecombe",
+      "parallel": "RPS First Look",
+      "serial": 45,
+      "run": 49,
+      "price": 175
+    },
+    {
+      "character": "VJ Edgecombe",
+      "parallel": "Spotlight Rookies",
+      "serial": 4,
+      "run": 49,
+      "price": 130
+    },
+    {
+      "character": "VJ Edgecombe",
+      "parallel": "Spotlight Rookies",
+      "serial": 29,
+      "run": 49,
+      "price": 125
+    },
+    {
+      "character": "VJ Edgecombe",
+      "parallel": "Year One",
+      "serial": 37,
+      "run": 49,
+      "price": 100
+    },
+    {
+      "character": "VJ Edgecombe",
+      "parallel": "Retro Rated Rookie",
+      "serial": 3,
+      "run": 49,
+      "price": 200
+    },
+    {
+      "character": "VJ Edgecombe",
+      "parallel": "Retro Rated Rookie",
+      "serial": 47,
+      "run": 49,
+      "price": 239
+    },
+    {
+      "character": "Thomas Sorber",
+      "parallel": "Retro Rated Rookie Blue",
+      "serial": 9,
+      "run": 10,
+      "price": 30
+    },
+    {
+      "character": "Ace Bailey",
+      "parallel": "Year One",
+      "serial": 16,
+      "run": 49,
+      "price": 30
+    },
+    {
+      "character": "Ace Bailey",
+      "parallel": "NBA Draft Night",
+      "serial": 16,
+      "run": 49,
+      "price": 59
+    },
+    {
+      "character": "Khaman Maluach",
+      "parallel": "Spotlight Rookies",
+      "serial": 24,
+      "run": 49,
+      "price": 13
+    },
+    {
+      "character": "Ryan Kalkbrenner",
+      "parallel": "RPS First Look",
+      "serial": 5,
+      "run": 49,
+      "price": 10
+    },
+    {
+      "character": "Hugo Gonzalez",
+      "parallel": "RPS First Look",
+      "serial": 17,
+      "run": 49,
+      "price": 8
+    },
+    {
+      "character": "VJ Edgecombe",
+      "parallel": "Spotlight Rookies",
+      "serial": 25,
+      "run": 49,
+      "price": 70
+    },
+    {
+      "character": "Jeremiah Fears",
+      "parallel": "NBA Draft Night",
+      "serial": 39,
+      "run": 49,
+      "price": 35
+    },
+    {
+      "character": "Domantas Sabonis | Zach Lavine | DeMar DeRozan",
+      "parallel": "The Kings Court Cracked ice",
+      "serial": 14,
+      "run": 49,
+      "price": 2
+    },
+    {
+      "character": "VJ Edgecombe",
+      "parallel": "NBA Draft Night",
+      "serial": 23,
+      "run": 49,
+      "price": 175
+    },
+    {
+      "character": "Jalen Brunson",
+      "parallel": "Superstars Cracked Ice",
+      "serial": 1,
+      "run": 49,
+      "price": 125
+    },
+    {
+      "character": "Jeremiah Fears",
+      "parallel": "RPS First Look",
+      "serial": 14,
+      "run": 49,
+      "price": 45
+    },
+    {
+      "character": "Kon Knueppel",
+      "parallel": "Retro Rated Rookie",
+      "serial": 7,
+      "run": 49,
+      "price": 1000
+    },
+    {
+      "character": "Kon Knueppel",
+      "parallel": "NBA Draft Night Blue",
+      "serial": 1,
+      "run": 25,
+      "price": 1000
+    },
+    {
+      "character": "Kon Knueppel",
+      "parallel": "NBA Draft Night Blue",
+      "serial": 21,
+      "run": 25,
+      "price": 455
+    },
+    {
+      "character": "Tre Johnson III",
+      "parallel": "Year One",
+      "serial": 4,
+      "run": 49,
+      "price": 25
+    },
+    {
+      "character": "Kel'el Ware",
+      "parallel": "Base",
+      "serial": 2,
+      "run": 256,
+      "price": 2
+    },
+    {
+      "character": "Joan Beringer",
+      "parallel": "Spotlight Rookies",
+      "serial": 36,
+      "run": 49,
+      "price": 15
+    },
+    {
+      "character": "Joan Beringer",
+      "parallel": "Spotlight Rookies",
+      "serial": 13,
+      "run": 49,
+      "price": 15
+    },
+    {
+      "character": "Kasparas Jakucionis",
+      "parallel": "Spotlight Rookies",
+      "serial": 8,
+      "run": 49,
+      "price": 9
+    },
+    {
+      "character": "Collin Murray-Boyles",
+      "parallel": "Spotlight Rookies",
+      "serial": 40,
+      "run": 49,
+      "price": 10
+    },
+    {
+      "character": "Derik Queen",
+      "parallel": "Year One",
+      "serial": 11,
+      "run": 49,
+      "price": 17
+    },
+    {
+      "character": "VJ Edgecombe",
+      "parallel": "Retro Rated Rookie",
+      "serial": 33,
+      "run": 49,
+      "price": 150
+    },
+    {
+      "character": "Cooper Flagg",
+      "parallel": "NBA Draft Night Blue",
+      "serial": 9,
+      "run": 25,
+      "price": 3000
+    },
+    {
+      "character": "Cedric Coward",
+      "parallel": "RPS First Look",
+      "serial": 27,
+      "run": 49,
+      "price": 14
+    },
+    {
+      "character": "Egor Demin",
+      "parallel": "RPS First Look Lightning",
+      "serial": 5,
+      "run": 5,
+      "price": 125
+    },
+    {
+      "character": "Kasparas Jakucionis",
+      "parallel": "Spotlight Rookies",
+      "serial": 27,
+      "run": 49,
+      "price": 9
+    },
+    {
+      "character": "Kasparas Jakucionis",
+      "parallel": "Spotlight Rookies",
+      "serial": 28,
+      "run": 49,
+      "price": 8
+    },
+    {
+      "character": "Kasparas Jakucionis",
+      "parallel": "Spotlight Rookies",
+      "serial": 9,
+      "run": 49,
+      "price": 8
+    },
+    {
+      "character": "Ajay Mitchell",
+      "parallel": "Base Blue",
+      "serial": 12,
+      "run": 99,
+      "price": 3
+    },
+    {
+      "character": "Derik Queen",
+      "parallel": "NBA Draft Night",
+      "serial": 48,
+      "run": 49,
+      "price": 18
+    },
+    {
+      "character": "Liam McNeeley",
+      "parallel": "Spotlight Rookies",
+      "serial": 43,
+      "run": 49,
+      "price": 7
+    },
+    {
+      "character": "Tyrese Maxey",
+      "parallel": "White Night",
+      "serial": 10,
+      "run": 25,
+      "price": 12
+    },
+    {
+      "character": "Tyrese Maxey",
+      "parallel": "White Night",
+      "serial": 14,
+      "run": 25,
+      "price": 15
+    },
+    {
+      "character": "Kon Knueppel",
+      "parallel": "NBA Draft Night Blue",
+      "serial": 10,
+      "run": 25,
+      "price": 500
+    },
+    {
+      "character": "Kon Knueppel",
+      "parallel": "NBA Draft Night",
+      "serial": 9,
+      "run": 49,
+      "price": 350
+    },
+    {
+      "character": "Kon Knueppel",
+      "parallel": "Retro Rated Rookie",
+      "serial": 43,
+      "run": 49,
+      "price": 500
+    },
+    {
+      "character": "Kon Knueppel",
+      "parallel": "Year One",
+      "serial": 25,
+      "run": 49,
+      "price": 200
+    },
+    {
+      "character": "Kon Knueppel",
+      "parallel": "Retro Rated Rookie Blue",
+      "serial": 8,
+      "run": 10,
+      "price": 1250
+    },
+    {
+      "character": "Kon Knueppel",
+      "parallel": "Retro Rated Rookie Blue",
+      "serial": 2,
+      "run": 10,
+      "price": 1095
+    },
+    {
+      "character": "Joan Beringer",
+      "parallel": "Spotlight Rookies",
+      "serial": 21,
+      "run": 49,
+      "price": 15
+    },
+    {
+      "character": "Joan Beringer",
+      "parallel": "RPS First Look",
+      "serial": 47,
+      "run": 49,
+      "price": 20
+    },
+    {
+      "character": "Joan Beringer",
+      "parallel": "Retro Rated Rookie",
+      "serial": 48,
+      "run": 49,
+      "price": 15
+    },
+    {
+      "character": "Liam McNeeley",
+      "parallel": "RPS First Look",
+      "serial": 34,
+      "run": 49,
+      "price": 5
+    },
+    {
+      "character": "Ajay Mitchell",
+      "parallel": "Base Blue",
+      "serial": 34,
+      "run": 99,
+      "price": 2
+    },
+    {
+      "character": "Ajay Mitchell",
+      "parallel": "Base Blue",
+      "serial": 49,
+      "run": 99,
+      "price": 2
+    },
+    {
+      "character": "Ajay Mitchell",
+      "parallel": "Base Blue",
+      "serial": 64,
+      "run": 99,
+      "price": 2
+    },
+    {
+      "character": "LeBron James",
+      "parallel": "Base",
+      "serial": 13,
+      "run": 256,
+      "price": 10
+    },
+    {
+      "character": "Luka Doncic",
+      "parallel": "Base Scope",
+      "serial": 65,
+      "run": 179,
+      "price": 5
+    },
+    {
+      "character": "Khaman Maluach",
+      "parallel": "Spotlight Rookies",
+      "serial": 43,
+      "run": 49,
+      "price": 10
+    },
+    {
+      "character": "Anthony Edwards",
+      "parallel": "Base Blue",
+      "serial": 41,
+      "run": 99,
+      "price": 3
+    },
+    {
+      "character": "Kon Knueppel",
+      "parallel": "NBA Draft Night",
+      "serial": 8,
+      "run": 49,
+      "price": 220
+    },
+    {
+      "character": "Kon Knueppel",
+      "parallel": "Spotlight Rookies",
+      "serial": 48,
+      "run": 49,
+      "price": 180
+    },
+    {
+      "character": "Kon Knueppel",
+      "parallel": "Spotlight Rookies",
+      "serial": 4,
+      "run": 49,
+      "price": 130
+    },
+    {
+      "character": "Damian Lillard",
+      "parallel": "White Night",
+      "serial": 13,
+      "run": 25,
+      "price": 10
+    },
+    {
+      "character": "Kel'el Ware",
+      "parallel": "Base",
+      "serial": 10,
+      "run": 256,
+      "price": 2
+    },
+    {
+      "character": "Kel'el Ware",
+      "parallel": "Base",
+      "serial": 100,
+      "run": 256,
+      "price": 1
+    },
+    {
+      "character": "Kel'el Ware",
+      "parallel": "Base",
+      "serial": 158,
+      "run": 256,
+      "price": 2
+    },
+    {
+      "character": "Kel'el Ware",
+      "parallel": "Base",
+      "serial": 168,
+      "run": 256,
+      "price": 2
+    },
+    {
+      "character": "Kel'el Ware",
+      "parallel": "Base Scope",
+      "serial": 23,
+      "run": 179,
+      "price": 2
+    },
+    {
+      "character": "Kel'el Ware",
+      "parallel": "Base",
+      "serial": 40,
+      "run": 256,
+      "price": 2
+    },
+    {
+      "character": "Kel'el Ware",
+      "parallel": "Base Blue",
+      "serial": 81,
+      "run": 99,
+      "price": 2
+    },
+    {
+      "character": "Kel'el Ware",
+      "parallel": "Base Red",
+      "serial": 35,
+      "run": 49,
+      "price": 5
+    },
+    {
+      "character": "Kel'el Ware",
+      "parallel": "Base Red",
+      "serial": 22,
+      "run": 49,
+      "price": 4
+    },
+    {
+      "character": "Kel'el Ware",
+      "parallel": "Base Blue",
+      "serial": 44,
+      "run": 99,
+      "price": 2
+    },
+    {
+      "character": "Kel'el Ware",
+      "parallel": "Base Cracked Ice",
+      "serial": 19,
+      "run": 25,
+      "price": 15
+    },
+    {
+      "character": "Kel'el Ware",
+      "parallel": "Base Cracked Ice",
+      "serial": 22,
+      "run": 25,
+      "price": 10
+    },
+    {
+      "character": "VJ Edgecombe",
+      "parallel": "Spotlight Rookies Blue",
+      "serial": 4,
+      "run": 10,
+      "price": 299
+    },
+    {
+      "character": "Jalen Green",
+      "parallel": "Base Scope",
+      "serial": 107,
+      "run": 179,
+      "price": 1
+    },
+    {
+      "character": "LeBron James",
+      "parallel": "Superstars Cracked Ice",
+      "serial": 42,
+      "run": 49,
+      "price": 20
+    },
+    {
+      "character": "Dylan Harper",
+      "parallel": "RPS First Look",
+      "serial": 21,
+      "run": 49,
+      "price": 278
+    },
+    {
+      "character": "Stephen Curry",
+      "parallel": "Base Blue",
+      "serial": 87,
+      "run": 99,
+      "price": 8
+    },
+    {
+      "character": "Liam McNeeley",
+      "parallel": "NBA Draft Night Red",
+      "serial": 5,
+      "run": 10,
+      "price": 50
+    },
+    {
+      "character": "Dylan Harper",
+      "parallel": "NBA Draft Night",
+      "serial": 14,
+      "run": 49,
+      "price": 465
+    },
+    {
+      "character": "VJ Edgecombe",
+      "parallel": "Spotlight Rookies",
+      "serial": 36,
+      "run": 49,
+      "price": 70
+    },
+    {
+      "character": "Stephen Curry",
+      "parallel": "Base Blue",
+      "serial": 51,
+      "run": 99,
+      "price": 8
+    },
+    {
+      "character": "Ace Bailey",
+      "parallel": "Year One",
+      "serial": 32,
+      "run": 49,
+      "price": 20
+    },
+    {
+      "character": "Luka Doncic",
+      "parallel": "White Night",
+      "serial": 22,
+      "run": 25,
+      "price": 75
+    },
+    {
+      "character": "Nikola Jokic",
+      "parallel": "Base Scope",
+      "serial": 151,
+      "run": 179,
+      "price": 1
+    },
+    {
+      "character": "James Harden",
+      "parallel": "Superstars Cracked Ice",
+      "serial": 35,
+      "run": 49,
+      "price": 1
+    },
+    {
+      "character": "VJ Edgecombe",
+      "parallel": "Spotlight Rookies",
+      "serial": 27,
+      "run": 49,
+      "price": 60
+    },
+    {
+      "character": "Ajay Mitchell",
+      "parallel": "Base Blue",
+      "serial": 68,
+      "run": 99,
+      "price": 2
+    },
+    {
+      "character": "Luka Doncic",
+      "parallel": "Superstars Cracked Ice",
+      "serial": 43,
+      "run": 49,
+      "price": 15
+    },
+    {
+      "character": "Allen Iverson",
+      "parallel": "Game 7 Cracked Ice",
+      "serial": 4,
+      "run": 49,
+      "price": 2
+    },
+    {
+      "character": "Kasparas Jakucionis",
+      "parallel": "Spotlight Rookies",
+      "serial": 24,
+      "run": 49,
+      "price": 5
+    },
+    {
+      "character": "Kasparas Jakucionis",
+      "parallel": "Spotlight Rookies",
+      "serial": 30,
+      "run": 49,
+      "price": 6
+    },
+    {
+      "character": "Chaz Lanier",
+      "parallel": "Year One",
+      "serial": 41,
+      "run": 49,
+      "price": 4
+    },
+    {
+      "character": "Asa Newell",
+      "parallel": "Spotlight Rookies",
+      "serial": 45,
+      "run": 49,
+      "price": 3
+    },
+    {
+      "character": "Zach Edey",
+      "parallel": "Pillars of the Game Cracked Ice",
+      "serial": 25,
+      "run": 49,
+      "price": 1
+    },
+    {
+      "character": "Dylan Harper",
+      "parallel": "Spotlight Rookies",
+      "serial": 37,
+      "run": 49,
+      "price": 269
+    },
+    {
+      "character": "Dylan Harper",
+      "parallel": "Spotlight Rookies",
+      "serial": 19,
+      "run": 49,
+      "price": 233
+    },
+    {
+      "character": "Dylan Harper",
+      "parallel": "NBA Draft Night Red",
+      "serial": 6,
+      "run": 10,
+      "price": 2000
+    },
+    {
+      "character": "Thomas Sorber",
+      "parallel": "RPS First Look",
+      "serial": 44,
+      "run": 49,
+      "price": 10
+    },
+    {
+      "character": "Thomas Sorber",
+      "parallel": "Year One",
+      "serial": 34,
+      "run": 49,
+      "price": 16
+    },
+    {
+      "character": "Thomas Sorber",
+      "parallel": "Retro Rated Rookie",
+      "serial": 37,
+      "run": 49,
+      "price": 30
+    },
+    {
+      "character": "Thomas Sorber",
+      "parallel": "Retro Rated Rookie",
+      "serial": 35,
+      "run": 49,
+      "price": 26
+    },
+    {
+      "character": "Thomas Sorber",
+      "parallel": "Year One",
+      "serial": 36,
+      "run": 49,
+      "price": 16
+    },
+    {
+      "character": "Thomas Sorber",
+      "parallel": "Year One",
+      "serial": 16,
+      "run": 49,
+      "price": 16
+    },
+    {
+      "character": "Nikola Jokic",
+      "parallel": "Base Scope",
+      "serial": 40,
+      "run": 179,
+      "price": 2
+    },
+    {
+      "character": "Thomas Sorber",
+      "parallel": "Year One",
+      "serial": 28,
+      "run": 49,
+      "price": 15
+    },
+    {
+      "character": "Thomas Sorber",
+      "parallel": "RPS First Look Water",
+      "serial": 8,
+      "run": 10,
+      "price": 38
+    },
+    {
+      "character": "Kon Knueppel",
+      "parallel": "Retro Rated Rookie",
+      "serial": 40,
+      "run": 49,
+      "price": 300
+    },
+    {
+      "character": "Kon Knueppel",
+      "parallel": "Spotlight Rookies",
+      "serial": 24,
+      "run": 49,
+      "price": 125
+    },
+    {
+      "character": "Kon Knueppel",
+      "parallel": "RPS First Look",
+      "serial": 15,
+      "run": 49,
+      "price": 125
+    },
+    {
+      "character": "Kon Knueppel",
+      "parallel": "Retro Rated Rookie",
+      "serial": 8,
+      "run": 49,
+      "price": 225
+    },
+    {
+      "character": "Kon Knueppel",
+      "parallel": "Spotlight Rookies",
+      "serial": 11,
+      "run": 49,
+      "price": 89
+    },
+    {
+      "character": "Kon Knueppel",
+      "parallel": "RPS First Look",
+      "serial": 44,
+      "run": 49,
+      "price": 124
+    },
+    {
+      "character": "Kon Knueppel",
+      "parallel": "Spotlight Rookies",
+      "serial": 39,
+      "run": 49,
+      "price": 100
+    },
+    {
+      "character": "Kon Knueppel",
+      "parallel": "Spotlight Rookies",
+      "serial": 47,
+      "run": 49,
+      "price": 88
+    },
+    {
+      "character": "Kon Knueppel",
+      "parallel": "Retro Rated Rookie",
+      "serial": 48,
+      "run": 49,
+      "price": 224
+    },
+    {
+      "character": "Kon Knueppel",
+      "parallel": "NBA Draft Night",
+      "serial": 5,
+      "run": 49,
+      "price": 165
+    },
+    {
+      "character": "Kon Knueppel",
+      "parallel": "Year One",
+      "serial": 8,
+      "run": 49,
+      "price": 109
+    },
+    {
+      "character": "Drake Powell",
+      "parallel": "Spotlight Rookies",
+      "serial": 49,
+      "run": 49,
+      "price": 20
+    },
+    {
+      "character": "Jase Richardson",
+      "parallel": "RPS First Look",
+      "serial": 1,
+      "run": 49,
+      "price": 15
+    },
+    {
+      "character": "Nikola Jokic",
+      "parallel": "Base",
+      "serial": 98,
+      "run": 256,
+      "price": 1
+    },
+    {
+      "character": "Kevin Durant",
+      "parallel": "Base",
+      "serial": 164,
+      "run": 256,
+      "price": 2
+    },
+    {
+      "character": "Kevin Durant",
+      "parallel": "Base",
+      "serial": 49,
+      "run": 256,
+      "price": 2
+    },
+    {
+      "character": "Kevin Durant | Devin Booker | Bradley Beal",
+      "parallel": "The Kings Court Cracked ice",
+      "serial": 48,
+      "run": 49,
+      "price": 2
+    },
+    {
+      "character": "Ajay Mitchell",
+      "parallel": "Base Scope",
+      "serial": 5,
+      "run": 179,
+      "price": 2
+    },
+    {
+      "character": "Anthony Edwards",
+      "parallel": "Base",
+      "serial": 216,
+      "run": 256,
+      "price": 2
+    },
+    {
+      "character": "VJ Edgecombe",
+      "parallel": "Year One",
+      "serial": 10,
+      "run": 49,
+      "price": 65
+    },
+    {
+      "character": "Dylan Harper",
+      "parallel": "Spotlight Rookies",
+      "serial": 6,
+      "run": 49,
+      "price": 225
+    },
+    {
+      "character": "Stephon Castle",
+      "parallel": "Base",
+      "serial": 173,
+      "run": 256,
+      "price": 5
+    },
+    {
+      "character": "Ajay Mitchell",
+      "parallel": "Base Scope",
+      "serial": 34,
+      "run": 179,
+      "price": 2
+    },
+    {
+      "character": "Ajay Mitchell",
+      "parallel": "Base Scope",
+      "serial": 40,
+      "run": 179,
+      "price": 2
+    },
+    {
+      "character": "Anthony Edwards",
+      "parallel": "Base",
+      "serial": 151,
+      "run": 256,
+      "price": 2
+    },
+    {
+      "character": "Anthony Edwards",
+      "parallel": "Base",
+      "serial": 44,
+      "run": 256,
+      "price": 2
+    },
+    {
+      "character": "Ajay Mitchell",
+      "parallel": "Base Scope",
+      "serial": 45,
+      "run": 179,
+      "price": 2
+    },
+    {
+      "character": "Ajay Mitchell",
+      "parallel": "Base Blue",
+      "serial": 30,
+      "run": 99,
+      "price": 3
+    },
+    {
+      "character": "Russell Westbrook",
+      "parallel": "Base Scope",
+      "serial": 137,
+      "run": 179,
+      "price": 1
+    },
+    {
+      "character": "James Harden",
+      "parallel": "Base Scope",
+      "serial": 91,
+      "run": 179,
+      "price": 1
+    },
+    {
+      "character": "Hansen Yang",
+      "parallel": "RPS First Look",
+      "serial": 39,
+      "run": 49,
+      "price": 15
+    },
+    {
+      "character": "Dylan Harper",
+      "parallel": "Spotlight Rookies",
+      "serial": 12,
+      "run": 49,
+      "price": 250
+    },
+    {
+      "character": "Liam McNeeley",
+      "parallel": "NBA Draft Night Red",
+      "serial": 4,
+      "run": 10,
+      "price": 50
+    },
+    {
+      "character": "Dylan Harper",
+      "parallel": "Retro Rated Rookie",
+      "serial": 8,
+      "run": 49,
+      "price": 535
+    },
+    {
+      "character": "Dylan Harper",
+      "parallel": "Retro Rated Rookie",
+      "serial": 37,
+      "run": 49,
+      "price": 550
+    },
+    {
+      "character": "Dylan Harper",
+      "parallel": "Year One",
+      "serial": 41,
+      "run": 49,
+      "price": 259
+    },
+    {
+      "character": "Dylan Harper",
+      "parallel": "Year One",
+      "serial": 43,
+      "run": 49,
+      "price": 255
+    },
+    {
+      "character": "Shai Gilgeous-Alexander",
+      "parallel": "Superstars Cracked Ice",
+      "serial": 2,
+      "run": 49,
+      "price": 25
+    },
+    {
+      "character": "Lonzo Ball",
+      "parallel": "Base Holo Platinum",
+      "serial": 1,
+      "run": 1,
+      "price": 99
+    },
+    {
+      "character": "Pacome Dadiet",
+      "parallel": "Base Red",
+      "serial": 7,
+      "run": 49,
+      "price": 1
+    },
+    {
+      "character": "Kevin Durant",
+      "parallel": "Vanta",
+      "serial": 11,
+      "run": 25,
+      "price": 4
+    },
+    {
+      "character": "Victor Wembanyama",
+      "parallel": "Base",
+      "serial": 174,
+      "run": 256,
+      "price": 12
+    },
+    {
+      "character": "Victor Wembanyama",
+      "parallel": "Base",
+      "serial": 134,
+      "run": 256,
+      "price": 15
+    },
+    {
+      "character": "Tyrese Proctor",
+      "parallel": "Spotlight Rookies",
+      "serial": 24,
+      "run": 49,
+      "price": 1
+    },
+    {
+      "character": "Maxime Raynaud",
+      "parallel": "RPS First Look Magma",
+      "serial": 1,
+      "run": 1,
+      "price": 750
+    },
+    {
+      "character": "Cooper Flagg",
+      "parallel": "Spotlight Rookies",
+      "serial": 7,
+      "run": 49,
+      "price": 600
+    },
+    {
+      "character": "Tyrese Maxey",
+      "parallel": "Base Scope",
+      "serial": 39,
+      "run": 179,
+      "price": 2
+    },
+    {
+      "character": "Kasparas Jakucionis",
+      "parallel": "RPS First Look",
+      "serial": 28,
+      "run": 49,
+      "price": 4
+    },
+    {
+      "character": "Kasparas Jakucionis",
+      "parallel": "RPS First Look",
+      "serial": 29,
+      "run": 49,
+      "price": 4
+    },
+    {
+      "character": "Zaccharie Risacher",
+      "parallel": "Base Blue",
+      "serial": 38,
+      "run": 99,
+      "price": 1
+    },
+    {
+      "character": "Anthony Davis",
+      "parallel": "Pillars of the Game Cracked Ice",
+      "serial": 43,
+      "run": 49,
+      "price": 1
+    },
+    {
+      "character": "Carter Bryant",
+      "parallel": "Spotlight Rookies Black",
+      "serial": 1,
+      "run": 1,
+      "price": 350
+    },
+    {
+      "character": "Dylan Harper",
+      "parallel": "Year One",
+      "serial": 34,
+      "run": 49,
+      "price": 222
+    },
+    {
+      "character": "Reed Sheppard",
+      "parallel": "Superstars Cracked Ice",
+      "serial": 46,
+      "run": 49,
+      "price": 1
+    },
+    {
+      "character": "Stephen Curry",
+      "parallel": "Vanta",
+      "serial": 11,
+      "run": 25,
+      "price": 28
+    },
+    {
+      "character": "Kasparas Jakucionis",
+      "parallel": "Retro Rated Rookie",
+      "serial": 3,
+      "run": 49,
+      "price": 6
+    },
+    {
+      "character": "Jeremiah Fears",
+      "parallel": "NBA Draft Night Blue",
+      "serial": 12,
+      "run": 25,
+      "price": 55
+    },
+    {
+      "character": "Joan Beringer",
+      "parallel": "NBA Draft Night Blue",
+      "serial": 10,
+      "run": 25,
+      "price": 25
+    },
+    {
+      "character": "Luka Doncic",
+      "parallel": "Base Cracked Ice",
+      "serial": 3,
+      "run": 25,
+      "price": 83
+    },
+    {
+      "character": "Kasparas Jakucionis",
+      "parallel": "Year One",
+      "serial": 2,
+      "run": 49,
+      "price": 10
+    },
+    {
+      "character": "Dylan Harper",
+      "parallel": "RPS First Look",
+      "serial": 29,
+      "run": 49,
+      "price": 250
+    },
+    {
+      "character": "Kasparas Jakucionis",
+      "parallel": "Retro Rated Rookie",
+      "serial": 16,
+      "run": 49,
+      "price": 8
+    },
+    {
+      "character": "Noah Penda",
+      "parallel": "NBA Draft Night Blue",
+      "serial": 12,
+      "run": 25,
+      "price": 10
+    },
+    {
+      "character": "Jared McCain",
+      "parallel": "Base",
+      "serial": 115,
+      "run": 256,
+      "price": 1
+    },
+    {
+      "character": "Jared McCain",
+      "parallel": "Base Red",
+      "serial": 3,
+      "run": 49,
+      "price": 4
+    },
+    {
+      "character": "Jared McCain",
+      "parallel": "Base",
+      "serial": 169,
+      "run": 256,
+      "price": 1
+    },
+    {
+      "character": "Jared McCain",
+      "parallel": "Base Scope",
+      "serial": 147,
+      "run": 179,
+      "price": 1
+    },
+    {
+      "character": "Bam Adebayo",
+      "parallel": "Base Holo Gold",
+      "serial": 7,
+      "run": 10,
+      "price": 10
+    },
+    {
+      "character": "Kyrie Irving | Klay Thompson | Anthony Davis",
+      "parallel": "The Kings Court Holo Gold",
+      "serial": 4,
+      "run": 10,
+      "price": 3
+    },
+    {
+      "character": "Ryan Kalkbrenner",
+      "parallel": "RPS First Look Lightning",
+      "serial": 5,
+      "run": 5,
+      "price": 10
+    },
+    {
+      "character": "Walter Clayton Jr.",
+      "parallel": "NBA Draft Night Green",
+      "serial": 1,
+      "run": 5,
+      "price": 25
+    },
+    {
+      "character": "Rob Dillingham",
+      "parallel": "Base Gala",
+      "serial": 22,
+      "run": 25,
+      "price": 3
+    },
+    {
+      "character": "Domantas Sabonis",
+      "parallel": "Base Holo Gold",
+      "serial": 1,
+      "run": 10,
+      "price": 3
+    },
+    {
+      "character": "Matas Buzelis",
+      "parallel": "Base Blue",
+      "serial": 32,
+      "run": 99,
+      "price": 3
+    },
+    {
+      "character": "Hansen Yang",
+      "parallel": "NBA Draft Night",
+      "serial": 37,
+      "run": 49,
+      "price": 15
+    },
+    {
+      "character": "Devin Carter",
+      "parallel": "Base Blue",
+      "serial": 10,
+      "run": 99,
+      "price": 1
+    },
+    {
+      "character": "Reed Sheppard",
+      "parallel": "Base",
+      "serial": 1,
+      "run": 256,
+      "price": 2
+    },
+    {
+      "character": "Cade Cunningham",
+      "parallel": "Base Scope",
+      "serial": 135,
+      "run": 179,
+      "price": 1
+    },
+    {
+      "character": "Kyshawn George",
+      "parallel": "Base Blue",
+      "serial": 91,
+      "run": 99,
+      "price": 2
+    },
+    {
+      "character": "Jayson Tatum",
+      "parallel": "Base",
+      "serial": 109,
+      "run": 256,
+      "price": 1
+    },
+    {
+      "character": "Trae Young",
+      "parallel": "Base Red",
+      "serial": 3,
+      "run": 49,
+      "price": 1
+    },
+    {
+      "character": "Alexandre Sarr",
+      "parallel": "Base Scope",
+      "serial": 40,
+      "run": 179,
+      "price": 1
+    },
+    {
+      "character": "Amen Thompson",
+      "parallel": "Base Scope",
+      "serial": 22,
+      "run": 179,
+      "price": 1
+    },
+    {
+      "character": "Bub Carrington",
+      "parallel": "Base Scope",
+      "serial": 17,
+      "run": 179,
+      "price": 1
+    },
+    {
+      "character": "Walter Clayton Jr.",
+      "parallel": "RPS First Look",
+      "serial": 2,
+      "run": 49,
+      "price": 5
+    },
+    {
+      "character": "Kon Knueppel",
+      "parallel": "RPS First Look",
+      "serial": 14,
+      "run": 49,
+      "price": 100
+    },
+    {
+      "character": "Kon Knueppel",
+      "parallel": "Year One",
+      "serial": 45,
+      "run": 49,
+      "price": 96
+    },
+    {
+      "character": "Kon Knueppel",
+      "parallel": "NBA Draft Night",
+      "serial": 10,
+      "run": 49,
+      "price": 156
+    },
+    {
+      "character": "Kon Knueppel",
+      "parallel": "Retro Rated Rookie",
+      "serial": 48,
+      "run": 49,
+      "price": 211
+    },
+    {
+      "character": "Kon Knueppel",
+      "parallel": "Spotlight Rookies",
+      "serial": 14,
+      "run": 49,
+      "price": 81
+    },
+    {
+      "character": "Alexandre Sarr",
+      "parallel": "Base",
+      "serial": 106,
+      "run": 256,
+      "price": 1
+    },
+    {
+      "character": "Luka Doncic",
+      "parallel": "Base Scope",
+      "serial": 179,
+      "run": 179,
+      "price": 50
+    },
+    {
+      "character": "Kon Knueppel",
+      "parallel": "RPS First Look",
+      "serial": 32,
+      "run": 49,
+      "price": 100
+    },
+    {
+      "character": "Victor Wembanyama",
+      "parallel": "Base Scope",
+      "serial": 132,
+      "run": 179,
+      "price": 14
+    },
+    {
+      "character": "Luka Doncic",
+      "parallel": "Base Blue",
+      "serial": 3,
+      "run": 99,
+      "price": 15
+    },
+    {
+      "character": "Tre Johnson III",
+      "parallel": "RPS First Look",
+      "serial": 28,
+      "run": 49,
+      "price": 25
+    },
+    {
+      "character": "Hansen Yang",
+      "parallel": "NBA Draft Night Red",
+      "serial": 5,
+      "run": 10,
+      "price": 160
+    },
+    {
+      "character": "Kon Knueppel",
+      "parallel": "Year One",
+      "serial": 31,
+      "run": 49,
+      "price": 113
+    },
+    {
+      "character": "Kon Knueppel",
+      "parallel": "RPS First Look",
+      "serial": 44,
+      "run": 49,
+      "price": 114
+    },
+    {
+      "character": "Tyrese Maxey",
+      "parallel": "Base Scope",
+      "serial": 164,
+      "run": 179,
+      "price": 1
+    },
+    {
+      "character": "Cade Cunningham",
+      "parallel": "Base Blue",
+      "serial": 70,
+      "run": 99,
+      "price": 3
+    },
+    {
+      "character": "Jeremiah Fears",
+      "parallel": "Retro Rated Rookie",
+      "serial": 44,
+      "run": 49,
+      "price": 25
+    },
+    {
+      "character": "Tyrese Maxey",
+      "parallel": "Base Scope",
+      "serial": 28,
+      "run": 179,
+      "price": 1
+    },
+    {
+      "character": "Victor Wembanyama",
+      "parallel": "Base",
+      "serial": 87,
+      "run": 256,
+      "price": 11
+    },
+    {
+      "character": "Cedric Coward",
+      "parallel": "NBA Draft Night",
+      "serial": 38,
+      "run": 49,
+      "price": 25
+    },
+    {
+      "character": "LeBron James",
+      "parallel": "White Night",
+      "serial": 25,
+      "run": 25,
+      "price": 399
+    },
+    {
+      "character": "Dylan Harper",
+      "parallel": "Year One",
+      "serial": 41,
+      "run": 49,
+      "price": 150
+    },
+    {
+      "character": "Kon Knueppel",
+      "parallel": "RPS First Look",
+      "serial": 43,
+      "run": 49,
+      "price": 91
+    },
+    {
+      "character": "Will Riley",
+      "parallel": "NBA Draft Night",
+      "serial": 18,
+      "run": 49,
+      "price": 10
+    },
+    {
+      "character": "Cooper Flagg",
+      "parallel": "Spotlight Rookies",
+      "serial": 15,
+      "run": 49,
+      "price": 620
+    },
+    {
+      "character": "Victor Wembanyama",
+      "parallel": "Base",
+      "serial": 129,
+      "run": 256,
+      "price": 12
+    },
+    {
+      "character": "Cedric Coward",
+      "parallel": "NBA Draft Night Blue",
+      "serial": 25,
+      "run": 25,
+      "price": 150
+    },
+    {
+      "character": "Ajay Mitchell",
+      "parallel": "Base Red",
+      "serial": 23,
+      "run": 49,
+      "price": 4
+    },
+    {
+      "character": "Kon Knueppel",
+      "parallel": "Retro Rated Rookie",
+      "serial": 37,
+      "run": 49,
+      "price": 225
+    },
+    {
+      "character": "Cedric Coward",
+      "parallel": "NBA Draft Night",
+      "serial": 40,
+      "run": 49,
+      "price": 25
+    },
+    {
+      "character": "Jalen Brunson",
+      "parallel": "Base",
+      "serial": 13,
+      "run": 256,
+      "price": 1
+    },
+    {
+      "character": "Ajay Mitchell",
+      "parallel": "Base",
+      "serial": 69,
+      "run": 256,
+      "price": 1
+    },
+    {
+      "character": "Kon Knueppel",
+      "parallel": "NBA Draft Night Blue",
+      "serial": 18,
+      "run": 25,
+      "price": 250
+    },
+    {
+      "character": "Stephen Curry",
+      "parallel": "Game 7 Cracked Ice",
+      "serial": 15,
+      "run": 49,
+      "price": 13
+    },
+    {
+      "character": "Shai Gilgeous-Alexander | Chet Holmgren | Jalen Williams",
+      "parallel": "The Kings Court Cracked ice",
+      "serial": 30,
+      "run": 49,
+      "price": 6
+    },
+    {
+      "character": "Joan Beringer",
+      "parallel": "NBA Draft Night Blue",
+      "serial": 15,
+      "run": 25,
+      "price": 35
+    },
+    {
+      "character": "Victor Wembanyama",
+      "parallel": "Base Scope",
+      "serial": 106,
+      "run": 179,
+      "price": 17
+    },
+    {
+      "character": "Koby Brea",
+      "parallel": "NBA Draft Night Blue",
+      "serial": 3,
+      "run": 25,
+      "price": 7
+    },
+    {
+      "character": "Victor Wembanyama",
+      "parallel": "Base Scope",
+      "serial": 106,
+      "run": 179,
+      "price": 15
+    },
+    {
+      "character": "LeBron James",
+      "parallel": "Base Scope",
+      "serial": 88,
+      "run": 179,
+      "price": 9
+    },
+    {
+      "character": "Victor Wembanyama",
+      "parallel": "Base Scope",
+      "serial": 152,
+      "run": 179,
+      "price": 14
+    },
+    {
+      "character": "Kon Knueppel",
+      "parallel": "RPS First Look",
+      "serial": 41,
+      "run": 49,
+      "price": 81
+    },
+    {
+      "character": "Jamal Shead",
+      "parallel": "Base",
+      "serial": 232,
+      "run": 256,
+      "price": 1
+    },
+    {
+      "character": "Ace Bailey",
+      "parallel": "Year One",
+      "serial": 5,
+      "run": 49,
+      "price": 25
+    },
+    {
+      "character": "Damian Lillard",
+      "parallel": "Pillars of the Game Cracked Ice",
+      "serial": 5,
+      "run": 49,
+      "price": 1
+    },
+    {
+      "character": "LeBron James",
+      "parallel": "Contour",
+      "serial": 7,
+      "run": 25,
+      "price": 100
+    },
+    {
+      "character": "Hugo Gonzalez",
+      "parallel": "Retro Rated Rookie",
+      "serial": 46,
+      "run": 49,
+      "price": 10
+    },
+    {
+      "character": "Tre Johnson III",
+      "parallel": "NBA Draft Night",
+      "serial": 43,
+      "run": 49,
+      "price": 35
+    },
+    {
+      "character": "Cedric Coward",
+      "parallel": "Year One",
+      "serial": 49,
+      "run": 49,
+      "price": 60
+    },
+    {
+      "character": "Luka Doncic",
+      "parallel": "Base",
+      "serial": 256,
+      "run": 256,
+      "price": 15
+    },
+    {
+      "character": "Khaman Maluach",
+      "parallel": "Retro Rated Rookie",
+      "serial": 29,
+      "run": 49,
+      "price": 39
+    },
+    {
+      "character": "Alexandre Sarr",
+      "parallel": "Superstars Cracked Ice",
+      "serial": 8,
+      "run": 49,
+      "price": 4
+    },
+    {
+      "character": "Ajay Mitchell",
+      "parallel": "Base Cracked Ice",
+      "serial": 14,
+      "run": 25,
+      "price": 15
+    },
+    {
+      "character": "Kon Knueppel",
+      "parallel": "NBA Draft Night Blue",
+      "serial": 21,
+      "run": 25,
+      "price": 260
+    },
+    {
+      "character": "Cooper Flagg",
+      "parallel": "Spotlight Rookies",
+      "serial": 43,
+      "run": 49,
+      "price": 700
+    },
+    {
+      "character": "Tre Johnson III",
+      "parallel": "NBA Draft Night",
+      "serial": 20,
+      "run": 49,
+      "price": 20
+    },
+    {
+      "character": "Anthony Edwards",
+      "parallel": "Base",
+      "serial": 70,
+      "run": 256,
+      "price": 2
+    },
+    {
+      "character": "Jalen Johnson",
+      "parallel": "Base Red",
+      "serial": 38,
+      "run": 49,
+      "price": 2
+    },
+    {
+      "character": "Kon Knueppel",
+      "parallel": "NBA Draft Night",
+      "serial": 14,
+      "run": 49,
+      "price": 150
+    },
+    {
+      "character": "Derik Queen",
+      "parallel": "NBA Draft Night Red",
+      "serial": 3,
+      "run": 10,
+      "price": 85
+    },
+    {
+      "character": "LeBron James | Austin Reaves | Luka Doncic",
+      "parallel": "The Kings Court Holo Gold",
+      "serial": 6,
+      "run": 10,
+      "price": 120
+    },
+    {
+      "character": "Victor Wembanyama",
+      "parallel": "Base",
+      "serial": 165,
+      "run": 256,
+      "price": 13
+    },
+    {
+      "character": "Tre Johnson III",
+      "parallel": "RPS First Look",
+      "serial": 29,
+      "run": 49,
+      "price": 25
+    },
+    {
+      "character": "Jalen Brunson",
+      "parallel": "Base Scope",
+      "serial": 105,
+      "run": 179,
+      "price": 2
+    },
+    {
+      "character": "Tre Johnson III",
+      "parallel": "Year One",
+      "serial": 32,
+      "run": 49,
+      "price": 25
+    },
+    {
+      "character": "Shai Gilgeous-Alexander",
+      "parallel": "Base",
+      "serial": 182,
+      "run": 256,
+      "price": 2
+    },
+    {
+      "character": "Luka Doncic",
+      "parallel": "Base Scope",
+      "serial": 42,
+      "run": 179,
+      "price": 6
+    },
+    {
+      "character": "LeBron James",
+      "parallel": "White Night",
+      "serial": 13,
+      "run": 25,
+      "price": 240
+    },
+    {
+      "character": "Kon Knueppel",
+      "parallel": "RPS First Look",
+      "serial": 43,
+      "run": 49,
+      "price": 75
+    },
+    {
+      "character": "Victor Wembanyama",
+      "parallel": "Base Scope",
+      "serial": 160,
+      "run": 179,
+      "price": 14
+    },
+    {
+      "character": "LeBron James",
+      "parallel": "Base Scope",
+      "serial": 171,
+      "run": 179,
+      "price": 11
+    },
+    {
+      "character": "Ace Bailey",
+      "parallel": "Spotlight Rookies",
+      "serial": 9,
+      "run": 49,
+      "price": 42
+    },
+    {
+      "character": "Shai Gilgeous-Alexander",
+      "parallel": "Base",
+      "serial": 117,
+      "run": 256,
+      "price": 1
+    },
+    {
+      "character": "Egor Demin",
+      "parallel": "Spotlight Rookies Blue",
+      "serial": 6,
+      "run": 10,
+      "price": 70
+    },
+    {
+      "character": "Stephen Curry",
+      "parallel": "Base Scope",
+      "serial": 154,
+      "run": 179,
+      "price": 3
+    },
+    {
+      "character": "Shai Gilgeous-Alexander",
+      "parallel": "Base Scope",
+      "serial": 145,
+      "run": 179,
+      "price": 2
+    },
+    {
+      "character": "Stephon Castle",
+      "parallel": "Base Scope",
+      "serial": 172,
+      "run": 179,
+      "price": 4
+    },
+    {
+      "character": "Luka Doncic",
+      "parallel": "Base Scope",
+      "serial": 42,
+      "run": 179,
+      "price": 3
+    },
+    {
+      "character": "Luka Doncic",
+      "parallel": "Base",
+      "serial": 218,
+      "run": 256,
+      "price": 9
+    },
+    {
+      "character": "Stephon Castle",
+      "parallel": "Base",
+      "serial": 62,
+      "run": 256,
+      "price": 3
+    },
+    {
+      "character": "Shai Gilgeous-Alexander",
+      "parallel": "Base Scope",
+      "serial": 42,
+      "run": 179,
+      "price": 3
+    },
+    {
+      "character": "Nikola Jokic",
+      "parallel": "Base Scope",
+      "serial": 40,
+      "run": 179,
+      "price": 1
+    },
+    {
+      "character": "Victor Wembanyama",
+      "parallel": "Base Blue",
+      "serial": 67,
+      "run": 99,
+      "price": 24
+    },
+    {
+      "character": "LeBron James",
+      "parallel": "Base Scope",
+      "serial": 171,
+      "run": 179,
+      "price": 7
+    },
+    {
+      "character": "LeBron James",
+      "parallel": "Base",
+      "serial": 54,
+      "run": 256,
+      "price": 6
+    },
+    {
+      "character": "Victor Wembanyama",
+      "parallel": "Base",
+      "serial": 179,
+      "run": 256,
+      "price": 12
+    },
+    {
+      "character": "LaMelo Ball",
+      "parallel": "Base Scope",
+      "serial": 168,
+      "run": 179,
+      "price": 1
+    },
+    {
+      "character": "Shai Gilgeous-Alexander | Chet Holmgren | Jalen Williams",
+      "parallel": "The Kings Court Holo Gold",
+      "serial": 5,
+      "run": 10,
+      "price": 10
+    },
+    {
+      "character": "VJ Edgecombe",
+      "parallel": "Spotlight Rookies",
+      "serial": 17,
+      "run": 49,
+      "price": 60
+    },
+    {
+      "character": "Cooper Flagg",
+      "parallel": "Retro Rated Rookie Black",
+      "serial": 1,
+      "run": 1,
+      "price": 20000
+    },
+    {
+      "character": "Cooper Flagg",
+      "parallel": "NBA Draft Night Red",
+      "serial": 1,
+      "run": 10,
+      "price": 17500
+    },
+    {
+      "character": "Cooper Flagg",
+      "parallel": "NBA Draft Night Red",
+      "serial": 10,
+      "run": 10,
+      "price": 17500
+    },
+    {
+      "character": "Dylan Harper",
+      "parallel": "NBA Draft Night Black",
+      "serial": 1,
+      "run": 1,
+      "price": 16500
+    },
+    {
+      "character": "Cooper Flagg",
+      "parallel": "NBA Draft Night Green",
+      "serial": 5,
+      "run": 5,
+      "price": 16000
+    },
+    {
+      "character": "Cooper Flagg",
+      "parallel": "Spotlight Rookies Black",
+      "serial": 1,
+      "run": 1,
+      "price": 14000
+    },
+    {
+      "character": "Cooper Flagg",
+      "parallel": "NBA Draft Night Green",
+      "serial": 2,
+      "run": 5,
+      "price": 14000
+    },
+    {
+      "character": "Cooper Flagg",
+      "parallel": "NBA Draft Night Red",
+      "serial": 6,
+      "run": 10,
+      "price": 12888
+    },
+    {
+      "character": "Cooper Flagg",
+      "parallel": "NBA Draft Night Red",
+      "serial": 3,
+      "run": 10,
+      "price": 12000
+    },
+    {
+      "character": "Cooper Flagg",
+      "parallel": "NBA Draft Night Red",
+      "serial": 4,
+      "run": 10,
+      "price": 12000
+    },
+    {
+      "character": "Cooper Flagg",
+      "parallel": "NBA Draft Night Red",
+      "serial": 7,
+      "run": 10,
+      "price": 10750
+    },
+    {
+      "character": "Cooper Flagg",
+      "parallel": "Retro Rated Rookie Blue",
+      "serial": 1,
+      "run": 10,
+      "price": 10032
+    },
+    {
+      "character": "Cooper Flagg",
+      "parallel": "Retro Rated Rookie Blue",
+      "serial": 10,
+      "run": 10,
+      "price": 10032
+    },
+    {
+      "character": "Cooper Flagg",
+      "parallel": "NBA Draft Night Red",
+      "serial": 4,
+      "run": 10,
+      "price": 10000
+    },
+    {
+      "character": "Cooper Flagg",
+      "parallel": "NBA Draft Night Red",
+      "serial": 8,
+      "run": 10,
+      "price": 9000
+    },
+    {
+      "character": "Dylan Harper",
+      "parallel": "Retro Rated Rookie Black",
+      "serial": 1,
+      "run": 1,
+      "price": 8888
+    },
+    {
+      "character": "Cooper Flagg",
+      "parallel": "Retro Rated Rookie Blue",
+      "serial": 9,
+      "run": 10,
+      "price": 6500
+    },
+    {
+      "character": "Cooper Flagg",
+      "parallel": "RPS First Look Lightning",
+      "serial": 4,
+      "run": 5,
+      "price": 5150
+    },
+    {
+      "character": "Cooper Flagg",
+      "parallel": "Retro Rated Rookie Blue",
+      "serial": 4,
+      "run": 10,
+      "price": 5000
+    },
+    {
+      "character": "Cooper Flagg",
+      "parallel": "RPS First Look Magma",
+      "serial": 1,
+      "run": 1,
+      "price": 5000
+    },
+    {
+      "character": "Cooper Flagg",
+      "parallel": "RPS First Look Lightning",
+      "serial": 1,
+      "run": 5,
+      "price": 4800
+    },
+    {
+      "character": "Cooper Flagg",
+      "parallel": "Retro Rated Rookie Blue",
+      "serial": 2,
+      "run": 10,
+      "price": 4750
+    },
+    {
+      "character": "Cooper Flagg",
+      "parallel": "NBA Draft Night",
+      "serial": 1,
+      "run": 49,
+      "price": 4555
+    },
+    {
+      "character": "Cooper Flagg",
+      "parallel": "RPS First Look Water",
+      "serial": 3,
+      "run": 10,
+      "price": 4500
+    },
+    {
+      "character": "Cooper Flagg",
+      "parallel": "RPS First Look",
+      "serial": 32,
+      "run": 49,
+      "price": 4116
+    },
+    {
+      "character": "Cooper Flagg",
+      "parallel": "Spotlight Rookies Black",
+      "serial": 1,
+      "run": 1,
+      "price": 4000
+    },
+    {
+      "character": "Cooper Flagg",
+      "parallel": "Spotlight Rookies Blue",
+      "serial": 2,
+      "run": 10,
+      "price": 4000
+    },
+    {
+      "character": "Cooper Flagg",
+      "parallel": "RPS First Look Water",
+      "serial": 7,
+      "run": 10,
+      "price": 4000
+    },
+    {
+      "character": "Cooper Flagg",
+      "parallel": "Retro Rated Rookie Blue",
+      "serial": 5,
+      "run": 10,
+      "price": 3900
+    },
+    {
+      "character": "Cooper Flagg",
+      "parallel": "NBA Draft Night",
+      "serial": 32,
+      "run": 49,
+      "price": 3832
+    },
+    {
+      "character": "LeBron James",
+      "parallel": "Hand Crafted Holo Platinum",
+      "serial": 1,
+      "run": 1,
+      "price": 3685
+    },
+    {
+      "character": "Cooper Flagg",
+      "parallel": "Year One",
+      "serial": 32,
+      "run": 49,
+      "price": 3632
+    },
+    {
+      "character": "Cooper Flagg",
+      "parallel": "RPS First Look Lightning",
+      "serial": 4,
+      "run": 5,
+      "price": 3500
+    },
+    {
+      "character": "Kon Knueppel",
+      "parallel": "NBA Draft Night Black",
+      "serial": 1,
+      "run": 1,
+      "price": 3500
+    },
+    {
+      "character": "LeBron James",
+      "parallel": "Base Holo Platinum",
+      "serial": 1,
+      "run": 1,
+      "price": 3500
+    },
+    {
+      "character": "Dylan Harper",
+      "parallel": "NBA Draft Night Red",
+      "serial": 1,
+      "run": 10,
+      "price": 3500
+    },
+    {
+      "character": "Cooper Flagg",
+      "parallel": "Retro Rated Rookie",
+      "serial": 32,
+      "run": 49,
+      "price": 3232
+    },
+    {
+      "character": "LeBron James",
+      "parallel": "Hand Crafted Holo Platinum",
+      "serial": 1,
+      "run": 1,
+      "price": 3223
+    },
+    {
+      "character": "Cooper Flagg",
+      "parallel": "RPS First Look Lightning",
+      "serial": 3,
+      "run": 5,
+      "price": 3200
+    },
+    {
+      "character": "VJ Edgecombe",
+      "parallel": "Retro Rated Rookie Black",
+      "serial": 1,
+      "run": 1,
+      "price": 3158
+    },
+    {
+      "character": "Cooper Flagg",
+      "parallel": "Spotlight Rookies Blue",
+      "serial": 10,
+      "run": 10,
+      "price": 3000
+    },
+    {
+      "character": "Cooper Flagg",
+      "parallel": "NBA Draft Night Blue",
+      "serial": 18,
+      "run": 25,
+      "price": 3000
+    },
+    {
+      "character": "Cooper Flagg",
+      "parallel": "Spotlight Rookies Blue",
+      "serial": 7,
+      "run": 10,
+      "price": 2500
+    },
+    {
+      "character": "Cooper Flagg",
+      "parallel": "Retro Rated Rookie Blue",
+      "serial": 6,
+      "run": 10,
+      "price": 2500
+    },
+    {
+      "character": "Dylan Harper",
+      "parallel": "Year One Black",
+      "serial": 1,
+      "run": 1,
+      "price": 2500
+    },
+    {
+      "character": "VJ Edgecombe",
+      "parallel": "NBA Draft Night Red",
+      "serial": 10,
+      "run": 10,
+      "price": 2500
+    },
+    {
+      "character": "VJ Edgecombe",
+      "parallel": "NBA Draft Night Green",
+      "serial": 2,
+      "run": 5,
+      "price": 2500
+    },
+    {
+      "character": "VJ Edgecombe",
+      "parallel": "Spotlight Rookies Black",
+      "serial": 1,
+      "run": 1,
+      "price": 2500
+    },
+    {
+      "character": "LeBron James | Austin Reaves | Luka Doncic",
+      "parallel": "The Kings Court Holo Platinum",
+      "serial": 1,
+      "run": 1,
+      "price": 2500
+    },
+    {
+      "character": "Cooper Flagg",
+      "parallel": "Retro Rated Rookie",
+      "serial": 1,
+      "run": 49,
+      "price": 2320
+    },
+    {
+      "character": "Jeremiah Fears",
+      "parallel": "NBA Draft Night Green",
+      "serial": 5,
+      "run": 5,
+      "price": 2300
+    },
+    {
+      "character": "Cooper Flagg",
+      "parallel": "NBA Draft Night Blue",
+      "serial": 3,
+      "run": 25,
+      "price": 2285
+    },
+    {
+      "character": "Cooper Flagg",
+      "parallel": "NBA Draft Night Blue",
+      "serial": 4,
+      "run": 25,
+      "price": 2150
+    },
+    {
+      "character": "Dylan Harper",
+      "parallel": "RPS First Look Water",
+      "serial": 10,
+      "run": 10,
+      "price": 2100
+    },
+    {
+      "character": "Hansen Yang",
+      "parallel": "RPS First Look Magma",
+      "serial": 1,
+      "run": 1,
+      "price": 2100
+    },
+    {
+      "character": "Cooper Flagg",
+      "parallel": "NBA Draft Night Blue",
+      "serial": 22,
+      "run": 25,
+      "price": 2032
+    },
+    {
+      "character": "Dylan Harper",
+      "parallel": "NBA Draft Night Red",
+      "serial": 2,
+      "run": 10,
+      "price": 2002
+    },
+    {
+      "character": "Cooper Flagg",
+      "parallel": "NBA Draft Night Blue",
+      "serial": 22,
+      "run": 25,
+      "price": 2000
+    },
+    {
+      "character": "Cooper Flagg",
+      "parallel": "NBA Draft Night Blue",
+      "serial": 21,
+      "run": 25,
+      "price": 2000
+    },
+    {
+      "character": "Cooper Flagg",
+      "parallel": "NBA Draft Night Blue",
+      "serial": 7,
+      "run": 25,
+      "price": 2000
+    },
+    {
+      "character": "Cooper Flagg",
+      "parallel": "NBA Draft Night Blue",
+      "serial": 10,
+      "run": 25,
+      "price": 2000
+    },
+    {
+      "character": "Cooper Flagg",
+      "parallel": "NBA Draft Night Blue",
+      "serial": 15,
+      "run": 25,
+      "price": 2000
+    },
+    {
+      "character": "Cooper Flagg",
+      "parallel": "Spotlight Rookies Blue",
+      "serial": 6,
+      "run": 10,
+      "price": 2000
+    },
+    {
+      "character": "Dylan Harper",
+      "parallel": "Retro Rated Rookie Blue",
+      "serial": 2,
+      "run": 10,
+      "price": 2000
+    },
+    {
+      "character": "Cooper Flagg",
+      "parallel": "RPS First Look Water",
+      "serial": 6,
+      "run": 10,
+      "price": 2000
+    },
+    {
+      "character": "Cooper Flagg",
+      "parallel": "Retro Rated Rookie",
+      "serial": 21,
+      "run": 49,
+      "price": 2000
+    },
+    {
+      "character": "Cooper Flagg",
+      "parallel": "Retro Rated Rookie",
+      "serial": 10,
+      "run": 49,
+      "price": 2000
+    },
+    {
+      "character": "Cooper Flagg",
+      "parallel": "Retro Rated Rookie",
+      "serial": 16,
+      "run": 49,
+      "price": 2000
+    },
+    {
+      "character": "Victor Wembanyama | Stephon Castle | De'Aaron Fox",
+      "parallel": "The Kings Court Holo Gold",
+      "serial": 1,
+      "run": 10,
+      "price": 2000
+    },
+    {
+      "character": "Cooper Flagg",
+      "parallel": "NBA Draft Night Blue",
+      "serial": 16,
+      "run": 25,
+      "price": 1999
+    },
+    {
+      "character": "Cooper Flagg",
+      "parallel": "NBA Draft Night Blue",
+      "serial": 11,
+      "run": 25,
+      "price": 1999
+    },
+    {
+      "character": "Cooper Flagg",
+      "parallel": "NBA Draft Night Blue",
+      "serial": 8,
+      "run": 25,
+      "price": 1999
+    },
+    {
+      "character": "Cooper Flagg",
+      "parallel": "NBA Draft Night Blue",
+      "serial": 11,
+      "run": 25,
+      "price": 1950
+    },
+    {
+      "character": "Dylan Harper",
+      "parallel": "Spotlight Rookies Black",
+      "serial": 1,
+      "run": 1,
+      "price": 1900
+    },
+    {
+      "character": "Cooper Flagg",
+      "parallel": "Retro Rated Rookie",
+      "serial": 49,
+      "run": 49,
+      "price": 1885
+    },
+    {
+      "character": "Cooper Flagg",
+      "parallel": "NBA Draft Night",
+      "serial": 14,
+      "run": 49,
+      "price": 1825
+    },
+    {
+      "character": "Cooper Flagg",
+      "parallel": "NBA Draft Night",
+      "serial": 8,
+      "run": 49,
+      "price": 1800
+    },
+    {
+      "character": "Dylan Harper",
+      "parallel": "RPS First Look Lightning",
+      "serial": 2,
+      "run": 5,
+      "price": 1800
+    },
+    {
+      "character": "Cooper Flagg",
+      "parallel": "Retro Rated Rookie",
+      "serial": 49,
+      "run": 49,
+      "price": 1790
+    },
+    {
+      "character": "Cooper Flagg",
+      "parallel": "Spotlight Rookies",
+      "serial": 32,
+      "run": 49,
+      "price": 1750
+    },
+    {
+      "character": "Cooper Flagg",
+      "parallel": "NBA Draft Night",
+      "serial": 46,
+      "run": 49,
+      "price": 1750
+    },
+    {
+      "character": "Cooper Flagg",
+      "parallel": "NBA Draft Night",
+      "serial": 35,
+      "run": 49,
+      "price": 1740
+    },
+    {
+      "character": "Cooper Flagg",
+      "parallel": "NBA Draft Night Blue",
+      "serial": 7,
+      "run": 25,
+      "price": 1700
+    },
+    {
+      "character": "Cooper Flagg",
+      "parallel": "Retro Rated Rookie",
+      "serial": 49,
+      "run": 49,
+      "price": 1700
+    },
+    {
+      "character": "Cooper Flagg",
+      "parallel": "NBA Draft Night",
+      "serial": 45,
+      "run": 49,
+      "price": 1700
+    },
+    {
+      "character": "Cooper Flagg",
+      "parallel": "NBA Draft Night",
+      "serial": 20,
+      "run": 49,
+      "price": 1700
+    },
+    {
+      "character": "Cooper Flagg",
+      "parallel": "NBA Draft Night",
+      "serial": 30,
+      "run": 49,
+      "price": 1700
+    },
+    {
+      "character": "Cooper Flagg",
+      "parallel": "NBA Draft Night",
+      "serial": 25,
+      "run": 49,
+      "price": 1699
+    },
+    {
+      "character": "Cooper Flagg",
+      "parallel": "Spotlight Rookies Blue",
+      "serial": 5,
+      "run": 10,
+      "price": 1650
+    },
+    {
+      "character": "Cooper Flagg",
+      "parallel": "Spotlight Rookies Blue",
+      "serial": 9,
+      "run": 10,
+      "price": 1650
+    },
+    {
+      "character": "Cooper Flagg",
+      "parallel": "NBA Draft Night",
+      "serial": 39,
+      "run": 49,
+      "price": 1650
+    },
+    {
+      "character": "Hansen Yang",
+      "parallel": "NBA Draft Night Green",
+      "serial": 1,
+      "run": 5,
+      "price": 1625
+    },
+    {
+      "character": "Kon Knueppel",
+      "parallel": "RPS First Look Water",
+      "serial": 10,
+      "run": 10,
+      "price": 1600
+    },
+    {
+      "character": "Cooper Flagg",
+      "parallel": "NBA Draft Night Blue",
+      "serial": 8,
+      "run": 25,
+      "price": 1600
+    },
+    {
+      "character": "Cooper Flagg",
+      "parallel": "NBA Draft Night Blue",
+      "serial": 20,
+      "run": 25,
+      "price": 1600
+    },
+    {
+      "character": "Cooper Flagg",
+      "parallel": "Retro Rated Rookie",
+      "serial": 15,
+      "run": 49,
+      "price": 1600
+    },
+    {
+      "character": "Jeremiah Fears",
+      "parallel": "NBA Draft Night Black",
+      "serial": 1,
+      "run": 1,
+      "price": 1600
+    },
+    {
+      "character": "Cooper Flagg",
+      "parallel": "NBA Draft Night",
+      "serial": 23,
+      "run": 49,
+      "price": 1600
+    },
+    {
+      "character": "Cooper Flagg",
+      "parallel": "Retro Rated Rookie",
+      "serial": 22,
+      "run": 49,
+      "price": 1600
+    },
+    {
+      "character": "Cooper Flagg",
+      "parallel": "NBA Draft Night",
+      "serial": 16,
+      "run": 49,
+      "price": 1600
+    },
+    {
+      "character": "Cooper Flagg",
+      "parallel": "Retro Rated Rookie",
+      "serial": 29,
+      "run": 49,
+      "price": 1600
+    },
+    {
+      "character": "Cooper Flagg",
+      "parallel": "NBA Draft Night",
+      "serial": 4,
+      "run": 49,
+      "price": 1550
+    },
+    {
+      "character": "LeBron James",
+      "parallel": "Pillars of the Game Holo Platinum",
+      "serial": 1,
+      "run": 1,
+      "price": 1523
+    },
+    {
+      "character": "Cooper Flagg",
+      "parallel": "RPS First Look Water",
+      "serial": 1,
+      "run": 10,
+      "price": 1500
+    },
+    {
+      "character": "Cooper Flagg",
+      "parallel": "NBA Draft Night Blue",
+      "serial": 11,
+      "run": 25,
+      "price": 1500
+    },
+    {
+      "character": "Cooper Flagg",
+      "parallel": "NBA Draft Night Blue",
+      "serial": 6,
+      "run": 25,
+      "price": 1500
+    },
+    {
+      "character": "Dylan Harper",
+      "parallel": "Year One Black",
+      "serial": 1,
+      "run": 1,
+      "price": 1500
+    },
+    {
+      "character": "VJ Edgecombe",
+      "parallel": "Retro Rated Rookie",
+      "serial": 1,
+      "run": 49,
+      "price": 1500
+    },
+    {
+      "character": "Tre Johnson III",
+      "parallel": "Retro Rated Rookie Black",
+      "serial": 1,
+      "run": 1,
+      "price": 1500
+    },
+    {
+      "character": "Dylan Harper",
+      "parallel": "NBA Draft Night Green",
+      "serial": 1,
+      "run": 5,
+      "price": 1500
+    },
+    {
+      "character": "Cooper Flagg",
+      "parallel": "Retro Rated Rookie",
+      "serial": 20,
+      "run": 49,
+      "price": 1500
+    },
+    {
+      "character": "Cooper Flagg",
+      "parallel": "Retro Rated Rookie",
+      "serial": 19,
+      "run": 49,
+      "price": 1500
+    },
+    {
+      "character": "Cooper Flagg",
+      "parallel": "Retro Rated Rookie",
+      "serial": 48,
+      "run": 49,
+      "price": 1500
+    },
+    {
+      "character": "Victor Wembanyama",
+      "parallel": "Superstars Holo Platinum",
+      "serial": 1,
+      "run": 1,
+      "price": 1500
+    },
+    {
+      "character": "Stephen Curry",
+      "parallel": "Superstars Holo Platinum",
+      "serial": 1,
+      "run": 1,
+      "price": 1499
+    },
+    {
+      "character": "Cooper Flagg",
+      "parallel": "NBA Draft Night Blue",
+      "serial": 9,
+      "run": 25,
+      "price": 1425
+    },
+    {
+      "character": "VJ Edgecombe",
+      "parallel": "Retro Rated Rookie Blue",
+      "serial": 1,
+      "run": 10,
+      "price": 1400
+    },
+    {
+      "character": "Cooper Flagg",
+      "parallel": "Spotlight Rookies",
+      "serial": 8,
+      "run": 49,
+      "price": 1400
+    },
+    {
+      "character": "Cooper Flagg",
+      "parallel": "NBA Draft Night",
+      "serial": 24,
+      "run": 49,
+      "price": 1360
+    },
+    {
+      "character": "Cooper Flagg",
+      "parallel": "RPS First Look",
+      "serial": 46,
+      "run": 49,
+      "price": 1355
+    },
+    {
+      "character": "Cooper Flagg",
+      "parallel": "Retro Rated Rookie",
+      "serial": 40,
+      "run": 49,
+      "price": 1350
+    },
+    {
+      "character": "Cooper Flagg",
+      "parallel": "NBA Draft Night Blue",
+      "serial": 16,
+      "run": 25,
+      "price": 1350
+    },
+    {
+      "character": "Cooper Flagg",
+      "parallel": "Retro Rated Rookie",
+      "serial": 24,
+      "run": 49,
+      "price": 1350
+    },
+    {
+      "character": "Hansen Yang",
+      "parallel": "NBA Draft Night Green",
+      "serial": 5,
+      "run": 5,
+      "price": 1350
+    },
+    {
+      "character": "Cooper Flagg",
+      "parallel": "NBA Draft Night",
+      "serial": 11,
+      "run": 49,
+      "price": 1350
+    },
+    {
+      "character": "Cooper Flagg",
+      "parallel": "Retro Rated Rookie",
+      "serial": 26,
+      "run": 49,
+      "price": 1345
+    },
+    {
+      "character": "Tre Johnson III",
+      "parallel": "Retro Rated Rookie Black",
+      "serial": 1,
+      "run": 1,
+      "price": 1310
+    },
+    {
+      "character": "Cooper Flagg",
+      "parallel": "NBA Draft Night Blue",
+      "serial": 12,
+      "run": 25,
+      "price": 1300
+    },
+    {
+      "character": "Cooper Flagg",
+      "parallel": "NBA Draft Night Blue",
+      "serial": 19,
+      "run": 25,
+      "price": 1300
+    },
+    {
+      "character": "Cooper Flagg",
+      "parallel": "Spotlight Rookies",
+      "serial": 10,
+      "run": 49,
+      "price": 1300
+    },
+    {
+      "character": "Cooper Flagg",
+      "parallel": "Spotlight Rookies",
+      "serial": 30,
+      "run": 49,
+      "price": 1300
+    },
+    {
+      "character": "Dylan Harper",
+      "parallel": "NBA Draft Night Green",
+      "serial": 2,
+      "run": 5,
+      "price": 1299
+    },
+    {
+      "character": "Cooper Flagg",
+      "parallel": "RPS First Look",
+      "serial": 26,
+      "run": 49,
+      "price": 1275
+    },
+    {
+      "character": "Cooper Flagg",
+      "parallel": "RPS First Look",
+      "serial": 47,
+      "run": 49,
+      "price": 1275
+    },
+    {
+      "character": "Luka Doncic",
+      "parallel": "Pillars of the Game Holo Platinum",
+      "serial": 1,
+      "run": 1,
+      "price": 1265
+    },
+    {
+      "character": "Cooper Flagg",
+      "parallel": "Retro Rated Rookie",
+      "serial": 6,
+      "run": 49,
+      "price": 1250
+    },
+    {
+      "character": "Ace Bailey",
+      "parallel": "NBA Draft Night Black",
+      "serial": 1,
+      "run": 1,
+      "price": 1250
+    },
+    {
+      "character": "Cooper Flagg",
+      "parallel": "NBA Draft Night",
+      "serial": 35,
+      "run": 49,
+      "price": 1250
+    },
+    {
+      "character": "Dylan Harper",
+      "parallel": "NBA Draft Night Red",
+      "serial": 10,
+      "run": 10,
+      "price": 1250
+    },
+    {
+      "character": "Cooper Flagg",
+      "parallel": "Spotlight Rookies",
+      "serial": 5,
+      "run": 49,
+      "price": 1250
+    },
+    {
+      "character": "Cooper Flagg",
+      "parallel": "Spotlight Rookies",
+      "serial": 17,
+      "run": 49,
+      "price": 1250
+    },
+    {
+      "character": "Cooper Flagg",
+      "parallel": "Retro Rated Rookie",
+      "serial": 49,
+      "run": 49,
+      "price": 1249
+    },
+    {
+      "character": "Cooper Flagg",
+      "parallel": "NBA Draft Night",
+      "serial": 5,
+      "run": 49,
+      "price": 1200
+    },
+    {
+      "character": "Dylan Harper",
+      "parallel": "RPS First Look Lightning",
+      "serial": 4,
+      "run": 5,
+      "price": 1200
+    },
+    {
+      "character": "Cooper Flagg",
+      "parallel": "Retro Rated Rookie",
+      "serial": 13,
+      "run": 49,
+      "price": 1200
+    },
+    {
+      "character": "Cooper Flagg",
+      "parallel": "Retro Rated Rookie",
+      "serial": 47,
+      "run": 49,
+      "price": 1200
+    },
+    {
+      "character": "Cooper Flagg",
+      "parallel": "NBA Draft Night Blue",
+      "serial": 4,
+      "run": 25,
+      "price": 1200
+    },
+    {
+      "character": "VJ Edgecombe",
+      "parallel": "NBA Draft Night Black",
+      "serial": 1,
+      "run": 1,
+      "price": 1200
+    },
+    {
+      "character": "Cooper Flagg",
+      "parallel": "RPS First Look",
+      "serial": 45,
+      "run": 49,
+      "price": 1200
+    },
+    {
+      "character": "Cooper Flagg",
+      "parallel": "Retro Rated Rookie",
+      "serial": 33,
+      "run": 49,
+      "price": 1200
+    },
+    {
+      "character": "Cooper Flagg",
+      "parallel": "Year One",
+      "serial": 49,
+      "run": 49,
+      "price": 1199
+    },
+    {
+      "character": "Hansen Yang",
+      "parallel": "NBA Draft Night Red",
+      "serial": 3,
+      "run": 10,
+      "price": 1199
+    },
+    {
+      "character": "Cooper Flagg",
+      "parallel": "NBA Draft Night",
+      "serial": 47,
+      "run": 49,
+      "price": 1195
+    },
+    {
+      "character": "Cooper Flagg",
+      "parallel": "NBA Draft Night",
+      "serial": 4,
+      "run": 49,
+      "price": 1150
+    },
+    {
+      "character": "Egor Demin",
+      "parallel": "NBA Draft Night Black",
+      "serial": 1,
+      "run": 1,
+      "price": 1150
+    },
+    {
+      "character": "Cooper Flagg",
+      "parallel": "RPS First Look",
+      "serial": 19,
+      "run": 49,
+      "price": 1150
+    },
+    {
+      "character": "Cooper Flagg",
+      "parallel": "RPS First Look",
+      "serial": 2,
+      "run": 49,
+      "price": 1149
+    },
+    {
+      "character": "Cooper Flagg",
+      "parallel": "Year One",
+      "serial": 22,
+      "run": 49,
+      "price": 1111
+    },
+    {
+      "character": "Cooper Flagg",
+      "parallel": "RPS First Look",
+      "serial": 42,
+      "run": 49,
+      "price": 1111
+    },
+    {
+      "character": "Cooper Flagg",
+      "parallel": "Year One",
+      "serial": 25,
+      "run": 49,
+      "price": 1111
+    },
+    {
+      "character": "Cooper Flagg",
+      "parallel": "Retro Rated Rookie",
+      "serial": 2,
+      "run": 49,
+      "price": 1100
+    },
+    {
+      "character": "Cooper Flagg",
+      "parallel": "NBA Draft Night",
+      "serial": 27,
+      "run": 49,
+      "price": 1100
+    },
+    {
+      "character": "Cooper Flagg",
+      "parallel": "Year One",
+      "serial": 20,
+      "run": 49,
+      "price": 1100
+    },
+    {
+      "character": "Cooper Flagg",
+      "parallel": "RPS First Look",
+      "serial": 14,
+      "run": 49,
+      "price": 1100
+    },
+    {
+      "character": "Cooper Flagg",
+      "parallel": "Spotlight Rookies",
+      "serial": 23,
+      "run": 49,
+      "price": 1100
+    },
+    {
+      "character": "Hansen Yang",
+      "parallel": "NBA Draft Night Green",
+      "serial": 1,
+      "run": 5,
+      "price": 1100
+    },
+    {
+      "character": "Cooper Flagg",
+      "parallel": "Year One",
+      "serial": 45,
+      "run": 49,
+      "price": 1100
+    },
+    {
+      "character": "Cooper Flagg",
+      "parallel": "Retro Rated Rookie",
+      "serial": 35,
+      "run": 49,
+      "price": 1099
+    },
+    {
+      "character": "Cooper Flagg",
+      "parallel": "Spotlight Rookies",
+      "serial": 26,
+      "run": 49,
+      "price": 1099
+    },
+    {
+      "character": "Cooper Flagg",
+      "parallel": "RPS First Look",
+      "serial": 37,
+      "run": 49,
+      "price": 1099
+    },
+    {
+      "character": "Cooper Flagg",
+      "parallel": "NBA Draft Night",
+      "serial": 21,
+      "run": 49,
+      "price": 1095
+    },
+    {
+      "character": "Cooper Flagg",
+      "parallel": "NBA Draft Night",
+      "serial": 7,
+      "run": 49,
+      "price": 1075
+    },
+    {
+      "character": "Cooper Flagg",
+      "parallel": "Retro Rated Rookie",
+      "serial": 47,
+      "run": 49,
+      "price": 1075
+    },
+    {
+      "character": "Cooper Flagg",
+      "parallel": "RPS First Look",
+      "serial": 34,
+      "run": 49,
+      "price": 1075
+    },
+    {
+      "character": "Cooper Flagg",
+      "parallel": "Retro Rated Rookie",
+      "serial": 8,
+      "run": 49,
+      "price": 1069
+    },
+    {
+      "character": "Cooper Flagg",
+      "parallel": "Retro Rated Rookie",
+      "serial": 13,
+      "run": 49,
+      "price": 1069
+    },
+    {
+      "character": "Cooper Flagg",
+      "parallel": "NBA Draft Night",
+      "serial": 47,
+      "run": 49,
+      "price": 1055
+    },
+    {
+      "character": "Cooper Flagg",
+      "parallel": "NBA Draft Night",
+      "serial": 3,
+      "run": 49,
+      "price": 1055
+    },
+    {
+      "character": "Kon Knueppel",
+      "parallel": "NBA Draft Night Green",
+      "serial": 2,
+      "run": 5,
+      "price": 1050
+    },
+    {
+      "character": "Cooper Flagg",
+      "parallel": "NBA Draft Night",
+      "serial": 24,
+      "run": 49,
+      "price": 1050
+    },
+    {
+      "character": "Cooper Flagg",
+      "parallel": "Spotlight Rookies",
+      "serial": 37,
+      "run": 49,
+      "price": 1050
+    },
+    {
+      "character": "Cooper Flagg",
+      "parallel": "RPS First Look",
+      "serial": 35,
+      "run": 49,
+      "price": 1050
+    },
+    {
+      "character": "Cooper Flagg",
+      "parallel": "Spotlight Rookies",
+      "serial": 47,
+      "run": 49,
+      "price": 1050
+    },
+    {
+      "character": "Cooper Flagg",
+      "parallel": "Year One",
+      "serial": 27,
+      "run": 49,
+      "price": 1050
+    },
+    {
+      "character": "Cooper Flagg",
+      "parallel": "Spotlight Rookies",
+      "serial": 41,
+      "run": 49,
+      "price": 1050
+    },
+    {
+      "character": "Cooper Flagg",
+      "parallel": "Year One",
+      "serial": 42,
+      "run": 49,
+      "price": 1050
+    },
+    {
+      "character": "Cooper Flagg",
+      "parallel": "NBA Draft Night Blue",
+      "serial": 22,
+      "run": 25,
+      "price": 1032
+    },
+    {
+      "character": "Kon Knueppel",
+      "parallel": "Spotlight Rookies Black",
+      "serial": 1,
+      "run": 1,
+      "price": 1025
+    },
+    {
+      "character": "Cooper Flagg",
+      "parallel": "Year One",
+      "serial": 9,
+      "run": 49,
+      "price": 1025
+    },
+    {
+      "character": "Cooper Flagg",
+      "parallel": "Retro Rated Rookie",
+      "serial": 40,
+      "run": 49,
+      "price": 1015
+    },
+    {
+      "character": "Cooper Flagg",
+      "parallel": "NBA Draft Night",
+      "serial": 47,
+      "run": 49,
+      "price": 1001
+    },
+    {
+      "character": "Cooper Flagg",
+      "parallel": "RPS First Look",
+      "serial": 21,
+      "run": 49,
+      "price": 1000
+    },
+    {
+      "character": "Cooper Flagg",
+      "parallel": "NBA Draft Night",
+      "serial": 22,
+      "run": 49,
+      "price": 1000
+    },
+    {
+      "character": "Dylan Harper",
+      "parallel": "Retro Rated Rookie",
+      "serial": 2,
+      "run": 49,
+      "price": 1000
+    },
+    {
+      "character": "Shai Gilgeous-Alexander | Chet Holmgren | Jalen Williams",
+      "parallel": "The Kings Court Holo Platinum",
+      "serial": 1,
+      "run": 1,
+      "price": 1000
+    },
+    {
+      "character": "Cooper Flagg",
+      "parallel": "NBA Draft Night",
+      "serial": 27,
+      "run": 49,
+      "price": 1000
+    },
+    {
+      "character": "Cooper Flagg",
+      "parallel": "Retro Rated Rookie",
+      "serial": 18,
+      "run": 49,
+      "price": 1000
+    },
+    {
+      "character": "Cooper Flagg",
+      "parallel": "Retro Rated Rookie",
+      "serial": 43,
+      "run": 49,
+      "price": 1000
+    },
+    {
+      "character": "Cooper Flagg",
+      "parallel": "Retro Rated Rookie",
+      "serial": 33,
+      "run": 49,
+      "price": 1000
+    },
+    {
+      "character": "Cooper Flagg",
+      "parallel": "Spotlight Rookies Blue",
+      "serial": 5,
+      "run": 10,
+      "price": 1000
+    },
+    {
+      "character": "Cooper Flagg",
+      "parallel": "NBA Draft Night",
+      "serial": 19,
+      "run": 49,
+      "price": 1000
+    },
+    {
+      "character": "Cooper Flagg",
+      "parallel": "Retro Rated Rookie",
+      "serial": 16,
+      "run": 49,
+      "price": 1000
+    },
+    {
+      "character": "Dylan Harper",
+      "parallel": "NBA Draft Night Red",
+      "serial": 8,
+      "run": 10,
+      "price": 1000
+    },
+    {
+      "character": "Victor Wembanyama",
+      "parallel": "Base Blue",
+      "serial": 1,
+      "run": 99,
+      "price": 1000
+    },
+    {
+      "character": "Dylan Harper",
+      "parallel": "Retro Rated Rookie Blue",
+      "serial": 8,
+      "run": 10,
+      "price": 1000
+    },
+    {
+      "character": "Ace Bailey",
+      "parallel": "Year One Black",
+      "serial": 1,
+      "run": 1,
+      "price": 1000
+    },
+    {
+      "character": "VJ Edgecombe",
+      "parallel": "Spotlight Rookies Blue",
+      "serial": 3,
+      "run": 10,
+      "price": 1000
+    },
+    {
+      "character": "Tre Johnson III",
+      "parallel": "RPS First Look Magma",
+      "serial": 1,
+      "run": 1,
+      "price": 1000
+    },
+    {
+      "character": "Cooper Flagg",
+      "parallel": "Year One",
+      "serial": 35,
+      "run": 49,
+      "price": 1000
+    },
+    {
+      "character": "Kon Knueppel",
+      "parallel": "RPS First Look Lightning",
+      "serial": 3,
+      "run": 5,
+      "price": 1000
+    },
+    {
+      "character": "Egor Demin",
+      "parallel": "NBA Draft Night Black",
+      "serial": 1,
+      "run": 1,
+      "price": 1000
+    },
+    {
+      "character": "Cooper Flagg",
+      "parallel": "Retro Rated Rookie",
+      "serial": 15,
+      "run": 49,
+      "price": 1000
+    },
+    {
+      "character": "Dylan Harper",
+      "parallel": "Retro Rated Rookie Blue",
+      "serial": 10,
+      "run": 10,
+      "price": 1000
+    },
+    {
+      "character": "Cooper Flagg",
+      "parallel": "Year One",
+      "serial": 16,
+      "run": 49,
+      "price": 1000
+    },
+    {
+      "character": "LeBron James",
+      "parallel": "Hand Crafted Holo Gold",
+      "serial": 3,
+      "run": 10,
+      "price": 1000
+    },
+    {
+      "character": "Cooper Flagg",
+      "parallel": "NBA Draft Night",
+      "serial": 3,
+      "run": 49,
+      "price": 1000
+    },
+    {
+      "character": "Cooper Flagg",
+      "parallel": "Retro Rated Rookie",
+      "serial": 46,
+      "run": 49,
+      "price": 1000
+    },
+    {
+      "character": "Cooper Flagg",
+      "parallel": "NBA Draft Night",
+      "serial": 35,
+      "run": 49,
+      "price": 999
+    },
+    {
+      "character": "Cooper Flagg",
+      "parallel": "NBA Draft Night",
+      "serial": 33,
+      "run": 49,
+      "price": 999
+    },
+    {
+      "character": "Cooper Flagg",
+      "parallel": "NBA Draft Night",
+      "serial": 9,
+      "run": 49,
+      "price": 999
+    },
+    {
+      "character": "Cooper Flagg",
+      "parallel": "Retro Rated Rookie",
+      "serial": 8,
+      "run": 49,
+      "price": 999
+    },
+    {
+      "character": "Cooper Flagg",
+      "parallel": "Retro Rated Rookie",
+      "serial": 13,
+      "run": 49,
+      "price": 999
+    },
+    {
+      "character": "Cedric Coward",
+      "parallel": "NBA Draft Night Green",
+      "serial": 4,
+      "run": 5,
+      "price": 999
+    },
+    {
+      "character": "Derik Queen",
+      "parallel": "RPS First Look Magma",
+      "serial": 1,
+      "run": 1,
+      "price": 999
+    },
+    {
+      "character": "Matas Buzelis",
+      "parallel": "Base Holo Platinum",
+      "serial": 1,
+      "run": 1,
+      "price": 999
+    },
+    {
+      "character": "VJ Edgecombe",
+      "parallel": "RPS First Look Lightning",
+      "serial": 1,
+      "run": 5,
+      "price": 999
+    },
+    {
+      "character": "Cooper Flagg",
+      "parallel": "Year One",
+      "serial": 14,
+      "run": 49,
+      "price": 999
+    },
+    {
+      "character": "Cooper Flagg",
+      "parallel": "Year One",
+      "serial": 35,
+      "run": 49,
+      "price": 998
+    }
+  ]
+}
