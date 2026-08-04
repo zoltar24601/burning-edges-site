@@ -45,10 +45,10 @@
     "hit_pool_remaining": 2761,
     "base_card_ev": 3.94,
     "base_slots_ev": 11.82,
-    "hit_card_ev": 82.6,
-    "pack_book_ev": 94.42,
+    "hit_card_ev": 90.57,
+    "pack_book_ev": 102.39,
     "multiplier": 2.5,
-    "predicted_price": 236.05,
+    "predicted_price": 255.97,
     "method": "pull odds = real UNCLAIMED counts per cardset; hit value tiered by player",
     "base_breakdown": [
       {
@@ -105,7 +105,7 @@
         "cardset": "NBA Draft Night Black",
         "run": 1,
         "uncl": 4,
-        "avg_value": 4837.5
+        "avg_value": 10337.5
       },
       {
         "cardset": "NBA Draft Night Green",
@@ -313,7 +313,7 @@
       "s": "NBA Draft Night Black",
       "r": 1,
       "u": 1,
-      "p": 18000
+      "p": 40000
     },
     {
       "c": "Cooper Flagg",
@@ -1886,8 +1886,8 @@
   ],
   "chase_serials": [
     {
-      "s": "Cooper Flagg — Draft Night Black /1",
-      "p": 18000
+      "s": "Cooper Flagg — 1/1 (Black / Magma)",
+      "p": 40000
     },
     {
       "s": "Cooper Flagg — Draft Night Green /5",
