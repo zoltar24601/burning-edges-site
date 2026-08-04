@@ -12,12 +12,16 @@
 // entries here as John directs; the pipeline applies them every run.
 // ============================================================
 
+// Manual REFERENCE values: what a parallel is worth when nothing has sold yet.
+// These hold until a REAL sale moves them (an offer never marks them down). Edit
+// as John directs.
 export const PARALLEL_FLOORS = {
-  "Kaboom Green": 20000,          // keep at 20k unless a sale/offer says higher
+  "Kaboom Green": 20000,          // keep at 20k unless a real sale says otherwise
+  "Base Black": 2300,             // 1/1 chases hold ~2.3k until one actually sells
 };
 
-// Fallback when a card has NO sales AND no offer at all -- a minimum by scarcity
-// so a /1 never collapses to a token value.
+// Fallback when a card has NO sales, NO offer, and NO reference -- a minimum by
+// scarcity so a /1 never collapses to a token value.
 function defaultByRun(run) {
   if (run <= 1) return 300;
   if (run <= 10) return 60;
@@ -33,38 +37,43 @@ export function median(a) {
   return s[Math.floor(s.length / 2)];
 }
 
-// Value ONE copy of a single-serial (/1) card. Offer floors it cleanly because
-// the card IS the serial.
-export function cardValue(c) {
+// Has this card ACTUALLY traded? (not just carry a standing offer)
+function hasRealSale(c) {
+  const sales = (c.recent_sales || []).filter(s => s.txn_amount > 0);
+  return sales.length > 0 || (c.top_sale > 0) || (c.recent_sale > 0) || (c.avg_sale > 0);
+}
+function saleSignal(c) {
   const sales = (c.recent_sales || []).map(s => s.txn_amount).filter(x => x > 0);
-  const saleSignal = sales.length
-    ? median(sales)
-    : Math.max(c.recent_sale || 0, c.avg_sale || 0, c.top_sale || 0);
-  const offer = c.best_offer || 0;                 // FLOOR, never discounted
-  const floor = PARALLEL_FLOORS[c.cardset] || 0;   // manual chase floor
-  const v = Math.max(saleSignal, offer, floor);
-  return v > 0 ? v : defaultByRun(c.print_run || c.total_mints || 49);
+  return sales.length ? median(sales) : Math.max(c.recent_sale || 0, c.avg_sale || 0, c.top_sale || 0);
+}
+
+// Value ONE copy of a single-serial (/1) card. A real sale is the truth (floored
+// by any standing offer); with no sale, the manual reference holds -- an offer
+// alone never drops it below reference.
+export function cardValue(c) {
+  const offer = c.best_offer || 0;
+  const ref = PARALLEL_FLOORS[c.cardset] || 0;
+  if (hasRealSale(c)) return Math.max(saleSignal(c), offer);
+  return Math.max(ref, offer) || defaultByRun(c.print_run || c.total_mints || 1);
 }
 
 // Value the whole remaining stack of a card = { copies, valueSum, avg }.
 // The single best_offer / top_sale belongs to the ONE best remaining serial, so
 // on multi-serial cards it prices just that one copy; the rest go at the ordinary
-// (real-sale) value. On /1 cards the offer floors the single copy. This is what
+// value. On /1 cards the reference/offer/sale prices the single copy. This is what
 // the pipeline sums across all cards to get pack EV.
 export function stackValue(c) {
   const u = c.unopened_pack_count || 0;
   if (u <= 0) return { copies: 0, valueSum: 0, avg: 0 };
   const run = c.print_run || c.total_mints || 49;
-  const floor = PARALLEL_FLOORS[c.cardset] || 0;
-  const sales = (c.recent_sales || []).map(s => s.txn_amount).filter(x => x > 0);
-  const saleSig = sales.length ? median(sales) : Math.max(c.recent_sale || 0, c.avg_sale || 0);
+  const ref = PARALLEL_FLOORS[c.cardset] || 0;
   const offer = c.best_offer || 0, top = c.top_sale || 0;
   let valueSum;
   if (run <= 1) {
-    valueSum = (Math.max(saleSig, offer, floor) || defaultByRun(run)) * u;
+    valueSum = cardValue(c) * u;
   } else {
-    const ordinary = Math.max(saleSig, floor) || defaultByRun(run);
-    const chase = Math.max(offer, top, ordinary, floor);   // one best serial
+    const ordinary = hasRealSale(c) ? saleSignal(c) : (ref || defaultByRun(run));
+    const chase = Math.max(offer, top, ordinary, ref);     // one best serial
     valueSum = chase + ordinary * (u - 1);
   }
   return { copies: u, valueSum, avg: valueSum / u };
