@@ -27,7 +27,7 @@ function json(status, body) {
     headers: {
       "Content-Type": "application/json",
       "Access-Control-Allow-Origin": "*",
-      "Cache-Control": "public, max-age=300",
+      "Cache-Control": "public, max-age=60",
     },
     body: JSON.stringify(body),
   };
