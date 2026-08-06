@@ -3,7 +3,7 @@
   "type": "pack_analytics",
   "pricing_mechanism": "player-tier x set x parallel; hit-slot value anchored to recent Panini Blockchain sales, base slots to parallel floors",
   "valuation_principle": "Pack = 3 base-pool cards + 1 insert/Instant hit. Book EV = 3x(weighted base card) + (weighted hit card), weighted by real UNCLAIMED counts from the collection report.",
-  "updated": "2026-08-04",
+  "updated": "2026-08-06",
   "data_note": "Player tiers: S=Cooper Flagg; A=Harper/Edgecombe/Knueppel; B=notable rookies; V=vet stars; C=common. Hit value = recent-sale median where available, else tier x parallel anchor. Rookie chase market; prices move fast.",
   "structure": {
     "cards_per_pack": 4,
@@ -45,10 +45,10 @@
     "hit_pool_remaining": 2761,
     "base_card_ev": 3.94,
     "base_slots_ev": 11.82,
-    "hit_card_ev": 90.57,
-    "pack_book_ev": 102.39,
+    "hit_card_ev": 91.77,
+    "pack_book_ev": 103.59,
     "multiplier": 2.5,
-    "predicted_price": 255.97,
+    "predicted_price": 258.98,
     "method": "pull odds = real UNCLAIMED counts per cardset; hit value tiered by player",
     "base_breakdown": [
       {
@@ -168,16 +168,16 @@
         "avg_value": 242.42
       },
       {
+        "cardset": "RPS First Look Water",
+        "run": 10,
+        "uncl": 71,
+        "avg_value": 203.24
+      },
+      {
         "cardset": "NBA Draft Night Red",
         "run": 10,
         "uncl": 50,
         "avg_value": 202.6
-      },
-      {
-        "cardset": "RPS First Look Water",
-        "run": 10,
-        "uncl": 71,
-        "avg_value": 156.76
       },
       {
         "cardset": "Hand Crafted Holo Gold",
@@ -327,7 +327,7 @@
       "s": "RPS First Look Water",
       "r": 10,
       "u": 1,
-      "p": 4200
+      "p": 7500
     },
     {
       "c": "Cooper Flagg",
@@ -1894,8 +1894,8 @@
       "p": 10800
     },
     {
-      "s": "Cooper Flagg — RPS Water /10",
-      "p": 4200
+      "s": "Cooper Flagg — /10 inserts",
+      "p": 7500
     },
     {
       "s": "Cooper Flagg — Draft Night Blue /25",
