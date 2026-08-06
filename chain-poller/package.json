@@ -1,0 +1,14 @@
+{
+  "name": "panini-chain-poller",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Always-on worker: reads Panini Sawtooth blocks -> decodes -> upserts sales to Supabase.",
+  "scripts": {
+    "start": "node poller.mjs",
+    "postinstall": "playwright install --with-deps chromium"
+  },
+  "dependencies": {
+    "playwright": "^1.47.0"
+  }
+}
