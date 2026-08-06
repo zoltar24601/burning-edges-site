@@ -9,7 +9,7 @@
 // Run: node chain-poller/poller.mjs   (from repo root)
 // ============================================================
 import { chromium } from "playwright";
-import { blockEvents } from "./panini-chain.mjs";   // vendored copy of tools/panini-chain.mjs
+import { blockEvents, blockPulls } from "./panini-chain.mjs";   // vendored copy of tools/panini-chain.mjs
 
 const API = process.env.PANINI_API || "https://explorerapi.paniniamerica.net";
 const SB_URL = process.env.SUPABASE_URL;
@@ -63,21 +63,41 @@ async function upsertEvents(events) {
   });
 }
 
+async function recordPulls(pulls) {
+  if (!pulls.length) return 0;
+  const rows = pulls.map(p => ({ tx_id: p.tx_id, sku_base: p.sku_base, serial: p.serial, run: p.run, to_key: p.to_key, block_num: p.block_num, ts: p.ts }));
+  // insert; ignore ones we've already recorded, get back only the NEW pulls
+  const res = await sb("chain_pulls?on_conflict=tx_id", {
+    method: "POST", headers: { ...SBH, Prefer: "resolution=ignore-duplicates,return=representation" },
+    body: JSON.stringify(rows),
+  });
+  const inserted = res.ok ? await res.json() : [];
+  // decrement remaining once per new pull, grouped by card
+  const byCard = {};
+  for (const r of inserted) byCard[r.sku_base] = (byCard[r.sku_base] || 0) + 1;
+  for (const [sku, n] of Object.entries(byCard)) {
+    await sb("rpc/decrement_remaining", { method: "POST", body: JSON.stringify({ p_sku: sku, p_n: n }) });
+  }
+  return inserted.length;
+}
+
 async function tick() {
   const cursor = await getCursor();
   const resp = await apiGet(`/blocks?limit=${LOOKBACK}`);
   const blocks = (resp && resp.data) || [];
-  let maxBlock = cursor, all = [];
+  let maxBlock = cursor, all = [], pulls = [];
   for (const b of blocks) {
     const num = b.header ? Number(b.header.block_num) : null;
     if (num == null || num <= cursor) continue;          // already ingested
     all.push(...blockEvents(b));
+    pulls.push(...blockPulls(b));
     if (num > maxBlock) maxBlock = num;
   }
   if (all.length) await upsertEvents(all);
+  const newPulls = await recordPulls(pulls);
   if (maxBlock > cursor) await setCursor(maxBlock);
   const sales = all.filter(e => e.is_sale).length;
-  console.log(`[${new Date().toISOString()}] cursor ${cursor} -> ${maxBlock} | events ${all.length} (sales ${sales})`);
+  console.log(`[${new Date().toISOString()}] cursor ${cursor} -> ${maxBlock} | events ${all.length} (sales ${sales}, pulls ${newPulls})`);
 }
 
 (async () => {

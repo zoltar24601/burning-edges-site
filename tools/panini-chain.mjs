@@ -58,3 +58,17 @@ export function blockEvents(block) {
   }
   return out;
 }
+
+// Pack PULLS in a block. A pack-open is atomic: a `burn_product` (the pack) plus
+// the pack's cards $0-transferred to the opener, in the same block. So a $0 card
+// transfer IN A BLOCK THAT CONTAINS A BURN is a real rip -- which cleanly excludes
+// the consolidations/gifts/mints that also use $0 transfers in non-burn blocks.
+// (run <= 500 excludes the pack SKUs themselves, which have runs in the 1000s.)
+export function blockPulls(block) {
+  const evs = blockEvents(block);
+  if (!evs.some(e => e.action === "burn_product")) return [];
+  return evs.filter(e =>
+    e.action === "transfer_product" && Number(e.price) === 0 &&
+    e.sku_base && e.serial != null && e.run != null && e.run <= 500
+  );
+}
