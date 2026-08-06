@@ -4,7 +4,7 @@
   "pricing_mechanism": "player-tier x set x parallel; hit-slot value anchored to recent Panini Blockchain sales, base slots to parallel floors",
   "valuation_principle": "Pack = 3 base-pool cards + 1 insert/Instant hit. Book EV = 3x(weighted base card) + (weighted hit card), weighted by real UNCLAIMED counts from the collection report.",
   "updated": "2026-08-06",
-  "data_note": "Player tiers: S=Cooper Flagg; A=Harper/Edgecombe/Knueppel; B=notable rookies; V=vet stars; C=common. Hit value = recent-sale median where available, else tier x parallel anchor. Rookie chase market; prices move fast.",
+  "data_note": "Remaining counts are LIVE from the Panini blockchain (auto-decremented as packs are opened). Prices from the owner model; Cooper Flagg 1/1 held at $40,000.",
   "structure": {
     "cards_per_pack": 4,
     "base_slots": 3,
