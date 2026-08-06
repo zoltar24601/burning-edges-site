@@ -32,6 +32,9 @@
   .row.down .ic{background:rgba(232,115,106,0.14);color:var(--red);}
   .row.flat .ic{background:rgba(232,196,104,0.14);color:var(--gold);}
   .row .hl{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:17px;color:var(--cream);letter-spacing:0.3px;}
+  .row .tag{display:inline-block;font-family:'Barlow Condensed',sans-serif;font-size:10.5px;letter-spacing:1px;text-transform:uppercase;padding:1px 7px;border-radius:5px;margin-right:8px;vertical-align:middle;font-weight:700;}
+  .row .tag.moonbirds{background:rgba(184,155,224,0.15);color:var(--purple);}
+  .row .tag.silhouette{background:rgba(255,122,60,0.15);color:var(--flame);}
   .row .dt{font-size:13px;color:var(--text-faint);margin-top:2px;}
   .row .ts{font-size:12px;color:var(--text-faint);font-family:'Barlow Condensed',sans-serif;letter-spacing:1px;text-transform:uppercase;text-align:right;white-space:nowrap;}
   .empty{color:var(--text-faint);text-align:center;padding:40px;font-size:14px;}
@@ -71,8 +74,11 @@ fetch('/api/changes').then(r=>r.json()).then(j=>{
   if(!rows.length){ feed.innerHTML='<div class="empty">No major moves logged yet &mdash; check back soon.</div>'; return; }
   feed.innerHTML = rows.map(c=>{
     const d = dir(c.old_value, c.new_value);
+    const prod = (c.product||'').toLowerCase();
+    const label = prod==='silhouette'?'Silhouette':prod==='moonbirds'?'Moonbirds':(c.product||'');
+    const tag = label ? '<span class="tag '+prod+'">'+label+'</span>' : '';
     return '<div class="row '+d+'"><div class="ic">'+arrow(d)+'</div>'
-      + '<div><div class="hl">'+c.headline+'</div>'+(c.detail?'<div class="dt">'+c.detail+'</div>':'')+'</div>'
+      + '<div><div class="hl">'+tag+c.headline+'</div>'+(c.detail?'<div class="dt">'+c.detail+'</div>':'')+'</div>'
       + '<div class="ts">'+ago(c.created_at)+'</div></div>';
   }).join('');
 }).catch(e=>{ feed.innerHTML='<div class="empty">Feed unavailable right now.</div>'; });
