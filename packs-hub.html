@@ -37,6 +37,7 @@
   .pack.fotl{--accent:var(--flame);}
   .pack.moon{--accent:var(--purple);order:-1;}
   .pack.silo{--accent:var(--flame);order:-1;}
+  .pack.nfl{--accent:var(--green);order:-1;}
   .pack .tagrow{display:flex;align-items:center;gap:8px;margin-bottom:14px;}
   .pack .chip{font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--pine-3);background:var(--accent);padding:3px 10px;border-radius:5px;font-weight:700;}
   .pack .rel{font-family:'Barlow Condensed',sans-serif;font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:var(--text-faint);}
@@ -114,6 +115,19 @@
       <div class="go"><span>View analytics</span><span class="arw">&rarr;</span></div>
     </a>
 
+    <a class="pack nfl" href="/nflprizm">
+      <div class="tagrow"><span class="chip">Pack</span><span class="rel">2021 NFL Prizm</span></div>
+      <h2>2021 NFL<br>Prizm</h2>
+      <div class="sub">5 cards &mdash; 3 base + 1 rookie + 1 parallel/insert (1:6); Brady &amp; Mahomes gold chases.</div>
+      <div class="stats">
+        <div class="stat"><div class="l">Predicted</div><div class="v accent" id="nfl_pred">&mdash;</div><span class="est" id="nfl_est" style="display:none">Estimate</span></div>
+        <div class="stat"><div class="l">Book value</div><div class="v" id="nfl_book">&mdash;</div></div>
+        <div class="stat"><div class="l">Packs left</div><div class="v" id="nfl_packs">&mdash;</div></div>
+        <div class="stat"><div class="l">Cards/pack</div><div class="v">5</div></div>
+      </div>
+      <div class="go"><span>View analytics</span><span class="arw">&rarr;</span></div>
+    </a>
+
     <a class="pack moon" href="/moonbirds">
       <div class="tagrow"><span class="chip">Pack</span><span class="rel">Birbs Beyond</span></div>
       <h2>Moonbirds<br>Birbs Beyond</h2>
@@ -170,6 +184,14 @@ fetch('/api/silhouette-data').then(r=>r.json()).then(D=>{
   $('silo_hit').textContent = money(pe.hit_card_ev);
   $('silo_est').style.display='';
 }).catch(e=>console.warn('[hub] silhouette fetch failed', e.message));
+
+fetch('/api/nflprizm-data').then(r=>r.json()).then(D=>{
+  const pe = D.pack_ev;
+  $('nfl_book').textContent = money(pe.pack_book_ev);
+  $('nfl_pred').innerHTML = '~' + money(pe.predicted_price);
+  $('nfl_packs').textContent = (D.packs_remaining||0).toLocaleString();
+  $('nfl_est').style.display='';
+}).catch(e=>console.warn('[hub] nflprizm fetch failed', e.message));
 </script>
 </body>
 </html>

@@ -102,6 +102,14 @@
   to = "/silhouette.html"
   status = 200
 [[redirects]]
+  from = "/api/nflprizm-data"
+  to = "/.netlify/functions/nflprizm-data"
+  status = 200
+[[redirects]]
+  from = "/nflprizm"
+  to = "/nflprizm.html"
+  status = 200
+[[redirects]]
   from = "/packs"
   to = "/packs-hub.html"
   status = 200
