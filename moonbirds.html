@@ -178,6 +178,12 @@
     <div class="section-sub">Every parallel, most valuable first. <span class="grade mkt">Market</span> = backed by a real 7-31 sale or offer. <span class="grade est">Estimate</span> = owner judgment, no market data yet.</div>
     <div id="tierboard"></div>
 
+    <div class="section-label">Recent price changes</div>
+    <div class="section-sub">Live as we reprice off sales. <a href="/changes" style="color:var(--purple);text-decoration:none">Full feed &rarr;</a></div>
+    <div id="changesWrap">
+      <table class="s2"><thead><tr><th>Change</th><th>Move</th><th>When</th></tr></thead><tbody id="changesBody"></tbody></table>
+    </div>
+
     <div class="foot" id="foot"></div>
   </div>
 </div>
@@ -1063,7 +1069,21 @@ function render(d){
   $('body').style.display='';
 }
 
+function timeAgo(ts){ const s=(Date.now()-new Date(ts).getTime())/1000; const d=Math.floor(s/86400); if(d>0)return d+'d ago'; const h=Math.floor(s/3600); if(h>0)return h+'h ago'; const m=Math.floor(s/60); return m>0?m+'m ago':'just now'; }
+function loadChanges(){
+  fetch('/api/changes', { cache: 'no-store' }).then(r => r.ok ? r.json() : null).then(j => {
+    if(!j){ $('changesWrap').style.display='none'; return; }
+    const mine = (j.changes||[]).filter(c => (c.product||'').toLowerCase()==='moonbirds').slice(0,10);
+    if(!mine.length){ $('changesWrap').style.display='none'; return; }
+    $('changesBody').innerHTML = mine.map(c => {
+      const up = Number(c.new_value) > Number(c.old_value);
+      const arrow = up ? '&#9650;' : '&#9660;', col = up ? 'var(--green)' : 'var(--red)';
+      return '<tr><td>' + c.headline + (c.scope?' <span class="sub">'+c.scope+'</span>':'') + '</td><td style="color:'+col+'">'+arrow+' '+(c.detail||'')+'</td><td>'+timeAgo(c.created_at)+'</td></tr>';
+    }).join('');
+  }).catch(() => { $('changesWrap').style.display='none'; });
+}
 function boot(){
+  loadChanges();
   fetch('/api/moonbirds-data', { cache: 'no-store' })
     .then(r => { if(!r.ok) throw new Error('HTTP '+r.status); return r.json(); })
     .then(d => { if(!validMoonbirds(d)) throw new Error('moonbirds payload failed shape-check'); render(d); })

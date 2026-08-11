@@ -145,6 +145,12 @@
     </div>
   </div>
 
+  <div class="section-label">Recent price changes</div>
+  <div class="section-sub">Live as we reprice off blockchain sales. <a href="/changes" style="color:var(--flame);text-decoration:none">Full feed &rarr;</a></div>
+  <div id="changesWrap">
+    <table class="s2"><thead><tr><th>Change</th><th>Move</th><th>When</th></tr></thead><tbody id="changesBody"></tbody></table>
+  </div>
+
   <div class="foot" id="foot"></div>
 </div>
 
@@ -2098,8 +2104,23 @@ function render(d){
 
   $('foot').innerHTML = d.data_note || '';
 }
+function timeAgo(ts){ const s=(Date.now()-new Date(ts).getTime())/1000; const d=Math.floor(s/86400); if(d>0)return d+'d ago'; const h=Math.floor(s/3600); if(h>0)return h+'h ago'; const m=Math.floor(s/60); return m>0?m+'m ago':'just now'; }
+async function loadChanges(){
+  try{
+    const r = await fetch('/api/changes', { cache: 'no-store' }); if(!r.ok) return;
+    const j = await r.json();
+    const mine = (j.changes||[]).filter(c => (c.product||'').toLowerCase()==='silhouette').slice(0,10);
+    if(!mine.length){ $('changesWrap').style.display='none'; return; }
+    $('changesBody').innerHTML = mine.map(c => {
+      const up = Number(c.new_value) > Number(c.old_value);
+      const arrow = up ? '&#9650;' : '&#9660;', col = up ? 'var(--green)' : 'var(--red)';
+      return '<tr><td>' + c.headline + (c.scope?' <span class="sub">'+c.scope+'</span>':'') + '</td><td style="color:'+col+'">'+arrow+' '+(c.detail||'')+'</td><td>'+timeAgo(c.created_at)+'</td></tr>';
+    }).join('');
+  }catch(e){ $('changesWrap').style.display='none'; }
+}
 
 (async () => {
+  loadChanges();
   try {
     const r = await fetch('/api/silhouette-data', { cache: 'no-store' });
     if (r.ok) { const j = await r.json(); if (valid(j)) { DATA = j; render(j); return; } }
