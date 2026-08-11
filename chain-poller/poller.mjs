@@ -14,35 +14,37 @@ import { blockEvents, blockPulls } from "./panini-chain.mjs";   // vendored copy
 const API = process.env.PANINI_API || "https://explorerapi.paniniamerica.net";
 const SB_URL = process.env.SUPABASE_URL;
 const SB_KEY = process.env.SUPABASE_SERVICE_KEY;
-const POLL_MS = +(process.env.POLL_MS || 30000);
+const POLL_MS = +(process.env.POLL_MS || 120000);   // 2 min -- gentler on Cloudflare
 const LOOKBACK = +(process.env.LOOKBACK || 40);   // blocks to scan each poll
+// Optional residential proxy (the durable fix for the datacenter-IP Cloudflare block).
+// Set PROXY_SERVER=http://host:port (+ PROXY_USER / PROXY_PASS) in Railway env.
+const PROXY_SERVER = process.env.PROXY_SERVER;
 const SBH = { apikey: SB_KEY, Authorization: `Bearer ${SB_KEY}`, "Content-Type": "application/json" };
 
 if (!SB_URL || !SB_KEY) { console.error("missing SUPABASE_URL / SUPABASE_SERVICE_KEY"); process.exit(1); }
 
-let page;
+let browser, page;
 async function browserReady() {
-  const browser = await chromium.launch({ headless: true, args: ["--no-sandbox"] });
+  if (browser) { try { await browser.close(); } catch (_) {} }
+  const opts = { headless: true, args: ["--no-sandbox"] };
+  if (PROXY_SERVER) opts.proxy = { server: PROXY_SERVER, username: process.env.PROXY_USER, password: process.env.PROXY_PASS };
+  browser = await chromium.launch(opts);
   const ctx = await browser.newContext({ userAgent:
     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36" });
   page = await ctx.newPage();
   await page.goto(`${API}/blocks?limit=1`, { waitUntil: "load", timeout: 60000 });  // clear Cloudflare
-  console.log("browser session established (Cloudflare cleared)");
+  console.log(`browser session established (Cloudflare cleared)${PROXY_SERVER ? " via proxy" : ""}`);
 }
 
-// fetch JSON from the API inside the cleared browser context; re-clear on failure
-async function apiGet(path, retry = true) {
-  try {
-    const r = await page.evaluate(async (u) => {
-      const res = await fetch(u, { headers: { accept: "application/json" } });
-      return { ok: res.ok, status: res.status, body: res.ok ? await res.json() : null };
-    }, API + path);
-    if (r.ok) return r.body;
-    throw new Error("HTTP " + r.status);
-  } catch (e) {
-    if (retry) { console.warn("apiGet retry after:", e.message); await page.goto(`${API}/blocks?limit=1`, { waitUntil: "load" }); return apiGet(path, false); }
-    throw e;
-  }
+// fetch JSON from the API inside the cleared browser context. No inline re-clear
+// hammering -- on failure we throw; the main loop backs off + rebuilds the session.
+async function apiGet(path) {
+  const r = await page.evaluate(async (u) => {
+    const res = await fetch(u, { headers: { accept: "application/json" } });
+    return { ok: res.ok, status: res.status, body: res.ok ? await res.json() : null };
+  }, API + path);
+  if (r.ok) return r.body;
+  throw new Error("HTTP " + r.status);
 }
 
 const sb = (path, opts) => fetch(`${SB_URL}/rest/v1/${path}`, { headers: SBH, ...opts });
@@ -102,8 +104,19 @@ async function tick() {
 
 (async () => {
   await browserReady();
+  let fails = 0;
   for (;;) {
-    try { await tick(); } catch (e) { console.error("tick error:", e.message); }
-    await new Promise(r => setTimeout(r, POLL_MS));
+    try { await tick(); fails = 0; }
+    catch (e) {
+      fails++;
+      console.error(`tick error: ${e.message} (consecutive ${fails})`);
+      // On a run of failures (e.g. a Cloudflare 403 wall) rebuild the browser
+      // session -- a fresh challenge sometimes clears; with PROXY_SERVER set it
+      // reconnects through the residential IP.
+      if (fails % 5 === 0) { try { await browserReady(); console.log("browser session rebuilt after failures"); } catch (be) { console.error("rebuild failed:", be.message); } }
+    }
+    // exponential-ish back-off while failing (up to 10 min), normal cadence when healthy
+    const wait = fails ? Math.min(POLL_MS * Math.min(fails, 5), 600000) : POLL_MS;
+    await new Promise(r => setTimeout(r, wait));
   }
 })();
