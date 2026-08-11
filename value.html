@@ -268,7 +268,7 @@ function confidence(card,comps){
 
 function showResult(card){
   document.getElementById('rName').textContent=card.a;
-  document.getElementById('rSet').textContent=card.s+' · '+rarityLabel(card.r);
+  document.getElementById('rSet').textContent=card.s+' · '+rarityLabel(card.r)+(card.pack?' · '+card.pack:'');
   document.getElementById('rValue').textContent=money(card.v);
   const comps=findComps(card);
   const [ctext,cclass]=confidence(card,comps);
@@ -347,7 +347,15 @@ function validValuer(d){
 function applyValuer(d){
   CARDS = d.cards; COMPS = d.comps || [];
   search.disabled = false;
-  search.placeholder = 'Start typing... e.g. Messi Black, Yamal Gold, Mbappe Nebula';
+  search.placeholder = 'Start typing... e.g. Tom Brady Kaboom, Cooper Flagg, Messi Black';
+  mergeExtra();
+}
+// pull in the packs we auto-price (NFL Prizm + Silhouette) from pack_values so
+// they're searchable here too; live values, updated hourly off blockchain sales.
+function mergeExtra(){
+  fetch('/api/card-values').then(r => r.ok ? r.json() : null).then(j => {
+    if (j && Array.isArray(j.cards) && j.cards.length) CARDS = CARDS.concat(j.cards);
+  }).catch(() => {});
 }
 function boot(){
   fetch('/api/pbc-data?type=valuer')

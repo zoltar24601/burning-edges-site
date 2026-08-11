@@ -62,6 +62,10 @@
   to = "/pbc.html"
   status = 200
 [[redirects]]
+  from = "/api/card-values"
+  to = "/.netlify/functions/card-values"
+  status = 200
+[[redirects]]
   from = "/value"
   to = "/value.html"
   status = 200
