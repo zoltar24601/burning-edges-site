@@ -38,6 +38,22 @@ export function recomputeNflPrizm(remaining, valueMap, template) {
     if (info.v >= 300) chase.push({ c: info.a, s: info.cs, r: info.r, u, p: info.v });
   }
 
+  // Bake named-serial premiums into EV: ONE sealed copy is the grail (Brady Gold
+  // #1 = $150k), the rest stay at the normal price. So the group is valued as
+  // (u-1)*normal + 1*premium -- not u*normal. Only one #1 per card, only if sealed.
+  for (const [k, meta] of Object.entries(SERIAL1)) {
+    const [athlete, cs] = k.split("|");
+    let target = null;
+    for (const [sku, info] of Object.entries(valueMap)) {
+      if (info.a === athlete && info.cs === cs && (remaining[sku] || 0) > 0) { target = info; break; }
+    }
+    if (!target) continue;
+    const delta = meta.price - target.v;   // e.g. 150000 - 50000 = 100000, added once
+    if (delta <= 0) continue;
+    slotSum[target.slot].v += delta;
+    if (setAgg[target.cs]) setAgg[target.cs].valSum += delta;
+  }
+
   const avg = s => (s.n ? +(s.v / s.n).toFixed(2) : 0);
   const baseEV = avg(slotSum.base), rookEV = avg(slotSum.rookiebase);
   const parEV = avg(slotSum.parallel), insEV = avg(slotSum.insert);
