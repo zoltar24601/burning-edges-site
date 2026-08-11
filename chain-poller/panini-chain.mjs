@@ -63,12 +63,15 @@ export function blockEvents(block) {
 // the pack's cards $0-transferred to the opener, in the same block. So a $0 card
 // transfer IN A BLOCK THAT CONTAINS A BURN is a real rip -- which cleanly excludes
 // the consolidations/gifts/mints that also use $0 transfers in non-burn blocks.
-// (run <= 500 excludes the pack SKUs themselves, which have runs in the 1000s.)
+// We gate on the CARD prefix (`packcard-`) rather than a run cap: the pack token
+// itself is a `burn_product` (already excluded by action), and older products like
+// 2021 NFL Prizm have base cards numbered into the 1000s-6000s -- a run cap silently
+// dropped those legit base/rookie pulls, so their counts never moved.
 export function blockPulls(block) {
   const evs = blockEvents(block);
   if (!evs.some(e => e.action === "burn_product")) return [];
   return evs.filter(e =>
     e.action === "transfer_product" && Number(e.price) === 0 &&
-    e.sku_base && e.serial != null && e.run != null && e.run <= 500
+    e.sku_base && e.sku_base.startsWith("packcard-") && e.serial != null && e.run != null
   );
 }
