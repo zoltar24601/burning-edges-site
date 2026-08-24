@@ -99,7 +99,19 @@ Send new tier sales files (epic / ultra_rare / rare / uncommon / legend) + usual
 
 Brand-new Panini NFT drop. **First-ever Panini Moonbirds product — no secondary market history exists.** Art/PFP NFT, not sports.
 
-## Status: LIVE at /moonbirds (published 2026-07-31, `moonbirds_snapshots` id=1)
+## CURRENT STATE (2026-08-24) — supersedes the historical detail below
+- **OFF Diamond's API — now on OUR chain engine** (same pipeline as NFL Prizm + Silhouette). Diamond drove it 08-04 to 08-24; dropped because its offers-as-floors model froze the book ~$128 through a real sales dump. Hourly `netlify/functions/moonbirds-refresh.mjs` reprices off `chain_events` (prefix `packcard-850178`, sales only) via `tools/moonbirds-reprice.mjs` + `tools/moonbirds-recompute.mjs`; the Diamond `pbc-refresh.mjs` is deleted. `pbc-api.env` now only feeds the one-time seeds.
+- **Book $124.85** (predicted $312), ~1,049 packs remaining (re-seeded from Diamond's per-card counts; NOT poller-auto-decremented — see the poller carve-out below). Live at `moonbirds_snapshots` id=3.
+- **Payload shape unified** with Silhouette (`pack_ev.base_breakdown/hit_breakdown`, top-level `cards_remaining`); pack = 1 Base Silver slot + 1 weighted slot2, book = base_card_ev + hit_card_ev.
+- **Page rebuilt on the shared Silhouette template** — NFL/Silhouette/Moonbirds are one unified UI now. Moonbirds also feeds `/value` (reads `pack_values`).
+- **Valuation** (`tools/moonbirds-reprice.mjs`): a real mid-serial sale moves value either way (dumps show through); /1 sale = the card; Birbhalla $2k global offer = hard floor; Base Silver commons capped vs washes. Seed references (Kaboom Green $20k, Base Black $2,300, Kaboom Gold $3,000) carried over from Diamond's `ordinaryValue` at cutover — open to John's QA post-dump.
+- **Poller carve-out:** Moonbirds (+ Bad Eggs, untracked) can bridge cards to Ethereum, which flows $0 from the pack-vault wallet and would fake pack-opens — so Moonbirds is excluded from auto-decrement (`BRIDGE_PREFIXES` in `blockPulls`); counts kept accurate by re-seed. OPEN TODO: pin one ETH-bridge tx signature to exclude it precisely, then Moonbirds auto-tracks too. (The `blockPulls` vault-wallet fix itself DID fix count-tracking for all NON-bridge packs.)
+
+See the 2026-08-24 changelog entry for the full migration + poller-fix detail.
+
+---
+
+## Status: LIVE at /moonbirds (published 2026-07-31, `moonbirds_snapshots` id=1) — HISTORICAL
 Was tracking-only; now a public pack-pricing page at **/moonbirds** (`moonbirds.html`), modeled on `packs.html`. Architecture = **Option A** (same as PBC Step 5): the page fetches `/api/moonbirds-data` (function `moonbirds-data.js`) which serves the newest **published** row of a new **`moonbirds_snapshots`** table (publish gate), with a baked `FALLBACK_DATA` disaster floor + `boot()` shape-check. Data lives in `moonbirds_pricing.json` (the baked fallback AND the payload inserted to Supabase). Table DDL: `migrations/002_moonbirds_snapshots.sql` (John runs once; Claude cannot run DDL over the service key). NOT merged to main yet. Still NOT run through `pbc_engine.py` (different pools/tiers/logic).
 
 ## Set structure (from checklist `2026_Panini_NFT_Moonbirds_-_Birbs_Beyond.csv`)
