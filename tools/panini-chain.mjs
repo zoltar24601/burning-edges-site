@@ -59,19 +59,25 @@ export function blockEvents(block) {
   return out;
 }
 
-// Pack PULLS in a block. A pack-open is atomic: a `burn_product` (the pack) plus
-// the pack's cards $0-transferred to the opener, in the same block. So a $0 card
-// transfer IN A BLOCK THAT CONTAINS A BURN is a real rip -- which cleanly excludes
-// the consolidations/gifts/mints that also use $0 transfers in non-burn blocks.
-// We gate on the CARD prefix (`packcard-`) rather than a run cap: the pack token
-// itself is a `burn_product` (already excluded by action), and older products like
-// 2021 NFL Prizm have base cards numbered into the 1000s-6000s -- a run cap silently
-// dropped those legit base/rookie pulls, so their counts never moved.
+// Pack PULLS in a block. A pack open sends the pack's cards $0 from the Panini
+// PACK-VAULT wallet to the opener. The old "burn_product in the same block"
+// heuristic under-counted every product (burns aren't reliably co-located, and
+// Moonbirds never burns at all) -- so we key on the vault source directly, which
+// is the universal, atomic pull signal.
+//
+// Moonbirds (+ Bad Eggs, untracked) additionally allow bridging cards TO Ethereum,
+// which also flows $0 from the vault and would masquerade as opens -- so its prefix
+// is carved out of auto-decrement until the bridge signature is pinned; its counts
+// are kept accurate by re-seed instead.
+const PACK_VAULT = new Set([
+  "02882dfcdc4ab8076051922a738bd8914d19b4b4e053db6d860ce53e4ad8b91212",
+]);
+const BRIDGE_PREFIXES = new Set(["packcard-850178"]);   // Moonbirds -- ETH bridge confounds the vault flow
 export function blockPulls(block) {
-  const evs = blockEvents(block);
-  if (!evs.some(e => e.action === "burn_product")) return [];
-  return evs.filter(e =>
+  return blockEvents(block).filter(e =>
     e.action === "transfer_product" && Number(e.price) === 0 &&
-    e.sku_base && e.sku_base.startsWith("packcard-") && e.serial != null && e.run != null
+    e.from_key && PACK_VAULT.has(e.from_key) &&
+    e.sku_base && e.sku_base.startsWith("packcard-") && e.serial != null && e.run != null &&
+    !BRIDGE_PREFIXES.has(e.sku_base.split("_")[0])
   );
 }

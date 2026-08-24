@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Moonbirds Pack Analytics &middot; Burning Edges</title>
-<meta name="description" content="Birbs Beyond pack pricing: pack EV, slot-2 pull breakdown, and the full card value board.">
+<title>Moonbirds Birbs Beyond Pack Analytics &middot; Burning Edges</title>
+<meta name="description" content="2026 Panini NFT Moonbirds Birbs Beyond pack pricing: pack EV, pull odds by parallel, and the full chase board. Live off our own blockchain indexer.">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700;800&family=Barlow:wght@400;500;600&display=swap');
   :root{
@@ -15,7 +15,7 @@
   }
   *{box-sizing:border-box;margin:0;padding:0;}
   body{background:var(--pine-3);color:var(--text);font-family:'Barlow',sans-serif;-webkit-font-smoothing:antialiased;line-height:1.5;padding-bottom:60px;}
-  body::before{content:'';position:fixed;inset:0;background:radial-gradient(circle at 20% 10%,rgba(184,155,224,0.05),transparent 40%),radial-gradient(circle at 80% 90%,rgba(94,214,138,0.03),transparent 40%);pointer-events:none;z-index:0;}
+  body::before{content:'';position:fixed;inset:0;background:radial-gradient(circle at 20% 10%,rgba(255,122,60,0.05),transparent 40%),radial-gradient(circle at 80% 90%,rgba(94,214,138,0.03),transparent 40%);pointer-events:none;z-index:0;}
   .wrap{max-width:1080px;margin:0 auto;padding:0 24px;position:relative;z-index:1;}
   a{color:inherit;}
   header{border-bottom:1px solid var(--border);background:rgba(10,31,18,0.9);backdrop-filter:blur(10px);position:sticky;top:0;z-index:100;}
@@ -25,12 +25,12 @@
   .topnav{display:flex;gap:18px;align-items:center;flex-wrap:wrap;}
   .topnav a{font-family:'Barlow Condensed',sans-serif;font-size:13px;letter-spacing:1.5px;color:var(--text-faint);text-transform:uppercase;text-decoration:none;transition:color .15s;}
   .topnav a:hover{color:var(--gold);}
-  .topnav a.active{color:var(--purple);}
+  .topnav a.active{color:var(--flame);}
 
   .hero{padding:40px 0 18px;text-align:center;}
-  .release-name{font-family:'Barlow Condensed',sans-serif;font-size:14px;letter-spacing:3px;color:var(--purple);text-transform:uppercase;margin-bottom:10px;}
+  .release-name{font-family:'Barlow Condensed',sans-serif;font-size:14px;letter-spacing:3px;color:var(--flame);text-transform:uppercase;margin-bottom:10px;}
   .hero h1{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:clamp(38px,7vw,64px);line-height:0.98;text-transform:uppercase;letter-spacing:0.5px;color:var(--cream);}
-  .hero h1 .accent{color:var(--purple);}
+  .hero h1 .accent{color:var(--flame);}
   .updated{font-family:'Barlow Condensed',sans-serif;font-size:13px;letter-spacing:2px;color:var(--text-faint);text-transform:uppercase;margin-top:14px;}
   .updated .dot{display:inline-block;width:7px;height:7px;background:var(--green);border-radius:50%;margin-right:7px;vertical-align:middle;animation:pulse 2s infinite;}
   @keyframes pulse{0%,100%{opacity:1}50%{opacity:0.35}}
@@ -38,7 +38,7 @@
   .disclaimer{background:rgba(232,196,104,0.07);border:1px solid var(--gold-dim);border-left:3px solid var(--gold);border-radius:10px;padding:16px 20px;margin:14px 0 30px;font-size:13.5px;color:var(--text-dim);line-height:1.6;}
   .disclaimer strong{color:var(--gold);}
 
-  .price-band{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:16px;margin:0 0 14px;}
+  .price-band{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:0 0 14px;}
   @media(max-width:760px){.price-band{grid-template-columns:1fr;}}
   .price-card{background:linear-gradient(160deg,var(--card),var(--card-2));border:1px solid var(--border-bright);border-radius:14px;padding:26px 30px;}
   .price-card.book{border-color:var(--green);box-shadow:0 0 40px rgba(94,214,138,0.07) inset;}
@@ -50,54 +50,34 @@
   .price-card.predicted .price-big{color:var(--gold);}
   .price-sub{font-size:12.5px;color:var(--text-faint);margin-top:10px;}
   .tag-est{display:inline-block;margin-top:8px;padding:3px 10px;border-radius:16px;background:rgba(232,196,104,0.12);border:1px solid var(--gold-dim);font-family:'Barlow Condensed',sans-serif;font-size:12px;letter-spacing:1px;color:var(--gold);text-transform:uppercase;}
-  .vs-mint{display:inline-block;margin-top:12px;padding:4px 12px;border-radius:20px;background:rgba(94,214,138,0.12);border:1px solid rgba(94,214,138,0.3);font-family:'Barlow Condensed',sans-serif;font-size:14px;letter-spacing:1px;color:var(--green);text-transform:uppercase;}
 
-  .section-label{font-family:'Barlow Condensed',sans-serif;font-size:13px;letter-spacing:3px;text-transform:uppercase;color:var(--purple);margin:40px 0 4px;}
+  .compose{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:0 0 30px;}
+  @media(max-width:760px){.compose{grid-template-columns:1fr 1fr;}}
+  .slot{background:var(--card-2);border:1px solid var(--border);border-radius:12px;padding:16px;text-align:center;}
+  .slot.hit{border-color:var(--flame);}
+  .slot .n{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:30px;color:var(--cream);line-height:1;}
+  .slot.hit .n{color:var(--flame);}
+  .slot .d{font-size:11.5px;color:var(--text-faint);text-transform:uppercase;letter-spacing:1px;margin-top:6px;line-height:1.4;}
+
+  .section-label{font-family:'Barlow Condensed',sans-serif;font-size:13px;letter-spacing:3px;text-transform:uppercase;color:var(--flame);margin:40px 0 4px;}
   .section-sub{font-size:13px;color:var(--text-faint);margin-bottom:18px;}
-  .chase{background:rgba(184,155,224,0.08);border:1px solid var(--purple);border-radius:10px;padding:12px 16px;margin-bottom:16px;font-size:13.5px;color:var(--text-dim);line-height:1.8;}
+  .chase{background:rgba(255,122,60,0.08);border:1px solid var(--flame);border-radius:10px;padding:12px 16px;margin-bottom:16px;font-size:13.5px;color:var(--text-dim);line-height:1.9;}
   .chase b{color:var(--gold);}
-  .chase .lbl{font-family:'Barlow Condensed',sans-serif;letter-spacing:1.5px;text-transform:uppercase;color:var(--purple);font-size:12px;margin-right:10px;display:inline-block;}
+  .chase .lbl{font-family:'Barlow Condensed',sans-serif;letter-spacing:1.5px;text-transform:uppercase;color:var(--flame);font-size:12px;margin-right:10px;display:inline-block;}
 
-  /* slot-2 breakdown */
   table{width:100%;border-collapse:collapse;}
   .s2 th{font-family:'Barlow Condensed',sans-serif;font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:var(--text-faint);text-align:right;padding:8px 10px;border-bottom:1px solid var(--border);}
   .s2 th:first-child{text-align:left;}
   .s2 td{padding:9px 10px;border-bottom:1px solid rgba(31,74,48,0.5);font-size:14px;text-align:right;}
   .s2 td:first-child{text-align:left;font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:15px;color:var(--cream);letter-spacing:0.3px;}
-  .s2 .bar{height:7px;border-radius:4px;background:linear-gradient(90deg,var(--purple),var(--gold));display:inline-block;vertical-align:middle;min-width:2px;}
-  .s2 tr.slot1 td{color:var(--green);}
-  .s2 tr.slot1 td:first-child{color:var(--green);}
-  .grade{font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:1px;text-transform:uppercase;padding:2px 7px;border-radius:12px;}
-  .grade.mkt{background:rgba(94,214,138,0.14);color:var(--green);border:1px solid rgba(94,214,138,0.3);}
-  .grade.est{background:rgba(232,196,104,0.12);color:var(--gold);border:1px solid var(--gold-dim);}
-
-  /* tier board */
-  .tier{background:var(--card-2);border:1px solid var(--border);border-radius:12px;padding:16px 18px;margin-bottom:12px;display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr auto;gap:12px;align-items:center;}
-  @media(max-width:760px){.tier{grid-template-columns:1fr 1fr;}}
-  .tier .tname{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:18px;color:var(--cream);letter-spacing:0.3px;}
-  .tier .trun{font-family:'Barlow Condensed',sans-serif;font-size:12px;letter-spacing:1px;color:var(--text-faint);text-transform:uppercase;}
-  .tier .tpool{display:inline-block;margin-left:8px;font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--pine-3);background:var(--gold-dim);padding:2px 7px;border-radius:4px;vertical-align:middle;}
-  .tier.grail .tpool{background:var(--purple);}
-  .tier.insert .tpool{background:var(--flame);color:var(--cream);}
-  .tier .cell{font-family:'Barlow Condensed',sans-serif;}
-  .tier .clabel{font-size:10.5px;letter-spacing:1px;text-transform:uppercase;color:var(--text-faint);}
-  .tier .cval{font-weight:700;font-size:19px;color:var(--cream);}
-  .tier .cval.hi{color:var(--gold);}
-  .tier .basis{grid-column:1/-1;font-size:12px;color:var(--text-faint);border-top:1px solid var(--border);padding-top:8px;margin-top:2px;line-height:1.5;}
-
-  /* lookup */
-  .lookup{background:var(--card-2);border:1px solid var(--border-bright);border-radius:12px;padding:18px 20px;margin-bottom:14px;display:flex;gap:12px;align-items:flex-end;flex-wrap:wrap;}
-  .lookup label{display:block;font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:1px;color:var(--text-faint);text-transform:uppercase;margin-bottom:5px;}
-  .lookup select,.lookup input{background:var(--pine-3);border:1px solid var(--border-bright);color:var(--cream);font-family:'Barlow Condensed',sans-serif;font-size:16px;font-weight:600;padding:8px 10px;border-radius:6px;}
-  .lookup .out{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:26px;color:var(--gold);margin-left:auto;}
-  .lookup .out small{display:block;font-size:12px;font-weight:500;color:var(--text-faint);letter-spacing:1px;text-transform:uppercase;}
-
-  .foot{margin-top:44px;font-size:12px;color:var(--text-faint);border-top:1px solid var(--border);padding-top:20px;line-height:1.6;}
-  .loading{text-align:center;color:var(--text-faint);font-family:'Barlow Condensed',sans-serif;letter-spacing:2px;text-transform:uppercase;padding:40px;}
+  .s2 .sub{color:var(--text-faint);font-weight:400;font-size:12.5px;}
+  .s2 .bar{height:7px;border-radius:4px;background:linear-gradient(90deg,var(--flame),var(--gold));display:inline-block;vertical-align:middle;min-width:2px;}
+  .cols{display:grid;grid-template-columns:1fr 1fr;gap:26px;}
+  @media(max-width:820px){.cols{grid-template-columns:1fr;}}
+  .foot{margin-top:44px;font-size:12px;color:var(--text-faint);text-align:center;line-height:1.7;}
 </style>
 </head>
 <body>
-
 <header>
   <div class="header-inner">
     <a class="brand" href="/">BURNING <span class="flame">EDGES</span></a>
@@ -105,6 +85,7 @@
       <a href="/packs">&larr; All Packs</a>
       <a href="/panini">Soccer</a>
       <a href="/moonbirds" class="active">Moonbirds</a>
+      <a href="/silhouette">Silhouette</a>
       <a href="/value">Value My Card</a>
     </nav>
   </div>
@@ -112,967 +93,110 @@
 
 <div class="wrap">
   <div class="hero">
-    <div class="release-name" id="release">2026 Panini NFT Moonbirds &mdash; Birbs Beyond</div>
-    <h1>MOONBIRDS <span class="accent">PACK VALUE</span></h1>
-    <div class="updated"><span class="dot"></span><span id="updated">&mdash;</span></div>
-    <div style="margin-top:13px;font-size:12.5px;color:var(--text-dim);line-height:1.6;">
-      <span style="display:inline-block;font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--pine-3);background:var(--green);padding:2px 9px;border-radius:5px;font-weight:700;margin-right:9px;vertical-align:middle;">Live-data POC</span>
-      Pricing data powered by <b style="color:var(--gold);">Panini Blockchain Tracker</b>, auto-refreshed hourly &middot; built by <b style="color:var(--cream);">Diamond</b> <span style="color:var(--text-faint);">(Discord)</span> / <a href="https://x.com/diamondNFL" target="_blank" rel="noopener" style="color:var(--purple);text-decoration:none;font-weight:600;">@diamondNFL</a> <span style="color:var(--text-faint);">(X)</span>
+    <div class="release-name">2026 Panini NFT &middot; Entertainment</div>
+    <h1>Moonbirds <span class="accent">Birbs Beyond</span></h1>
+    <div class="updated"><span class="dot"></span><span id="updated">Loading&hellip;</span></div>
+  </div>
+
+  <div class="disclaimer">
+    <strong>How this pack works.</strong> Every pack = <strong>2 cards</strong>: 1 Base Silver + <strong>1 parallel or insert</strong> weighted by remaining supply. The Silver is low-value filler; the pack's worth lives in the second slot, where value is driven by the <strong>parallel</strong> &mdash; a Kaboom or a Base Black /1 is worth hundreds to thousands&times; a common. Book value below is the expected card value per pack, weighted by real remaining counts. Priced off our own on-chain sales indexer. Estimates, not a market quote &mdash; not financial advice.
+  </div>
+
+  <div class="price-band">
+    <div class="price-card book">
+      <div class="label">Book value / pack</div>
+      <div class="price-big" id="book">&mdash;</div>
+      <div class="price-sub" id="bookSub">expected card value per pack</div>
+    </div>
+    <div class="price-card predicted">
+      <div class="label">Predicted</div>
+      <div class="price-big" id="predicted">&mdash;</div>
+      <span class="tag-est">Speculative estimate</span>
     </div>
   </div>
 
-  <div class="disclaimer" id="disclaimer">Loading&hellip;</div>
+  <div class="compose">
+    <div class="slot"><div class="n">1&times;</div><div class="d">Base<br>Silver</div></div>
+    <div class="slot"><div class="n" id="baseEv">&mdash;</div><div class="d">Base slots<br>value</div></div>
+    <div class="slot hit"><div class="n">1&times;</div><div class="d">Parallel /<br>insert hit</div></div>
+    <div class="slot hit"><div class="n" id="hitEv">&mdash;</div><div class="d">Hit slot<br>value</div></div>
+  </div>
 
-  <div id="body" style="display:none;">
-    <!-- pack economics -->
-    <div class="price-band">
-      <div class="price-card predicted">
-        <div class="label">Predicted Price</div>
-        <div class="price-big" id="predicted">&mdash;</div>
-        <span class="tag-est">Estimate only</span>
-        <div class="price-sub">2.5&times; multiplier borrowed from the soccer product &mdash; no Moonbirds sales justify it. A speculative ceiling, not a market figure.</div>
-      </div>
-      <div class="price-card book">
-        <div class="label">Book EV / Pack</div>
-        <div class="price-big" id="bookEv">&mdash;</div>
-        <span class="vs-mint" id="vsMint">&mdash;</span>
-        <div class="price-sub">Expected card value per pack (2 cards: guaranteed Silver + 1 hit). The defensible number.</div>
-      </div>
-      <div class="price-card">
-        <div class="label">Pack Mint</div>
-        <div class="price-big" id="mint">&mdash;</div>
-        <div class="price-sub">Cost to open one pack.</div>
-      </div>
-    </div>
-
-    <!-- slot 2 breakdown -->
-    <div class="section-label">Where the pack value comes from</div>
-    <div class="section-sub">Slot 1 is a guaranteed Base Silver. Slot 2 is the one hit &mdash; pull odds are exact (print-run population). Contribution = pull % &times; average value.</div>
-    <table class="s2">
-      <thead><tr><th>Slot / Parallel</th><th>Pull %</th><th>Avg value</th><th>EV contribution</th><th style="width:130px"></th></tr></thead>
-      <tbody id="s2body"></tbody>
-    </table>
-
-    <!-- hits remaining -->
-    <div id="hitsSection">
-    <div class="section-label">Hits remaining</div>
-    <div class="section-sub" id="hitsSub">&mdash;</div>
-    <div class="chase" id="chaseSerials"></div>
+  <!-- chase board -->
+  <div class="section-label">Top chases still in packs</div>
+  <div class="section-sub" id="chaseSub">&mdash;</div>
+  <div class="chase" id="chaseSerials"></div>
+  <div id="hitsSection">
     <table class="s2">
       <thead><tr><th>Card</th><th>/Run</th><th>Left</th><th>Est. value each</th></tr></thead>
       <tbody id="hitsBody"></tbody>
     </table>
-    </div>
-
-    <!-- serial lookup -->
-    <div class="section-label">Look up a serial</div>
-    <div class="section-sub">Pick a parallel and serial to see its estimated value (floor, or the #1 / last-serial premium).</div>
-    <div class="lookup">
-      <div><label>Parallel</label><select id="lkParallel"></select></div>
-      <div><label>Serial #</label><input id="lkSerial" type="number" min="1" value="1" style="width:110px"></div>
-      <div class="out"><span id="lkOut">&mdash;</span><small id="lkNote"></small></div>
-    </div>
-
-    <!-- tier board -->
-    <div class="section-label">Card value board</div>
-    <div class="section-sub">Every parallel, most valuable first. <span class="grade mkt">Market</span> = backed by a real 7-31 sale or offer. <span class="grade est">Estimate</span> = owner judgment, no market data yet.</div>
-    <div id="tierboard"></div>
-
-    <div class="section-label">Recent price changes</div>
-    <div class="section-sub">Live as we reprice off sales. <a href="/changes" style="color:var(--purple);text-decoration:none">Full feed &rarr;</a></div>
-    <div id="changesWrap">
-      <table class="s2"><thead><tr><th>Change</th><th>Move</th><th>When</th></tr></thead><tbody id="changesBody"></tbody></table>
-    </div>
-
-    <div class="foot" id="foot"></div>
   </div>
+
+  <!-- pull odds -->
+  <div class="section-label">Where the value sits &mdash; pull odds by set</div>
+  <div class="section-sub">The second slot draws one card from every parallel / insert. Odds = that parallel's remaining share of the pool; value = its average across all birbs left.</div>
+  <div class="cols">
+    <div>
+      <table class="s2"><thead><tr><th>Hit set</th><th>Odds</th><th>Avg</th></tr></thead><tbody id="hitBreak"></tbody></table>
+    </div>
+    <div>
+      <table class="s2"><thead><tr><th>Base parallel</th><th>Left</th><th>Avg</th></tr></thead><tbody id="baseBreak"></tbody></table>
+    </div>
+  </div>
+
+  <div class="section-label">Recent price changes</div>
+  <div class="section-sub">Live as we reprice off blockchain sales. <a href="/changes" style="color:var(--flame);text-decoration:none">Full feed &rarr;</a></div>
+  <div id="changesWrap">
+    <table class="s2"><thead><tr><th>Change</th><th>Move</th><th>When</th></tr></thead><tbody id="changesBody"></tbody></table>
+  </div>
+
+  <div class="foot" id="foot"></div>
 </div>
 
 <script>
-/* FALLBACK_DATA: last-known baked snapshot (disaster floor only). The live page
-   fetches /api/moonbirds-data; this is used if that fetch or shape-check fails. */
-const FALLBACK_DATA = {
-  "product": "2026 Panini NFT Moonbirds - Birbs Beyond",
-  "type": "art_nft",
-  "status": "live_first_sales",
-  "pricing_mechanism": "running sales log (143 sales) + report remaining counts + owner judgment",
-  "valuation_principle": "cards clear above offers; floor = ordinary-serial best offer, breakouts priced per special serial; scarce serials marked up on fresh drop per owner (market expert) call",
-  "updated": "2026-08-04",
-  "data_note": "Auto-updated hourly from Panini Blockchain Tracker (live sales + standing offers). Offers are treated as floors, never discounted; a scarce-serial premium prices only the one best remaining serial.",
-  "structure": {
-    "characters": 25,
-    "total_cards": 133,
-    "parallels": {
-      "Base Black": {
-        "run": 1,
-        "cards": 20,
-        "pool": "base"
-      },
-      "Base Holo Gold": {
-        "run": 10,
-        "cards": 20,
-        "pool": "base"
-      },
-      "Base Purple": {
-        "run": 25,
-        "cards": 20,
-        "pool": "base"
-      },
-      "Base Red": {
-        "run": 49,
-        "cards": 20,
-        "pool": "base"
-      },
-      "Base Blue": {
-        "run": 99,
-        "cards": 20,
-        "pool": "base"
-      },
-      "Base Silver": {
-        "run": 194,
-        "cards": 20,
-        "pool": "base"
-      },
-      "Kaboom Green": {
-        "run": 1,
-        "cards": 4,
-        "pool": "insert"
-      },
-      "Kaboom Gold": {
-        "run": 10,
-        "cards": 4,
-        "pool": "insert"
-      },
-      "Kaboom": {
-        "run": 25,
-        "cards": 4,
-        "pool": "insert"
-      },
-      "Birbhalla": {
-        "run": 49,
-        "cards": 1,
-        "pool": "grail"
-      }
-    }
-  },
-  "priced_cards": [
-    {
-      "character": "Enlightened Professor",
-      "parallel": "Birbhalla",
-      "run": 49,
-      "floor_value": 2000,
-      "market_anchored": true,
-      "floor_basis": "8-2: mid/high serials $600-700; low serials #3/#9 sold ~$2000 (upside). #1 (grail) PULLED/owned, still valued $10k",
-      "serial_breakouts": [
-        {
-          "serial": 1,
-          "value": 10000,
-          "basis": "offer-anchored $10k, #1 premium"
-        },
-        {
-          "serial": 49,
-          "value": 10000,
-          "basis": "last-serial premium"
-        }
-      ]
-    }
-  ],
-  "tier_rules": [
-    {
-      "parallel": "Kaboom Green",
-      "run": 1,
-      "cards": 4,
-      "pool": "insert",
-      "market_anchored": true,
-      "basis": "8-2: Kapow 1/1 sold $25,035 (ETH) -> $25,000; only 2 left sealed (Pix, Fizz)",
-      "flat_value": 20000
-    },
-    {
-      "parallel": "Base Black",
-      "run": 1,
-      "cards": 20,
-      "pool": "base",
-      "market_anchored": true,
-      "basis": "7-31: two 1/1 perfect-mint sales $1,669 & $3,000 -> ~$2,300",
-      "flat_value": 2300
-    },
-    {
-      "parallel": "Kaboom Gold",
-      "run": 10,
-      "cards": 4,
-      "pool": "insert",
-      "market_anchored": true,
-      "basis": "8-2: #1 sold $5,555 & $6,999; mids $1500-2000; perfect #10 $2424 -> floor $1600, #1 $6000",
-      "floor_value": 2000,
-      "serial_breakouts": [
-        {
-          "serial": 1,
-          "value": 6999
-        },
-        {
-          "serial": 10,
-          "value": 6999
-        }
-      ]
-    },
-    {
-      "parallel": "Kaboom",
-      "run": 25,
-      "cards": 4,
-      "pool": "insert",
-      "market_anchored": true,
-      "basis": "8-1: Kapow holds $1050-1100 but Fizz/Pix ordinaries $300-600 -> floor $600; #1/#25 $1500",
-      "floor_value": 450,
-      "serial_breakouts": [
-        {
-          "serial": 1,
-          "value": 1555
-        },
-        {
-          "serial": 25,
-          "value": 1555
-        }
-      ]
-    },
-    {
-      "parallel": "Base Holo Gold",
-      "run": 10,
-      "cards": 20,
-      "pool": "base",
-      "market_anchored": true,
-      "basis": "8-2: #1 sold $1291; #10 perfect $500; ordinaries $200-350 -> floor $300",
-      "floor_value": 200,
-      "serial_breakouts": [
-        {
-          "serial": 1,
-          "value": 1292
-        },
-        {
-          "serial": 10,
-          "value": 1292
-        }
-      ]
-    },
-    {
-      "parallel": "Base Purple",
-      "run": 25,
-      "cards": 20,
-      "pool": "base",
-      "market_anchored": true,
-      "basis": "7-31: #1 sold $200; ordinaries $35-75; floor $75",
-      "floor_value": 51,
-      "serial_breakouts": [
-        {
-          "serial": 1,
-          "value": 220
-        },
-        {
-          "serial": 25,
-          "value": 220
-        }
-      ]
-    },
-    {
-      "parallel": "Base Red",
-      "run": 49,
-      "cards": 20,
-      "pool": "base",
-      "market_anchored": true,
-      "basis": "7-31: 20 sales, ordinary med $32 -> floor $35",
-      "floor_value": 20,
-      "serial_breakouts": [
-        {
-          "serial": 1,
-          "value": 130
-        },
-        {
-          "serial": 49,
-          "value": 130
-        }
-      ]
-    },
-    {
-      "parallel": "Base Blue",
-      "run": 99,
-      "cards": 20,
-      "pool": "base",
-      "market_anchored": true,
-      "basis": "7-31: 27 sales med $20; #1 $85; #99 perfect-mint sold $250 & $100 -> $175",
-      "floor_value": 12,
-      "serial_breakouts": [
-        {
-          "serial": 1,
-          "value": 250
-        },
-        {
-          "serial": 99,
-          "value": 250
-        }
-      ]
-    },
-    {
-      "parallel": "Base Silver",
-      "run": 194,
-      "cards": 20,
-      "pool": "base",
-      "market_anchored": true,
-      "basis": "8-2: #1 sold $195-300 (cluster $215); #194 perfect $99; floor $12",
-      "floor_value": 10,
-      "serial_breakouts": [
-        {
-          "serial": 1,
-          "value": 300
-        },
-        {
-          "serial": 194,
-          "value": 300
-        }
-      ]
-    }
-  ],
-  "pending": [
-    "Base Black /1 has 1 sale; Kaboom Green /1 still no data",
-    "monitor as more sales land"
-  ],
-  "pack_ev": {
-    "total_packs": 3873,
-    "packs_remaining": 1577,
-    "slot2_remaining": 1577,
-    "cards_per_pack": 2,
-    "slot1_silver_avg": 9.98,
-    "slot2_ev": 127.44,
-    "pack_book_ev": 137.42,
-    "method": "pull odds = REAL remaining per-parallel counts (updated collection report); avg from floor + serial breakouts",
-    "slot2_breakdown": {
-      "Base Purple": {
-        "copies": 203,
-        "p": 0.1287,
-        "avg_value": 50.21
-      },
-      "Base Red": {
-        "copies": 386,
-        "p": 0.2448,
-        "avg_value": 24.94
-      },
-      "Base Blue": {
-        "copies": 829,
-        "p": 0.5257,
-        "avg_value": 14.18
-      },
-      "Base Black": {
-        "copies": 10,
-        "p": 0.0063,
-        "avg_value": 2300
-      },
-      "Base Holo Gold": {
-        "copies": 78,
-        "p": 0.0495,
-        "avg_value": 161.55
-      },
-      "Birbhalla": {
-        "copies": 24,
-        "p": 0.0152,
-        "avg_value": 2000
-      },
-      "Kaboom": {
-        "copies": 32,
-        "p": 0.0203,
-        "avg_value": 575
-      },
-      "Kaboom Gold": {
-        "copies": 13,
-        "p": 0.0082,
-        "avg_value": 2107.69
-      },
-      "Kaboom Green": {
-        "copies": 2,
-        "p": 0.0013,
-        "avg_value": 20000
-      }
-    },
-    "mint": 50,
-    "multiplier": 2.5,
-    "predicted_price": 343.55,
-    "book_vs_mint": 2.75,
-    "predicted_note": "2.5x borrowed from soccer - speculative ceiling, not a market figure"
-  },
-  "cards_remaining": [
-    {
-      "c": "Fizz",
-      "s": "Kaboom Green",
-      "r": 1,
-      "u": 1,
-      "p": 20000
-    },
-    {
-      "c": "Pix",
-      "s": "Kaboom Green",
-      "r": 1,
-      "u": 1,
-      "p": 20000
-    },
-    {
-      "c": "Kapow",
-      "s": "Kaboom Gold",
-      "r": 10,
-      "u": 4,
-      "p": 3000
-    },
-    {
-      "c": "Arthur",
-      "s": "Base Black",
-      "r": 1,
-      "u": 1,
-      "p": 2300
-    },
-    {
-      "c": "Bino",
-      "s": "Base Black",
-      "r": 1,
-      "u": 1,
-      "p": 2300
-    },
-    {
-      "c": "Bonesy",
-      "s": "Base Black",
-      "r": 1,
-      "u": 1,
-      "p": 2300
-    },
-    {
-      "c": "Gustov",
-      "s": "Base Black",
-      "r": 1,
-      "u": 1,
-      "p": 2300
-    },
-    {
-      "c": "Hex",
-      "s": "Base Black",
-      "r": 1,
-      "u": 1,
-      "p": 2300
-    },
-    {
-      "c": "Jet",
-      "s": "Base Black",
-      "r": 1,
-      "u": 1,
-      "p": 2300
-    },
-    {
-      "c": "Kenji",
-      "s": "Base Black",
-      "r": 1,
-      "u": 1,
-      "p": 2300
-    },
-    {
-      "c": "Mochi",
-      "s": "Base Black",
-      "r": 1,
-      "u": 1,
-      "p": 2300
-    },
-    {
-      "c": "Noct",
-      "s": "Base Black",
-      "r": 1,
-      "u": 1,
-      "p": 2300
-    },
-    {
-      "c": "Shade",
-      "s": "Base Black",
-      "r": 1,
-      "u": 1,
-      "p": 2300
-    },
-    {
-      "c": "Enlightened Professor",
-      "s": "Birbhalla",
-      "r": 49,
-      "u": 24,
-      "p": 2000
-    },
-    {
-      "c": "Shift",
-      "s": "Kaboom Gold",
-      "r": 10,
-      "u": 3,
-      "p": 2000
-    },
-    {
-      "c": "Fizz",
-      "s": "Kaboom Gold",
-      "r": 10,
-      "u": 4,
-      "p": 1600
-    },
-    {
-      "c": "Pix",
-      "s": "Kaboom Gold",
-      "r": 10,
-      "u": 2,
-      "p": 1500
-    },
-    {
-      "c": "Kapow",
-      "s": "Kaboom",
-      "r": 25,
-      "u": 10,
-      "p": 980
-    },
-    {
-      "c": "Merlin",
-      "s": "Base Holo Gold",
-      "r": 10,
-      "u": 2,
-      "p": 799
-    },
-    {
-      "c": "Shift",
-      "s": "Kaboom",
-      "r": 25,
-      "u": 8,
-      "p": 450
-    },
-    {
-      "c": "Fizz",
-      "s": "Kaboom",
-      "r": 25,
-      "u": 8,
-      "p": 400
-    },
-    {
-      "c": "Lance",
-      "s": "Base Holo Gold",
-      "r": 10,
-      "u": 2,
-      "p": 347
-    },
-    {
-      "c": "Pix",
-      "s": "Kaboom",
-      "r": 25,
-      "u": 6,
-      "p": 300
-    },
-    {
-      "c": "Ferno",
-      "s": "Base Holo Gold",
-      "r": 10,
-      "u": 2,
-      "p": 300
-    },
-    {
-      "c": "Rango",
-      "s": "Base Holo Gold",
-      "r": 10,
-      "u": 7,
-      "p": 250
-    },
-    {
-      "c": "Noct",
-      "s": "Base Holo Gold",
-      "r": 10,
-      "u": 5,
-      "p": 250
-    },
-    {
-      "c": "Arthur",
-      "s": "Base Holo Gold",
-      "r": 10,
-      "u": 2,
-      "p": 250
-    },
-    {
-      "c": "Jet",
-      "s": "Base Holo Gold",
-      "r": 10,
-      "u": 2,
-      "p": 250
-    },
-    {
-      "c": "Gustov",
-      "s": "Base Holo Gold",
-      "r": 10,
-      "u": 3,
-      "p": 220
-    },
-    {
-      "c": "Sully",
-      "s": "Base Holo Gold",
-      "r": 10,
-      "u": 2,
-      "p": 210
-    },
-    {
-      "c": "Shade",
-      "s": "Base Holo Gold",
-      "r": 10,
-      "u": 4,
-      "p": 200
-    },
-    {
-      "c": "Bubbles",
-      "s": "Base Holo Gold",
-      "r": 10,
-      "u": 1,
-      "p": 200
-    },
-    {
-      "c": "Lumo",
-      "s": "Base Holo Gold",
-      "r": 10,
-      "u": 3,
-      "p": 193
-    },
-    {
-      "c": "Kenji",
-      "s": "Base Holo Gold",
-      "r": 10,
-      "u": 3,
-      "p": 150
-    },
-    {
-      "c": "Bonesy",
-      "s": "Base Purple",
-      "r": 25,
-      "u": 11,
-      "p": 100
-    },
-    {
-      "c": "Nova",
-      "s": "Base Holo Gold",
-      "r": 10,
-      "u": 5,
-      "p": 100
-    },
-    {
-      "c": "Hex",
-      "s": "Base Purple",
-      "r": 25,
-      "u": 13,
-      "p": 72
-    },
-    {
-      "c": "Lance",
-      "s": "Base Purple",
-      "r": 25,
-      "u": 7,
-      "p": 70
-    },
-    {
-      "c": "Ferno",
-      "s": "Base Purple",
-      "r": 25,
-      "u": 11,
-      "p": 60
-    },
-    {
-      "c": "Bino",
-      "s": "Base Holo Gold",
-      "r": 10,
-      "u": 7,
-      "p": 60
-    },
-    {
-      "c": "Patch",
-      "s": "Base Holo Gold",
-      "r": 10,
-      "u": 7,
-      "p": 60
-    },
-    {
-      "c": "Hex",
-      "s": "Base Holo Gold",
-      "r": 10,
-      "u": 6,
-      "p": 60
-    },
-    {
-      "c": "Mochi",
-      "s": "Base Holo Gold",
-      "r": 10,
-      "u": 6,
-      "p": 60
-    },
-    {
-      "c": "Bonesy",
-      "s": "Base Holo Gold",
-      "r": 10,
-      "u": 5,
-      "p": 60
-    },
-    {
-      "c": "Zed",
-      "s": "Base Holo Gold",
-      "r": 10,
-      "u": 4,
-      "p": 60
-    },
-    {
-      "c": "Arthur",
-      "s": "Base Purple",
-      "r": 25,
-      "u": 10,
-      "p": 55
-    },
-    {
-      "c": "Rango",
-      "s": "Base Purple",
-      "r": 25,
-      "u": 12,
-      "p": 54
-    },
-    {
-      "c": "Merlin",
-      "s": "Base Purple",
-      "r": 25,
-      "u": 9,
-      "p": 53
-    },
-    {
-      "c": "Nova",
-      "s": "Base Purple",
-      "r": 25,
-      "u": 9,
-      "p": 52
-    },
-    {
-      "c": "Shade",
-      "s": "Base Purple",
-      "r": 25,
-      "u": 12,
-      "p": 51
-    },
-    {
-      "c": "Bino",
-      "s": "Base Purple",
-      "r": 25,
-      "u": 8,
-      "p": 51
-    },
-    {
-      "c": "Kenji",
-      "s": "Base Purple",
-      "r": 25,
-      "u": 12,
-      "p": 50
-    },
-    {
-      "c": "Patch",
-      "s": "Base Purple",
-      "r": 25,
-      "u": 11,
-      "p": 47
-    },
-    {
-      "c": "Zed",
-      "s": "Base Purple",
-      "r": 25,
-      "u": 8,
-      "p": 47
-    },
-    {
-      "c": "Noct",
-      "s": "Base Purple",
-      "r": 25,
-      "u": 10,
-      "p": 45
-    },
-    {
-      "c": "Jet",
-      "s": "Base Purple",
-      "r": 25,
-      "u": 12,
-      "p": 43
-    },
-    {
-      "c": "Lumo",
-      "s": "Base Purple",
-      "r": 25,
-      "u": 7,
-      "p": 40
-    },
-    {
-      "c": "Gustov",
-      "s": "Base Purple",
-      "r": 25,
-      "u": 10,
-      "p": 35
-    },
-    {
-      "c": "Sully",
-      "s": "Base Purple",
-      "r": 25,
-      "u": 9,
-      "p": 35
-    },
-    {
-      "c": "Mochi",
-      "s": "Base Purple",
-      "r": 25,
-      "u": 12,
-      "p": 20
-    },
-    {
-      "c": "Bubbles",
-      "s": "Base Purple",
-      "r": 25,
-      "u": 10,
-      "p": 20
-    }
-  ],
-  "chase_serials": [
-    {
-      "s": "Kaboom Gold",
-      "r": 10,
-      "s1": 6999,
-      "last": 6999
-    },
-    {
-      "s": "Base Holo Gold",
-      "r": 10,
-      "s1": 1292,
-      "last": 1292
-    },
-    {
-      "s": "Kaboom",
-      "r": 25,
-      "s1": 1555,
-      "last": 1555
-    },
-    {
-      "s": "Base Purple",
-      "r": 25,
-      "s1": 220,
-      "last": 220
-    }
-  ]
-};
+const FALLBACK_DATA = {"type": "pack_analytics","product": "2026 Panini NFT Moonbirds - Birbs Beyond","updated": "2026-08-24","data_note": "Remaining counts and prices are LIVE from the Panini blockchain (our own indexer). Values reprice off realized on-chain sales; standing global offers act as floors.","pricing_mechanism": "chain-live sales (recency-weighted) + report-seeded remaining, auto-decremented per pack open","valuation_principle": "A real mid-serial sale is the truth and moves value either way; a standing global offer is a hard floor; #1/last-serial premiums are reference-only.","structure": {"cards_per_pack": 2,"base_slots": 1,"hit_slots": 1,"base_parallels": ["Base Silver"],"note": "Each pack: 1 Base Silver + 1 parallel/insert (weighted by remaining supply)."},"pack_ev": {"method": "pull odds = LIVE remaining per-parallel counts; avg from repriced per-card values","cards_per_pack": 2,"base_slots": 1,"hit_slots": 1,"multiplier": 2.5,"mint": 50,"base_card_ev": 9.18,"base_slots_ev": 9.18,"hit_card_ev": 115.67,"pack_book_ev": 124.85,"predicted_price": 312.13,"book_vs_mint": 2.5,"base_pool_remaining": 1052,"hit_pool_remaining": 1045,"base_breakdown": [{"cardset": "Base Silver","run": 194,"uncl": 1052,"avg_value": 9.18}],"hit_breakdown": [{"cardset": "Kaboom Green","run": 1,"uncl": 1,"avg_value": 20000},{"cardset": "Base Black","run": 1,"uncl": 8,"avg_value": 2300},{"cardset": "Kaboom Gold","run": 10,"uncl": 7,"avg_value": 2014.29},{"cardset": "Birbhalla","run": 49,"uncl": 16,"avg_value": 2000},{"cardset": "Kaboom","run": 25,"uncl": 20,"avg_value": 515.7},{"cardset": "Base Holo Gold","run": 10,"uncl": 50,"avg_value": 167.28},{"cardset": "Base Purple","run": 25,"uncl": 126,"avg_value": 48.62},{"cardset": "Base Red","run": 49,"uncl": 255,"avg_value": 21.13},{"cardset": "Base Blue","run": 99,"uncl": 562,"avg_value": 10.99}]},"cards_remaining": [{"c": "Fizz","s": "Kaboom Green","r": 1,"u": 1,"p": 20000},{"c": "Kapow","s": "Kaboom Gold","r": 10,"u": 1,"p": 4500},{"c": "Bonesy","s": "Base Black","r": 1,"u": 1,"p": 2300},{"c": "Bino","s": "Base Black","r": 1,"u": 1,"p": 2300},{"c": "Arthur","s": "Base Black","r": 1,"u": 1,"p": 2300},{"c": "Shade","s": "Base Black","r": 1,"u": 1,"p": 2300},{"c": "Noct","s": "Base Black","r": 1,"u": 1,"p": 2300},{"c": "Kenji","s": "Base Black","r": 1,"u": 1,"p": 2300},{"c": "Gustov","s": "Base Black","r": 1,"u": 1,"p": 2300},{"c": "Jet","s": "Base Black","r": 1,"u": 1,"p": 2300},{"c": "Enlightened Professor","s": "Birbhalla","r": 49,"u": 16,"p": 2000},{"c": "Shift","s": "Kaboom Gold","r": 10,"u": 2,"p": 1700},{"c": "Fizz","s": "Kaboom Gold","r": 10,"u": 2,"p": 1600},{"c": "Pix","s": "Kaboom Gold","r": 10,"u": 2,"p": 1500},{"c": "Kapow","s": "Kaboom","r": 25,"u": 4,"p": 980},{"c": "Shift","s": "Kaboom","r": 25,"u": 6,"p": 450},{"c": "Fizz","s": "Kaboom","r": 25,"u": 6,"p": 399},{"c": "Lance","s": "Base Holo Gold","r": 10,"u": 2,"p": 347},{"c": "Pix","s": "Kaboom","r": 25,"u": 4,"p": 325},{"c": "Ferno","s": "Base Holo Gold","r": 10,"u": 1,"p": 300},{"c": "Bino","s": "Base Holo Gold","r": 10,"u": 6,"p": 275},{"c": "Rango","s": "Base Holo Gold","r": 10,"u": 4,"p": 250},{"c": "Arthur","s": "Base Holo Gold","r": 10,"u": 2,"p": 250},{"c": "Noct","s": "Base Holo Gold","r": 10,"u": 2,"p": 250},{"c": "Jet","s": "Base Holo Gold","r": 10,"u": 2,"p": 250},{"c": "Gustov","s": "Base Holo Gold","r": 10,"u": 1,"p": 220},{"c": "Shade","s": "Base Holo Gold","r": 10,"u": 2,"p": 200},{"c": "Kenji","s": "Base Holo Gold","r": 10,"u": 2,"p": 200},{"c": "Hex","s": "Base Holo Gold","r": 10,"u": 2,"p": 200},{"c": "Lumo","s": "Base Holo Gold","r": 10,"u": 1,"p": 200},{"c": "Bubbles","s": "Base Holo Gold","r": 10,"u": 1,"p": 120},{"c": "Nova","s": "Base Holo Gold","r": 10,"u": 4,"p": 100}]};
 
 let DATA = null;
 const $ = id => document.getElementById(id);
 const money = n => '$' + Math.round(n).toLocaleString('en-US');
 
-// expand a tier/card to the value for a given serial
-function serialValue(rule, serial){
-  if(rule.flat_value != null) return rule.flat_value;
-  const bo = (rule.serial_breakouts||[]).find(b => b.serial === serial);
-  return bo ? bo.value : rule.floor_value;
-}
-function topValue(rule){
-  if(rule.flat_value != null) return rule.flat_value;
-  const specials = (rule.serial_breakouts||[]).map(b=>b.value);
-  return Math.max(rule.floor_value, ...specials);
-}
-
-function validMoonbirds(d){
-  return !!d && typeof d==='object' && d.structure && Array.isArray(d.tier_rules)
-    && d.tier_rules.length>0 && d.pack_ev && Array.isArray(d.priced_cards);
-}
+function valid(d){ return d && d.pack_ev && typeof d.pack_ev.pack_book_ev === 'number' && Array.isArray(d.cards_remaining); }
 
 function render(d){
-  DATA = d;
-  $('release').textContent = d.product;
-  $('updated').textContent = 'Last updated ' + d.updated + (d.pack_ev.packs_remaining ? ' · ' + d.pack_ev.packs_remaining.toLocaleString() + ' packs left' : '');
-
-  // honesty disclaimer
-  const est = d.tier_rules.filter(t=>!t.market_anchored).map(t=>t.parallel);
-  $('disclaimer').innerHTML = '<strong>Read the labels.</strong> Values auto-update hourly from live Panini Blockchain sales &amp; standing offers (offers treated as floors) &mdash; treat scarce-serial premiums as directional, not settled. '
-    + (est.length ? 'No market data yet on: <strong>' + est.join(', ') + '</strong> (pure estimates). ' : '')
-    + 'The predicted price uses a borrowed 2.5&times; multiplier and is speculative.';
-
-  // pack economics (display the stored computed numbers, do not recompute)
   const pe = d.pack_ev;
-  $('bookEv').textContent = money(pe.pack_book_ev);
-  $('mint').textContent = money(pe.mint);
-  $('predicted').textContent = '~' + money(pe.predicted_price);
-  $('vsMint').textContent = pe.book_vs_mint + '× mint';
+  $('book').textContent = money(pe.pack_book_ev);
+  $('predicted').innerHTML = '~' + money(pe.predicted_price);
+  $('baseEv').textContent = money(pe.base_slots_ev);
+  $('hitEv').textContent = money(pe.hit_card_ev);
+  $('bookSub').textContent = '1 silver ' + money(pe.base_slots_ev) + ' + slot2 ' + money(pe.hit_card_ev);
+  $('updated').textContent = 'Last updated ' + (d.updated || '') + ' · ' + pe.hit_pool_remaining.toLocaleString() + ' hits left in packs';
 
-  // slot-2 breakdown
-  const rows = Object.entries(pe.slot2_breakdown)
-    .map(([k,v]) => ({name:k, p:v.p, avg:v.avg_value, contrib:v.p*v.avg_value}))
-    .sort((a,b)=>b.contrib-a.contrib);
-  const maxC = Math.max(...rows.map(r=>r.contrib));
-  let html = '<tr class="slot1"><td>Slot 1 &mdash; Base Silver <span style="color:var(--text-faint);font-weight:400">(guaranteed)</span></td>'
-    + '<td>100%</td><td>' + money(pe.slot1_silver_avg) + '</td><td>' + money(pe.slot1_silver_avg) + '</td><td></td></tr>';
-  html += rows.map(r =>
-    '<tr><td>' + r.name + '</td>'
-    + '<td>' + (r.p*100).toFixed(2) + '%</td>'
-    + '<td>' + money(r.avg) + '</td>'
-    + '<td>' + money(r.contrib) + '</td>'
-    + '<td><span class="bar" style="width:' + Math.max(2, r.contrib/maxC*120) + 'px"></span></td></tr>'
-  ).join('');
-  $('s2body').innerHTML = html;
-
-  // hits remaining - every scarce card (/25 & rarer + grail) still sealed, with est value
+  // chase board
   const cr = d.cards_remaining || [];
-  $('hitsSection').style.display = cr.length ? '' : 'none';
-  const totalCopies = cr.reduce((a,c)=>a+c.u,0);
-  $('hitsSub').textContent = cr.length + ' scarce cards / ' + totalCopies + ' copies still sealed (/25 and rarer, plus the Birbhalla grail) and what we estimate each at. The report gives counts, not which exact serials remain.';
-  $('chaseSerials').innerHTML = '<span class="lbl">Chase serials</span>' + (d.chase_serials||[]).map(l => l.s + ' #1 <b>' + money(l.s1) + '</b> &middot; #' + l.r + ' <b>' + money(l.last) + '</b>').join(' &nbsp;&middot;&nbsp; ');
-  $('hitsBody').innerHTML = cr.map(c =>
-    '<tr><td>' + c.c + ' <span style="color:var(--text-faint);font-weight:400">' + c.s + '</span></td>'
-    + '<td>/' + c.r + '</td><td>' + c.u + '</td><td>' + money(c.p) + '</td></tr>'
-  ).join('');
+  const copies = cr.reduce((a,c)=>a+c.u,0);
+  $('chaseSub').textContent = cr.length + ' parallel/insert cards worth $100+ still sealed (' + copies + ' copies). Counts are live from the chain; exact remaining serials are not tracked.';
+  {const cs=(d.chase_serials||[]);const el=$('chaseSerials');el.style.display=cs.length?'':'none';el.innerHTML=cs.length?('<span class="lbl">Grails</span>'+cs.map(l=>l.s+' <b>'+money(l.p)+'</b>').join(' &nbsp;&middot;&nbsp; ')):'';}
+  $('hitsBody').innerHTML = cr.slice(0,40).map(c => '<tr><td>' + c.c + ' <span class="sub">' + c.s + '</span></td><td>/' + c.r + '</td><td>' + c.u + '</td><td>' + money(c.p) + '</td></tr>').join('');
 
-  // tier board (priced_cards grail + tier_rules), most valuable first
-  const all = [
-    ...d.priced_cards.map(c => ({parallel:c.parallel, run:c.run, pool:'grail',
-      floor_value:c.floor_value, serial_breakouts:c.serial_breakouts, market_anchored:c.market_anchored,
-      basis:(c.floor_basis||'') })),
-    ...d.tier_rules
-  ].sort((a,b)=>topValue(b)-topValue(a));
-
-  $('tierboard').innerHTML = all.map(t => {
-    const pool = t.pool || 'base';
-    const s1 = t.flat_value!=null ? null : serialValue(t, 1);
-    const last = t.flat_value!=null ? null : serialValue(t, t.run);
-    const floorTxt = t.flat_value!=null ? money(t.flat_value) : money(t.floor_value);
-    const floorLbl = t.flat_value!=null ? 'Flat (all serials)' : 'Floor (ordinary)';
-    const badge = t.market_anchored ? '<span class="grade mkt">Market</span>' : '<span class="grade est">Estimate</span>';
-    return '<div class="tier ' + pool + '">'
-      + '<div><span class="tname">' + t.parallel + '</span><span class="tpool">' + pool + '</span><div class="trun">/' + t.run + ' · ' + (t.cards||1) + ' card' + ((t.cards||1)>1?'s':'') + '</div></div>'
-      + '<div class="cell"><div class="clabel">' + floorLbl + '</div><div class="cval">' + floorTxt + '</div></div>'
-      + (s1!=null ? '<div class="cell"><div class="clabel">Serial #1</div><div class="cval hi">' + money(s1) + '</div></div>' : '<div></div>')
-      + (last!=null ? '<div class="cell"><div class="clabel">Last (/' + t.run + ')</div><div class="cval hi">' + money(last) + '</div></div>' : '<div></div>')
-      + '<div style="text-align:right">' + badge + '</div>'
-      + (t.basis ? '<div class="basis">' + t.basis + '</div>' : '')
-      + '</div>';
+  // pull odds
+  const maxP = Math.max.apply(null, (pe.hit_breakdown||[]).map(x=>x.uncl/pe.hit_pool_remaining));
+  $('hitBreak').innerHTML = (pe.hit_breakdown||[]).map(x=>{
+    const p = x.uncl/pe.hit_pool_remaining;
+    return '<tr><td>' + x.cardset + ' <span class="sub">/' + x.run + '</span></td><td>' + (p*100).toFixed(1) + '%<span class="bar" style="width:' + Math.max(2,(p/maxP)*46) + 'px;margin-left:6px"></span></td><td>' + money(x.avg_value) + '</td></tr>';
+  }).join('');
+  $('baseBreak').innerHTML = (pe.base_breakdown||[]).map(x=>{
+    const nm = x.cardset === 'Base' ? 'Base' : x.cardset.replace('Base ','');
+    return '<tr><td>' + nm + ' <span class="sub">/' + x.run + '</span></td><td>' + x.uncl + '</td><td>' + money(x.avg_value) + '</td></tr>';
   }).join('');
 
-  // serial lookup
-  const sel = $('lkParallel');
-  sel.innerHTML = all.map(t => '<option value="' + t.parallel + '">' + t.parallel + ' /' + t.run + '</option>').join('');
-  const lkRule = name => all.find(t => t.parallel === name);
-  function doLookup(){
-    const t = lkRule(sel.value); if(!t) return;
-    let s = parseInt($('lkSerial').value,10) || 1;
-    s = Math.max(1, Math.min(t.run, s)); $('lkSerial').value = s; $('lkSerial').max = t.run;
-    const v = serialValue(t, s);
-    $('lkOut').textContent = money(v);
-    const isSpecial = t.flat_value==null && (t.serial_breakouts||[]).some(b=>b.serial===s);
-    $('lkNote').textContent = t.flat_value!=null ? 'flat value' : (isSpecial ? (s===1?'#1 premium':'last-serial premium') : 'ordinary floor');
-  }
-  sel.onchange = doLookup; $('lkSerial').oninput = doLookup; doLookup();
-
-  // footer
-  $('foot').innerHTML = 'Pack model: 2 cards/pack, ' + pe.total_packs.toLocaleString() + ' print-run population. '
-    + 'Book EV = guaranteed Silver ($' + pe.slot1_silver_avg + ') + slot-2 EV ($' + pe.slot2_ev + '). '
-    + (d.data_note ? '<br>' + d.data_note : '')
-    + '<br>This is an estimate, not financial advice.';
-
-  $('disclaimer').style.display='';
-  $('body').style.display='';
+  $('foot').innerHTML = d.data_note || '';
 }
-
 function timeAgo(ts){ const s=(Date.now()-new Date(ts).getTime())/1000; const d=Math.floor(s/86400); if(d>0)return d+'d ago'; const h=Math.floor(s/3600); if(h>0)return h+'h ago'; const m=Math.floor(s/60); return m>0?m+'m ago':'just now'; }
-function loadChanges(){
-  fetch('/api/changes', { cache: 'no-store' }).then(r => r.ok ? r.json() : null).then(j => {
-    if(!j){ $('changesWrap').style.display='none'; return; }
+async function loadChanges(){
+  try{
+    const r = await fetch('/api/changes', { cache: 'no-store' }); if(!r.ok) return;
+    const j = await r.json();
     const mine = (j.changes||[]).filter(c => (c.product||'').toLowerCase()==='moonbirds').slice(0,10);
     if(!mine.length){ $('changesWrap').style.display='none'; return; }
     $('changesBody').innerHTML = mine.map(c => {
@@ -1080,16 +204,17 @@ function loadChanges(){
       const arrow = up ? '&#9650;' : '&#9660;', col = up ? 'var(--green)' : 'var(--red)';
       return '<tr><td>' + c.headline + (c.scope?' <span class="sub">'+c.scope+'</span>':'') + '</td><td style="color:'+col+'">'+arrow+' '+(c.detail||'')+'</td><td>'+timeAgo(c.created_at)+'</td></tr>';
     }).join('');
-  }).catch(() => { $('changesWrap').style.display='none'; });
+  }catch(e){ $('changesWrap').style.display='none'; }
 }
-function boot(){
+
+(async () => {
   loadChanges();
-  fetch('/api/moonbirds-data', { cache: 'no-store' })
-    .then(r => { if(!r.ok) throw new Error('HTTP '+r.status); return r.json(); })
-    .then(d => { if(!validMoonbirds(d)) throw new Error('moonbirds payload failed shape-check'); render(d); })
-    .catch(err => { console.warn('[moonbirds] live fetch failed, using baked FALLBACK_DATA:', err.message); render(FALLBACK_DATA); });
-}
-boot();
+  try {
+    const r = await fetch('/api/moonbirds-data', { cache: 'no-store' });
+    if (r.ok) { const j = await r.json(); if (valid(j)) { DATA = j; render(j); return; } }
+  } catch (e) {}
+  DATA = FALLBACK_DATA; if (valid(FALLBACK_DATA)) render(FALLBACK_DATA);
+})();
 </script>
 </body>
 </html>
