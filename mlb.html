@@ -4545,14 +4545,29 @@ function optBuildLineup(hitters, pitchers, lockedHitters, lockedPitchers, team1,
       if (lineup[i] === null) { lineup[i] = pp; salary += p.dkSalary; used.add(p.name); break; }
     }
   });
-  lockedHitters.forEach(h => {
-    const hh = {...h, isP: false};
-    for (let i = firstHitterIdx; i < slots.length; i++) {
-      if (lineup[i] === null && canFill(hh, slots[i])) {
-        lineup[i] = hh; salary += h.dkSalary; used.add(h.name); break;
+  // Place locked hitters via bipartite matching, NOT greedy first-fit. Greedy let
+  // a flexible player (Ohtani OF/1B) grab a scarce slot (1B) and strand a rigid one
+  // (Freeman, 1B-only). Kuhn's augmenting path finds an assignment that seats every
+  // locked hitter whenever one exists.
+  {
+    const openIdx = [];
+    for (let i = firstHitterIdx; i < slots.length; i++) if (lineup[i] === null) openIdx.push(i);
+    const slotOf = {};   // slotIndex -> index into lockedHitters
+    const tryAssign = (pi, seen) => {
+      for (const si of openIdx) {
+        if (seen.has(si)) continue;
+        if (!canFill({ ...lockedHitters[pi], isP: false }, slots[si])) continue;
+        seen.add(si);
+        if (slotOf[si] === undefined || tryAssign(slotOf[si], seen)) { slotOf[si] = pi; return true; }
       }
+      return false;
+    };
+    for (let pi = 0; pi < lockedHitters.length; pi++) tryAssign(pi, new Set());
+    for (const si in slotOf) {
+      const h = lockedHitters[slotOf[si]];
+      lineup[si] = { ...h, isP: false }; salary += h.dkSalary; used.add(h.name);
     }
-  });
+  }
 
   // 2. Fill remaining pitcher slots — exclude facing/from stack teams
   const stackTeams = new Set([team1, team2, team3].filter(Boolean));
@@ -7217,13 +7232,19 @@ function trendColor(t){if(!t)return'var(--text3)';if(t.includes('HOT'))return'va
 function wobaColor(w){if(!w||isNaN(w))return'var(--text3)';if(w>=0.390)return'var(--accent)';if(w>=0.340)return'var(--blue)';if(w>=0.310)return'var(--yellow)';return'var(--red)'}
 function avg(a){return a.reduce((x,y)=>x+y,0)/a.length}
 function posMatch(pos, filter) {
+  // DK/FD list multi-eligible players as a slash-joined string, e.g. "OF/1B"
+  // (Ohtani) or "C/1B". Split so EACH eligible position is checked individually
+  // -- the old code exact-matched the whole string, so a multi-position player
+  // failed every slot except the one its string happened to .includes().
+  const parts = (pos || '').split('/').map(s => s.trim()).filter(Boolean);
+  const OF = ['LF', 'CF', 'RF', 'OF'];
   // FD-specific slots
-  if (filter === 'C/1B') return pos === 'C' || pos === '1B';
-  if (filter === 'UTIL') return pos !== 'P' && pos !== '';  // any position player
+  if (filter === 'C/1B') return parts.some(p => p === 'C' || p === '1B');
+  if (filter === 'UTIL') return parts.some(p => p !== 'P');   // any position player
   // DK + shared rules
-  if (filter === 'C') return pos === 'C';
-  if (filter === 'OF') return ['LF','CF','RF','OF'].includes(pos);
-  return pos === filter || pos.includes(filter);
+  if (filter === 'C') return parts.includes('C');
+  if (filter === 'OF') return parts.some(p => OF.includes(p));
+  return parts.includes(filter);
 }
 function salaryTag(p) { return p.dkSalary ? '<span class="salary-badge">$'+(p.dkSalary/1000).toFixed(1)+'K</span>' : ''; }
 function batHandTag(p) { const h = p.batSide || p.bat_side; if (!h) return ''; const c = h === 'L' ? 'var(--blue)' : h === 'S' ? 'var(--yellow)' : 'var(--text3)'; return '<span style="font-family:var(--mono);font-size:8px;color:'+c+';background:var(--bg4);padding:0 3px;border-radius:2px;font-weight:700">('+h+')</span>'; }
