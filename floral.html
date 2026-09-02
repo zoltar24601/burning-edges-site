@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Moonbirds Birbs Beyond Pack Analytics &middot; Burning Edges</title>
-<meta name="description" content="2026 Panini NFT Moonbirds Birbs Beyond pack pricing: pack EV, pull odds by parallel, and the full chase board. Live off our own blockchain indexer.">
+<title>WC Floral Edition Pack Analytics &middot; Burning Edges</title>
+<meta name="description" content="2026 Panini NFT Prizm World Cup Floral Edition craft pack: pack EV, floral-parallel pull odds, and the chase board.">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700;800&family=Barlow:wght@400;500;600&display=swap');
   :root{
@@ -84,9 +84,8 @@
     <nav class="topnav">
       <a href="/packs">&larr; All Packs</a>
       <a href="/panini">Soccer</a>
-      <a href="/moonbirds" class="active">Moonbirds</a>
-      <a href="/silhouette">Silhouette</a>
-      <a href="/floral">Floral</a>
+      <a href="/moonbirds">Moonbirds</a>
+      <a href="/silhouette">Silhouette</a> <a href="/floral" class="active">Floral</a>
       <a href="/value">Value My Card</a>
     </nav>
   </div>
@@ -94,13 +93,13 @@
 
 <div class="wrap">
   <div class="hero">
-    <div class="release-name">2026 Panini NFT &middot; Entertainment</div>
-    <h1>Moonbirds <span class="accent">Birbs Beyond</span></h1>
+    <div class="release-name">2026 Panini NFT Prizm World Cup &middot; Craft</div>
+    <h1>World Cup <span class="accent">Floral Edition</span></h1>
     <div class="updated"><span class="dot"></span><span id="updated">Loading&hellip;</span></div>
   </div>
 
   <div class="disclaimer">
-    <strong>How this pack works.</strong> Every pack = <strong>2 cards</strong>: 1 Base Silver + <strong>1 parallel or insert</strong> weighted by remaining supply. The Silver is low-value filler; the pack's worth lives in the second slot, where value is driven by the <strong>parallel</strong> &mdash; a Kaboom or a Base Black /1 is worth hundreds to thousands&times; a common. Book value below is the expected card value per pack, weighted by real remaining counts. Priced off our own on-chain sales indexer. Estimates, not a market quote &mdash; not financial advice.
+    <strong>How this pack works.</strong> A crafted pack &mdash; <strong>465 total</strong>, 1 per person &mdash; of <strong>2 cards</strong> drawn from a 30-player floral pool: <strong>Plum Blossom /18</strong>, <strong>Cherry Blossom /9</strong>, <strong>Lotus Flower /4</strong>. Both cards come from the same pool, so value is driven by <strong>which player and which floral parallel</strong> you hit &mdash; a Messi or Yamal Lotus is the grail. Values are modeled off our main World Cup pricing (no secondary sales yet); estimates until the pack trades. Not financial advice.
   </div>
 
   <div class="price-band">
@@ -117,10 +116,9 @@
   </div>
 
   <div class="compose">
-    <div class="slot"><div class="n">1&times;</div><div class="d">Base<br>Silver</div></div>
-    <div class="slot"><div class="n" id="baseEv">&mdash;</div><div class="d">Base slots<br>value</div></div>
-    <div class="slot hit"><div class="n">1&times;</div><div class="d">Parallel /<br>insert hit</div></div>
-    <div class="slot hit"><div class="n" id="hitEv">&mdash;</div><div class="d">Hit slot<br>value</div></div>
+    <div class="slot hit"><div class="n">2&times;</div><div class="d">Floral<br>cards</div></div>
+    <div class="slot hit"><div class="n" id="hitEv">&mdash;</div><div class="d">Avg card<br>value</div></div>
+    <div class="slot" style="visibility:hidden"><div class="n" id="baseEv">&mdash;</div></div>
   </div>
 
   <!-- chase board -->
@@ -136,14 +134,10 @@
 
   <!-- pull odds -->
   <div class="section-label">Where the value sits &mdash; pull odds by set</div>
-  <div class="section-sub">The second slot draws one card from every parallel / insert. Odds = that parallel's remaining share of the pool; value = its average across all birbs left.</div>
-  <div class="cols">
-    <div>
-      <table class="s2"><thead><tr><th>Hit set</th><th>Odds</th><th>Avg</th></tr></thead><tbody id="hitBreak"></tbody></table>
-    </div>
-    <div>
-      <table class="s2"><thead><tr><th>Base parallel</th><th>Left</th><th>Avg</th></tr></thead><tbody id="baseBreak"></tbody></table>
-    </div>
+  <div class="section-sub">Each of the 2 slots draws one card from the floral pool. Odds = that parallel's share of the 930-card pool; value = its average across all 30 players.</div>
+  <div>
+    <table class="s2"><thead><tr><th>Floral parallel</th><th>Pull odds</th><th>Avg value</th></tr></thead><tbody id="hitBreak"></tbody></table>
+    <tbody id="baseBreak" style="display:none"></tbody>
   </div>
 
   <div class="section-label">Recent price changes</div>
@@ -156,7 +150,7 @@
 </div>
 
 <script>
-const FALLBACK_DATA = {"type": "pack_analytics","product": "2026 Panini NFT Moonbirds - Birbs Beyond","updated": "2026-08-24","data_note": "Remaining counts and prices are LIVE from the Panini blockchain (our own indexer). Values reprice off realized on-chain sales; standing global offers act as floors.","pricing_mechanism": "chain-live sales (recency-weighted) + report-seeded remaining, auto-decremented per pack open","valuation_principle": "A real mid-serial sale is the truth and moves value either way; a standing global offer is a hard floor; #1/last-serial premiums are reference-only.","structure": {"cards_per_pack": 2,"base_slots": 1,"hit_slots": 1,"base_parallels": ["Base Silver"],"note": "Each pack: 1 Base Silver + 1 parallel/insert (weighted by remaining supply)."},"pack_ev": {"method": "pull odds = LIVE remaining per-parallel counts; avg from repriced per-card values","cards_per_pack": 2,"base_slots": 1,"hit_slots": 1,"multiplier": 2.5,"mint": 50,"base_card_ev": 9.18,"base_slots_ev": 9.18,"hit_card_ev": 115.67,"pack_book_ev": 124.85,"predicted_price": 312.13,"book_vs_mint": 2.5,"base_pool_remaining": 1052,"hit_pool_remaining": 1045,"base_breakdown": [{"cardset": "Base Silver","run": 194,"uncl": 1052,"avg_value": 9.18}],"hit_breakdown": [{"cardset": "Kaboom Green","run": 1,"uncl": 1,"avg_value": 20000},{"cardset": "Base Black","run": 1,"uncl": 8,"avg_value": 2300},{"cardset": "Kaboom Gold","run": 10,"uncl": 7,"avg_value": 2014.29},{"cardset": "Birbhalla","run": 49,"uncl": 16,"avg_value": 2000},{"cardset": "Kaboom","run": 25,"uncl": 20,"avg_value": 515.7},{"cardset": "Base Holo Gold","run": 10,"uncl": 50,"avg_value": 167.28},{"cardset": "Base Purple","run": 25,"uncl": 126,"avg_value": 48.62},{"cardset": "Base Red","run": 49,"uncl": 255,"avg_value": 21.13},{"cardset": "Base Blue","run": 99,"uncl": 562,"avg_value": 10.99}]},"cards_remaining": [{"c": "Fizz","s": "Kaboom Green","r": 1,"u": 1,"p": 20000},{"c": "Kapow","s": "Kaboom Gold","r": 10,"u": 1,"p": 4500},{"c": "Bonesy","s": "Base Black","r": 1,"u": 1,"p": 2300},{"c": "Bino","s": "Base Black","r": 1,"u": 1,"p": 2300},{"c": "Arthur","s": "Base Black","r": 1,"u": 1,"p": 2300},{"c": "Shade","s": "Base Black","r": 1,"u": 1,"p": 2300},{"c": "Noct","s": "Base Black","r": 1,"u": 1,"p": 2300},{"c": "Kenji","s": "Base Black","r": 1,"u": 1,"p": 2300},{"c": "Gustov","s": "Base Black","r": 1,"u": 1,"p": 2300},{"c": "Jet","s": "Base Black","r": 1,"u": 1,"p": 2300},{"c": "Enlightened Professor","s": "Birbhalla","r": 49,"u": 16,"p": 2000},{"c": "Shift","s": "Kaboom Gold","r": 10,"u": 2,"p": 1700},{"c": "Fizz","s": "Kaboom Gold","r": 10,"u": 2,"p": 1600},{"c": "Pix","s": "Kaboom Gold","r": 10,"u": 2,"p": 1500},{"c": "Kapow","s": "Kaboom","r": 25,"u": 4,"p": 980},{"c": "Shift","s": "Kaboom","r": 25,"u": 6,"p": 450},{"c": "Fizz","s": "Kaboom","r": 25,"u": 6,"p": 399},{"c": "Lance","s": "Base Holo Gold","r": 10,"u": 2,"p": 347},{"c": "Pix","s": "Kaboom","r": 25,"u": 4,"p": 325},{"c": "Ferno","s": "Base Holo Gold","r": 10,"u": 1,"p": 300},{"c": "Bino","s": "Base Holo Gold","r": 10,"u": 6,"p": 275},{"c": "Rango","s": "Base Holo Gold","r": 10,"u": 4,"p": 250},{"c": "Arthur","s": "Base Holo Gold","r": 10,"u": 2,"p": 250},{"c": "Noct","s": "Base Holo Gold","r": 10,"u": 2,"p": 250},{"c": "Jet","s": "Base Holo Gold","r": 10,"u": 2,"p": 250},{"c": "Gustov","s": "Base Holo Gold","r": 10,"u": 1,"p": 220},{"c": "Shade","s": "Base Holo Gold","r": 10,"u": 2,"p": 200},{"c": "Kenji","s": "Base Holo Gold","r": 10,"u": 2,"p": 200},{"c": "Hex","s": "Base Holo Gold","r": 10,"u": 2,"p": 200},{"c": "Lumo","s": "Base Holo Gold","r": 10,"u": 1,"p": 200},{"c": "Bubbles","s": "Base Holo Gold","r": 10,"u": 1,"p": 120},{"c": "Nova","s": "Base Holo Gold","r": 10,"u": 4,"p": 100}]};
+const FALLBACK_DATA = {"type": "pack_analytics","product": "2026 Panini NFT Prizm World Cup - Floral Edition","updated": "2026-09-02","data_note": "Craft pack (465 total, 2 cards each) from a 30-player floral checklist. Values modeled off our main World Cup pricing (Lotus=Gold, Cherry=half Gold, Plum=/49), then cut to 20% of that. No secondary sales yet -- estimates until the pack trades.","pricing_mechanism": "modeled from main-set Gold/Blue values x floral-parallel rule x0.20; no sales yet (crafts 2026-09-02)","valuation_principle": "Lotus /4 = 20% of the player Gold price; Cherry /9 = 10% of Gold; Plum /18 = 20% of the /49 price.","structure": {"cards_per_pack": 2,"base_slots": 0,"hit_slots": 2,"total_packs": 465,"note": "Each pack = 2 cards drawn from the 930-card floral pool (Plum /18, Cherry /9, Lotus /4)."},"pack_ev": {"method": "pool-weighted avg of the 3 floral parallels x 2 slots","cards_per_pack": 2,"base_slots": 0,"hit_slots": 2,"multiplier": 2.5,"mint": null,"base_card_ev": 0,"base_slots_ev": 0,"hit_card_ev": 297.49,"pack_book_ev": 594.97,"predicted_price": 1487.43,"base_pool_remaining": 0,"hit_pool_remaining": 930,"base_breakdown": [],"hit_breakdown": [{"cardset": "Lotus Flower","run": 4,"uncl": 120,"avg_value": 1015.67},{"cardset": "Cherry Blossom","run": 9,"uncl": 270,"avg_value": 507.87},{"cardset": "Plum Blossom","run": 18,"uncl": 540,"avg_value": 32.7}]},"cards_remaining": [{"c": "Lionel Messi","s": "Lotus Flower","r": 4,"u": 4,"p": 10000},{"c": "Lamine Yamal","s": "Lotus Flower","r": 4,"u": 4,"p": 7200},{"c": "Lionel Messi","s": "Cherry Blossom","r": 9,"u": 9,"p": 5000},{"c": "Lamine Yamal","s": "Cherry Blossom","r": 9,"u": 9,"p": 3600},{"c": "Erling Haaland","s": "Lotus Flower","r": 4,"u": 4,"p": 3000},{"c": "Cristiano Ronaldo","s": "Lotus Flower","r": 4,"u": 4,"p": 3000},{"c": "Kylian Mbappe","s": "Lotus Flower","r": 4,"u": 4,"p": 2640},{"c": "Erling Haaland","s": "Cherry Blossom","r": 9,"u": 9,"p": 1500},{"c": "Cristiano Ronaldo","s": "Cherry Blossom","r": 9,"u": 9,"p": 1500},{"c": "Kylian Mbappe","s": "Cherry Blossom","r": 9,"u": 9,"p": 1320},{"c": "Diego Maradona","s": "Lotus Flower","r": 4,"u": 4,"p": 900},{"c": "Michael Olise","s": "Lotus Flower","r": 4,"u": 4,"p": 660},{"c": "Diego Maradona","s": "Cherry Blossom","r": 9,"u": 9,"p": 450},{"c": "Michael Olise","s": "Cherry Blossom","r": 9,"u": 9,"p": 330},{"c": "Yan Diomande","s": "Lotus Flower","r": 4,"u": 4,"p": 300},{"c": "Lennart Karl","s": "Lotus Flower","r": 4,"u": 4,"p": 280},{"c": "Estevao","s": "Lotus Flower","r": 4,"u": 4,"p": 250},{"c": "Lionel Messi","s": "Plum Blossom","r": 18,"u": 18,"p": 240},{"c": "Desire Doue","s": "Lotus Flower","r": 4,"u": 4,"p": 240},{"c": "Zinedine Zidane","s": "Lotus Flower","r": 4,"u": 4,"p": 240},{"c": "Jude Bellingham","s": "Lotus Flower","r": 4,"u": 4,"p": 238},{"c": "Lamine Yamal","s": "Plum Blossom","r": 18,"u": 18,"p": 200},{"c": "Endrick","s": "Lotus Flower","r": 4,"u": 4,"p": 155},{"c": "Yan Diomande","s": "Cherry Blossom","r": 9,"u": 9,"p": 150},{"c": "Lennart Karl","s": "Cherry Blossom","r": 9,"u": 9,"p": 140},{"c": "Vinicius Junior","s": "Lotus Flower","r": 4,"u": 4,"p": 138},{"c": "Ousmane Dembele","s": "Lotus Flower","r": 4,"u": 4,"p": 136},{"c": "Harry Kane","s": "Lotus Flower","r": 4,"u": 4,"p": 130},{"c": "Gilberto Mora","s": "Lotus Flower","r": 4,"u": 4,"p": 130},{"c": "Christian Pulisic","s": "Lotus Flower","r": 4,"u": 4,"p": 130},{"c": "Kylian Mbappe","s": "Plum Blossom","r": 18,"u": 18,"p": 125},{"c": "Estevao","s": "Cherry Blossom","r": 9,"u": 9,"p": 125},{"c": "Desire Doue","s": "Cherry Blossom","r": 9,"u": 9,"p": 120},{"c": "Zinedine Zidane","s": "Cherry Blossom","r": 9,"u": 9,"p": 120},{"c": "Franz Beckenbauer","s": "Lotus Flower","r": 4,"u": 4,"p": 120},{"c": "Jude Bellingham","s": "Cherry Blossom","r": 9,"u": 9,"p": 119},{"c": "Nico Paz","s": "Lotus Flower","r": 4,"u": 4,"p": 100},{"c": "Luka Modric","s": "Lotus Flower","r": 4,"u": 4,"p": 100},{"c": "Johan Manzambi","s": "Lotus Flower","r": 4,"u": 4,"p": 100}]};
 
 let DATA = null;
 const $ = id => document.getElementById(id);
@@ -170,14 +164,14 @@ function render(d){
   $('predicted').innerHTML = '~' + money(pe.predicted_price);
   $('baseEv').textContent = money(pe.base_slots_ev);
   $('hitEv').textContent = money(pe.hit_card_ev);
-  $('bookSub').textContent = '1 silver ' + money(pe.base_slots_ev) + ' + slot2 ' + money(pe.hit_card_ev);
-  $('updated').textContent = 'Last updated ' + (d.updated || '') + ' · ' + pe.hit_pool_remaining.toLocaleString() + ' hits left in packs';
+  $('bookSub').textContent = '2 floral cards, avg ' + money(pe.hit_card_ev) + ' each';
+  $('updated').textContent = 'Modeled ' + (d.updated || '') + ' · ' + (d.structure? d.structure.total_packs : 465) + ' packs, ' + pe.hit_pool_remaining.toLocaleString() + ' cards in pool';
 
   // chase board
   const cr = d.cards_remaining || [];
   const copies = cr.reduce((a,c)=>a+c.u,0);
-  $('chaseSub').textContent = cr.length + ' parallel/insert cards worth $100+ still sealed (' + copies + ' copies). Counts are live from the chain; exact remaining serials are not tracked.';
-  {const cs=(d.chase_serials||[]);const el=$('chaseSerials');el.style.display=cs.length?'':'none';el.innerHTML=cs.length?('<span class="lbl">Grails</span>'+cs.map(l=>l.s+' <b>'+money(l.p)+'</b>').join(' &nbsp;&middot;&nbsp; ')):'';}
+  $('chaseSub').textContent = cr.length + ' floral cards worth $100+ in the pool (' + copies + ' copies across all serials).';
+  $('chaseSerials').innerHTML = '<span class="lbl">Grails</span>' + (d.chase_serials||[]).map(l => l.s + ' <b>' + money(l.p) + '</b>').join(' &nbsp;&middot;&nbsp; ');
   $('hitsBody').innerHTML = cr.slice(0,40).map(c => '<tr><td>' + c.c + ' <span class="sub">' + c.s + '</span></td><td>/' + c.r + '</td><td>' + c.u + '</td><td>' + money(c.p) + '</td></tr>').join('');
 
   // pull odds
@@ -198,7 +192,7 @@ async function loadChanges(){
   try{
     const r = await fetch('/api/changes', { cache: 'no-store' }); if(!r.ok) return;
     const j = await r.json();
-    const mine = (j.changes||[]).filter(c => (c.product||'').toLowerCase()==='moonbirds').slice(0,10);
+    const mine = (j.changes||[]).filter(c => (c.product||'').toLowerCase()==='floral').slice(0,10);
     if(!mine.length){ $('changesWrap').style.display='none'; return; }
     $('changesBody').innerHTML = mine.map(c => {
       const up = Number(c.new_value) > Number(c.old_value);
@@ -211,7 +205,7 @@ async function loadChanges(){
 (async () => {
   loadChanges();
   try {
-    const r = await fetch('/api/moonbirds-data', { cache: 'no-store' });
+    const r = await fetch('/api/floral-data', { cache: 'no-store' });
     if (r.ok) { const j = await r.json(); if (valid(j)) { DATA = j; render(j); return; } }
   } catch (e) {}
   DATA = FALLBACK_DATA; if (valid(FALLBACK_DATA)) render(FALLBACK_DATA);

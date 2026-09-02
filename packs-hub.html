@@ -63,6 +63,7 @@
       <a href="/pbc">&larr; PBC Analytics</a>
       <a href="/panini">Soccer</a>
       <a href="/moonbirds">Moonbirds</a>
+      <a href="/floral">Floral</a>
       <a href="/value">Price My Card</a>
     </nav>
   </div>
@@ -140,6 +141,18 @@
       </div>
       <div class="go"><span>View analytics</span><span class="arw">&rarr;</span></div>
     </a>
+    <a class="pack floral" href="/floral">
+      <div class="tagrow"><span class="chip">Craft</span><span class="rel">Floral Edition</span></div>
+      <h2>World Cup<br>Floral Edition</h2>
+      <div class="sub">Craft pack &mdash; 2 cards from a 30-player floral pool (Plum /18, Cherry /9, Lotus /4); Messi &amp; Yamal Lotus grails.</div>
+      <div class="stats">
+        <div class="stat"><div class="l">Predicted</div><div class="v accent" id="floral_pred">~$1,487</div><span class="est">Estimate</span></div>
+        <div class="stat"><div class="l">Book value</div><div class="v" id="floral_book">$595</div></div>
+        <div class="stat"><div class="l">Packs</div><div class="v">465</div></div>
+        <div class="stat"><div class="l">Cards/pack</div><div class="v">2</div></div>
+      </div>
+      <div class="go"><span>View analytics</span><span class="arw">&rarr;</span></div>
+    </a>
   </div>
 
   <div class="foot">Book value = expected card value per pack. Predicted = a speculative secondary estimate, not a market figure &mdash; not financial advice.</div>
@@ -192,6 +205,11 @@ fetch('/api/nflprizm-data').then(r=>r.json()).then(D=>{
   $('nfl_packs').textContent = (D.packs_remaining||0).toLocaleString();
   $('nfl_est').style.display='';
 }).catch(e=>console.warn('[hub] nflprizm fetch failed', e.message));
+fetch('/api/floral-data').then(r=>r.json()).then(D=>{
+  const pe = D.pack_ev;
+  $('floral_book').textContent = money(pe.pack_book_ev);
+  $('floral_pred').innerHTML = '~' + money(pe.predicted_price);
+}).catch(e=>console.warn('[hub] floral fetch failed (baked values shown)', e.message));
 </script>
 </body>
 </html>

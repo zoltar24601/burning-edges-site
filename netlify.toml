@@ -110,6 +110,14 @@
   to = "/.netlify/functions/nflprizm-data"
   status = 200
 [[redirects]]
+  from = "/api/floral-data"
+  to = "/.netlify/functions/floral-data"
+  status = 200
+[[redirects]]
+  from = "/floral"
+  to = "/floral.html"
+  status = 200
+[[redirects]]
   from = "/nflprizm"
   to = "/nflprizm.html"
   status = 200
