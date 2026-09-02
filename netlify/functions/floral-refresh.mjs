@@ -16,7 +16,10 @@ import { recomputeFloral } from "../../tools/floral-recompute.mjs";
 import { repriceFloral } from "../../tools/floral-reprice.mjs";
 import staticMap from "../../tools/floral-values.json";
 
-export const config = { schedule: "@hourly" };
+// Every 5 min (not @hourly): on launch/craft days packs rip fast, and the page
+// reads this snapshot -- hourly left it lagging up to an hour behind the live
+// card_remaining counts. Recompute + reprice are cheap.
+export const config = { schedule: "*/5 * * * *" };
 const PRODUCT = "floral";
 // Floral SKUs span TWO prefixes -- Lotus /4 = packcard-2333, Cherry /9 + Plum /18
 // = packcard-2332 (shared with the main set) -- so we can't use a single prefix.
