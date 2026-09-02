@@ -6926,6 +6926,23 @@ function renderSlateSelector() {
   ).join('');
 }
 
+// Platform-aware slate header. On DK it's the DK slate chips; on FD the DK
+// draftgroups don't apply, so show a single label built from the FD slate's own
+// games (count + earliest first pitch) -- otherwise it kept showing the stale
+// DK "N Game ... 7:40 PM" label.
+function renderSlateHeader() {
+  const el = document.getElementById('slate-chips');
+  if (!el) return;
+  if (getPlatform() === 'FD') {
+    const gs = getSlateGames();
+    const times = gs.map(g => g.time ? new Date(g.time).getTime() : Infinity).filter(isFinite);
+    const earliest = times.length ? new Date(Math.min(...times)).toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', timeZone: 'America/New_York' }) : '';
+    el.innerHTML = '<button class="chip active" style="font-size:11px;padding:4px 10px">FanDuel &middot; ' + gs.length + ' Game' + (gs.length === 1 ? '' : 's') + (earliest ? ' &middot; ' + earliest : '') + '</button>';
+  } else {
+    renderSlateSelector();
+  }
+}
+
 async function switchDkSlate(slateId, btn) {
   document.querySelectorAll('.dk-slate-chip').forEach(c => c.classList.remove('active'));
   if (btn) btn.classList.add('active');
@@ -7265,6 +7282,7 @@ function refreshAllRenders() {
   // Repaint the Slate tab too -- on a platform swap the slate's game set changes
   // (DK and FD slates differ), and without this it kept showing the stale render.
   if (typeof renderSlateGames === 'function') renderSlateGames(S.games);
+  if (typeof renderSlateHeader === 'function') renderSlateHeader();   // slate label reflects the active platform
   if (typeof renderHitterFP === 'function') renderHitterFP();
   if (typeof renderPitcherFP === 'function') renderPitcherFP();
   if (typeof renderStacks === 'function') renderStacks(S.lastStackMode || 'combined');
