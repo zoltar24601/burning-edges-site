@@ -7262,6 +7262,9 @@ function lockExcludeBtns(name) {
 }
 
 function refreshAllRenders() {
+  // Repaint the Slate tab too -- on a platform swap the slate's game set changes
+  // (DK and FD slates differ), and without this it kept showing the stale render.
+  if (typeof renderSlateGames === 'function') renderSlateGames(S.games);
   if (typeof renderHitterFP === 'function') renderHitterFP();
   if (typeof renderPitcherFP === 'function') renderPitcherFP();
   if (typeof renderStacks === 'function') renderStacks(S.lastStackMode || 'combined');
