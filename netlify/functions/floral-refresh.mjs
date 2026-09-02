@@ -18,9 +18,9 @@ import staticMap from "../../tools/floral-values.json";
 
 export const config = { schedule: "@hourly" };
 const PRODUCT = "floral";
-// TODO(activate): replace with the real Floral packcard prefix once the pack is
-// on-chain (Sept 2+). Until then no sales match and it just republishes the seed.
-const EV_FILTER = "sku_base=like.packcard-FLORAL_TBD*";
+// Floral SKUs span TWO prefixes -- Lotus /4 = packcard-2333, Cherry /9 + Plum /18
+// = packcard-2332 (shared with the main set) -- so we can't use a single prefix.
+// The chain-sales query is built from the seeded pack_values SKUs (see below).
 const notable = (o, n) => Math.abs(n - o) >= 100 && Math.abs(n - o) / Math.max(o, 1) >= 0.15;
 
 export default async () => {
@@ -35,8 +35,10 @@ export default async () => {
     if (!seeded) vrows = Object.entries(staticMap).map(([sku_base, m]) => ({ sku_base, value: m.v, cardset: m.cs, athlete: m.a, run: m.r, slot: "hit" }));
     const meta = Object.fromEntries(vrows.map(v => [v.sku_base, v]));
 
-    // 2) append new on-chain floral SALES (price>0) -> pack_sales
-    const evs = await (await fetch(`${SB_URL}/rest/v1/chain_events?${EV_FILTER}&price=gt.0&select=sku_base,serial,run,price,ts&order=ts.desc&limit=500`, { headers: H })).json();
+    // 2) append new on-chain floral SALES (price>0) -> pack_sales. Query by the
+    //    exact seeded SKUs (both prefixes) so we don't pull the whole main set.
+    const skuIn = vrows.map(v => v.sku_base).join(",");
+    const evs = skuIn ? await (await fetch(`${SB_URL}/rest/v1/chain_events?sku_base=in.(${encodeURIComponent(skuIn)})&price=gt.0&select=sku_base,serial,run,price,ts&order=ts.desc&limit=500`, { headers: H })).json() : [];
     const newSales = (Array.isArray(evs) ? evs : []).filter(e => meta[e.sku_base]).map(e => {
       const m = meta[e.sku_base], d = (e.ts || "").slice(0, 10);
       return { product: PRODUCT, sku_base: e.sku_base, athlete: m.athlete, parallel: m.cardset, serial: e.serial, run: e.run, price: e.price, tags: null, sold_at: d, source: "chain", dedup: [PRODUCT, e.sku_base, e.serial, e.price, d].join("|") };
