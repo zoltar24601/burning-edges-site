@@ -681,7 +681,7 @@ document.addEventListener('DOMContentLoaded', () => {
 //  LOAD SLATE — Main entry point
 // ============================================================
 async function loadSlate(date) {
-  S.date = date; S.hitters = []; S.pitchers = []; S.dkPlayers = {}; S.dkSlates = []; S.dkTeams = new Set(); S.gameLineups = {}; S.odds = {}; S.weather = {}; S.bullpenLoaded = false; S.pitcherArsenals = {}; S.fgHitters = {}; S.fgPitchers = {}; S.confirmedTeams = new Set();
+  S.date = date; S.hitters = []; S.pitchers = []; S.dkPlayers = {}; S.dkSlates = []; S.dkTeams = new Set(); S.gameLineups = {}; S.odds = {}; S.weather = {}; S.bullpenLoaded = false; S.pitcherArsenals = {}; S.pitcherRoles = {}; S.fgHitters = {}; S.fgPitchers = {}; S.confirmedTeams = new Set();
   showLoading(true);
   setStep('Fetching schedule…', 10);
 
@@ -1661,10 +1661,73 @@ async function fetchSchedule(date) {
       awayScore, homeScore, inning, inningHalf,
     });
   }
+  // Tag each probable pitcher with a LIVE season role (starter vs bullpen arm /
+  // opener). This is authoritative for opener detection — see isOpener().
+  await enrichPitcherRoles(games, date);
   return games;
 }
 
 async function getPitcherHand(id){try{const r=await fetch(MLB_API+'/people/'+id);const d=await r.json();return d.people?.[0]?.pitchHand?.code||'R'}catch(e){return'R'}}
+
+// ============================================================
+//  PITCHER ROLE (LIVE) — bullpen-start / opener detection
+// ============================================================
+// The edge_pitcher_cache workload columns (games_started, innings_pitched) are
+// only reliably populated for ~half the league; the rest are stale April rows
+// where games_started=0/innings_pitched=null. So we can't trust the cache to
+// tell a real starter from a reliever making a spot start. Instead we pull each
+// probable pitcher's SEASON games-started vs games-played straight from the MLB
+// API at slate load — a clean, live signal. A bullpen arm starting a bullpen
+// game or an opener has GS/G well below a true starter (often 0), and short
+// IP/start. Result cached on S.pitcherRoles[id] and consumed by isOpener().
+function classifyPitcherRole(g, gs, ipStr) {
+  const ip = parseFloat(ipStr) || 0;
+  if (!g || g < 1) return { g: g || 0, gs: gs || 0, ip, role: 'unknown', bullpenStart: false, cleanStarter: false };
+  const ratio = gs / g;
+  // Only the signals that are reliable from season G/GS alone. (We deliberately
+  // do NOT infer openers from total_IP / GS here: total IP includes relief
+  // innings, so IP-per-start is garbage for multi-role arms. True short-outing
+  // openers are caught in isOpener() off the cache's real avg_ip_per_start.)
+  //   * Pure reliever getting the ball today = bullpen game (never started all year).
+  if (gs === 0 && g >= 3) return { g, gs, ip, role: 'reliever', bullpenStart: true, cleanStarter: false };
+  //   * Heavily relief-leaning swingman (e.g. 5 GS in 51 apps). Threshold kept
+  //     low (0.35) so rotation arms with a few relief stints — a Fedde at 13/29
+  //     = 0.45 — are NOT mistaken for bullpen games.
+  if (g >= 10 && ratio < 0.35) return { g, gs, ip, role: 'swing', bullpenStart: true, cleanStarter: false };
+  // Clear full-time starter — trust this over any stale cache heuristic.
+  const cleanStarter = gs >= 3 && ratio >= 0.6;
+  return { g, gs, ip, role: 'starter', bullpenStart: false, cleanStarter };
+}
+
+async function getPitcherRole(id, season) {
+  try {
+    const r = await fetch(MLB_API + '/people/' + id + '/stats?stats=season&group=pitching&season=' + season);
+    const d = await r.json();
+    const s = d?.stats?.[0]?.splits?.[0]?.stat;
+    if (!s) return { g: 0, gs: 0, ip: 0, role: 'unknown', bullpenStart: false, cleanStarter: false };
+    return classifyPitcherRole(s.gamesPlayed || 0, s.gamesStarted || 0, s.inningsPitched);
+  } catch (e) {
+    return { g: 0, gs: 0, ip: 0, role: 'unknown', bullpenStart: false, cleanStarter: false };
+  }
+}
+
+async function enrichPitcherRoles(games, date) {
+  const season = (date || '').slice(0, 4) || String(new Date().getFullYear());
+  S.pitcherRoles = S.pitcherRoles || {};
+  const ids = new Map(); // id -> pitcher obj(s) to tag
+  for (const g of games) {
+    for (const p of [g.awayPitcher, g.homePitcher]) {
+      if (p && p.id != null) { if (!ids.has(p.id)) ids.set(p.id, []); ids.get(p.id).push(p); }
+    }
+  }
+  await Promise.all([...ids.keys()].map(async id => {
+    const role = S.pitcherRoles[id] || await getPitcherRole(id, season);
+    S.pitcherRoles[id] = role;
+    ids.get(id).forEach(p => { p.role = role.role; p.bullpenStart = role.bullpenStart; });
+  }));
+  const flagged = Object.values(S.pitcherRoles).filter(r => r.bullpenStart).length;
+  console.log('Pitcher roles: tagged ' + ids.size + ' probables, ' + flagged + ' flagged as bullpen-start/opener');
+}
 
 function findPlayerGame(playerId, team, games) {
   const teams = [team, TEAM_ALIAS[team]].filter(Boolean);
@@ -2787,9 +2850,29 @@ function isOpener(p) {
   const flags = getPartTimeFlags();
   if (flags.exempt[p.name]) return false;
   if (flags.openerPitchers[p.name]) return true; // manual flag
-  
-  // Auto-detect: low avg IP per start with meaningful sample
+
+  // LIVE ROLE (authoritative) — season games-started vs games-played pulled
+  // fresh from the MLB API at slate load (S.pitcherRoles). This is trustworthy
+  // for every probable on the slate, unlike the half-stale pitcher cache, so
+  // when we have it we use it outright: a bullpen arm/opener is capped, and a
+  // clean full-time starter is protected from the stale-cache false positives
+  // below (e.g. a starter whose cache row has null innings_pitched).
+  const live = S.pitcherRoles?.[p.id];
   const dbP = S.pitcherArsenals?.[p.id];
+  if (live && live.role !== 'unknown') {
+    if (live.bullpenStart) return true;
+    // Dedicated opener: the live role reads "starter" (he is credited starts),
+    // but his REAL innings-per-start (from the cache, which measures innings in
+    // starts only) is short. This catches the classic opener who starts often
+    // yet throws 1-2 innings — the total-IP ratio above can't see it.
+    if (dbP && dbP.games_started >= 3 && dbP.avg_ip_per_start != null &&
+        dbP.avg_ip_per_start >= 1.0 && dbP.avg_ip_per_start < 3.5) return true;
+    if (live.cleanStarter) return false;
+    // live role is a starter but not "clean" (thin sample) — fall through to
+    // the cache heuristic for a second opinion.
+  }
+
+  // Auto-detect: low avg IP per start with meaningful sample
   if (!dbP) return false;
   
   // Case 1: Real starter with low IP/start (true opener)
@@ -2897,6 +2980,15 @@ function projectHitterFP(h, shtfOverride) {
   const opp = S.pitchers.find(p => p.id === h.pitcherId);
   const batHand = h.batSide === 'S' ? (h.pitcherHand === 'R' ? 'L' : 'R') : h.batSide;
 
+  // Is the opposing "starter" actually a bullpen arm / opener? If so the hitter
+  // faces that named pitcher for ~1 inning (roughly 1 PA) and the BULLPEN for
+  // the rest of the game. Detect straight from the id/name so we don't depend
+  // on projectPitcherFP having already run and stamped opp.isOpener. Note this
+  // is independent of SHTF: SHTF is a blowout assumption (losing-team bullpen),
+  // a planned bullpen game is not.
+  const facingOpener = h.pitcherId ? isOpener({ id: h.pitcherId, name: h.pitcherName }) : false;
+  h.facingOpener = facingOpener;
+
   // PITCHER FACTOR — the matchup factor IS the starter's contribution
   // (arsenal-vs-this-hitter is more precise than xwOBA-against). We only
   // need the bullpen as a separate input.
@@ -2930,9 +3022,17 @@ function projectHitterFP(h, shtfOverride) {
 
   // Blend: Normal = 60% matchup (starter) / 40% bullpen.
   // SHTF mode flips: pull bullpen weight up since the SP gets KO'd early.
-  const pitcherFactor = shtf
-    ? (matchupFactor * 0.40) + (bullpenFactor * 0.60)
-    : (matchupFactor * 0.60) + (bullpenFactor * 0.40);
+  // Opener/bullpen game: the named "starter" throws ~1 inning, so hitters see
+  // him for ~1 of their ~4 PAs and the bullpen for the other ~3 — weight the
+  // bullpen the way it will actually pitch (25% starter / 75% bullpen).
+  let pitcherFactor;
+  if (shtf) {
+    pitcherFactor = (matchupFactor * 0.40) + (bullpenFactor * 0.60);
+  } else if (facingOpener) {
+    pitcherFactor = (matchupFactor * 0.25) + (bullpenFactor * 0.75);
+  } else {
+    pitcherFactor = (matchupFactor * 0.60) + (bullpenFactor * 0.40);
+  }
 
   // Stuff+ penalty (starter only). Stuff+ measures pitch-quality independent
   // of results; high stuff+ pitchers suppress hitter outcomes more than
@@ -2941,7 +3041,9 @@ function projectHitterFP(h, shtfOverride) {
   let stuffPenalty = 1.0;
   const oppFg = opp ? findFgPitcher(opp, batHand) : null;
   const sp = oppFg?.stuff_plus;
-  if (sp != null && sp >= 100) {
+  // Skip the starter's Stuff+ penalty in a bullpen game — hitters barely face
+  // the opener, so his pitch quality shouldn't suppress the whole projection.
+  if (!facingOpener && sp != null && sp >= 100) {
     // 100=neutral, 110=-7%, 120=-14%, 130=-20%. Floor at 0.78.
     stuffPenalty = Math.max(0.78, 1.0 - (sp - 100) * 0.007);
   }
@@ -2969,7 +3071,11 @@ function projectHitterFP(h, shtfOverride) {
   // OPPOSING-PITCHER RANK FACTOR — uses our validated pitcher projFP rank.
   // Hitters facing a bottom-ranked SP get up to +10%, top-ranked SP up to -10%.
   // Complements matchupFactor (pitch-level) with holistic pitcher quality.
-  const pitcherRankFactor = getPitcherRankFactor(h.pitcherId);
+  // In a bullpen game the opener's projFP is floored (~1.5), which would drop
+  // him to the bottom of the SP rank and hand hitters a false +10%. That low FP
+  // is a workload artifact (1 inning), not "easy to hit" — neutralize the rank
+  // factor here and let the bullpen weighting above carry the real adjustment.
+  const pitcherRankFactor = facingOpener ? 1.0 : getPitcherRankFactor(h.pitcherId);
   h._pitcherRankFactor = pitcherRankFactor;  // stash for logging/inspection
 
   const baseProjection = BASE_FP_PER_PA * expPA * qualityFactor * oppBonus * pitcherFactor * stuffPenalty * vegasFactor * parkFactor * pitcherRankFactor;
