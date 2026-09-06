@@ -4165,14 +4165,14 @@ function runOptimizer() {
 // Set window.OPT_DISABLE_PRUNE = true in the console to turn all pruning off.
 let optAllstacksCutoff = null;
 
-// "All Stack Types" — compare stack SHAPES head-to-head. Builds the best
-// lineup for every shape (5-3, 4-4, 4-3-1, 5, 4), then ranks the SHAPES by
-// their best projected FP: the strongest shape is Lineup 1, the next-best
-// shape is Lineup 2, etc. (This is what the user wants — "if 4-4 projects best
-// show it as lineup 1, if 4-3-1 is second show it as lineup 2".) If the user
-// asks for more lineups than there are shapes, the extra slots are then filled
-// with each shape's next-best lineups, FP-ranked. Reuses runOptimizerCore per
-// shape so all the enumeration/dedup logic is shared.
+// "All Stack Types" — build lineups across every stack shape (5-3, 4-4, 4-3-1,
+// 5, 4) and return the top N STRICTLY by projected FP. The best lineup overall
+// is Lineup 1, next-best is Lineup 2, etc., regardless of shape -- so if the 5
+// best lineups all happen to be 4-4, you get five 4-4 lineups (that's fine and
+// intended). Each result is labeled with its shape (see the pill in
+// renderOptLineups) so you can still see the shape mix at a glance. Reuses
+// runOptimizerCore per shape (shared enumeration/dedup), then pools, dedupes by
+// roster, and keeps the highest-FP N.
 async function runAllStacks() {
   const strategySelect = document.getElementById('opt-strategy');
   const numInput = document.getElementById('opt-num-lineups');
@@ -4181,24 +4181,39 @@ async function runAllStacks() {
   const savedNum = numInput.value;
 
   const shapes = ['stack53', 'stack44', 'stack431', 'stack5', 'stack4'];
-  // Build one best lineup per shape, plus a small buffer so overflow slots
-  // (when finalN > #shapes) and cross-shape roster dupes still have material.
-  const perShape = Math.max(1, Math.ceil(finalN / shapes.length) + 1);
+  // Build finalN diversified lineups per shape so that if ONE shape dominates,
+  // it can legitimately supply all N of the final slots (usage penalties inside
+  // runOptimizerCore keep those N distinct). Capped so big N stays responsive.
+  const perShape = Math.min(Math.max(finalN, 3), 15);
 
-  // NOTE: cross-shape pruning stays OFF here (cutoff = null throughout). The
-  // whole point is to represent EVERY shape, so we must never skip a shape
-  // because its ceiling can't beat the current pool. Per-shape branch-and-bound
-  // (inside runOptimizerCore) still runs and keeps each shape fast.
-  const shapeGroups = [];   // [{ shape, lineups: [best, next, ...] }]
+  const pooled = [];
   optAllstacksCutoff = null;
   try {
     for (let i = 0; i < shapes.length; i++) {
-      strategySelect.value = shapes[i];
+      const shape = shapes[i];
+      // Drive the core via the dropdown value (it reads strategy from there).
+      strategySelect.value = shape;
       numInput.value = perShape;
       showOptProgress(i, shapes.length, null);
       await runOptimizerCore();       // populates S.optResults for this shape
-      const built = (S.optResults || []).slice();
-      if (built.length) shapeGroups.push({ shape: built[0].shape, bestFP: built[0].totalFP, lineups: built });
+      (S.optResults || []).forEach(l => pooled.push(l));   // l.shape already stamped
+
+      // Update the shared pruning cutoff: FP of the Nth-best UNIQUE lineup
+      // pooled so far. Lossless for a pure top-N-by-FP selection -- a later
+      // shape whose optimistic ceiling can't beat this cutoff cannot place a
+      // lineup in the final N, so its whole enumeration is safely skipped.
+      const ranked = [...pooled].sort((a, b) => b.totalFP - a.totalFP);
+      const seenCut = new Set();
+      let uniques = 0;
+      optAllstacksCutoff = null;
+      for (const l of ranked) {
+        const k = l.lineup.map(p => p.name).sort().join('|');
+        if (seenCut.has(k)) continue;
+        seenCut.add(k);
+        uniques++;
+        if (uniques === finalN) { optAllstacksCutoff = l.totalFP; break; }
+      }
+      if (optAllstacksCutoff != null) console.log('[prune] cutoff after ' + shape + ': ' + optAllstacksCutoff);
     }
   } finally {
     optAllstacksCutoff = null;
@@ -4206,40 +4221,23 @@ async function runAllStacks() {
     numInput.value = savedNum;
   }
 
-  // Rank the shapes by their BEST lineup's FP.
-  shapeGroups.sort((a, b) => b.bestFP - a.bestFP);
-
+  // Dedupe across shapes by roster identity, then rank strictly by total FP.
   const seen = new Set();
-  const result = [];
-  const pushUnique = (l) => {
+  const unique = [];
+  pooled.sort((a, b) => b.totalFP - a.totalFP);
+  for (const l of pooled) {
     const key = l.lineup.map(p => p.name).sort().join('|');
-    if (seen.has(key)) return false;
+    if (seen.has(key)) continue;
     seen.add(key);
-    result.push(l);
-    return true;
-  };
-
-  // Round 1: one best lineup per shape, in shape-rank order (this is the
-  // shape comparison — Lineup 1 = strongest shape, Lineup 2 = next, ...).
-  for (const g of shapeGroups) {
-    if (result.length >= finalN) break;
-    while (g.lineups.length && !pushUnique(g.lineups.shift())) { /* skip dupes */ }
-  }
-  // Round 2+: fill any remaining slots with the best leftover lineups across
-  // all shapes, ranked by FP.
-  if (result.length < finalN) {
-    const leftovers = [];
-    shapeGroups.forEach(g => leftovers.push(...g.lineups));
-    leftovers.sort((a, b) => b.totalFP - a.totalFP);
-    for (const l of leftovers) {
-      if (result.length >= finalN) break;
-      pushUnique(l);
-    }
+    unique.push(l);
+    if (unique.length >= finalN) break;
   }
 
-  S.optResults = result;
-  console.log('[allstacks] shapes ranked by best lineup: ' +
-    shapeGroups.map(g => g.shape + '=' + g.bestFP).join(', '));
+  S.optResults = unique;
+  const shapeCounts = {};
+  unique.forEach(l => { shapeCounts[l.shape] = (shapeCounts[l.shape] || 0) + 1; });
+  console.log('[allstacks] top ' + unique.length + ' by FP; shape mix: ' +
+    Object.entries(shapeCounts).map(([s, n]) => s + '×' + n).join(', '));
 
   // Switch to results view (mirrors what runOptimizerCore does at the end)
   document.querySelectorAll('[id^="opt-pool-tab-"]').forEach(b => b.classList.remove('active'));
@@ -4247,7 +4245,7 @@ async function runAllStacks() {
   if (resultsTab) resultsTab.classList.add('active');
   S.optPoolView = 'results';
   renderOptPool();
-  showToast('✓ Ranked ' + result.length + ' lineups by best stack shape');
+  showToast('✓ Built ' + unique.length + ' lineups — top projected across all stack types');
 }
 
 // ============================================================
