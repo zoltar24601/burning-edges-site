@@ -4165,10 +4165,14 @@ function runOptimizer() {
 // Set window.OPT_DISABLE_PRUNE = true in the console to turn all pruning off.
 let optAllstacksCutoff = null;
 
-// "All Stack Types" — build the best lineups across every stack shape
-// (5-3, 4-4, 4-3-1, 5, 4) and return the top N overall by projected FP.
-// Reuses runOptimizerCore per shape (so all the enumeration/dedup logic is
-// shared), then pools, dedupes across shapes, and keeps the best.
+// "All Stack Types" — compare stack SHAPES head-to-head. Builds the best
+// lineup for every shape (5-3, 4-4, 4-3-1, 5, 4), then ranks the SHAPES by
+// their best projected FP: the strongest shape is Lineup 1, the next-best
+// shape is Lineup 2, etc. (This is what the user wants — "if 4-4 projects best
+// show it as lineup 1, if 4-3-1 is second show it as lineup 2".) If the user
+// asks for more lineups than there are shapes, the extra slots are then filled
+// with each shape's next-best lineups, FP-ranked. Reuses runOptimizerCore per
+// shape so all the enumeration/dedup logic is shared.
 async function runAllStacks() {
   const strategySelect = document.getElementById('opt-strategy');
   const numInput = document.getElementById('opt-num-lineups');
@@ -4176,65 +4180,66 @@ async function runAllStacks() {
   const finalN = parseInt(numInput.value) || 5;
   const savedNum = numInput.value;
 
-  // Each shape contributes candidates; overbuild per shape so the final
-  // top-N has genuine competition across shapes. Cap per-shape work so the
-  // total stays responsive.
   const shapes = ['stack53', 'stack44', 'stack431', 'stack5', 'stack4'];
-  const perShape = Math.max(3, Math.min(finalN, 6));
+  // Build one best lineup per shape, plus a small buffer so overflow slots
+  // (when finalN > #shapes) and cross-shape roster dupes still have material.
+  const perShape = Math.max(1, Math.ceil(finalN / shapes.length) + 1);
 
-  const pooled = [];
+  // NOTE: cross-shape pruning stays OFF here (cutoff = null throughout). The
+  // whole point is to represent EVERY shape, so we must never skip a shape
+  // because its ceiling can't beat the current pool. Per-shape branch-and-bound
+  // (inside runOptimizerCore) still runs and keeps each shape fast.
+  const shapeGroups = [];   // [{ shape, lineups: [best, next, ...] }]
   optAllstacksCutoff = null;
   try {
     for (let i = 0; i < shapes.length; i++) {
-      const shape = shapes[i];
-      // Drive the core via the dropdown value (it reads strategy from there).
-      strategySelect.value = shape;
+      strategySelect.value = shapes[i];
       numInput.value = perShape;
       showOptProgress(i, shapes.length, null);
       await runOptimizerCore();       // populates S.optResults for this shape
-      (S.optResults || []).forEach(l => pooled.push({ ...l, _shape: shape }));
-
-      // Update the shared pruning cutoff: FP of the Nth-best UNIQUE lineup
-      // pooled so far. Mirrors the final selection below exactly, so any
-      // lineup at or below the cutoff provably cannot make the final top N
-      // (the pool only improves; stable sort means later equal-FP entries
-      // never displace earlier ones).
-      const ranked = [...pooled].sort((a, b) => b.totalFP - a.totalFP);
-      const seenCut = new Set();
-      let uniques = 0;
-      optAllstacksCutoff = null;
-      for (const l of ranked) {
-        const k = l.lineup.map(p => p.name).sort().join('|');
-        if (seenCut.has(k)) continue;
-        seenCut.add(k);
-        uniques++;
-        if (uniques === finalN) { optAllstacksCutoff = l.totalFP; break; }
-      }
-      if (optAllstacksCutoff != null) {
-        console.log('[prune] cutoff after ' + shape + ': ' + optAllstacksCutoff);
-      }
+      const built = (S.optResults || []).slice();
+      if (built.length) shapeGroups.push({ shape: built[0].shape, bestFP: built[0].totalFP, lineups: built });
     }
   } finally {
-    // Always deactivate shape-level pruning and restore user's selections,
-    // even if a shape run throws.
     optAllstacksCutoff = null;
     strategySelect.value = savedStrategy;
     numInput.value = savedNum;
   }
 
-  // Dedupe across shapes by roster identity, then rank by total FP.
+  // Rank the shapes by their BEST lineup's FP.
+  shapeGroups.sort((a, b) => b.bestFP - a.bestFP);
+
   const seen = new Set();
-  const unique = [];
-  pooled.sort((a, b) => b.totalFP - a.totalFP);
-  for (const l of pooled) {
+  const result = [];
+  const pushUnique = (l) => {
     const key = l.lineup.map(p => p.name).sort().join('|');
-    if (seen.has(key)) continue;
+    if (seen.has(key)) return false;
     seen.add(key);
-    unique.push(l);
-    if (unique.length >= finalN) break;
+    result.push(l);
+    return true;
+  };
+
+  // Round 1: one best lineup per shape, in shape-rank order (this is the
+  // shape comparison — Lineup 1 = strongest shape, Lineup 2 = next, ...).
+  for (const g of shapeGroups) {
+    if (result.length >= finalN) break;
+    while (g.lineups.length && !pushUnique(g.lineups.shift())) { /* skip dupes */ }
+  }
+  // Round 2+: fill any remaining slots with the best leftover lineups across
+  // all shapes, ranked by FP.
+  if (result.length < finalN) {
+    const leftovers = [];
+    shapeGroups.forEach(g => leftovers.push(...g.lineups));
+    leftovers.sort((a, b) => b.totalFP - a.totalFP);
+    for (const l of leftovers) {
+      if (result.length >= finalN) break;
+      pushUnique(l);
+    }
   }
 
-  S.optResults = unique;
+  S.optResults = result;
+  console.log('[allstacks] shapes ranked by best lineup: ' +
+    shapeGroups.map(g => g.shape + '=' + g.bestFP).join(', '));
 
   // Switch to results view (mirrors what runOptimizerCore does at the end)
   document.querySelectorAll('[id^="opt-pool-tab-"]').forEach(b => b.classList.remove('active'));
@@ -4242,7 +4247,7 @@ async function runAllStacks() {
   if (resultsTab) resultsTab.classList.add('active');
   S.optPoolView = 'results';
   renderOptPool();
-  showToast('✓ Built ' + unique.length + ' lineups across all stack types');
+  showToast('✓ Ranked ' + result.length + ' lineups by best stack shape');
 }
 
 // ============================================================
@@ -4329,6 +4334,9 @@ async function runOptimizerCore() {
   else if (strategy === 'stack431') { s1 = 4; s2 = 3; s3 = 1; }
   else if (strategy === 'stack5') { s1 = 5; }
   else if (strategy === 'stack4') { s1 = 4; }
+  // Human-readable stack shape (e.g. "4-4", "4-3-1", "5") stamped on every
+  // lineup so the results list can label + rank by shape (see runAllStacks).
+  const shapeName = [s1, s2, s3].filter(Boolean).join('-') || 'No stack';
 
   // ============================================================
   //  STACK COMBO GENERATOR
@@ -4589,7 +4597,7 @@ async function runOptimizerCore() {
     if (!bestThisRound) break;
     const key = bestThisRound.lineup.map(p => p.name).sort().join('|');
     lineupSet.add(key);
-    lineups.push({ ...bestThisRound, label: bestComboLabel });
+    lineups.push({ ...bestThisRound, label: bestComboLabel, shape: shapeName });
     bestThisRound.lineup.forEach(p => {
       if (p && p.id != null) lineupUsage[p.id] = (lineupUsage[p.id] || 0) + 1;
     });
@@ -4896,6 +4904,7 @@ function renderOptLineups() {
       '<div style="display:flex;justify-content:space-between;align-items:center;padding:8px 12px;background:var(--bg4);border-bottom:1px solid var(--border)">' +
         '<div>' +
           '<span style="font-family:var(--cond);font-weight:800;font-size:13px;color:var(--accent)">LINEUP ' + (idx+1) + '</span>' +
+          (r.shape && r.shape !== 'No stack' ? '<span style="font-family:var(--mono);font-size:9px;font-weight:700;color:var(--bg);background:var(--accent);padding:1px 6px;border-radius:3px;margin-left:8px">' + r.shape + ' STACK</span>' : '') +
           '<span style="font-family:var(--mono);font-size:10px;color:var(--text3);margin-left:8px">' + r.label + '</span>' +
         '</div>' +
         '<div style="text-align:right">' +
