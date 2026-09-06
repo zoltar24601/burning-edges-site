@@ -4393,6 +4393,14 @@ async function runOptimizerCore() {
     .filter(([t, ps]) => ps.length >= 3)
     .map(([t]) => t);
 
+  // Rank a set of teams by the projFP sum of their best `size` hitters, keep
+  // the top `k`. Used to bound the three-team (4-3-1) enumeration: the optimal
+  // primary/secondary stack is always one of the highest-total offenses, and
+  // the tertiary "1" contributes a single hitter, so we don't need to try every
+  // team in every slot. teamGroups[t] is already sorted by projFP desc.
+  const teamTopSum = (t, size) => { const g = teamGroups[t] || []; let s = 0; for (let i = 0; i < Math.min(size, g.length); i++) s += g[i].projFP; return s; };
+  const rankCap = (teams, size, k) => teams.slice().sort((a, b) => teamTopSum(b, size) - teamTopSum(a, size)).slice(0, k);
+
   // Build candidate stack-team combinations based on strategy
   const stackCombos = [];
   if (s1 === 0 && s2 === 0 && s3 === 0) {
@@ -4409,13 +4417,19 @@ async function runOptimizerCore() {
       t2Pool.forEach(t2 => stackCombos.push([t1, t2, null]));
     });
   } else {
-    const t1Pool = stackTeam ? [stackTeam] : teamPool.filter(t => teamGroups[t].length >= s1);
+    // THREE stack teams (4-3-1). Enumerating every (t1,t2,t3) across all ~15+
+    // teams is thousands of team-combos, each with its own composition x pitcher
+    // inner loops -- the build appears to hang. Cap each auto pool to its
+    // strongest teams (by top-N projFP sum) so the enumeration stays bounded
+    // (<=7x6x4 team-combos); branch-and-bound below still finds the best among
+    // these. The tertiary "1" is a single hitter, so a few teams cover it.
+    const t1Pool = stackTeam ? [stackTeam] : rankCap(teamPool.filter(t => teamGroups[t].length >= s1), s1, 7);
     t1Pool.forEach(t1 => {
       const t2Pool = stackTeam2
         ? [stackTeam2]
-        : teamPool.filter(t => t !== t1 && teamGroups[t].length >= s2);
+        : rankCap(teamPool.filter(t => t !== t1 && teamGroups[t].length >= s2), s2, 6);
       t2Pool.forEach(t2 => {
-        const t3Pool = teamPool.filter(t => t !== t1 && t !== t2 && teamGroups[t].length >= s3);
+        const t3Pool = rankCap(teamPool.filter(t => t !== t1 && t !== t2 && teamGroups[t].length >= s3), s3, 4);
         t3Pool.forEach(t3 => stackCombos.push([t1, t2, t3]));
       });
     });
