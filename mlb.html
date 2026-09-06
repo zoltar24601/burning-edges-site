@@ -4139,6 +4139,7 @@ function quickBuildStacks() {
 
 function runOptimizer() {
   // Wrapper that handles progress UI then calls the async core.
+  S._optStop = false;   // clear any leftover stop from a prior build
   showOptProgress(0, 0, null);
   const strategy = document.getElementById('opt-strategy').value;
   // Kick off via setTimeout so the spinner paints before the heavy loop starts.
@@ -4187,65 +4188,71 @@ async function runAllStacks() {
   const perShape = Math.min(Math.max(finalN, 3), 15);
 
   const pooled = [];
+  // Dedupe the running pool by roster, rank by FP, keep top finalN. Also
+  // refreshes the pruning cutoff (FP of the Nth-best unique lineup so far).
+  // Returns the current top-N so we can render it live after each shape.
+  const poolTopN = () => {
+    const ranked = [...pooled].sort((a, b) => b.totalFP - a.totalFP);
+    const seen = new Set();
+    const top = [];
+    optAllstacksCutoff = null;
+    for (const l of ranked) {
+      const k = l.lineup.map(p => p.name).sort().join('|');
+      if (seen.has(k)) continue;
+      seen.add(k);
+      top.push(l);
+      if (top.length === finalN) optAllstacksCutoff = l.totalFP;  // cutoff = Nth-best FP
+      if (top.length >= finalN) break;
+    }
+    return top;
+  };
+  const renderLive = (top) => {
+    S.optResults = top;
+    document.querySelectorAll('[id^="opt-pool-tab-"]').forEach(b => b.classList.remove('active'));
+    const rt = document.getElementById('opt-pool-tab-results');
+    if (rt) rt.classList.add('active');
+    S.optPoolView = 'results';
+    renderOptPool();
+  };
+
+  S._optStop = false;
+  S._optSuppressRender = true;   // core builds each shape silently; we render the pool
   optAllstacksCutoff = null;
+  let stopped = false;
   try {
     for (let i = 0; i < shapes.length; i++) {
+      if (S._optStop) { stopped = true; break; }
       const shape = shapes[i];
       // Drive the core via the dropdown value (it reads strategy from there).
       strategySelect.value = shape;
       numInput.value = perShape;
       showOptProgress(i, shapes.length, null);
-      await runOptimizerCore();       // populates S.optResults for this shape
+      await runOptimizerCore();       // populates S.optResults for this shape (no render)
       (S.optResults || []).forEach(l => pooled.push(l));   // l.shape already stamped
 
-      // Update the shared pruning cutoff: FP of the Nth-best UNIQUE lineup
-      // pooled so far. Lossless for a pure top-N-by-FP selection -- a later
-      // shape whose optimistic ceiling can't beat this cutoff cannot place a
-      // lineup in the final N, so its whole enumeration is safely skipped.
-      const ranked = [...pooled].sort((a, b) => b.totalFP - a.totalFP);
-      const seenCut = new Set();
-      let uniques = 0;
-      optAllstacksCutoff = null;
-      for (const l of ranked) {
-        const k = l.lineup.map(p => p.name).sort().join('|');
-        if (seenCut.has(k)) continue;
-        seenCut.add(k);
-        uniques++;
-        if (uniques === finalN) { optAllstacksCutoff = l.totalFP; break; }
-      }
+      // Re-rank the accumulated pool and render the live top-N NOW, so a strong
+      // lineup from an earlier shape stays visible instead of being wiped by the
+      // next shape's raw results. This also updates the pruning cutoff.
+      renderLive(poolTopN());
       if (optAllstacksCutoff != null) console.log('[prune] cutoff after ' + shape + ': ' + optAllstacksCutoff);
+      if (S._optStop) { stopped = true; break; }
     }
   } finally {
     optAllstacksCutoff = null;
+    S._optSuppressRender = false;
+    S._optStop = false;
     strategySelect.value = savedStrategy;
     numInput.value = savedNum;
   }
 
-  // Dedupe across shapes by roster identity, then rank strictly by total FP.
-  const seen = new Set();
-  const unique = [];
-  pooled.sort((a, b) => b.totalFP - a.totalFP);
-  for (const l of pooled) {
-    const key = l.lineup.map(p => p.name).sort().join('|');
-    if (seen.has(key)) continue;
-    seen.add(key);
-    unique.push(l);
-    if (unique.length >= finalN) break;
-  }
-
-  S.optResults = unique;
+  const unique = poolTopN();
+  renderLive(unique);
   const shapeCounts = {};
   unique.forEach(l => { shapeCounts[l.shape] = (shapeCounts[l.shape] || 0) + 1; });
   console.log('[allstacks] top ' + unique.length + ' by FP; shape mix: ' +
     Object.entries(shapeCounts).map(([s, n]) => s + '×' + n).join(', '));
-
-  // Switch to results view (mirrors what runOptimizerCore does at the end)
-  document.querySelectorAll('[id^="opt-pool-tab-"]').forEach(b => b.classList.remove('active'));
-  const resultsTab = document.getElementById('opt-pool-tab-results');
-  if (resultsTab) resultsTab.classList.add('active');
-  S.optPoolView = 'results';
-  renderOptPool();
-  showToast('✓ Built ' + unique.length + ' lineups — top projected across all stack types');
+  showToast((stopped ? '⏹ Stopped — showing best ' : '✓ Built ') + unique.length +
+    ' lineups' + (stopped ? ' so far' : ' — top projected across all stack types'));
 }
 
 // ============================================================
@@ -4268,14 +4275,41 @@ function showOptProgress(done, total, elapsed) {
   const eta = (elapsed != null && done > 0 && done < total)
     ? ' · ~' + (((elapsed / done) * (total - done)) / 1000).toFixed(1) + 's left'
     : '';
+  const stopping = !!(S && S._optStop);
+  const stopBtn =
+    '<button id="opt-stop-btn" onclick="optStopBuild()" ' + (stopping ? 'disabled' : '') + ' style="margin-left:14px;padding:4px 12px;border-radius:4px;border:1px solid var(--red,#ff4757);' +
+      'background:' + (stopping ? 'var(--bg4,#1a1d24)' : 'var(--red,#ff4757)') + ';color:' + (stopping ? 'var(--text3,#6b7280)' : '#fff') + ';' +
+      'font-family:var(--mono,monospace);font-size:11px;font-weight:700;cursor:' + (stopping ? 'default' : 'pointer') + ';white-space:nowrap">' +
+      (stopping ? 'STOPPING…' : '⏹ STOP & KEEP') + '</button>';
   bar.innerHTML =
-    '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">' +
-      '<span style="color:var(--accent,#00e5a0);font-weight:700">⚡ BUILDING LINEUPS</span>' +
-      '<span style="color:var(--text2,#8b92a8)">' + (total > 0 ? 'Lineup ' + done + '/' + total : 'Initializing…') + ' · ' + elapsedTxt + eta + '</span>' +
+    '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;gap:10px">' +
+      '<span style="color:var(--accent,#00e5a0);font-weight:700;white-space:nowrap">⚡ BUILDING LINEUPS</span>' +
+      '<div style="display:flex;align-items:center;min-width:0">' +
+        '<span style="color:var(--text2,#8b92a8);overflow:hidden;text-overflow:ellipsis;white-space:nowrap">' + (total > 0 ? 'Set ' + done + '/' + total : 'Initializing…') + ' · ' + elapsedTxt + eta + '</span>' +
+        stopBtn +
+      '</div>' +
     '</div>' +
     '<div style="height:8px;background:var(--bg,#0a0c0f);border-radius:4px;overflow:hidden">' +
       '<div style="height:100%;background:var(--accent,#00e5a0);width:' + pct + '%;transition:width 0.25s ease"></div>' +
     '</div>';
+}
+
+// STOP & KEEP — halt the optimizer between/within shapes and keep whatever is
+// already in the live pooled top-N. Checked in runAllStacks (between shapes)
+// and inside runOptimizerCore's enumeration (between lineups + every ~2000
+// inner iters) so it responds within a moment even mid-build.
+function optStopBuild() {
+  S._optStop = true;
+  // Flip the button to "STOPPING…" immediately (don't re-render the whole bar,
+  // which would reset the progress text).
+  const btn = document.getElementById('opt-stop-btn');
+  if (btn) {
+    btn.disabled = true;
+    btn.textContent = 'STOPPING…';
+    btn.style.background = 'var(--bg4,#1a1d24)';
+    btn.style.color = 'var(--text3,#6b7280)';
+    btn.style.cursor = 'default';
+  }
 }
 
 function hideOptProgress() {
@@ -4533,6 +4567,7 @@ async function runOptimizerCore() {
   showOptProgress(0, numLineups, 0);
 
   for (let lineupIdx = 0; lineupIdx < numLineups; lineupIdx++) {
+    if (S._optStop) break;  // user hit STOP — keep what's built so far
     // Yield to UI so the progress bar repaints before this lineup's heavy loop
     await new Promise(r => setTimeout(r, 0));
     showOptProgress(lineupIdx, numLineups, performance.now() - startTime);
@@ -4542,6 +4577,7 @@ async function runOptimizerCore() {
     let innerIterCount = 0;
 
     for (let ci = 0; ci < stackCombos.length; ci++) {
+      if (S._optStop) break;  // stop scanning combos once user halts
       const [t1, t2, t3] = stackCombos[ci];
       const stack1Combos = getCachedCombos(t1, s1);
       if (stack1Combos.length === 1 && stack1Combos[0] === null) continue; // not enough hitters
@@ -4575,6 +4611,7 @@ async function runOptimizerCore() {
               // For huge passes (like 4-4 auto with 250+ team-pairs × 100 stack-combos),
               // yield periodically so progress bar shows partial lineup progress.
               if (innerIterCount % 2000 === 0) {
+                if (S._optStop) break;  // responsive mid-enumeration stop
                 await new Promise(r => setTimeout(r, 0));
                 showOptProgress(lineupIdx, numLineups, performance.now() - startTime);
               }
@@ -4610,6 +4647,18 @@ async function runOptimizerCore() {
     const key = bestThisRound.lineup.map(p => p.name).sort().join('|');
     lineupSet.add(key);
     lineups.push({ ...bestThisRound, label: bestComboLabel, shape: shapeName });
+    // LOSSLESS shape short-circuit for "All Stack Types": round 1 has no usage
+    // penalty, so it IS this shape's highest-FP lineup. If even that can't crack
+    // the pooled top-N cutoff, no diversified variant (rounds 2+, strictly
+    // lower) can either -- so stop re-enumerating this shape. This is what kills
+    // a slow 4-3-1 whose best lineup falls outside the number of lineups being
+    // run: one enumeration instead of N.
+    if (optAllstacksCutoff != null && lineups.length === 1 &&
+        bestThisRound.totalFP <= optAllstacksCutoff) {
+      console.log('[prune] ' + strategy + ' best ' + bestThisRound.totalFP +
+        ' <= cutoff ' + optAllstacksCutoff + ' — outside top-N, skipping rest of shape');
+      break;
+    }
     bestThisRound.lineup.forEach(p => {
       if (p && p.id != null) lineupUsage[p.id] = (lineupUsage[p.id] || 0) + 1;
     });
@@ -4633,11 +4682,16 @@ async function runOptimizerCore() {
       Object.entries(lineupUsage).sort((a,b) => b[1]-a[1]).slice(0,5)
         .map(([id, ct]) => (S.hitters.find(h => h.id == id)?.name || S.pitchers.find(p => p.id == id)?.name || id) + ':' + ct).join(', '));
   }
-  // Switch to results view
-  document.querySelectorAll('[id^="opt-pool-tab-"]').forEach(b => b.classList.remove('active'));
-  document.getElementById('opt-pool-tab-results').classList.add('active');
-  S.optPoolView = 'results';
-  renderOptPool();
+  // Switch to results view + render — UNLESS runAllStacks is driving this shape
+  // build; it suppresses the per-shape render and instead renders a live POOLED
+  // top-N after each shape, so results accumulate across shapes instead of each
+  // shape wiping the last.
+  if (!S._optSuppressRender) {
+    document.querySelectorAll('[id^="opt-pool-tab-"]').forEach(b => b.classList.remove('active'));
+    document.getElementById('opt-pool-tab-results').classList.add('active');
+    S.optPoolView = 'results';
+    renderOptPool();
+  }
   } catch(e) {
     console.error('Optimizer error:', e);
     alert('Optimizer error: ' + e.message + '\n\nCheck console for details.');
