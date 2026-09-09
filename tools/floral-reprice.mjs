@@ -27,6 +27,12 @@ const isPremium = s => Number(s.run) > 1 && (s.serial === 1 || s.serial >= Numbe
 const OWNER_FLOORS = {
   "Lionel Messi|Plum Blossom": 1600,
 };
+// STRENGTH RATIO vs Messi, averaged across the tiers we HAVE priced (Lotus +
+// Cherry). For a player with NO sale on a parallel, estimate = ratio x Messi's
+// value on that same parallel -- so e.g. Ronaldo Plum (no sale) tracks his
+// typical ~0.30 of Messi instead of sitting at a stale seed. Applied as a LIFT
+// only (never drops a card below its seed), so low players don't round to $0.
+const RATIO = {"Nico Paz":0.01,"Lionel Messi":1.0,"Diego Maradona":0.09,"Michael Olise":0.066,"Desire Doue":0.024,"Ousmane Dembele":0.0136,"Kylian Mbappe":0.264,"Zinedine Zidane":0.024,"Lennart Karl":0.028,"Franz Beckenbauer":0.012,"Lamine Yamal":0.72,"Pedri":0.006,"Estevao":0.025,"Vinicius Junior":0.0138,"Endrick":0.0155,"Harry Kane":0.013,"Jude Bellingham":0.0238,"Luka Modric":0.01,"Mohamed Salah":0.0088,"Yan Diomande":0.03,"Heung-min Son":0.005,"Gilberto Mora":0.013,"Julian Ryerson":0.0002,"Erling Haaland":0.3,"Cristiano Ronaldo":0.3,"Ibrahim Mbaye":0.008,"Johan Manzambi":0.01,"Christian Pulisic":0.013,"Kenan Yildiz":0.0002,"Arda Guler":0.0002,"Andres Iniesta":0.024};
 
 export function repriceFloral(values, sales, opts = {}) {
   const now = opts.now || Date.now();
@@ -47,6 +53,13 @@ export function repriceFloral(values, sales, opts = {}) {
   };
   const premiumNormalValue = key => { const p = windowMed(premBuckets[key]); return p != null ? Math.round(p * PREMIUM_TO_NORMAL) : null; };
 
+  // Per-parallel anchor = Messi's (floored) value on that parallel, for the
+  // ratio fallback below.
+  const anchorByParallel = {};
+  for (const v of values) if (v.athlete === "Lionel Messi") {
+    anchorByParallel[v.cardset] = Math.max(Number(v.value), OWNER_FLOORS["Lionel Messi|" + v.cardset] || 0);
+  }
+
   const newValues = {}, moves = [];
   for (const v of values) {
     const key = v.athlete + "|" + v.cardset;
@@ -55,6 +68,10 @@ export function repriceFloral(values, sales, opts = {}) {
     const mkt = marketValue(key);
     if (mkt != null) { nv = Math.round(mkt); src = "market"; }   // real ordinary floral sales win
     else { const pn = premiumNormalValue(key); if (pn != null) { nv = pn; src = "premium/3"; } }  // else 1/3 of a #1-only sale
+    if (src === "hold") {   // no sale at all -> estimate from ratio-to-Messi (lift only)
+      const anchor = anchorByParallel[v.cardset], r = RATIO[v.athlete];
+      if (anchor && r != null) { const est = Math.round(r * anchor); if (est > nv) { nv = est; src = "ratio"; } }
+    }
     const floor = OWNER_FLOORS[key];
     if (floor != null && nv < floor) { nv = floor; src = src === "hold" ? "floor" : src + "+floor"; }  // never below owner/offer floor
     newValues[v.sku_base] = { value: nv, src };
