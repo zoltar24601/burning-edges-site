@@ -19,6 +19,14 @@ const ord = s => Number(s.run) <= 1 ? true : (s.serial !== 1 && s.serial < s.run
 // no mid-serial sales -> normal ~ $883, instead of sitting at the stale seed).
 const PREMIUM_TO_NORMAL = 1 / 3;
 const isPremium = s => Number(s.run) > 1 && (s.serial === 1 || s.serial >= Number(s.run) - 1);
+// OWNER FLOORS / manual anchors, keyed "athlete|parallel". A value never prices
+// below its floor (this is also where standing global-offer floors will live
+// once we read them). Messi Plum: only sale is his #1 ($2,650 -> 1/3 = $883),
+// but a $1,080 global offer stands and it should track Yamal ($1,599) -> floor
+// it near Yamal. Real ordinary sales above the floor still win.
+const OWNER_FLOORS = {
+  "Lionel Messi|Plum Blossom": 1600,
+};
 
 export function repriceFloral(values, sales, opts = {}) {
   const now = opts.now || Date.now();
@@ -47,6 +55,8 @@ export function repriceFloral(values, sales, opts = {}) {
     const mkt = marketValue(key);
     if (mkt != null) { nv = Math.round(mkt); src = "market"; }   // real ordinary floral sales win
     else { const pn = premiumNormalValue(key); if (pn != null) { nv = pn; src = "premium/3"; } }  // else 1/3 of a #1-only sale
+    const floor = OWNER_FLOORS[key];
+    if (floor != null && nv < floor) { nv = floor; src = src === "hold" ? "floor" : src + "+floor"; }  // never below owner/offer floor
     newValues[v.sku_base] = { value: nv, src };
     if (nv !== cur) moves.push({ sku_base: v.sku_base, athlete: v.athlete, cardset: v.cardset, run: v.run, old: cur, new: nv, src });
   }
