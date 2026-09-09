@@ -7,6 +7,7 @@
 //
 // Env: SUPABASE_URL, SUPABASE_SERVICE_KEY, [PANINI_API], [POLL_MS], [LOOKBACK]
 // Run: node chain-poller/poller.mjs   (from repo root)
+// Restart marker: 2026-09-09 (cursor stalled since 2026-09-06 22:03; redeploy).
 // ============================================================
 import { chromium } from "playwright";
 import { blockEvents, blockPulls } from "./panini-chain.mjs";   // vendored copy of tools/panini-chain.mjs
