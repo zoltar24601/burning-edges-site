@@ -118,6 +118,14 @@
   to = "/floral.html"
   status = 200
 [[redirects]]
+  from = "/api/animalprint-data"
+  to = "/.netlify/functions/animalprint-data"
+  status = 200
+[[redirects]]
+  from = "/animalprint"
+  to = "/animalprint.html"
+  status = 200
+[[redirects]]
   from = "/nflprizm"
   to = "/nflprizm.html"
   status = 200

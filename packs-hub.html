@@ -38,6 +38,7 @@
   .pack.moon{--accent:var(--purple);order:-1;}
   .pack.silo{--accent:var(--flame);order:-1;}
   .pack.nfl{--accent:var(--green);order:-1;}
+  .pack.animalprint{--accent:#d6a44e;order:-1;}
   .pack .tagrow{display:flex;align-items:center;gap:8px;margin-bottom:14px;}
   .pack .chip{font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--pine-3);background:var(--accent);padding:3px 10px;border-radius:5px;font-weight:700;}
   .pack .rel{font-family:'Barlow Condensed',sans-serif;font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:var(--text-faint);}
@@ -153,6 +154,18 @@
       </div>
       <div class="go"><span>View analytics</span><span class="arw">&rarr;</span></div>
     </a>
+    <a class="pack animalprint" href="/animalprint">
+      <div class="tagrow"><span class="chip">Craft</span><span class="rel">Animal Print Edition</span></div>
+      <h2>World Cup<br>Animal Print Edition</h2>
+      <div class="sub">Craft pack &mdash; 2 cards, 1 Giraffe /20 + 1 Elephant /20 from a 30-player checklist; Messi, Yamal &amp; Mbappe are the chase.</div>
+      <div class="stats">
+        <div class="stat"><div class="l">Predicted</div><div class="v accent" id="ap_pred">~$994</div><span class="est">Estimate</span></div>
+        <div class="stat"><div class="l">Book value</div><div class="v" id="ap_book">$398</div></div>
+        <div class="stat"><div class="l">Packs</div><div class="v">600</div></div>
+        <div class="stat"><div class="l">Cards/pack</div><div class="v">2</div></div>
+      </div>
+      <div class="go"><span>View analytics</span><span class="arw">&rarr;</span></div>
+    </a>
   </div>
 
   <div class="foot">Book value = expected card value per pack. Predicted = a speculative secondary estimate, not a market figure &mdash; not financial advice.</div>
@@ -210,6 +223,11 @@ fetch('/api/floral-data').then(r=>r.json()).then(D=>{
   $('floral_book').textContent = money(pe.pack_book_ev);
   $('floral_pred').innerHTML = '~' + money(pe.predicted_price);
 }).catch(e=>console.warn('[hub] floral fetch failed (baked values shown)', e.message));
+fetch('/api/animalprint-data').then(r=>r.json()).then(D=>{
+  const pe = D.pack_ev;
+  $('ap_book').textContent = money(pe.pack_book_ev);
+  $('ap_pred').innerHTML = '~' + money(pe.predicted_price);
+}).catch(e=>console.warn('[hub] animalprint fetch failed (baked values shown)', e.message));
 </script>
 </body>
 </html>
