@@ -5,9 +5,9 @@
 // browser (Playwright) because the explorer API sits behind Cloudflare and a
 // plain server fetch gets 403; a real browser passes the managed challenge.
 //
-// Env: SUPABASE_URL, SUPABASE_SERVICE_KEY, [PANINI_API], [POLL_MS], [LOOKBACK]
+// Env: SUPABASE_URL, SUPABASE_SERVICE_KEY, [PANINI_API], [POLL_MS], [PAGE_LIMIT], [MAX_PAGES]
 // Run: node chain-poller/poller.mjs   (from repo root)
-// Restart marker: 2026-09-09 (cursor stalled since 2026-09-06 22:03; redeploy).
+// Restart marker: 2026-09-12 (rebuilt: page cursor->head, no more skipped gaps).
 // ============================================================
 import { chromium } from "playwright";
 import { blockEvents, blockPulls } from "./panini-chain.mjs";   // vendored copy of tools/panini-chain.mjs
@@ -16,7 +16,18 @@ const API = process.env.PANINI_API || "https://explorerapi.paniniamerica.net";
 const SB_URL = process.env.SUPABASE_URL;
 const SB_KEY = process.env.SUPABASE_SERVICE_KEY;
 const POLL_MS = +(process.env.POLL_MS || 120000);   // 2 min -- gentler on Cloudflare
-const LOOKBACK = +(process.env.LOOKBACK || 40);   // blocks to scan each poll
+// Paging: read EVERY block from the cursor up to the chain head, following the
+// explorer's paging.next, instead of only grabbing the latest N (the old bug
+// that silently dropped every block in a gap -- e.g. the whole 3-day trial
+// outage). PAGE_LIMIT per request, up to MAX_PAGES per tick (covers a large
+// backfill in one recovery tick), a small delay between pages to stay gentle on
+// Cloudflare. To backfill an existing hole, just set chain_sync.last_block_num
+// back to the start of the gap and the next tick walks head -> that block.
+const PAGE_LIMIT = +(process.env.PAGE_LIMIT || 50);
+const MAX_PAGES = +(process.env.MAX_PAGES || 800);
+const PAGE_DELAY = +(process.env.PAGE_DELAY || 150);
+const CHUNK = 500;   // rows per Supabase write
+const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 // Optional residential proxy (the durable fix for the datacenter-IP Cloudflare block).
 // Set PROXY_SERVER=http://host:port (+ PROXY_USER / PROXY_PASS) in Railway env.
 const PROXY_SERVER = process.env.PROXY_SERVER;
@@ -58,49 +69,72 @@ async function setCursor(n) {
   await sb("chain_sync?id=eq.1", { method: "PATCH", body: JSON.stringify({ last_block_num: n, updated_at: new Date().toISOString() }) });
 }
 async function upsertEvents(events) {
-  if (!events.length) return;
-  await sb("chain_events?on_conflict=tx_id", {
-    method: "POST",
-    headers: { ...SBH, Prefer: "resolution=merge-duplicates,return=minimal" },
-    body: JSON.stringify(events),
-  });
+  for (let i = 0; i < events.length; i += CHUNK) {
+    await sb("chain_events?on_conflict=tx_id", {
+      method: "POST",
+      headers: { ...SBH, Prefer: "resolution=merge-duplicates,return=minimal" },
+      body: JSON.stringify(events.slice(i, i + CHUNK)),
+    });
+  }
 }
 
 async function recordPulls(pulls) {
   if (!pulls.length) return 0;
   const rows = pulls.map(p => ({ tx_id: p.tx_id, sku_base: p.sku_base, serial: p.serial, run: p.run, to_key: p.to_key, block_num: p.block_num, ts: p.ts }));
-  // insert; ignore ones we've already recorded, get back only the NEW pulls
-  const res = await sb("chain_pulls?on_conflict=tx_id", {
-    method: "POST", headers: { ...SBH, Prefer: "resolution=ignore-duplicates,return=representation" },
-    body: JSON.stringify(rows),
-  });
-  const inserted = res.ok ? await res.json() : [];
-  // decrement remaining once per new pull, grouped by card
   const byCard = {};
-  for (const r of inserted) byCard[r.sku_base] = (byCard[r.sku_base] || 0) + 1;
+  let insertedCount = 0;
+  for (let i = 0; i < rows.length; i += CHUNK) {
+    // insert; ignore ones we've already recorded, get back only the NEW pulls
+    const res = await sb("chain_pulls?on_conflict=tx_id", {
+      method: "POST", headers: { ...SBH, Prefer: "resolution=ignore-duplicates,return=representation" },
+      body: JSON.stringify(rows.slice(i, i + CHUNK)),
+    });
+    const inserted = res.ok ? await res.json() : [];
+    insertedCount += inserted.length;
+    for (const r of inserted) byCard[r.sku_base] = (byCard[r.sku_base] || 0) + 1;   // decrement once per NEW pull
+  }
   for (const [sku, n] of Object.entries(byCard)) {
     await sb("rpc/decrement_remaining", { method: "POST", body: JSON.stringify({ p_sku: sku, p_n: n }) });
   }
-  return inserted.length;
+  return insertedCount;
 }
 
 async function tick() {
   const cursor = await getCursor();
-  const resp = await apiGet(`/blocks?limit=${LOOKBACK}`);
-  const blocks = (resp && resp.data) || [];
-  let maxBlock = cursor, all = [], pulls = [];
-  for (const b of blocks) {
-    const num = b.header ? Number(b.header.block_num) : null;
-    if (num == null || num <= cursor) continue;          // already ingested
-    all.push(...blockEvents(b));
-    pulls.push(...blockPulls(b));
-    if (num > maxBlock) maxBlock = num;
+  // Walk from the chain head backward via paging.next, ingesting EVERY block
+  // whose num > cursor, until we reach a block already ingested (num <= cursor)
+  // or run out of pages. This closes any gap (normal 1-2 pages; a big backfill
+  // pages more, bounded by MAX_PAGES) instead of skipping to the head.
+  let path = `/blocks?limit=${PAGE_LIMIT}`;
+  let head = cursor, all = [], pulls = [], pages = 0, reached = false;
+  while (path && pages < MAX_PAGES) {
+    const resp = await apiGet(path);
+    const blocks = (resp && resp.data) || [];
+    if (!blocks.length) break;
+    for (const b of blocks) {
+      const num = b.header ? Number(b.header.block_num) : null;
+      if (num == null) continue;
+      if (num > head) head = num;
+      if (num <= cursor) { reached = true; continue; }   // hit already-ingested territory
+      all.push(...blockEvents(b));
+      pulls.push(...blockPulls(b));
+    }
+    pages++;
+    if (reached) break;
+    const next = resp.paging && resp.paging.next;
+    if (!next) break;   // reached genesis / no more pages
+    path = next.startsWith("http") ? next.slice(API.length) : (next.startsWith("/") ? next : "/" + next);
+    await sleep(PAGE_DELAY);
   }
   if (all.length) await upsertEvents(all);
   const newPulls = await recordPulls(pulls);
-  if (maxBlock > cursor) await setCursor(maxBlock);
+  // Only advance the cursor when the fetched range is contiguous down to the old
+  // cursor (reached) or we paged to the very end (!path). If we stopped on
+  // MAX_PAGES with a gap still open, leave the cursor so the next tick continues.
+  const complete = reached || !path;
+  if (head > cursor && complete) await setCursor(head);
   const sales = all.filter(e => e.is_sale).length;
-  console.log(`[${new Date().toISOString()}] cursor ${cursor} -> ${maxBlock} | events ${all.length} (sales ${sales}, pulls ${newPulls})`);
+  console.log(`[${new Date().toISOString()}] cursor ${cursor} -> ${complete ? head : cursor} (head ${head}) | pages ${pages}${complete ? "" : " MAX_PAGES-gap-remains"} | events ${all.length} (sales ${sales}, pulls ${newPulls})`);
 }
 
 (async () => {
