@@ -123,7 +123,10 @@ async function tick() {
     if (reached) break;
     const next = resp.paging && resp.paging.next;
     if (!next) break;   // reached genesis / no more pages
-    path = next.startsWith("http") ? next.slice(API.length) : (next.startsWith("/") ? next : "/" + next);
+    // paging.next is a full URL (and http://, one char shorter than our https
+    // base) -- parse out path+query so apiGet's `API + path` stays well-formed.
+    try { const u = new URL(next); path = u.pathname + u.search; }
+    catch { path = next.startsWith("/") ? next : "/" + next; }
     await sleep(PAGE_DELAY);
   }
   if (all.length) await upsertEvents(all);
