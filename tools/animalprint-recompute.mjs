@@ -31,6 +31,15 @@ const JERSEY = {
   "Mohamed Salah": 11, "Luka Modric": 10, "Pedri": 8, "Diego Maradona": 10,
   "Zinedine Zidane": 10, "Andres Iniesta": 8, "Christian Pulisic": 10, "Michael Olise": 7,
 };
+// Specific special serials known to be HIT (pulled/claimed), reported manually
+// since these craft parallels don't surface pull events on-chain. Keyed
+// athlete|Giraffe|Elephant|serial. A hit serial shows status "hit" and its card
+// is decremented in card_remaining (so the normal count drops too).
+const HIT_SERIALS = [
+  { a: "Lamine Yamal", s: "Elephant", sn: 20 },
+  { a: "Lionel Messi", s: "Giraffe", sn: 20 },
+];
+const isHit = (a, s, sn) => HIT_SERIALS.some(h => h.a === a && h.s === s && h.sn === sn);
 
 export function recomputeAnimalPrint(remaining, valueMap) {
   // ONE unified list: special serials (#1 = 3x, last = 2x, jersey = 2x) broken
@@ -55,7 +64,7 @@ export function recomputeAnimalPrint(remaining, valueMap) {
       const jn = JERSEY[info.a];
       if (jn != null) addS(jn, "#" + jn + " (jersey)", JERSEY_MULT);
     }
-    for (const sp of specials) hits.push({ c: info.a, s: short, r: run, sn: sp.sn, lbl: sp.lbl, u: 1, p: sp.p, kind: "special", st: "in packs" });
+    for (const sp of specials) hits.push({ c: info.a, s: short, r: run, sn: sp.sn, lbl: sp.lbl, u: 1, p: sp.p, kind: "special", st: isHit(info.a, short, sp.sn) ? "hit" : "in packs" });
     const uNormal = u - specials.length;
     if (uNormal > 0 && v >= CHASE_MIN) hits.push({ c: info.a, s: short, r: run, lbl: "normal", u: uNormal, p: v, kind: "normal" });
   }
