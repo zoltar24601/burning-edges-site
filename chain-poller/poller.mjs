@@ -23,9 +23,9 @@ const POLL_MS = +(process.env.POLL_MS || 120000);   // 2 min -- gentler on Cloud
 // backfill in one recovery tick), a small delay between pages to stay gentle on
 // Cloudflare. To backfill an existing hole, just set chain_sync.last_block_num
 // back to the start of the gap and the next tick walks head -> that block.
-const PAGE_LIMIT = +(process.env.PAGE_LIMIT || 50);
+const PAGE_LIMIT = +(process.env.PAGE_LIMIT || 100);   // bigger pages = fewer requests (gentler on the 429 limiter)
 const MAX_PAGES = +(process.env.MAX_PAGES || 800);
-const PAGE_DELAY = +(process.env.PAGE_DELAY || 150);
+const PAGE_DELAY = +(process.env.PAGE_DELAY || 700);   // ms between pages -- stay under the rate limit
 const CHUNK = 500;   // rows per Supabase write
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 // Optional residential proxy (the durable fix for the datacenter-IP Cloudflare block).
@@ -48,15 +48,20 @@ async function browserReady() {
   console.log(`browser session established (Cloudflare cleared)${PROXY_SERVER ? " via proxy" : ""}`);
 }
 
-// fetch JSON from the API inside the cleared browser context. No inline re-clear
-// hammering -- on failure we throw; the main loop backs off + rebuilds the session.
+// fetch JSON from the API inside the cleared browser context. Absorbs HTTP 429
+// (rate limit) with escalating backoff + retry of the SAME page, so a long
+// backfill doesn't fail the whole tick and restart from the top. Other errors
+// throw -> main loop backs off + rebuilds the session.
 async function apiGet(path) {
-  const r = await page.evaluate(async (u) => {
-    const res = await fetch(u, { headers: { accept: "application/json" } });
-    return { ok: res.ok, status: res.status, body: res.ok ? await res.json() : null };
-  }, API + path);
-  if (r.ok) return r.body;
-  throw new Error("HTTP " + r.status);
+  for (let attempt = 0; ; attempt++) {
+    const r = await page.evaluate(async (u) => {
+      try { const res = await fetch(u, { headers: { accept: "application/json" } }); return { ok: res.ok, status: res.status, body: res.ok ? await res.json() : null }; }
+      catch (e) { return { ok: false, status: 0, body: null }; }
+    }, API + path);
+    if (r.ok) return r.body;
+    if (r.status === 429 && attempt < 8) { await sleep(4000 * (attempt + 1)); continue; }   // rate limited -> wait, retry same page
+    throw new Error("HTTP " + r.status);
+  }
 }
 
 const sb = (path, opts) => fetch(`${SB_URL}/rest/v1/${path}`, { headers: SBH, ...opts });
