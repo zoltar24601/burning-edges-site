@@ -65,6 +65,7 @@ export function recomputeAnimalPrint(remaining, valueMap) {
   const eAvg = e.uncl ? e.valSum / e.uncl : 0;
   const book = +(gAvg + eAvg).toFixed(2);
   const poolRemaining = g.uncl + e.uncl;
+  const packsRemaining = Math.floor(poolRemaining / 2);   // 2 cards per pack
 
   const hit_breakdown = [
     { cardset: "Choice Prizms Giraffe", run: 20, uncl: g.uncl, avg_value: +gAvg.toFixed(2) },
@@ -80,7 +81,7 @@ export function recomputeAnimalPrint(remaining, valueMap) {
     data_note: "Craft pack (600 total, 2 cards each): 1 Giraffe /20 + 1 Elephant /20 from a 30-player checklist. Seeded off our main World Cup pricing at the /20 craft tier; reprices off realized on-chain Animal Print sales once the pack trades on secondary.",
     pricing_mechanism: "seed = player /20 craft value (main-set floral-tier anchor); then chain-live Animal Print sales (recency-weighted)",
     valuation_principle: "Modeled until the animal-print cards trade; a real mid-serial sale then moves value either way.",
-    structure: { cards_per_pack: 2, base_slots: 0, hit_slots: 2, total_packs: 600, note: "Each pack = 1 Giraffe /20 + 1 Elephant /20, random player from the 30-card checklist." },
+    structure: { cards_per_pack: 2, base_slots: 0, hit_slots: 2, total_packs: 600, packs_remaining: packsRemaining, note: "Each pack = 1 Giraffe /20 + 1 Elephant /20, random player from the 30-card checklist." },
     pack_ev: {
       method: "avg Giraffe /20 value + avg Elephant /20 value (1 of each per pack)",
       cards_per_pack: 2, base_slots: 0, hit_slots: 2, multiplier: MULT, mint: null,
