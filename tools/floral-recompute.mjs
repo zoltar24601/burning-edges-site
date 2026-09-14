@@ -67,9 +67,16 @@ export function recomputeFloral(remaining, valueMap) {
       const jn = JERSEY[info.a];
       if (jn != null) addS(jn, "#" + jn + " (jersey)", JERSEY_MULT);
     }
-    for (const sp of specials) hits.push({ c: info.a, s, r: run, sn: sp.sn, lbl: sp.lbl, u: 1, p: sp.p, kind: "special", st: "in packs" });
-    const uNormal = u - specials.length;
-    if (uNormal > 0 && v >= CHASE_MIN) hits.push({ c: info.a, s, r: run, lbl: "normal", u: uNormal, p: v, kind: "normal" });
+    // Only break out specials when enough copies remain to actually hold them
+    // (without serial tracking we can't tell WHICH serials survived, so a
+    // near-depleted card just shows a plain count instead of fabricating #1/#last).
+    if (specials.length && u >= specials.length) {
+      for (const sp of specials) hits.push({ c: info.a, s, r: run, sn: sp.sn, lbl: sp.lbl, u: 1, p: sp.p, kind: "special", st: "in packs" });
+      const uNormal = u - specials.length;
+      if (uNormal > 0 && v >= CHASE_MIN) hits.push({ c: info.a, s, r: run, lbl: "normal", u: uNormal, p: v, kind: "normal" });
+    } else if (v >= CHASE_MIN) {
+      hits.push({ c: info.a, s, r: run, lbl: "normal", u, p: v, kind: "normal" });   // count only; serials unconfirmed
+    }
   }
   const hit_breakdown = Object.values(par)
     .map(x => ({ cardset: x.cardset, run: x.run, uncl: x.uncl, avg_value: +(x.valSum / x.uncl).toFixed(2) }))
