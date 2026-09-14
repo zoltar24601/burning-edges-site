@@ -20,6 +20,20 @@ const JERSEY = {
   "Mohamed Salah": 11, "Luka Modric": 10, "Pedri": 8, "Diego Maradona": 10,
   "Zinedine Zidane": 10, "Andres Iniesta": 8, "Christian Pulisic": 10, "Michael Olise": 7,
 };
+// When we know EXACTLY which serial(s) are still in packs for a card (e.g. a
+// Lotus /4 grail down to one specific copy), list them here (keyed
+// "athlete|cardset"). The board then shows those exact serials -- priced #1=3x /
+// #last=2x / jersey=2x / else the normal value -- instead of the assumed #1+#last.
+const KNOWN_SERIALS = {
+  "Lionel Messi|Lotus Flower": [4],
+  "Lamine Yamal|Lotus Flower": [3],
+};
+const priceSerial = (sn, run, v, a) => {
+  if (sn === 1) return { p: Math.round(v * FIRST_MULT), lbl: "#1", kind: "special" };
+  if (sn === run) return { p: Math.round(v * LAST_MULT), lbl: "#" + run + " (last)", kind: "special" };
+  if (JERSEY[a] === sn) return { p: Math.round(v * JERSEY_MULT), lbl: "#" + sn + " (jersey)", kind: "special" };
+  return { p: v, lbl: "#" + sn, kind: "known" };
+};
 
 export function recomputeFloral(remaining, valueMap) {
   const par = {}; let num = 0, den = 0; const hits = [];
@@ -28,6 +42,20 @@ export function recomputeFloral(remaining, valueMap) {
     if (u <= 0) continue;
     const v = info.v, run = info.r, s = info.cs;
     if (!par[s]) par[s] = { cardset: s, run, uncl: 0, valSum: 0 };
+
+    const known = KNOWN_SERIALS[info.a + "|" + s];
+    if (known && known.length) {
+      // exact surviving serials known -> show just those, priced per serial
+      let sum = 0;
+      for (const sn of known) {
+        const sp = priceSerial(sn, run, v, info.a);
+        hits.push({ c: info.a, s, r: run, sn, lbl: sp.lbl, u: 1, p: sp.p, kind: sp.kind, st: "in packs" });
+        sum += sp.p;
+      }
+      par[s].uncl += known.length; par[s].valSum += sum; num += sum; den += known.length;
+      continue;
+    }
+
     par[s].uncl += u; par[s].valSum += v * u;
     num += v * u; den += u;   // book uses ALL copies (specials are display-only)
 
