@@ -13,6 +13,7 @@
 // ============================================================
 import { recomputeAnimalPrint } from "../../tools/animalprint-recompute.mjs";
 import { repriceAnimalPrint } from "../../tools/animalprint-reprice.mjs";
+import { inPacksBySku } from "../../tools/chain-serials.mjs";
 import staticMap from "../../tools/animalprint-values.json";
 
 // Every 5 min: on craft day packs rip fast and the page reads this snapshot --
@@ -66,7 +67,14 @@ export default async () => {
     else vrows.forEach(v => remaining[v.sku_base] = v.run);   // pre-launch: everything available
     const valueMap = {};
     for (const v of vrows) valueMap[v.sku_base] = { v: newValues[v.sku_base] ? newValues[v.sku_base].value : Number(v.value), cs: v.cardset, a: v.athlete, r: v.run };
-    const payload = recomputeAnimalPrint(remaining, valueMap);
+    // Deduce which serials are still in packs from the chain (every transfer =
+    // that serial left a pack), so remaining counts + #1/#last/#jersey hit status
+    // are exact and self-maintaining. Falls back to card_remaining if unavailable.
+    const runBy = {}; for (const v of vrows) runBy[v.sku_base] = v.run;
+    const getRows = async (p) => (await fetch(`${SB_URL}/rest/v1/${p}`, { headers: H })).json();
+    let inPacks = null;
+    try { inPacks = await inPacksBySku(getRows, Object.keys(valueMap), runBy); } catch (e) { inPacks = null; }
+    const payload = recomputeAnimalPrint(remaining, valueMap, inPacks);
 
     const cur = await (await fetch(`${SB_URL}/rest/v1/animalprint_snapshots?select=id&published=eq.true&order=computed_at.desc&limit=1`, { headers: H })).json();
     if (!Array.isArray(cur) || !cur.length) return resp(409, { error: "no published animalprint snapshot yet (run migration 010 + publish)" });

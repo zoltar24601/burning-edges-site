@@ -41,17 +41,19 @@ const HIT_SERIALS = [
 ];
 const isHit = (a, s, sn) => HIT_SERIALS.some(h => h.a === a && h.s === s && h.sn === sn);
 
-export function recomputeAnimalPrint(remaining, valueMap) {
-  // ONE unified list: special serials (#1 = 3x, last = 2x, jersey = 2x) broken
-  // out as their own rows, and the normal-serial row with the LEFTOVER count
-  // (run minus however many specials we split off -> e.g. 17/20). Everything
-  // sorts together by value, so Messi/Yamal specials sit at the top and the
-  // normal serials fall in wherever their value lands.
+export function recomputeAnimalPrint(remaining, valueMap, inPacksBySku = null) {
+  // ONE unified list of chase rows sorted largest -> smallest. When chain-deduced
+  // in-packs serials are supplied (inPacksBySku: sku -> [serials still in packs]),
+  // status is EXACT: each special serial shows "in packs" or "hit" by whether the
+  // chain has seen it leave, and near-depleted cards list their exact remaining
+  // serials. Falls back to the report count + manual HIT_SERIALS when not given.
   const par = {}; const hits = [];
   for (const [k, info] of Object.entries(valueMap)) {
-    const u = remaining[k] || 0;
-    if (u <= 0) continue;
     const v = info.v, run = info.r, short = shortSet(info.cs);
+    const inPacks = inPacksBySku && inPacksBySku[k] ? inPacksBySku[k] : null;
+    const inSet = inPacks ? new Set(inPacks) : null;
+    const u = inPacks ? inPacks.length : (remaining[k] || 0);
+    if (u <= 0) continue;
     if (!par[info.cs]) par[info.cs] = { cardset: info.cs, run, uncl: 0, valSum: 0 };
     par[info.cs].uncl += u; par[info.cs].valSum += v * u;
 
@@ -64,9 +66,23 @@ export function recomputeAnimalPrint(remaining, valueMap) {
       const jn = JERSEY[info.a];
       if (jn != null) addS(jn, "#" + jn + " (jersey)", JERSEY_MULT);
     }
-    for (const sp of specials) hits.push({ c: info.a, s: short, r: run, sn: sp.sn, lbl: sp.lbl, u: 1, p: sp.p, kind: "special", st: isHit(info.a, short, sp.sn) ? "hit" : "in packs" });
-    const uNormal = u - specials.length;
-    if (uNormal > 0 && v >= CHASE_MIN) hits.push({ c: info.a, s: short, r: run, lbl: "normal", u: uNormal, p: v, kind: "normal" });
+    const specialSns = new Set(specials.map(s => s.sn));
+    for (const sp of specials) {
+      const st = inSet ? (inSet.has(sp.sn) ? "in packs" : "hit") : (isHit(info.a, short, sp.sn) ? "hit" : "in packs");
+      hits.push({ c: info.a, s: short, r: run, sn: sp.sn, lbl: sp.lbl, u: 1, p: sp.p, kind: "special", st });
+    }
+    // normal (non-special) serials still in packs
+    if (inPacks) {
+      const normals = inPacks.filter(sn => !specialSns.has(sn));
+      if (normals.length && normals.length <= 4) {
+        for (const sn of normals) hits.push({ c: info.a, s: short, r: run, sn, lbl: "#" + sn, u: 1, p: v, kind: "known", st: "in packs" });
+      } else if (normals.length && v >= CHASE_MIN) {
+        hits.push({ c: info.a, s: short, r: run, lbl: "normal", u: normals.length, p: v, kind: "normal" });
+      }
+    } else {
+      const uNormal = u - specials.length;
+      if (uNormal > 0 && v >= CHASE_MIN) hits.push({ c: info.a, s: short, r: run, lbl: "normal", u: uNormal, p: v, kind: "normal" });
+    }
   }
   const g = par[GIRAFFE] || { uncl: 0, valSum: 0, run: 20 };
   const e = par[ELEPHANT] || { uncl: 0, valSum: 0, run: 20 };

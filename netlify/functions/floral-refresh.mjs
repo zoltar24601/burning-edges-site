@@ -14,6 +14,7 @@
 // ============================================================
 import { recomputeFloral } from "../../tools/floral-recompute.mjs";
 import { repriceFloral } from "../../tools/floral-reprice.mjs";
+import { inPacksBySku } from "../../tools/chain-serials.mjs";
 import staticMap from "../../tools/floral-values.json";
 
 // Every 5 min (not @hourly): on launch/craft days packs rip fast, and the page
@@ -67,7 +68,13 @@ export default async () => {
     else vrows.forEach(v => remaining[v.sku_base] = v.run);   // pre-launch: everything available
     const valueMap = {};
     for (const v of vrows) valueMap[v.sku_base] = { v: newValues[v.sku_base] ? newValues[v.sku_base].value : Number(v.value), cs: v.cardset, a: v.athlete, r: v.run };
-    const payload = recomputeFloral(remaining, valueMap);
+    // Chain-deduced exact serials still in packs (every transfer = that serial
+    // left a pack) -> exact #1/#last/#jersey hit status + self-maintaining counts.
+    const runBy = {}; for (const v of vrows) runBy[v.sku_base] = v.run;
+    const getRows = async (p) => (await fetch(`${SB_URL}/rest/v1/${p}`, { headers: H })).json();
+    let inPacks = null;
+    try { inPacks = await inPacksBySku(getRows, Object.keys(valueMap), runBy); } catch (e) { inPacks = null; }
+    const payload = recomputeFloral(remaining, valueMap, inPacks);
 
     const cur = await (await fetch(`${SB_URL}/rest/v1/floral_snapshots?select=id&published=eq.true&order=computed_at.desc&limit=1`, { headers: H })).json();
     if (!Array.isArray(cur) || !cur.length) return resp(409, { error: "no published floral snapshot yet (run migration 009 + publish)" });

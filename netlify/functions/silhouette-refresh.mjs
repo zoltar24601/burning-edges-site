@@ -10,6 +10,7 @@
 // ============================================================
 import { recomputeSilhouette } from "../../tools/silhouette-recompute.mjs";
 import { repriceSil } from "../../tools/silhouette-reprice.mjs";
+import { reconciledRemainingByFilter } from "../../tools/chain-serials.mjs";
 import staticMap from "../../tools/silhouette-values.json";
 
 export const config = { schedule: "@hourly" };
@@ -50,9 +51,14 @@ export default async () => {
       if (feed.length) await fetch(`${SB_URL}/rest/v1/price_changes`, { method: "POST", headers: { ...H, Prefer: "return=minimal" }, body: JSON.stringify(feed) });
     }
 
-    // 4) recompute snapshot from LIVE remaining + the (repriced) values
-    const remaining = {};
-    (await getAll(`card_remaining?product=eq.${PRODUCT}&select=sku_base,remaining`)).forEach(r => remaining[r.sku_base] = r.remaining);
+    // 4) recompute snapshot from LIVE remaining + the (repriced) values.
+    // Remaining = chain deduction (serials transferred) reconciled with card_remaining.
+    const cardRem = {};
+    (await getAll(`card_remaining?product=eq.${PRODUCT}&select=sku_base,remaining`)).forEach(r => cardRem[r.sku_base] = r.remaining);
+    const runBy = {}; for (const v of vrows) runBy[v.sku_base] = v.run;
+    let remaining;
+    try { remaining = await reconciledRemainingByFilter(getAll, EV_FILTER, runBy, cardRem); }
+    catch (e) { remaining = cardRem; }
     const valueMap = {};
     for (const v of vrows) valueMap[v.sku_base] = { v: newValues[v.sku_base] ? newValues[v.sku_base].value : Number(v.value), cs: v.cardset, a: v.athlete, r: v.run, base: v.slot === "base" };
     const cur = await (await fetch(`${SB_URL}/rest/v1/silhouette_snapshots?select=id,payload&published=eq.true&order=computed_at.desc&limit=1`, { headers: H })).json();

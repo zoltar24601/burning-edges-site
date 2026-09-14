@@ -35,12 +35,45 @@ const priceSerial = (sn, run, v, a) => {
   return { p: v, lbl: "#" + sn, kind: "known" };
 };
 
-export function recomputeFloral(remaining, valueMap) {
+export function recomputeFloral(remaining, valueMap, inPacksBySku = null) {
   const par = {}; let num = 0, den = 0; const hits = [];
   for (const [k, info] of Object.entries(valueMap)) {
+    const v = info.v, run = info.r, s = info.cs;
+
+    // CHAIN-DEDUCED exact serials still in packs (supersedes the manual map +
+    // the count-only fallback): status of #1/#last/#jersey is exact, and the book
+    // counts each surviving serial at its true value (premium serials worth more).
+    const inPacks = inPacksBySku && inPacksBySku[k] ? inPacksBySku[k] : null;
+    if (inPacks) {
+      if (!inPacks.length) continue;
+      if (!par[s]) par[s] = { cardset: s, run, uncl: 0, valSum: 0 };
+      const inSet = new Set(inPacks);
+      const specials = [];
+      if (v >= SPECIAL_MIN) {
+        const addS = (sn, lbl, mult) => { if (sn >= 1 && sn <= run && !specials.some(x => x.sn === sn)) specials.push({ sn, lbl, p: Math.round(v * mult) }); };
+        addS(1, "#1", FIRST_MULT); addS(run, "#" + run + " (last)", LAST_MULT);
+        const jn = JERSEY[info.a]; if (jn != null) addS(jn, "#" + jn + " (jersey)", JERSEY_MULT);
+      }
+      const specialSns = new Set(specials.map(x => x.sn));
+      let sum = 0;
+      for (const sp of specials) {
+        const inp = inSet.has(sp.sn);
+        hits.push({ c: info.a, s, r: run, sn: sp.sn, lbl: sp.lbl, u: 1, p: sp.p, kind: "special", st: inp ? "in packs" : "hit" });
+        if (inp) sum += sp.p;
+      }
+      const normals = inPacks.filter(sn => !specialSns.has(sn));
+      if (normals.length && normals.length <= 4) {
+        for (const sn of normals) hits.push({ c: info.a, s, r: run, sn, lbl: "#" + sn, u: 1, p: v, kind: "known", st: "in packs" });
+      } else if (normals.length && v >= CHASE_MIN) {
+        hits.push({ c: info.a, s, r: run, lbl: "normal", u: normals.length, p: v, kind: "normal" });
+      }
+      sum += v * normals.length;
+      par[s].uncl += inPacks.length; par[s].valSum += sum; num += sum; den += inPacks.length;
+      continue;
+    }
+
     const u = remaining[k] || 0;
     if (u <= 0) continue;
-    const v = info.v, run = info.r, s = info.cs;
     if (!par[s]) par[s] = { cardset: s, run, uncl: 0, valSum: 0 };
 
     const known = KNOWN_SERIALS[info.a + "|" + s];
