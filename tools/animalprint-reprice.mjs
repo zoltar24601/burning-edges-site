@@ -12,13 +12,16 @@
 // ============================================================
 const DAY = 86400000;
 const med = a => { a = [...a].sort((x, y) => x - y); return a.length ? a[Math.floor(a.length / 2)] : 0; };
-const ord = s => Number(s.run) <= 1 ? true : (s.serial !== 1 && s.serial < s.run - 1 && !/perfect mint|jersey mint/i.test(s.tags || ""));
+// ONLY #1 (first) and #run (last) are premium serials; every other serial --
+// including #19 of /20 -- is ordinary. (Was `serial < run-1`, an off-by-one that
+// wrongly treated the last TWO serials as premium.)
+const ord = s => Number(s.run) <= 1 ? true : (s.serial !== 1 && s.serial !== Number(s.run) && !/perfect mint|jersey mint/i.test(s.tags || ""));
 // A #1 or last-serial sale is a PREMIUM (grail serial), normally excluded from
 // the ordinary value. But when it's the ONLY signal we have, John's rule: use
 // ~1/3 of that premium price as the normal-serial value (else the card sits at
 // its stale seed while a real -- if premium -- sale exists on-chain).
 const PREMIUM_TO_NORMAL = 1 / 3;
-const isPremium = s => Number(s.run) > 1 && (s.serial === 1 || s.serial >= Number(s.run) - 1);
+const isPremium = s => Number(s.run) > 1 && (s.serial === 1 || s.serial === Number(s.run));
 // Giraffe and Elephant are the SAME /20 rarity, so they price EQUALLY per
 // player -- we pool both parallels' sales by athlete (a sale of either moves
 // both). Owner floors keep a card from a sale dragging it below its anchor

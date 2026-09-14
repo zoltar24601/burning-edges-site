@@ -12,13 +12,14 @@
 // ============================================================
 const DAY = 86400000;
 const med = a => { a = [...a].sort((x, y) => x - y); return a.length ? a[Math.floor(a.length / 2)] : 0; };
-const ord = s => Number(s.run) <= 1 ? true : (s.serial !== 1 && s.serial < s.run - 1 && !/perfect mint|jersey mint/i.test(s.tags || ""));
+// ONLY #1 (first) and #run (last) are premium; every other serial is ordinary.
+const ord = s => Number(s.run) <= 1 ? true : (s.serial !== 1 && s.serial !== Number(s.run) && !/perfect mint|jersey mint/i.test(s.tags || ""));
 // A #1 or last-serial sale is a PREMIUM (grail serial), normally excluded from
 // the ordinary value. When it's the ONLY signal, John's rule: use ~1/3 of that
 // premium price as the normal-serial value (e.g. Messi Plum #1 sold $2,650 with
 // no mid-serial sales -> normal ~ $883, instead of sitting at the stale seed).
 const PREMIUM_TO_NORMAL = 1 / 3;
-const isPremium = s => Number(s.run) > 1 && (s.serial === 1 || s.serial >= Number(s.run) - 1);
+const isPremium = s => Number(s.run) > 1 && (s.serial === 1 || s.serial === Number(s.run));
 // OWNER FLOORS / manual anchors, keyed "athlete|parallel". A value never prices
 // below its floor (this is also where standing global-offer floors will live
 // once we read them). Messi Plum: only sale is his #1 ($2,650 -> 1/3 = $883),
