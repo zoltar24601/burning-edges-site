@@ -19,12 +19,17 @@ const ord = s => Number(s.run) <= 1 ? true : (s.serial !== 1 && s.serial < s.run
 // its stale seed while a real -- if premium -- sale exists on-chain).
 const PREMIUM_TO_NORMAL = 1 / 3;
 const isPremium = s => Number(s.run) > 1 && (s.serial === 1 || s.serial >= Number(s.run) - 1);
+// Giraffe and Elephant are the SAME /20 rarity, so they price EQUALLY per
+// player -- we pool both parallels' sales by athlete (a sale of either moves
+// both). Owner floors keep a card from a sale dragging it below its anchor
+// (e.g. Messi: a #1 Elephant sale shouldn't cut ordinary below his $1,600).
+const OWNER_FLOORS = { "Lionel Messi": 1600 };
 
 export function repriceAnimalPrint(values, sales, opts = {}) {
   const now = opts.now || Date.now();
   const buckets = {}, premBuckets = {};
   for (const s of sales) {
-    const key = s.athlete + "|" + s.parallel;
+    const key = s.athlete;   // pool Giraffe + Elephant together -> equal price
     if (ord(s)) (buckets[key] = buckets[key] || []).push(s);
     else if (isPremium(s)) (premBuckets[key] = premBuckets[key] || []).push(s);
   }
@@ -39,12 +44,14 @@ export function repriceAnimalPrint(values, sales, opts = {}) {
 
   const newValues = {}, moves = [];
   for (const v of values) {
-    const key = v.athlete + "|" + v.cardset;
+    const key = v.athlete;   // both parallels keyed by athlete -> same value
     const cur = Number(v.value);
     let nv = cur, src = "hold";
     const mkt = marketValue(key);
     if (mkt != null) { nv = Math.round(mkt); src = "market"; }        // real ordinary sales win
     else { const pn = premiumNormalValue(key); if (pn != null) { nv = pn; src = "premium/3"; } }  // else 1/3 of a #1-only sale
+    const floor = OWNER_FLOORS[v.athlete];
+    if (floor != null && nv < floor) { nv = floor; src = src === "hold" ? "floor" : src + "+floor"; }
     newValues[v.sku_base] = { value: nv, src };
     if (nv !== cur) moves.push({ sku_base: v.sku_base, athlete: v.athlete, cardset: v.cardset, run: v.run, old: cur, new: nv, src });
   }
