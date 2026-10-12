@@ -4,7 +4,19 @@
 
 **Site:** burningedgesdfs.com (Netlify static, drag-drop deploy) · **Repo:** `zoltar24601/burning-edges-site` · **Backend:** Supabase · **Stack:** vanilla HTML/CSS/JS · **Owner:** John
 
-**Last updated:** 2026-09-14
+**Last updated:** 2026-10-12
+
+---
+
+## 2026-10-12 — 2022 Prizm WC BP-store pack baseline + site lock (NOT YET DEPLOYED)
+
+- **Why:** The 2026 FIFA WC Sticker pack's price is driven by its block-point dividend = (BP earned/pack ÷ 100) × EV(2022 Prizm WC BP-store pack). So we needed EV of the pack you burn for.
+- **Pack (confirmed from on-site pack-content panel):** 3 cards = 2 Base #/1399 + 1 hit (Parallel/Insert/Auto, #/149 or less, from a 62-cardset pool). Chain prefix `packcard-1733`.
+- **Supply (from `Panini_Collection_Report_2022...Prizm FIFA World Cup Soccer.csv`, UNCLAIMED = sealed-in-pack):** 71,222 base + 35,649 hits = **35,611 packs remaining**, $2.49M sealed value.
+- **Baseline PACK EV = $69.80** (base $6.91 ×2 + hit $55.98). Engine `tools/prizmwc22-recompute.mjs` validated end-to-end against `tools/prizmwc22-values.json` (4,766 cards).
+- **Pricing method = scarcity-calibrated run ladder × player-tier multiplier, with real-sale overrides** (Messi/Ronaldo/Mbappe Gold/Black/Nebula/Zebra). KNOB to refine: common-player floors on scarce parallels (Zebra /5, Gold /10, Silver /149) are estimates — calibrate against actual packcard-1733 chain sales next.
+- **Note:** Messi's top cards (Base Gold, Black 1/1, Nebula, Zebra) mostly already opened (unclaimed=0); remaining chase led by Ronaldo Base Gold ($20k, 4 left), Mbappe Base Gold ($15k, 3 left), Black 1/1 inserts.
+- **Site lock:** `netlify/edge-functions/site-gate.js` — Basic-Auth gate on `/*`, fails closed, reads `SITE_PASSWORD` env (user `edges`). Needs the env var set in Netlify before deploy. Nothing pushed yet.
 
 ---
 
