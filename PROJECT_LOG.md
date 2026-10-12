@@ -17,7 +17,10 @@
 - **KEY INSIGHT:** card-EV ($16) is ~4× BELOW the pack's market price ($61.89 avg sale / $89 floor). These packs trade on **block-point utility + grail lottery**, not card value. So the sticker dividend should anchor to the WC pack's MARKET price (~$62–89 per 100 BP ≈ $0.60–0.90/BP), NOT the $16 card-EV.
 - **Top sealed chase:** Mbappe Base Gold /10 $30k (×3), Ronaldo Base Gold /10 $28.1k (×4), then Messi Blue/Scorers Gold, star Black 1/1s. 32 cards ≥ $500.
 - **Site lock LIVE:** `netlify/edge-functions/site-gate.js` — Basic-Auth gate on `/*`, user `edges` + `SITE_PASSWORD` Netlify env. Confirmed 401 on burningedgesdfs.com. Scheduled refresh fns + chain poller unaffected.
-- **NEXT:** price the 2026 FIFA WC Sticker pack = sticker-card EV + BP dividend (BP/pack ÷ 100 × WC pack market price). Sticker collection report drops ~Wed.
+- **NEXT — 2026 FIFA WC Sticker pack ($8, 160,320 packs). HELD: no sticker checklist yet (drops ~Wed).** Pack = 5 stickers: 3 Base Silver /501 + 2 non-Silver (Blue /269 · Red /49 · Gold /10 · Green /5 · Black 1/1). Value = sticker-card EV + BP dividend.
+  - **BP dividend = ~28 BP/pack ÷ 100 × (WC pack value).** Mechanics (from announcement): burn a common = 10 BP (50% limit); 100 BP buys a pack; 34,075 WC packs going to the BP store at 100 BP; Panini says ~30 BP burnable/pack → "every 3-4 packs = 1 BP pack" → ~28 BP realized.
+  - **Use WC card-EV (~$16), NOT current market ($62-89):** the 34,075-pack BP-store flood compresses WC pack price toward card-EV. So durable dividend ≈ **~$4.50/sticker pack**.
+  - **TODO when checklist lands:** sticker-card EV by comping sticker parallels (Silver /501…Black 1/1) to the 2026 WC base set's same parallels (`burning_edges_sales_db.json`), discounted for stickers-vs-cards. Then $8-pack value = sticker-EV + ~$4.50.
 
 ---
 
