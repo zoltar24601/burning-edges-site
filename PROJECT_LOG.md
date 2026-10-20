@@ -32,6 +32,7 @@
 - **Baseline PACK EV ≈ $13.70–16.91** (vs $8 price) depending on scrub Blue ($1–3, unbid). Assumed scrubs: Red $4, Gold $12, Green $20, Black $30. Silvers ≈ $9/pack on their own. Chase is negligible to EV (Black hits 0.3% of slots).
 - **Risks/levers:** 50% burn cap (late Silvers may lose burn floor); scrub Blue value; star Silvers under-bid pre-release (+~$1/pack max).
 - **NEXT:** re-pull offers as they build through release week (expected to rise) and refresh the EV.
+- **Re-pull (2026-10-20, later same day):** same 30 cards >$3, no new names, scrub Blue/Red/Gold/Green still unbid. Stars jumped: Yamal Black $10k->$15k, Messi Black $11,111->$12k, Messi Gold $1k->$2k, Yamal Gold $750->$1,500, Messi/Yamal Green $200->$2,000. Pack EV $13.95-17.17 (+$0.26) -- chase moves barely touch EV; the $3 Silver floor + scrub Blue still drive it. Prior pulls kept in `history` in the offers file.
 
 ---
 
