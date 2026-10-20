@@ -22,6 +22,17 @@
   - **Use WC card-EV (~$16), NOT current market ($62-89):** the 34,075-pack BP-store flood compresses WC pack price toward card-EV. So durable dividend ≈ **~$4.50/sticker pack**.
   - **TODO when checklist lands:** sticker-card EV by comping sticker parallels (Silver /501…Black 1/1) to the 2026 WC base set's same parallels (`burning_edges_sales_db.json`), discounted for stickers-vs-cards. Then $8-pack value = sticker-EV + ~$4.50.
 
+## 2026-10-20 — Sticker pack BASELINE from live pre-release offers (pack live ~2026-10-26)
+
+- **Checklist:** 960 subjects × 6 parallels (Silver /501, Blue /269, Red /49, Gold /10, Green /5, Black 1/1). Chain prefix **`packcard-850180`**; cardset IDs in card URLs: 100 Silver · 110 Blue · 120 Red · 130 Gold · 140 Green · 150 Black (e.g. `marketplace-details/packcard-850180_130_37.html` = Messi Gold).
+- **Pack:** 3 Silver + 2 non-Silver; hit-slot odds by supply = Blue 80.5% · Red 14.7% · Gold 3.0% · Green 1.5% · Black 0.3%.
+- **OFFERS ARE NOT ON-CHAIN** (tested live 2026-10-20: John placed a $1k offer; no new block referenced it; 2,800-tx scan had zero offer actions; explorer API only exposes `/blocks`). An offer hits the chain only if accepted (as `transfer_product`). Source of truth = marketplace full checklist: `collection-details?sport=SOCCER&year=2026&cname=2026 Panini NFT Prizm FIFA World Cup Stickers&tab=allnfts&sortBy=bestOfferH` (read in-browser; the underlying `userCollectionAllNftV2` GraphQL query 403s when replayed directly).
+- **Key rule (John):** every common (Silver) is worth **≥ $3** — burns for 10 BP, 100 BP buys a 2022 WC pack. Confirmed: blanket $3 bids on all Silvers. This $3 floor IS the BP dividend — do not add the dividend again.
+- **Live bids >$3 (only ~28 cards):** Messi Black $11,111 · Yamal Black $10k · Mbappe Black $5k · Messi/Yamal/Mbappe Gold $1,000/$750/$550 · Haaland Black $500 · scrub Black 1/1s $23–200 · Messi/Yamal Silver $11/$10. Saved in `data/stickers26-offers.json`.
+- **Baseline PACK EV ≈ $13.70–16.91** (vs $8 price) depending on scrub Blue ($1–3, unbid). Assumed scrubs: Red $4, Gold $12, Green $20, Black $30. Silvers ≈ $9/pack on their own. Chase is negligible to EV (Black hits 0.3% of slots).
+- **Risks/levers:** 50% burn cap (late Silvers may lose burn floor); scrub Blue value; star Silvers under-bid pre-release (+~$1/pack max).
+- **NEXT:** re-pull offers as they build through release week (expected to rise) and refresh the EV.
+
 ---
 
 ## How to use this doc

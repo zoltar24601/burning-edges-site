@@ -1,0 +1,196 @@
+{
+ "source": "nft.paniniamerica.net collection-details sortBy=bestOfferH",
+ "pulled": "2026-10-20",
+ "prefix": "packcard-850180",
+ "cardset_ids": {
+  "100": "Silver",
+  "110": "Blue",
+  "120": "Red",
+  "130": "Gold",
+  "140": "Green",
+  "150": "Black"
+ },
+ "silver_blanket_bid": 3,
+ "offers_gt3": [
+  {
+   "a": "Lionel Messi",
+   "p": "Black",
+   "run": 1,
+   "offer": 11111
+  },
+  {
+   "a": "Lamine Yamal",
+   "p": "Black",
+   "run": 1,
+   "offer": 10000
+  },
+  {
+   "a": "Kylian Mbappe",
+   "p": "Black",
+   "run": 1,
+   "offer": 5000
+  },
+  {
+   "a": "Lionel Messi",
+   "p": "Gold",
+   "run": 10,
+   "offer": 1000
+  },
+  {
+   "a": "Lamine Yamal",
+   "p": "Gold",
+   "run": 10,
+   "offer": 750
+  },
+  {
+   "a": "Kylian Mbappe",
+   "p": "Gold",
+   "run": 10,
+   "offer": 550
+  },
+  {
+   "a": "Erling Haaland",
+   "p": "Black",
+   "run": 1,
+   "offer": 500
+  },
+  {
+   "a": "England Team Badge",
+   "p": "Black",
+   "run": 1,
+   "offer": 200
+  },
+  {
+   "a": "Lionel Messi",
+   "p": "Green",
+   "run": 5,
+   "offer": 200
+  },
+  {
+   "a": "Lamine Yamal",
+   "p": "Green",
+   "run": 5,
+   "offer": 200
+  },
+  {
+   "a": "Korea Republic",
+   "p": "Black",
+   "run": 1,
+   "offer": 150
+  },
+  {
+   "a": "Kevin De Bruyne",
+   "p": "Black",
+   "run": 1,
+   "offer": 100
+  },
+  {
+   "a": "Germany Team Badge",
+   "p": "Black",
+   "run": 1,
+   "offer": 100
+  },
+  {
+   "a": "Brazil Team Badge",
+   "p": "Black",
+   "run": 1,
+   "offer": 100
+  },
+  {
+   "a": "Cristiano Ronaldo",
+   "p": "Green",
+   "run": 5,
+   "offer": 100
+  },
+  {
+   "a": "Bukayo Saka",
+   "p": "Black",
+   "run": 1,
+   "offer": 50
+  },
+  {
+   "a": "Korea Republic Team Badge",
+   "p": "Black",
+   "run": 1,
+   "offer": 50
+  },
+  {
+   "a": "Ivory Coast Team Badge",
+   "p": "Black",
+   "run": 1,
+   "offer": 45
+  },
+  {
+   "a": "Alex Freeman",
+   "p": "Black",
+   "run": 1,
+   "offer": 40
+  },
+  {
+   "a": "Yan Diomande",
+   "p": "Green",
+   "run": 5,
+   "offer": 40
+  },
+  {
+   "a": "Alexander Sorloth",
+   "p": "Black",
+   "run": 1,
+   "offer": 35
+  },
+  {
+   "a": "Achraf Hakimi",
+   "p": "Black",
+   "run": 1,
+   "offer": 32
+  },
+  {
+   "a": "Lionel Messi",
+   "p": "Red",
+   "run": 49,
+   "offer": 25
+  },
+  {
+   "a": "Alan Franco",
+   "p": "Black",
+   "run": 1,
+   "offer": 23
+  },
+  {
+   "a": "Lamine Yamal",
+   "p": "Red",
+   "run": 49,
+   "offer": 20
+  },
+  {
+   "a": "Lionel Messi",
+   "p": "Silver",
+   "run": 501,
+   "offer": 11
+  },
+  {
+   "a": "Liam Millar",
+   "p": "Red",
+   "run": 49,
+   "offer": 10
+  },
+  {
+   "a": "Lamine Yamal",
+   "p": "Blue",
+   "run": 269,
+   "offer": 10
+  },
+  {
+   "a": "Lionel Messi",
+   "p": "Blue",
+   "run": 269,
+   "offer": 10
+  },
+  {
+   "a": "Lamine Yamal",
+   "p": "Silver",
+   "run": 501,
+   "offer": 10
+  }
+ ]
+}
