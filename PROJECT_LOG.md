@@ -34,6 +34,15 @@
 - **NEXT:** re-pull offers as they build through release week (expected to rise) and refresh the EV.
 - **Re-pull (2026-10-20, later same day):** same 30 cards >$3, no new names, scrub Blue/Red/Gold/Green still unbid. Stars jumped: Yamal Black $10k->$15k, Messi Black $11,111->$12k, Messi Gold $1k->$2k, Yamal Gold $750->$1,500, Messi/Yamal Green $200->$2,000. Pack EV $13.95-17.17 (+$0.26) -- chase moves barely touch EV; the $3 Silver floor + scrub Blue still drive it. Prior pulls kept in `history` in the offers file.
 
+## 2026-10-20 — 2022 Mosaic Road to World Cup pack priced (Spend Promo reward pack)
+
+- **Pack:** 3 cards = 2 Base + 1 hit (Parallel/Insert/Auto, 40-cardset pool). Chain prefix `packcard-1605`. Being given out as Spend Promo rewards (announcement: 15,200 used this promo, ~42,478 left for future promos/airdrops).
+- **Packs remaining = cards in packs / 3 (John's rule):** 177,468 / 3 = **59,156** (cross-checks: 118,312 base / 2 = 59,156 = hits).
+- **PACK EV = $14.38** (base $2.86 x2 + hit $8.66); $851k total sealed value. Rebuild: `python tools/mosaicrtwc22-build.py` -> `tools/mosaicrtwc22-values.json`, `data/mosaicrtwc22-remaining.json`.
+- **Pricing rule (John): 2026 prices only** -- older sales ignored. Sources: 394 chain sales Aug-Oct 2026 (`data/mosaicrtwc22-sales.json`; ~1/4 of per-card lookups timed out server-side), John's pasted 2026 sales, scrub cap. Mosaic commons clear $1-2 in 2026; scrub Base Mosaic Gold ~$5; nothing >$100 on chain Aug-Oct.
+- **Sealed grails (John's values):** Haaland debut Base Mosaic Black 1/1 **$100k**, Messi Base Mosaic Black 1/1 **$50k**, Haaland Pitch Masters Black 1/1 **$25k**, Messi Base Mosaic Gold /10 $10k (x2), Haaland Base Mosaic Gold $7k (x3, sold $7k May-26), Mbappe & Ronaldo Base Mosaic Gold $5k (x5, x7). Claude-proposed, unobjected: Haaland Pitch Masters/Breakaway Gold $1.5k, Ronaldo Autos Gold $800, Ronaldo Breakaway Gold $600, Neymar Base Gold $400.
+- **Note:** grail tail drives EV -- the three 1/1s alone are ~$2.96/pack ($175k / 59,156).
+
 ---
 
 ## How to use this doc
