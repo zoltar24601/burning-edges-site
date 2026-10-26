@@ -1,0 +1,146 @@
+{
+ "note": "airdrop sales 2026-10-23..26 (John's paste). ~130 more scrub Silver sales at exactly $3 (normal serials) not listed individually.",
+ "scrub_silver_sales_at_3": 130,
+ "sales": [
+  {
+   "a": "Jude Bellingham",
+   "p": "Green",
+   "serial": 1,
+   "run": 5,
+   "price": 200,
+   "date": "2026-10-25",
+   "tags": "number 1",
+   "premium": true
+  },
+  {
+   "a": "Lionel Messi",
+   "p": "Blue",
+   "serial": 168,
+   "run": 269,
+   "price": 50,
+   "date": "2026-10-24",
+   "tags": "",
+   "premium": false
+  },
+  {
+   "a": "Cole Palmer",
+   "p": "Gold",
+   "serial": 4,
+   "run": 10,
+   "price": 40,
+   "date": "2026-10-23",
+   "tags": "",
+   "premium": false
+  },
+  {
+   "a": "Lionel Messi",
+   "p": "Silver",
+   "serial": 258,
+   "run": 501,
+   "price": 30,
+   "date": "2026-10-23",
+   "tags": "",
+   "premium": false
+  },
+  {
+   "a": "Kylian Mbappe",
+   "p": "Silver",
+   "serial": 285,
+   "run": 501,
+   "price": 10,
+   "date": "2026-10-24",
+   "tags": "",
+   "premium": false
+  },
+  {
+   "a": "Qatar Team Badge",
+   "p": "Blue",
+   "serial": 1,
+   "run": 269,
+   "price": 10,
+   "date": "2026-10-23",
+   "tags": "number 1",
+   "premium": true
+  },
+  {
+   "a": "Morteza Pouraliganji",
+   "p": "Green",
+   "serial": 4,
+   "run": 5,
+   "price": 8,
+   "date": "2026-10-26",
+   "tags": "",
+   "premium": false
+  },
+  {
+   "a": "Argentina Team Badge",
+   "p": "Red",
+   "serial": 46,
+   "run": 49,
+   "price": 4,
+   "date": "2026-10-24",
+   "tags": "",
+   "premium": false
+  },
+  {
+   "a": "Portugal Team Badge",
+   "p": "Silver",
+   "serial": 119,
+   "run": 501,
+   "price": 4,
+   "date": "2026-10-24",
+   "tags": "",
+   "premium": false
+  },
+  {
+   "a": "Kylian Mbappe",
+   "p": "Silver",
+   "serial": 285,
+   "run": 501,
+   "price": 4,
+   "date": "2026-10-23",
+   "tags": "",
+   "premium": false
+  },
+  {
+   "a": "Yan Diomande",
+   "p": "Silver",
+   "serial": 291,
+   "run": 501,
+   "price": 4,
+   "date": "2026-10-23",
+   "tags": "",
+   "premium": false
+  },
+  {
+   "a": "Diney",
+   "p": "Red",
+   "serial": 1,
+   "run": 49,
+   "price": 4,
+   "date": "2026-10-23",
+   "tags": "number 1",
+   "premium": true
+  },
+  {
+   "a": "Johan Manzambi",
+   "p": "Silver",
+   "serial": 63,
+   "run": 501,
+   "price": 4,
+   "date": "2026-10-23",
+   "tags": "",
+   "premium": false
+  },
+  {
+   "a": "Shojae Khalilzadeh",
+   "p": "Silver",
+   "serial": 501,
+   "run": 501,
+   "price": 3,
+   "date": "2026-10-25",
+   "tags": "perfect mint",
+   "premium": true
+  }
+ ]
+}

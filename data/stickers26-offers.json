@@ -1,6 +1,6 @@
 {
  "source": "nft.paniniamerica.net collection-details sortBy=bestOfferH",
- "pulled": "2026-10-20",
+ "pulled": "2026-10-26",
  "prefix": "packcard-850180",
  "cardset_ids": {
   "100": "Silver",
@@ -13,184 +13,1103 @@
  "silver_blanket_bid": 3,
  "offers_gt3": [
   {
-   "a": "Lamine Yamal",
-   "p": "Black",
-   "run": 1,
-   "offer": 15000
-  },
-  {
    "a": "Lionel Messi",
    "p": "Black",
    "run": 1,
+   "floor": null,
+   "offer": 12000
+  },
+  {
+   "a": "Lamine Yamal",
+   "p": "Black",
+   "run": 1,
+   "floor": null,
    "offer": 12000
   },
   {
    "a": "Kylian Mbappe",
    "p": "Black",
    "run": 1,
-   "offer": 5000
+   "floor": null,
+   "offer": 2000
   },
   {
    "a": "Lionel Messi",
    "p": "Green",
    "run": 5,
+   "floor": null,
    "offer": 2000
   },
   {
    "a": "Lamine Yamal",
    "p": "Green",
    "run": 5,
+   "floor": null,
    "offer": 2000
   },
   {
    "a": "Lionel Messi",
    "p": "Gold",
    "run": 10,
+   "floor": null,
    "offer": 2000
   },
   {
    "a": "Lamine Yamal",
    "p": "Gold",
    "run": 10,
+   "floor": null,
    "offer": 1500
   },
   {
    "a": "Kylian Mbappe",
    "p": "Gold",
    "run": 10,
+   "floor": null,
    "offer": 550
   },
   {
    "a": "Erling Haaland",
    "p": "Black",
    "run": 1,
+   "floor": null,
    "offer": 500
+  },
+  {
+   "a": "Michael Olise",
+   "p": "Black",
+   "run": 1,
+   "floor": null,
+   "offer": 251
+  },
+  {
+   "a": "Jude Bellingham",
+   "p": "Black",
+   "run": 1,
+   "floor": null,
+   "offer": 201
   },
   {
    "a": "England Team Badge",
    "p": "Black",
    "run": 1,
+   "floor": null,
    "offer": 200
+  },
+  {
+   "a": "Desire Doue",
+   "p": "Black",
+   "run": 1,
+   "floor": null,
+   "offer": 200
+  },
+  {
+   "a": "Ousmane Dembele",
+   "p": "Black",
+   "run": 1,
+   "floor": null,
+   "offer": 150
   },
   {
    "a": "Korea Republic",
    "p": "Black",
    "run": 1,
+   "floor": null,
    "offer": 150
+  },
+  {
+   "a": "Harry Kane",
+   "p": "Black",
+   "run": 1,
+   "floor": null,
+   "offer": 120
   },
   {
    "a": "Cristiano Ronaldo",
    "p": "Green",
    "run": 5,
-   "offer": 110
+   "floor": null,
+   "offer": 111
   },
   {
    "a": "Germany Team Badge",
    "p": "Black",
    "run": 1,
+   "floor": null,
    "offer": 100
   },
   {
    "a": "Brazil Team Badge",
    "p": "Black",
    "run": 1,
+   "floor": null,
+   "offer": 100
+  },
+  {
+   "a": "Bradley Barcola",
+   "p": "Black",
+   "run": 1,
+   "floor": null,
    "offer": 100
   },
   {
    "a": "Kevin De Bruyne",
    "p": "Black",
    "run": 1,
+   "floor": null,
    "offer": 100
+  },
+  {
+   "a": "Franco Mastantuono",
+   "p": "Green",
+   "run": 5,
+   "floor": 699,
+   "offer": 100
+  },
+  {
+   "a": "Lionel Messi",
+   "p": "Red",
+   "run": 49,
+   "floor": null,
+   "offer": 100
+  },
+  {
+   "a": "Lionel Messi",
+   "p": "Silver",
+   "run": 501,
+   "floor": 499,
+   "offer": 100
+  },
+  {
+   "a": "Kylian Mbappe",
+   "p": "Green",
+   "run": 5,
+   "floor": null,
+   "offer": 80
+  },
+  {
+   "a": "Nico Paz",
+   "p": "Black",
+   "run": 1,
+   "floor": null,
+   "offer": 77
+  },
+  {
+   "a": "Cristiano Ronaldo",
+   "p": "Gold",
+   "run": 10,
+   "floor": null,
+   "offer": 77
+  },
+  {
+   "a": "Hugo Ekitike",
+   "p": "Black",
+   "run": 1,
+   "floor": null,
+   "offer": 75
+  },
+  {
+   "a": "Nico Williams",
+   "p": "Black",
+   "run": 1,
+   "floor": null,
+   "offer": 75
+  },
+  {
+   "a": "Julian Alvarez",
+   "p": "Black",
+   "run": 1,
+   "floor": null,
+   "offer": 75
+  },
+  {
+   "a": "Ferran Torres",
+   "p": "Black",
+   "run": 1,
+   "floor": null,
+   "offer": 70
+  },
+  {
+   "a": "Spain",
+   "p": "Black",
+   "run": 1,
+   "floor": null,
+   "offer": 65
+  },
+  {
+   "a": "Pedri",
+   "p": "Black",
+   "run": 1,
+   "floor": null,
+   "offer": 50
+  },
+  {
+   "a": "Franco Mastantuono",
+   "p": "Black",
+   "run": 1,
+   "floor": null,
+   "offer": 50
   },
   {
    "a": "Bukayo Saka",
    "p": "Black",
    "run": 1,
+   "floor": null,
+   "offer": 50
+  },
+  {
+   "a": "Estevao",
+   "p": "Black",
+   "run": 1,
+   "floor": null,
+   "offer": 50
+  },
+  {
+   "a": "Florian Wirtz",
+   "p": "Black",
+   "run": 1,
+   "floor": null,
+   "offer": 50
+  },
+  {
+   "a": "Jamal Musiala",
+   "p": "Black",
+   "run": 1,
+   "floor": null,
+   "offer": 50
+  },
+  {
+   "a": "Kang-in Lee",
+   "p": "Black",
+   "run": 1,
+   "floor": null,
    "offer": 50
   },
   {
    "a": "Korea Republic Team Badge",
    "p": "Black",
    "run": 1,
+   "floor": null,
    "offer": 50
+  },
+  {
+   "a": "Argentina",
+   "p": "Black",
+   "run": 1,
+   "floor": null,
+   "offer": 50
+  },
+  {
+   "a": "Rodri",
+   "p": "Black",
+   "run": 1,
+   "floor": null,
+   "offer": 50
+  },
+  {
+   "a": "Cole Palmer",
+   "p": "Gold",
+   "run": 10,
+   "floor": 150,
+   "offer": 50
+  },
+  {
+   "a": "Vinicius Junior",
+   "p": "Gold",
+   "run": 10,
+   "floor": 499,
+   "offer": 50
+  },
+  {
+   "a": "Michael Olise",
+   "p": "Gold",
+   "run": 10,
+   "floor": null,
+   "offer": 50
+  },
+  {
+   "a": "Jude Bellingham",
+   "p": "Gold",
+   "run": 10,
+   "floor": null,
+   "offer": 50
+  },
+  {
+   "a": "Lamine Yamal",
+   "p": "Red",
+   "run": 49,
+   "floor": null,
+   "offer": 50
+  },
+  {
+   "a": "Lamine Yamal",
+   "p": "Silver",
+   "run": 501,
+   "floor": 494,
+   "offer": 49
+  },
+  {
+   "a": "Vinicius Junior",
+   "p": "Black",
+   "run": 1,
+   "floor": null,
+   "offer": 45
+  },
+  {
+   "a": "Anthony Gordon",
+   "p": "Black",
+   "run": 1,
+   "floor": null,
+   "offer": 45
   },
   {
    "a": "Ivory Coast Team Badge",
    "p": "Black",
    "run": 1,
+   "floor": null,
    "offer": 45
-  },
-  {
-   "a": "Alex Freeman",
-   "p": "Black",
-   "run": 1,
-   "offer": 40
   },
   {
    "a": "Yan Diomande",
    "p": "Green",
    "run": 5,
+   "floor": null,
+   "offer": 45
+  },
+  {
+   "a": "Declan Rice",
+   "p": "Black",
+   "run": 1,
+   "floor": null,
    "offer": 40
+  },
+  {
+   "a": "Spain Team Badge",
+   "p": "Black",
+   "run": 1,
+   "floor": null,
+   "offer": 40
+  },
+  {
+   "a": "Alex Freeman",
+   "p": "Black",
+   "run": 1,
+   "floor": null,
+   "offer": 40
+  },
+  {
+   "a": "Mikel Oyarzabal",
+   "p": "Black",
+   "run": 1,
+   "floor": null,
+   "offer": 40
+  },
+  {
+   "a": "Michael Olise",
+   "p": "Green",
+   "run": 5,
+   "floor": null,
+   "offer": 40
+  },
+  {
+   "a": "Desire Doue",
+   "p": "Green",
+   "run": 5,
+   "floor": null,
+   "offer": 40
+  },
+  {
+   "a": "Desire Doue",
+   "p": "Gold",
+   "run": 10,
+   "floor": null,
+   "offer": 40
+  },
+  {
+   "a": "Lionel Messi",
+   "p": "Blue",
+   "run": 269,
+   "floor": 999,
+   "offer": 40
+  },
+  {
+   "a": "Fabian Ruiz",
+   "p": "Black",
+   "run": 1,
+   "floor": null,
+   "offer": 35
+  },
+  {
+   "a": "Dani Olmo",
+   "p": "Black",
+   "run": 1,
+   "floor": null,
+   "offer": 35
+  },
+  {
+   "a": "Marc Cucurella",
+   "p": "Black",
+   "run": 1,
+   "floor": null,
+   "offer": 35
   },
   {
    "a": "Alexander Sorloth",
    "p": "Black",
    "run": 1,
+   "floor": null,
+   "offer": 35
+  },
+  {
+   "a": "Ousmane Dembele",
+   "p": "Gold",
+   "run": 10,
+   "floor": null,
+   "offer": 35
+  },
+  {
+   "a": "Lamine Yamal",
+   "p": "Blue",
+   "run": 269,
+   "floor": null,
    "offer": 35
   },
   {
    "a": "Achraf Hakimi",
    "p": "Black",
    "run": 1,
+   "floor": null,
    "offer": 32
   },
   {
-   "a": "Lionel Messi",
-   "p": "Red",
-   "run": 49,
+   "a": "Martin Zubimendi",
+   "p": "Black",
+   "run": 1,
+   "floor": null,
+   "offer": 30
+  },
+  {
+   "a": "Lautaro Martinez",
+   "p": "Black",
+   "run": 1,
+   "floor": null,
+   "offer": 30
+  },
+  {
+   "a": "Dean Huijsen",
+   "p": "Black",
+   "run": 1,
+   "floor": null,
+   "offer": 30
+  },
+  {
+   "a": "Pedro Porro",
+   "p": "Black",
+   "run": 1,
+   "floor": null,
+   "offer": 30
+  },
+  {
+   "a": "Joao Pedro",
+   "p": "Black",
+   "run": 1,
+   "floor": null,
+   "offer": 30
+  },
+  {
+   "a": "Brazil",
+   "p": "Black",
+   "run": 1,
+   "floor": null,
+   "offer": 30
+  },
+  {
+   "a": "Aymeric Laporte",
+   "p": "Black",
+   "run": 1,
+   "floor": null,
+   "offer": 30
+  },
+  {
+   "a": "Ousmane Dembele",
+   "p": "Green",
+   "run": 5,
+   "floor": null,
+   "offer": 30
+  },
+  {
+   "a": "Unai Simon",
+   "p": "Black",
+   "run": 1,
+   "floor": null,
+   "offer": 25
+  },
+  {
+   "a": "Dani Carvajal",
+   "p": "Black",
+   "run": 1,
+   "floor": null,
+   "offer": 25
+  },
+  {
+   "a": "Estevao",
+   "p": "Green",
+   "run": 5,
+   "floor": null,
+   "offer": 25
+  },
+  {
+   "a": "Harry Kane",
+   "p": "Gold",
+   "run": 10,
+   "floor": null,
+   "offer": 25
+  },
+  {
+   "a": "Nico Paz",
+   "p": "Gold",
+   "run": 10,
+   "floor": null,
+   "offer": 25
+  },
+  {
+   "a": "Florian Wirtz",
+   "p": "Gold",
+   "run": 10,
+   "floor": null,
+   "offer": 25
+  },
+  {
+   "a": "Jamal Musiala",
+   "p": "Gold",
+   "run": 10,
+   "floor": null,
+   "offer": 25
+  },
+  {
+   "a": "Erling Haaland",
+   "p": "Gold",
+   "run": 10,
+   "floor": null,
+   "offer": 25
+  },
+  {
+   "a": "Estevao",
+   "p": "Gold",
+   "run": 10,
+   "floor": null,
    "offer": 25
   },
   {
    "a": "Alan Franco",
    "p": "Black",
    "run": 1,
+   "floor": null,
    "offer": 23
   },
   {
-   "a": "Lamine Yamal",
-   "p": "Red",
-   "run": 49,
+   "a": "Enzo Fernandez",
+   "p": "Black",
+   "run": 1,
+   "floor": null,
    "offer": 20
   },
   {
-   "a": "Lionel Messi",
-   "p": "Silver",
-   "run": 501,
-   "offer": 11
+   "a": "Bradley Barcola",
+   "p": "Green",
+   "run": 5,
+   "floor": null,
+   "offer": 20
   },
   {
-   "a": "Liam Millar",
+   "a": "Nico Paz",
+   "p": "Green",
+   "run": 5,
+   "floor": null,
+   "offer": 20
+  },
+  {
+   "a": "Florian Wirtz",
+   "p": "Green",
+   "run": 5,
+   "floor": null,
+   "offer": 20
+  },
+  {
+   "a": "Nico Williams",
+   "p": "Gold",
+   "run": 10,
+   "floor": null,
+   "offer": 20
+  },
+  {
+   "a": "Hugo Ekitike",
+   "p": "Gold",
+   "run": 10,
+   "floor": null,
+   "offer": 20
+  },
+  {
+   "a": "Rodri",
+   "p": "Gold",
+   "run": 10,
+   "floor": null,
+   "offer": 20
+  },
+  {
+   "a": "Kevin De Bruyne",
+   "p": "Gold",
+   "run": 10,
+   "floor": null,
+   "offer": 20
+  },
+  {
+   "a": "Bradley Barcola",
+   "p": "Gold",
+   "run": 10,
+   "floor": null,
+   "offer": 20
+  },
+  {
+   "a": "Thibaut Courtois",
+   "p": "Black",
+   "run": 1,
+   "floor": null,
+   "offer": 15
+  },
+  {
+   "a": "Julian Alvarez",
+   "p": "Green",
+   "run": 5,
+   "floor": null,
+   "offer": 15
+  },
+  {
+   "a": "Jamal Musiala",
+   "p": "Green",
+   "run": 5,
+   "floor": null,
+   "offer": 15
+  },
+  {
+   "a": "Nico Williams",
+   "p": "Green",
+   "run": 5,
+   "floor": null,
+   "offer": 15
+  },
+  {
+   "a": "Hugo Ekitike",
+   "p": "Green",
+   "run": 5,
+   "floor": null,
+   "offer": 15
+  },
+  {
+   "a": "Spain",
+   "p": "Gold",
+   "run": 10,
+   "floor": null,
+   "offer": 15
+  },
+  {
+   "a": "France Team Badge",
+   "p": "Gold",
+   "run": 10,
+   "floor": null,
+   "offer": 15
+  },
+  {
+   "a": "Franco Mastantuono",
+   "p": "Gold",
+   "run": 10,
+   "floor": null,
+   "offer": 15
+  },
+  {
+   "a": "Bukayo Saka",
+   "p": "Gold",
+   "run": 10,
+   "floor": null,
+   "offer": 15
+  },
+  {
+   "a": "Julian Alvarez",
+   "p": "Gold",
+   "run": 10,
+   "floor": null,
+   "offer": 15
+  },
+  {
+   "a": "Spain Team Badge",
+   "p": "Gold",
+   "run": 10,
+   "floor": null,
+   "offer": 15
+  },
+  {
+   "a": "Spain",
+   "p": "Green",
+   "run": 5,
+   "floor": null,
+   "offer": 10
+  },
+  {
+   "a": "Ferran Torres",
+   "p": "Green",
+   "run": 5,
+   "floor": null,
+   "offer": 10
+  },
+  {
+   "a": "Rodri",
+   "p": "Green",
+   "run": 5,
+   "floor": null,
+   "offer": 10
+  },
+  {
+   "a": "Karim Adeyemi",
+   "p": "Gold",
+   "run": 10,
+   "floor": null,
+   "offer": 10
+  },
+  {
+   "a": "Pedro Porro",
+   "p": "Gold",
+   "run": 10,
+   "floor": null,
+   "offer": 10
+  },
+  {
+   "a": "Unai Simon",
+   "p": "Gold",
+   "run": 10,
+   "floor": null,
+   "offer": 10
+  },
+  {
+   "a": "Mikel Oyarzabal",
+   "p": "Gold",
+   "run": 10,
+   "floor": null,
+   "offer": 10
+  },
+  {
+   "a": "Ferran Torres",
+   "p": "Gold",
+   "run": 10,
+   "floor": null,
+   "offer": 10
+  },
+  {
+   "a": "Marc Cucurella",
+   "p": "Gold",
+   "run": 10,
+   "floor": null,
+   "offer": 10
+  },
+  {
+   "a": "Pedri",
+   "p": "Gold",
+   "run": 10,
+   "floor": null,
+   "offer": 10
+  },
+  {
+   "a": "Yan Diomande",
+   "p": "Gold",
+   "run": 10,
+   "floor": null,
+   "offer": 10
+  },
+  {
+   "a": "Erling Haaland",
    "p": "Red",
    "run": 49,
+   "floor": null,
    "offer": 10
   },
   {
-   "a": "Lamine Yamal",
-   "p": "Blue",
-   "run": 269,
+   "a": "Cristiano Ronaldo",
+   "p": "Red",
+   "run": 49,
+   "floor": null,
    "offer": 10
   },
   {
-   "a": "Lionel Messi",
-   "p": "Blue",
-   "run": 269,
+   "a": "Spain Team Badge",
+   "p": "Red",
+   "run": 49,
+   "floor": null,
    "offer": 10
   },
   {
-   "a": "Lamine Yamal",
+   "a": "Spain",
+   "p": "Red",
+   "run": 49,
+   "floor": null,
+   "offer": 10
+  },
+  {
+   "a": "Yan Diomande",
    "p": "Silver",
    "run": 501,
+   "floor": 7,
    "offer": 10
+  },
+  {
+   "a": "Fabian Ruiz",
+   "p": "Gold",
+   "run": 10,
+   "floor": null,
+   "offer": 9
+  },
+  {
+   "a": "Unai Simon",
+   "p": "Green",
+   "run": 5,
+   "floor": null,
+   "offer": 8
+  },
+  {
+   "a": "Mikel Merino",
+   "p": "Gold",
+   "run": 10,
+   "floor": null,
+   "offer": 8
+  },
+  {
+   "a": "Martin Zubimendi",
+   "p": "Gold",
+   "run": 10,
+   "floor": null,
+   "offer": 8
+  },
+  {
+   "a": "Kylian Mbappe",
+   "p": "Red",
+   "run": 49,
+   "floor": 175,
+   "offer": 8
+  },
+  {
+   "a": "Spain Team Badge",
+   "p": "Green",
+   "run": 5,
+   "floor": null,
+   "offer": 7
+  },
+  {
+   "a": "Martin Zubimendi",
+   "p": "Green",
+   "run": 5,
+   "floor": null,
+   "offer": 7
+  },
+  {
+   "a": "Fabian Ruiz",
+   "p": "Green",
+   "run": 5,
+   "floor": null,
+   "offer": 7
+  },
+  {
+   "a": "Pedro Porro",
+   "p": "Green",
+   "run": 5,
+   "floor": null,
+   "offer": 7
+  },
+  {
+   "a": "Marc Cucurella",
+   "p": "Green",
+   "run": 5,
+   "floor": null,
+   "offer": 7
+  },
+  {
+   "a": "Dani Carvajal",
+   "p": "Gold",
+   "run": 10,
+   "floor": null,
+   "offer": 7
+  },
+  {
+   "a": "Aymeric Laporte",
+   "p": "Green",
+   "run": 5,
+   "floor": null,
+   "offer": 6
+  },
+  {
+   "a": "Aymeric Laporte",
+   "p": "Gold",
+   "run": 10,
+   "floor": null,
+   "offer": 6
+  },
+  {
+   "a": "Dean Huijsen",
+   "p": "Gold",
+   "run": 10,
+   "floor": null,
+   "offer": 6
+  },
+  {
+   "a": "Antonee Robinson",
+   "p": "Green",
+   "run": 5,
+   "floor": 79,
+   "offer": 5
+  },
+  {
+   "a": "Dani Carvajal",
+   "p": "Green",
+   "run": 5,
+   "floor": null,
+   "offer": 5
+  },
+  {
+   "a": "Alvaro Morata",
+   "p": "Gold",
+   "run": 10,
+   "floor": null,
+   "offer": 5
+  },
+  {
+   "a": "Yan Diomande",
+   "p": "Red",
+   "run": 49,
+   "floor": null,
+   "offer": 5
+  },
+  {
+   "a": "Nico Paz",
+   "p": "Red",
+   "run": 49,
+   "floor": null,
+   "offer": 5
+  },
+  {
+   "a": "Michael Olise",
+   "p": "Red",
+   "run": 49,
+   "floor": null,
+   "offer": 5
+  },
+  {
+   "a": "Nico Williams",
+   "p": "Red",
+   "run": 49,
+   "floor": null,
+   "offer": 5
+  },
+  {
+   "a": "Estevao",
+   "p": "Red",
+   "run": 49,
+   "floor": null,
+   "offer": 5
+  },
+  {
+   "a": "Desire Doue",
+   "p": "Red",
+   "run": 49,
+   "floor": null,
+   "offer": 5
+  },
+  {
+   "a": "Nico Williams",
+   "p": "Blue",
+   "run": 269,
+   "floor": null,
+   "offer": 5
+  },
+  {
+   "a": "Estevao",
+   "p": "Blue",
+   "run": 269,
+   "floor": null,
+   "offer": 5
+  },
+  {
+   "a": "Argentina Team Badge",
+   "p": "Blue",
+   "run": 269,
+   "floor": 18,
+   "offer": 5
+  },
+  {
+   "a": "Cristiano Ronaldo",
+   "p": "Blue",
+   "run": 269,
+   "floor": 75,
+   "offer": 5
+  },
+  {
+   "a": "Fabian Ruiz",
+   "p": "Blue",
+   "run": 269,
+   "floor": 19,
+   "offer": 5
+  },
+  {
+   "a": "Nico Williams",
+   "p": "Silver",
+   "run": 501,
+   "floor": null,
+   "offer": 5
+  },
+  {
+   "a": "Estevao",
+   "p": "Silver",
+   "run": 501,
+   "floor": null,
+   "offer": 5
+  },
+  {
+   "a": "Nico Paz",
+   "p": "Silver",
+   "run": 501,
+   "floor": null,
+   "offer": 5
+  },
+  {
+   "a": "Argentina",
+   "p": "Silver",
+   "run": 501,
+   "floor": null,
+   "offer": 4
+  },
+  {
+   "a": "Cristiano Ronaldo",
+   "p": "Silver",
+   "run": 501,
+   "floor": 299,
+   "offer": 4
+  },
+  {
+   "a": "Michael Olise",
+   "p": "Silver",
+   "run": 501,
+   "floor": null,
+   "offer": 4
+  },
+  {
+   "a": "Kylian Mbappe",
+   "p": "Silver",
+   "run": 501,
+   "floor": 15,
+   "offer": 4
+  },
+  {
+   "a": "Erling Haaland",
+   "p": "Silver",
+   "run": 501,
+   "floor": 30,
+   "offer": 4
   }
  ],
  "history": [
@@ -285,6 +1204,191 @@
      "a": "Cristiano Ronaldo",
      "p": "Green",
      "run": 5,
+     "offer": 100
+    },
+    {
+     "a": "Bukayo Saka",
+     "p": "Black",
+     "run": 1,
+     "offer": 50
+    },
+    {
+     "a": "Korea Republic Team Badge",
+     "p": "Black",
+     "run": 1,
+     "offer": 50
+    },
+    {
+     "a": "Ivory Coast Team Badge",
+     "p": "Black",
+     "run": 1,
+     "offer": 45
+    },
+    {
+     "a": "Alex Freeman",
+     "p": "Black",
+     "run": 1,
+     "offer": 40
+    },
+    {
+     "a": "Yan Diomande",
+     "p": "Green",
+     "run": 5,
+     "offer": 40
+    },
+    {
+     "a": "Alexander Sorloth",
+     "p": "Black",
+     "run": 1,
+     "offer": 35
+    },
+    {
+     "a": "Achraf Hakimi",
+     "p": "Black",
+     "run": 1,
+     "offer": 32
+    },
+    {
+     "a": "Lionel Messi",
+     "p": "Red",
+     "run": 49,
+     "offer": 25
+    },
+    {
+     "a": "Alan Franco",
+     "p": "Black",
+     "run": 1,
+     "offer": 23
+    },
+    {
+     "a": "Lamine Yamal",
+     "p": "Red",
+     "run": 49,
+     "offer": 20
+    },
+    {
+     "a": "Lionel Messi",
+     "p": "Silver",
+     "run": 501,
+     "offer": 11
+    },
+    {
+     "a": "Liam Millar",
+     "p": "Red",
+     "run": 49,
+     "offer": 10
+    },
+    {
+     "a": "Lamine Yamal",
+     "p": "Blue",
+     "run": 269,
+     "offer": 10
+    },
+    {
+     "a": "Lionel Messi",
+     "p": "Blue",
+     "run": 269,
+     "offer": 10
+    },
+    {
+     "a": "Lamine Yamal",
+     "p": "Silver",
+     "run": 501,
+     "offer": 10
+    }
+   ]
+  },
+  {
+   "pulled": "2026-10-20",
+   "offers_gt3": [
+    {
+     "a": "Lamine Yamal",
+     "p": "Black",
+     "run": 1,
+     "offer": 15000
+    },
+    {
+     "a": "Lionel Messi",
+     "p": "Black",
+     "run": 1,
+     "offer": 12000
+    },
+    {
+     "a": "Kylian Mbappe",
+     "p": "Black",
+     "run": 1,
+     "offer": 5000
+    },
+    {
+     "a": "Lionel Messi",
+     "p": "Green",
+     "run": 5,
+     "offer": 2000
+    },
+    {
+     "a": "Lamine Yamal",
+     "p": "Green",
+     "run": 5,
+     "offer": 2000
+    },
+    {
+     "a": "Lionel Messi",
+     "p": "Gold",
+     "run": 10,
+     "offer": 2000
+    },
+    {
+     "a": "Lamine Yamal",
+     "p": "Gold",
+     "run": 10,
+     "offer": 1500
+    },
+    {
+     "a": "Kylian Mbappe",
+     "p": "Gold",
+     "run": 10,
+     "offer": 550
+    },
+    {
+     "a": "Erling Haaland",
+     "p": "Black",
+     "run": 1,
+     "offer": 500
+    },
+    {
+     "a": "England Team Badge",
+     "p": "Black",
+     "run": 1,
+     "offer": 200
+    },
+    {
+     "a": "Korea Republic",
+     "p": "Black",
+     "run": 1,
+     "offer": 150
+    },
+    {
+     "a": "Cristiano Ronaldo",
+     "p": "Green",
+     "run": 5,
+     "offer": 110
+    },
+    {
+     "a": "Germany Team Badge",
+     "p": "Black",
+     "run": 1,
+     "offer": 100
+    },
+    {
+     "a": "Brazil Team Badge",
+     "p": "Black",
+     "run": 1,
+     "offer": 100
+    },
+    {
+     "a": "Kevin De Bruyne",
+     "p": "Black",
+     "run": 1,
      "offer": 100
     },
     {

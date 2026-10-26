@@ -33,6 +33,11 @@
 - **Risks/levers:** 50% burn cap (late Silvers may lose burn floor); scrub Blue value; star Silvers under-bid pre-release (+~$1/pack max).
 - **NEXT:** re-pull offers as they build through release week (expected to rise) and refresh the EV.
 - **Re-pull (2026-10-20, later same day):** same 30 cards >$3, no new names, scrub Blue/Red/Gold/Green still unbid. Stars jumped: Yamal Black $10k->$15k, Messi Black $11,111->$12k, Messi Gold $1k->$2k, Yamal Gold $750->$1,500, Messi/Yamal Green $200->$2,000. Pack EV $13.95-17.17 (+$0.26) -- chase moves barely touch EV; the $3 Silver floor + scrub Blue still drive it. Prior pulls kept in `history` in the offers file.
+- **Update 2026-10-26 (release day; airdrop created first real sales):** 157 cards now bid >$3 (was 30) -- mid names joined (Olise, Bellingham, Doue, Kane, Wirtz, Musiala...). Top: Messi & Yamal Black $12k, Messi/Yamal Green $2k, Messi Gold $2k, Yamal Gold $1.5k, Mbappe Black $2k (down from $5k). First floors: Messi Silver $499, Messi Blue $999.
+  - **Airdrop sales, serials tracked** (`data/stickers26-sales.json`): premium serials kept OUT of normal value -- Bellingham Green #1/5 $200, Qatar Blue #1/269 $10, Diney Red #1/49 $4, Khalilzadeh Silver 501/501 $3. Normal comps: scrub Silver $3 (~130 sales -- burn floor holds), scrub Red $4, scrub Green $8, Messi Blue $50, Palmer Gold $40, Messi Silver $30, Mbappe Silver $10.
+  - **Value rule:** card = max(latest normal-serial sale, best offer, scrub level); scrubs Silver $3 / Blue $1-3 / Red $4 / Gold $6 / Green $8 / Black $12; expected serial premium (#1 3x, last 2x) for runs >= 5.
+  - **PACK EV $14.39-17.63** (scrub Blue $1/$2/$3 -> $14.39/$16.01/$17.63). Avg card: Silver $3.20, Blue $2.12, Red $4.44, Gold $14.06, Green $20.24, Black $42.45. Scrub Blue (80% of hit slots) still has no sale and no bid -- the swing factor.
+  - TODO: serial deduction (which serials left packs) once the chain query on `packcard-850180` stops timing out.
 
 ## 2026-10-20 — 2022 Mosaic Road to World Cup pack priced (Spend Promo reward pack)
 
