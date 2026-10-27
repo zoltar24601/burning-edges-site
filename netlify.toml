@@ -134,3 +134,15 @@
   to = "/packs-hub.html"
   status = 200
   force = true
+[[redirects]]
+  from = "/stickers"
+  to = "/stickers.html"
+  status = 200
+[[redirects]]
+  from = "/prizmwc22"
+  to = "/prizmwc22.html"
+  status = 200
+[[redirects]]
+  from = "/mosaic22"
+  to = "/mosaic22.html"
+  status = 200

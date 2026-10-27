@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2026 World Cup Sticker Pack &middot; Burning Edges</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700;800&family=Barlow:wght@400;500;600&display=swap');
+  :root{
+    --pine-3:#0a1f12;--card:#13301f;--card-2:#0f2618;--border:#1f4a30;--border-bright:#2d6344;
+    --gold:#e8c468;--gold-dim:#b89540;--cream:#f4efe1;--text:#e8efe6;--text-dim:#8fab97;--text-faint:#5a7563;
+    --green:#5ed68a;--red:#e8736a;--flame:#d6a44e;--accent:#5ed68a;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{background:var(--pine-3);color:var(--text);font-family:'Barlow',sans-serif;-webkit-font-smoothing:antialiased;line-height:1.5;padding-bottom:60px;}
+  body::before{content:'';position:fixed;inset:0;background:radial-gradient(circle at 20% 10%,rgba(214,164,78,0.06),transparent 40%),radial-gradient(circle at 80% 90%,rgba(94,214,138,0.03),transparent 40%);pointer-events:none;z-index:0;}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 24px;position:relative;z-index:1;}
+  a{color:inherit;}
+  header{border-bottom:1px solid var(--border);background:rgba(10,31,18,0.9);backdrop-filter:blur(10px);position:sticky;top:0;z-index:100;}
+  .header-inner{max-width:1080px;margin:0 auto;padding:16px 24px;display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;}
+  .brand{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:22px;letter-spacing:1px;color:var(--cream);text-transform:uppercase;text-decoration:none;}
+  .brand .flame{color:var(--flame);}
+  .topnav{display:flex;gap:18px;align-items:center;flex-wrap:wrap;}
+  .topnav a{font-family:'Barlow Condensed',sans-serif;font-size:13px;letter-spacing:1.5px;color:var(--text-faint);text-transform:uppercase;text-decoration:none;}
+  .topnav a:hover{color:var(--gold);}
+  .topnav a.active{color:var(--accent);}
+  .hero{padding:40px 0 18px;text-align:center;}
+  .release-name{font-family:'Barlow Condensed',sans-serif;font-size:14px;letter-spacing:3px;color:var(--accent);text-transform:uppercase;margin-bottom:10px;}
+  .hero h1{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:clamp(36px,7vw,60px);line-height:0.98;text-transform:uppercase;color:var(--cream);}
+  .hero h1 .accent{color:var(--accent);}
+  .updated{font-family:'Barlow Condensed',sans-serif;font-size:13px;letter-spacing:2px;color:var(--text-faint);text-transform:uppercase;margin-top:14px;}
+  .disclaimer{background:rgba(232,196,104,0.07);border:1px solid var(--gold-dim);border-left:3px solid var(--gold);border-radius:10px;padding:16px 20px;margin:14px 0 30px;font-size:13.5px;color:var(--text-dim);line-height:1.6;}
+  .disclaimer strong{color:var(--gold);}
+  .price-band{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:0 0 14px;}
+  @media(max-width:760px){.price-band{grid-template-columns:1fr;}}
+  .price-card{background:linear-gradient(160deg,var(--card),var(--card-2));border:1px solid var(--border-bright);border-radius:14px;padding:26px 30px;}
+  .price-card.book{border-color:var(--green);}
+  .price-card.mkt{border-color:var(--gold-dim);}
+  .price-card .label{font-family:'Barlow Condensed',sans-serif;font-size:13px;letter-spacing:2.5px;text-transform:uppercase;color:var(--text-dim);margin-bottom:8px;}
+  .price-card.book .label{color:var(--green);}
+  .price-card.mkt .label{color:var(--gold);}
+  .price-big{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:52px;line-height:1;color:var(--cream);}
+  .price-card.mkt .price-big{color:var(--gold);}
+  .price-sub{font-size:12.5px;color:var(--text-faint);margin-top:10px;}
+  .compose{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:0 0 30px;}
+  @media(max-width:760px){.compose{grid-template-columns:1fr 1fr;}}
+  .slot{background:var(--card-2);border:1px solid var(--border);border-radius:12px;padding:16px;text-align:center;}
+  .slot.hit{border-color:var(--accent);}
+  .slot .n{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:30px;color:var(--cream);line-height:1;}
+  .slot.hit .n{color:var(--accent);}
+  .slot .d{font-size:11.5px;color:var(--text-faint);text-transform:uppercase;letter-spacing:1px;margin-top:6px;line-height:1.4;}
+  .section-label{font-family:'Barlow Condensed',sans-serif;font-size:13px;letter-spacing:3px;text-transform:uppercase;color:var(--accent);margin:40px 0 4px;}
+  .section-sub{font-size:13px;color:var(--text-faint);margin-bottom:18px;}
+  table{width:100%;border-collapse:collapse;}
+  .s2 th{font-family:'Barlow Condensed',sans-serif;font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:var(--text-faint);text-align:right;padding:8px 10px;border-bottom:1px solid var(--border);}
+  .s2 th:first-child{text-align:left;}
+  .s2 td{padding:9px 10px;border-bottom:1px solid rgba(31,74,48,0.5);font-size:14px;text-align:right;}
+  .s2 td:first-child{text-align:left;font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:15px;color:var(--cream);}
+  .s2 .sub{color:var(--text-faint);font-weight:400;font-size:12.5px;}
+  .foot{margin-top:44px;font-size:12px;color:var(--text-faint);text-align:center;line-height:1.7;}
+</style>
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <a class="brand" href="/">BURNING <span class="flame">EDGES</span></a>
+    <nav class="topnav">
+      <a href="/packs">&larr; All Packs</a>
+      <a href="/prizmwc22">2022 Prizm WC</a>
+      <a href="/mosaic22">2022 Mosaic</a>
+      <a href="/stickers" class="active">WC Stickers</a>
+      <a href="/value">Value My Card</a>
+    </nav>
+  </div>
+</header>
+<div class="wrap">
+  <div class="hero">
+    <div class="release-name" id="eyebrow"></div>
+    <h1 id="h1"></h1>
+    <div class="updated" id="updated"></div>
+  </div>
+  <div class="disclaimer" id="disclaimer"></div>
+  <div class="price-band">
+    <div class="price-card book">
+      <div class="label">Book value / pack</div>
+      <div class="price-big" id="book"></div>
+      <div class="price-sub" id="bookSub"></div>
+    </div>
+    <div class="price-card mkt">
+      <div class="label" id="mktLabel"></div>
+      <div class="price-big" id="mkt"></div>
+      <div class="price-sub" id="mktSub"></div>
+    </div>
+  </div>
+  <div class="compose" id="compose"></div>
+  <div class="section-label">Top hits still in packs</div>
+  <div class="section-sub" id="hitsSub"></div>
+  <table class="s2"><thead><tr><th>Card</th><th>Run</th><th>In packs</th><th>Value each</th></tr></thead><tbody id="hits"></tbody></table>
+  <div class="section-label" id="breakLabel"></div>
+  <div class="section-sub" id="breakSub"></div>
+  <table class="s2"><thead id="breakHead"></thead><tbody id="break"></tbody></table>
+  <div class="foot" id="foot"></div>
+</div>
+<script>
+const D = {"eyebrow": "2026 Panini NFT Prizm FIFA World Cup Stickers", "h1": "World Cup <span class=\"accent\">Stickers</span>", "updated": "Modeled 2026-10-26 \u00b7 160,320 packs \u00b7 $8 mint", "disclaimer": "<strong>How this pack works.</strong> 5 stickers: <strong>3 Base Silver #/501</strong> + <strong>2 non-Silver</strong> (Blue /269 \u00b7 Red /49 \u00b7 Gold /10 \u00b7 Green /5 \u00b7 Black 1/1). Silvers are <strong>burnable for 10 block points</strong> (100 BP buys a 2022 Prizm WC pack), which is why every Silver carries a $3 bid &mdash; that floor is most of the book. Values: highest of the latest normal-serial sale, the best live offer, or the parallel's scrub level, plus the expected special-serial bump (#1 3&times;, last 2&times;). Special serials (#1, perfect mint) are kept out of normal prices. Scrub Blues (80% of hit slots) have no sales or bids yet &mdash; book ranges $14.39&ndash;$17.63 across a $1&ndash;$3 Blue. Not financial advice.", "book": 16.01, "book_sub": "3 Silver at $3.20 + 2 hits at $3.21 \u00b7 range $14.39\u2013$17.63", "mkt_label": "Pack market (Oct 26)", "mkt_value": "$13.00", "mkt_sub": "floor \u00b7 avg sale $13.17 \u00b7 top sale $20 \u00b7 mint $8", "slots": [{"n": 5, "d": "Stickers<br>per pack"}, {"n": 3, "d": "Silver<br>#/501 (burnable)"}, {"n": 2, "d": "Non-Silver<br>/269 to 1/1", "hit": true}, {"n": "$8", "d": "Mint<br>price"}], "hits_sub": "Best live offer or latest normal sale, $20+ (pulled 2026-10-26). Pack-level counts not tracked yet for this set.", "hits": [{"c": "Lionel Messi", "s": "Black", "r": 1, "u": null, "p": 12000}, {"c": "Lamine Yamal", "s": "Black", "r": 1, "u": null, "p": 12000}, {"c": "Kylian Mbappe", "s": "Black", "r": 1, "u": null, "p": 2000}, {"c": "Lionel Messi", "s": "Green", "r": 5, "u": null, "p": 2000}, {"c": "Lamine Yamal", "s": "Green", "r": 5, "u": null, "p": 2000}, {"c": "Lionel Messi", "s": "Gold", "r": 10, "u": null, "p": 2000}, {"c": "Lamine Yamal", "s": "Gold", "r": 10, "u": null, "p": 1500}, {"c": "Kylian Mbappe", "s": "Gold", "r": 10, "u": null, "p": 550}, {"c": "Erling Haaland", "s": "Black", "r": 1, "u": null, "p": 500}, {"c": "Michael Olise", "s": "Black", "r": 1, "u": null, "p": 251}, {"c": "Jude Bellingham", "s": "Black", "r": 1, "u": null, "p": 201}, {"c": "England Team Badge", "s": "Black", "r": 1, "u": null, "p": 200}, {"c": "Desire Doue", "s": "Black", "r": 1, "u": null, "p": 200}, {"c": "Ousmane Dembele", "s": "Black", "r": 1, "u": null, "p": 150}, {"c": "Korea Republic", "s": "Black", "r": 1, "u": null, "p": 150}, {"c": "Harry Kane", "s": "Black", "r": 1, "u": null, "p": 120}, {"c": "Cristiano Ronaldo", "s": "Green", "r": 5, "u": null, "p": 111}, {"c": "Germany Team Badge", "s": "Black", "r": 1, "u": null, "p": 100}, {"c": "Brazil Team Badge", "s": "Black", "r": 1, "u": null, "p": 100}, {"c": "Bradley Barcola", "s": "Black", "r": 1, "u": null, "p": 100}, {"c": "Kevin De Bruyne", "s": "Black", "r": 1, "u": null, "p": 100}, {"c": "Franco Mastantuono", "s": "Green", "r": 5, "u": null, "p": 100}, {"c": "Lionel Messi", "s": "Red", "r": 49, "u": null, "p": 100}, {"c": "Lionel Messi", "s": "Silver", "r": 501, "u": null, "p": 100}, {"c": "Kylian Mbappe", "s": "Green", "r": 5, "u": null, "p": 80}, {"c": "Nico Paz", "s": "Black", "r": 1, "u": null, "p": 77}, {"c": "Cristiano Ronaldo", "s": "Gold", "r": 10, "u": null, "p": 77}, {"c": "Hugo Ekitike", "s": "Black", "r": 1, "u": null, "p": 75}, {"c": "Nico Williams", "s": "Black", "r": 1, "u": null, "p": 75}, {"c": "Julian Alvarez", "s": "Black", "r": 1, "u": null, "p": 75}, {"c": "Ferran Torres", "s": "Black", "r": 1, "u": null, "p": 70}, {"c": "Spain", "s": "Black", "r": 1, "u": null, "p": 65}, {"c": "Pedri", "s": "Black", "r": 1, "u": null, "p": 50}, {"c": "Franco Mastantuono", "s": "Black", "r": 1, "u": null, "p": 50}, {"c": "Bukayo Saka", "s": "Black", "r": 1, "u": null, "p": 50}, {"c": "Estevao", "s": "Black", "r": 1, "u": null, "p": 50}, {"c": "Florian Wirtz", "s": "Black", "r": 1, "u": null, "p": 50}, {"c": "Jamal Musiala", "s": "Black", "r": 1, "u": null, "p": 50}, {"c": "Kang-in Lee", "s": "Black", "r": 1, "u": null, "p": 50}, {"c": "Korea Republic Team Badge", "s": "Black", "r": 1, "u": null, "p": 50}], "break_label": "Each parallel", "break_sub": "Odds are per hit slot (by print run). Average card value includes the expected special-serial bump.", "break_cols": ["Parallel", "Run", "Odds / hit slot", "Avg card value"], "breakdown": [["Silver", "/501", "3 per pack", "$3.20"], ["Blue", "/269", "80.5%", "$2.12"], ["Red", "/49", "14.7%", "$4.44"], ["Gold", "/10", "3.0%", "$14.06"], ["Green", "/5", "1.5%", "$20.24"], ["Black", "/1", "0.3%", "$42.45"]], "foot": "Data: data/stickers26-offers.json (live offers) \u00b7 data/stickers26-sales.json (airdrop sales, serials tracked)."};
+const $ = id => document.getElementById(id);
+const money = n => '$' + (n >= 100 ? Math.round(n).toLocaleString('en-US') : Number(n).toFixed(2));
+$('eyebrow').textContent = D.eyebrow;
+$('h1').innerHTML = D.h1;
+$('updated').textContent = D.updated;
+$('disclaimer').innerHTML = D.disclaimer;
+$('book').textContent = money(D.book);
+$('bookSub').textContent = D.book_sub;
+$('mktLabel').textContent = D.mkt_label;
+$('mkt').textContent = D.mkt_value;
+$('mktSub').textContent = D.mkt_sub;
+$('compose').innerHTML = D.slots.map(s => '<div class="slot' + (s.hit ? ' hit' : '') + '"><div class="n">' + s.n + '</div><div class="d">' + s.d + '</div></div>').join('');
+$('hitsSub').textContent = D.hits_sub;
+$('hits').innerHTML = D.hits.map(h => '<tr><td>' + h.c + ' <span class="sub">' + h.s + '</span></td><td>/' + h.r + '</td><td>' + (h.u == null ? '<span class="sub">&mdash;</span>' : h.u) + '</td><td>' + money(h.p) + '</td></tr>').join('');
+$('breakLabel').textContent = D.break_label;
+$('breakSub').textContent = D.break_sub;
+$('breakHead').innerHTML = '<tr>' + D.break_cols.map(c => '<th>' + c + '</th>').join('') + '</tr>';
+$('break').innerHTML = D.breakdown.map(r => '<tr>' + r.map((v, i) => '<td>' + v + '</td>').join('') + '</tr>').join('');
+$('foot').innerHTML = D.foot;
+</script>
+</body>
+</html>
