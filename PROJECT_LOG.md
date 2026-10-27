@@ -22,6 +22,11 @@
   - **Use WC card-EV (~$16), NOT current market ($62-89):** the 34,075-pack BP-store flood compresses WC pack price toward card-EV. So durable dividend ≈ **~$4.50/sticker pack**.
   - **TODO when checklist lands:** sticker-card EV by comping sticker parallels (Silver /501…Black 1/1) to the 2026 WC base set's same parallels (`burning_edges_sales_db.json`), discounted for stickers-vs-cards. Then $8-pack value = sticker-EV + ~$4.50.
 
+## 2026-10-27 — Published pages: /stickers, /prizmwc22, /mosaic22
+
+- Static pages (no Supabase/refresh fn) rendered by `python tools/build-pack-pages.py` from the committed models into `stickers.html`, `prizmwc22.html`, `mosaic22.html` via `tools/packpage-template.html`. Market snapshots (pack floors/avg sales) are typed into the build script -- update there and re-run to refresh. Routes in netlify.toml; three cards added to the packs hub. Site is behind the `edges` login.
+- Book values at publish: Stickers $16.01, 2022 Prizm WC $16.02, 2022 Mosaic $14.38.
+
 ## 2026-10-20 — Sticker pack BASELINE from live pre-release offers (pack live ~2026-10-26)
 
 - **Checklist:** 960 subjects × 6 parallels (Silver /501, Blue /269, Red /49, Gold /10, Green /5, Black 1/1). Chain prefix **`packcard-850180`**; cardset IDs in card URLs: 100 Silver · 110 Blue · 120 Red · 130 Gold · 140 Green · 150 Black (e.g. `marketplace-details/packcard-850180_130_37.html` = Messi Gold).
