@@ -58,9 +58,9 @@ render("prizmwc22.html", "prizmwc22", "2022 Prizm World Cup Pack", "#e8c468", {
     "disclaimer": "<strong>How this pack works.</strong> 3 cards: <strong>2 Base #/1399</strong> + <strong>1 hit</strong> (parallel, insert or auto #/149 or less). Panini is putting the remaining <strong>34,075 packs</strong> in the Block Point store at <strong>100 BP</strong> each (burn sticker commons for 10 BP apiece). Values are 2026 chain sales first, a 2022 card at 1.5&times; the same player's 2026 WC comp, scrubs capped at scrub prices, and grail overrides. Book value is the cards' worth; the pack trades higher because of BP utility and the grail lottery. Not financial advice.",
     "book": round(2 * aB + aH, 2),
     "book_sub": f"2 base at {money(aB)} + 1 hit at {money(aH)}",
-    "mkt_label": "Pack market (Oct 12)",
-    "mkt_value": "$61.89",
-    "mkt_sub": "average pack sale · floor $89 · top sale $415",
+    "mkt_label": "Pack floor (Oct 27)",
+    "mkt_value": "$50.00",
+    "mkt_sub": "latest sale $55 · avg sale $61.95 · top sale $415",
     "slots": [{"n": 3, "d": "Cards<br>per pack"}, {"n": 2, "d": "Base<br>#/1399"},
               {"n": 1, "d": "Hit<br>#/149 or less", "hit": True}, {"n": "34,075", "d": "Packs<br>in BP store"}],
     "hits_sub": f"Every sealed hit worth $300+, ranked. {len(hits):,} distinct hit cards still in packs.",
@@ -97,17 +97,15 @@ render("mosaic22.html", "mosaic22", "2022 Mosaic Road to World Cup Pack", "#b89b
 })
 
 # ---------- 2026 Prizm FIFA WC Stickers ----------
+# Current pull: card value = best offer capped at its floor (a bid above the floor
+# is for a specific serial), never below the parallel's scrub level. Old airdrop
+# sales are not used -- the market has moved since.
 off = json.load(open(P("data", "stickers26-offers.json")))
-sal = json.load(open(P("data", "stickers26-sales.json")))["sales"]
+mk = off["pack_market"]["stickers"]
 runs = {"Silver": 501, "Blue": 269, "Red": 49, "Gold": 10, "Green": 5, "Black": 1}
-scrub = {"Silver": 3, "Blue": 2, "Red": 4, "Gold": 6, "Green": 8, "Black": 12}
+scrub = off["scrub"]
 N = 960
-known = {}
-for o in off["offers_gt3"]:
-    known[(o["a"], o["p"])] = max(known.get((o["a"], o["p"]), 0), o["offer"] or 0)
-for s in sorted(sal, key=lambda x: x["date"]):
-    if not s["premium"]:
-        known[(s["a"], s["p"])] = max(known.get((s["a"], s["p"]), 0), s["price"])
+known = {(r["a"], r["p"]): r["v"] for r in off["values"]}
 uplift = lambda r: 1.0 if r == 1 else 1 + 3 / r
 avg = {}
 for p in runs:
@@ -122,20 +120,20 @@ st_hits = sorted([{"c": a, "s": p, "r": runs[p], "u": None, "p": v} for (a, p), 
 render("stickers.html", "stickers", "2026 World Cup Sticker Pack", "#5ed68a", {
     "eyebrow": "2026 Panini NFT Prizm FIFA World Cup Stickers",
     "h1": "World Cup <span class=\"accent\">Stickers</span>",
-    "updated": "Modeled 2026-10-26 · 160,320 packs · $8 mint",
-    "disclaimer": "<strong>How this pack works.</strong> 5 stickers: <strong>3 Base Silver #/501</strong> + <strong>2 non-Silver</strong> (Blue /269 · Red /49 · Gold /10 · Green /5 · Black 1/1). Silvers are <strong>burnable for 10 block points</strong> (100 BP buys a 2022 Prizm WC pack), which is why every Silver carries a $3 bid &mdash; that floor is most of the book. Values: highest of the latest normal-serial sale, the best live offer, or the parallel's scrub level, plus the expected special-serial bump (#1 3&times;, last 2&times;). Special serials (#1, perfect mint) are kept out of normal prices. Scrub Blues (80% of hit slots) have no sales or bids yet &mdash; book ranges $14.39&ndash;$17.63 across a $1&ndash;$3 Blue. Not financial advice.",
+    "updated": f"Modeled {off['pulled']} · 160,320 packs · $8 mint",
+    "disclaimer": "<strong>How this pack works.</strong> 5 stickers: <strong>3 Base Silver #/501</strong> + <strong>2 non-Silver</strong> (Blue /269 · Red /49 · Gold /10 · Green /5 · Black 1/1). Silvers are <strong>burnable for 10 block points</strong> (100 BP buys a 2022 Prizm WC pack), which is what holds a bid under every Silver. Values come from live offers: each card's best offer, capped at its floor (a bid above the floor is for a specific serial like a #1 or jersey number), never below the parallel's scrub level, plus the expected special-serial bump (#1 3&times;, last 2&times;). Scrub levels today: Silver $2 · Blue $1 · Red $2 · Gold $5 · Green $5 · Black $8. Not financial advice.",
     "book": round(book, 2),
-    "book_sub": f"3 Silver at {money(avg['Silver'])} + 2 hits at {money(hit_ev)} · range $14.39–$17.63",
-    "mkt_label": "Pack market (Oct 26)",
-    "mkt_value": "$13.00",
-    "mkt_sub": "floor · avg sale $13.17 · top sale $20 · mint $8",
+    "book_sub": f"3 Silver at {money(avg['Silver'])} + 2 hits at {money(hit_ev)}",
+    "mkt_label": f"Pack floor ({off['pulled'][5:]})",
+    "mkt_value": money(mk["floor"]),
+    "mkt_sub": f"latest sale ${mk['recent']} · avg sale ${mk['avg']:.2f} · {mk['listings']:,} listed · mint $8",
     "slots": [{"n": 5, "d": "Stickers<br>per pack"}, {"n": 3, "d": "Silver<br>#/501 (burnable)"},
               {"n": 2, "d": "Non-Silver<br>/269 to 1/1", "hit": True}, {"n": "$8", "d": "Mint<br>price"}],
-    "hits_sub": "Best live offer or latest normal sale, $20+ (pulled 2026-10-26). Pack-level counts not tracked yet for this set.",
+    "hits_sub": f"Normal-copy value $20+ (offer capped at floor), pulled {off['pulled']}. Pack-level counts not tracked yet for this set.",
     "hits": st_hits,
     "break_label": "Each parallel",
     "break_sub": "Odds are per hit slot (by print run). Average card value includes the expected special-serial bump.",
     "break_cols": ["Parallel", "Run", "Odds / hit slot", "Avg card value"],
     "breakdown": [[p, f"/{runs[p]}", "3 per pack" if p == "Silver" else f"{runs[p] * N / non:.1%}", money(avg[p])] for p in runs],
-    "foot": "Data: data/stickers26-offers.json (live offers) · data/stickers26-sales.json (airdrop sales, serials tracked).",
+    "foot": "Data: data/stickers26-offers.json (live offers + floors; earlier pulls kept in its history).",
 })

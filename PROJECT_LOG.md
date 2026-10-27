@@ -26,6 +26,7 @@
 
 - Static pages (no Supabase/refresh fn) rendered by `python tools/build-pack-pages.py` from the committed models into `stickers.html`, `prizmwc22.html`, `mosaic22.html` via `tools/packpage-template.html`. Market snapshots (pack floors/avg sales) are typed into the build script -- update there and re-run to refresh. Routes in netlify.toml; three cards added to the packs hub. Site is behind the `edges` login.
 - Book values at publish: Stickers $16.01, 2022 Prizm WC $16.02, 2022 Mosaic $14.38.
+- **Update 2026-10-27:** added **Expected pack price = 2x book** (John) to all three pages + hub. Sticker market dropped hard: top bids roughly halved (Messi Black $12k->$5.5k, Yamal Black $12k->$4k), Silver blanket bid $3->$2, scrub Blue floor $1; pack floor $13->$11 (avg $12.70). New sticker value rule: best offer CAPPED AT FLOOR (a bid above the floor is serial-specific, e.g. Yamal Silver bid $800 vs floor $28), min scrub (Silver $2/Blue $1/Red $2/Gold $5/Green $5/Black $8); stale airdrop sales dropped. **Sticker book $10.98 -> expected $21.96.** 2022 Prizm WC pack floor $89->$50 (latest sale $55); book unchanged $16.02 -> expected $32.04. Mosaic $14.38 -> expected $28.76.
 
 ## 2026-10-20 — Sticker pack BASELINE from live pre-release offers (pack live ~2026-10-26)
 

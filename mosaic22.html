@@ -31,7 +31,10 @@
   .updated{font-family:'Barlow Condensed',sans-serif;font-size:13px;letter-spacing:2px;color:var(--text-faint);text-transform:uppercase;margin-top:14px;}
   .disclaimer{background:rgba(232,196,104,0.07);border:1px solid var(--gold-dim);border-left:3px solid var(--gold);border-radius:10px;padding:16px 20px;margin:14px 0 30px;font-size:13.5px;color:var(--text-dim);line-height:1.6;}
   .disclaimer strong{color:var(--gold);}
-  .price-band{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:0 0 14px;}
+  .price-band{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin:0 0 14px;}
+  .price-card.exp{border-color:var(--accent);}
+  .price-card.exp .label{color:var(--accent);}
+  .price-card.exp .price-big{color:var(--accent);}
   @media(max-width:760px){.price-band{grid-template-columns:1fr;}}
   .price-card{background:linear-gradient(160deg,var(--card),var(--card-2));border:1px solid var(--border-bright);border-radius:14px;padding:26px 30px;}
   .price-card.book{border-color:var(--green);}
@@ -86,6 +89,11 @@
       <div class="price-big" id="book"></div>
       <div class="price-sub" id="bookSub"></div>
     </div>
+    <div class="price-card exp">
+      <div class="label">Expected pack price</div>
+      <div class="price-big" id="exp"></div>
+      <div class="price-sub">2&times; book value</div>
+    </div>
     <div class="price-card mkt">
       <div class="label" id="mktLabel"></div>
       <div class="price-big" id="mkt"></div>
@@ -111,6 +119,7 @@ $('updated').textContent = D.updated;
 $('disclaimer').innerHTML = D.disclaimer;
 $('book').textContent = money(D.book);
 $('bookSub').textContent = D.book_sub;
+$('exp').textContent = money(2 * D.book);
 $('mktLabel').textContent = D.mkt_label;
 $('mkt').textContent = D.mkt_value;
 $('mktSub').textContent = D.mkt_sub;
