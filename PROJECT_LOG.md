@@ -22,6 +22,14 @@
   - **Use WC card-EV (~$16), NOT current market ($62-89):** the 34,075-pack BP-store flood compresses WC pack price toward card-EV. So durable dividend ≈ **~$4.50/sticker pack**.
   - **TODO when checklist lands:** sticker-card EV by comping sticker parallels (Silver /501…Black 1/1) to the 2026 WC base set's same parallels (`burning_edges_sales_db.json`), discounted for stickers-vs-cards. Then $8-pack value = sticker-EV + ~$4.50.
 
+## 2026-10-28 — Sticker pack repriced off chain sales (serials tracked)
+
+- `data/stickers26-sales.json` now holds every chain sale (price > 0) for the 138 sticker cards valued $15+, each with **serial/run** and a premium flag (#1 = "number 1", last serial = "perfect mint"), plus John's earlier airdrop pastes (src=paste). Pulled 2026-10-28.
+- `tools/build-pack-pages.py`: recent sales (on/after `window_from`, 2026-10-26) now override offers. Value = median of the last 3 normal-serial sales; premium-serial sales are tracked but only used (/3 for #1, /2 for last) when a card has no normal sale. Scrub Silver sales never override a star's bid.
+- Key comps: Yamal Gold normal $2,250-3,250 (median $2,750; **#1/10 sold $4,500** -- that's the $4,500 John saw), Yamal Green #4/5 $2,600 (#1/5 $2,000), Messi Gold #6 $3,500, Yamal Red ~$160, Yamal Silver ~$25, Messi Silver ~$19, Messi Blue ~$24.
+- Silver scrub $2 -> **$1.50** (John: Silvers now clearing $1-2). Pack floor $10 (John). **Sticker book $10.98 -> $9.38 (expected $18.76).** Book split: 3 Silver at $1.58 + 2 hits at $2.32.
+- Query note: `chain_events` single-sku lookups must use `sku_base=gte.X&sku_base=lte.X` (~3s); `eq.`/`in.()` ran ~21s and timed out under load.
+
 ## 2026-10-27 — Published pages: /stickers, /prizmwc22, /mosaic22
 
 - Static pages (no Supabase/refresh fn) rendered by `python tools/build-pack-pages.py` from the committed models into `stickers.html`, `prizmwc22.html`, `mosaic22.html` via `tools/packpage-template.html`. Market snapshots (pack floors/avg sales) are typed into the build script -- update there and re-run to refresh. Routes in netlify.toml; three cards added to the packs hub. Site is behind the `edges` login.

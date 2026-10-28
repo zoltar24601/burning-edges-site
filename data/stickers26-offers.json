@@ -1,6 +1,6 @@
 {
  "source": "nft.paniniamerica.net collection-details sortBy=bestOfferH",
- "pulled": "2026-10-27",
+ "pulled": "2026-10-28",
  "prefix": "packcard-850180",
  "cardset_ids": {
   "100": "Silver",
@@ -1489,7 +1489,7 @@
  ],
  "rule": "card value = best offer, capped at floor when floor < offer (bid above floor = serial-specific); min = scrub level",
  "scrub": {
-  "Silver": 2,
+  "Silver": 1.5,
   "Blue": 1,
   "Red": 2,
   "Gold": 5,
@@ -1498,8 +1498,8 @@
  },
  "pack_market": {
   "stickers": {
-   "floor": 11,
-   "recent": 11,
+   "floor": 10,
+   "recent": 10,
    "avg": 12.7,
    "top": 20,
    "listings": 13985,

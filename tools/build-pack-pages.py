@@ -98,14 +98,31 @@ render("mosaic22.html", "mosaic22", "2022 Mosaic Road to World Cup Pack", "#b89b
 
 # ---------- 2026 Prizm FIFA WC Stickers ----------
 # Current pull: card value = best offer capped at its floor (a bid above the floor
-# is for a specific serial), never below the parallel's scrub level. Old airdrop
-# sales are not used -- the market has moved since.
+# is for a specific serial), never below the parallel's scrub level, then
+# overridden by recent chain sales (window_from in stickers26-sales.json).
 off = json.load(open(P("data", "stickers26-offers.json")))
 mk = off["pack_market"]["stickers"]
 runs = {"Silver": 501, "Blue": 269, "Red": 49, "Gold": 10, "Green": 5, "Black": 1}
 scrub = off["scrub"]
 N = 960
 known = {(r["a"], r["p"]): r["v"] for r in off["values"]}
+# Recent sales win over offers. Every sale keeps its serial: #1 and last-serial
+# sales are premium copies, so they are tracked but only set a normal-copy value
+# (sale / 3 for #1, / 2 for last) when a card has no normal-serial sale.
+sales = json.load(open(P("data", "stickers26-sales.json")))
+sale_val = {}
+recent = [s for s in sales["sales"] if s["date"] >= sales["window_from"]]
+for k in {(s["a"], s["p"]) for s in recent}:
+    ss = sorted([s for s in recent if (s["a"], s["p"]) == k], key=lambda s: s["date"], reverse=True)
+    norm = [s["price"] for s in ss if not s["premium"]][:3]
+    if norm:
+        sale_val[k] = sorted(norm)[len(norm) // 2]
+    else:
+        s = ss[0]
+        sale_val[k] = s["price"] / (3 if s["serial"] == 1 else 2 if s["serial"] == s["run"] else 1)
+for k, v in sale_val.items():
+    if k[1] != "Silver" or v > scrub["Silver"]:  # scrub Silver sales don't override star bids
+        known[k] = v
 uplift = lambda r: 1.0 if r == 1 else 1 + 3 / r
 avg = {}
 for p in runs:
@@ -121,7 +138,7 @@ render("stickers.html", "stickers", "2026 World Cup Sticker Pack", "#5ed68a", {
     "eyebrow": "2026 Panini NFT Prizm FIFA World Cup Stickers",
     "h1": "World Cup <span class=\"accent\">Stickers</span>",
     "updated": f"Modeled {off['pulled']} · 160,320 packs · $8 mint",
-    "disclaimer": "<strong>How this pack works.</strong> 5 stickers: <strong>3 Base Silver #/501</strong> + <strong>2 non-Silver</strong> (Blue /269 · Red /49 · Gold /10 · Green /5 · Black 1/1). Silvers are <strong>burnable for 10 block points</strong> (100 BP buys a 2022 Prizm WC pack), which is what holds a bid under every Silver. Values come from live offers: each card's best offer, capped at its floor (a bid above the floor is for a specific serial like a #1 or jersey number), never below the parallel's scrub level, plus the expected special-serial bump (#1 3&times;, last 2&times;). Scrub levels today: Silver $2 · Blue $1 · Red $2 · Gold $5 · Green $5 · Black $8. Not financial advice.",
+    "disclaimer": "<strong>How this pack works.</strong> 5 stickers: <strong>3 Base Silver #/501</strong> + <strong>2 non-Silver</strong> (Blue /269 · Red /49 · Gold /10 · Green /5 · Black 1/1). Silvers are <strong>burnable for 10 block points</strong> (100 BP buys a 2022 Prizm WC pack), which is what holds a bid under every Silver. Values come from live offers: each card's best offer, capped at its floor (a bid above the floor is for a specific serial like a #1 or jersey number), never below the parallel's scrub level, plus the expected special-serial bump (#1 3&times;, last 2&times;). Scrub levels today: Silver $1.50 · Blue $1 · Red $2 · Gold $5 · Green $5 · Black $8. Not financial advice.",
     "book": round(book, 2),
     "book_sub": f"3 Silver at {money(avg['Silver'])} + 2 hits at {money(hit_ev)}",
     "mkt_label": f"Pack floor ({off['pulled'][5:]})",
