@@ -31,6 +31,7 @@
 - `tools/build-pack-pages.py` sticker section rewritten: values only sealed copies; normal-serial value = John override > median last 3 normal sales > offer capped at floor > scrub; each sealed special serial valued separately (#1 3x / last 2x / jersey 2x for runs <49; 5x/5x/8x for Red/Blue/Silver). Hits table shows copies left + which special serials are still sealed.
 - John overrides: **Messi Black 1/1 $35k (still sealed)**, Yamal Black $35k (already PULLED -- no pack impact), **Messi Gold / Yamal Gold normal serial $3k**. Also pulled: Mbappe Black.
 - **Sticker book $10.12 (expected $20.24)**: 3 Silver at $1.67 + 2 hits at $2.55.
+- **PM update:** John: commons back to $2 -> Silver scrub $2 -> **book $11.60 (expected $23.20)**, Silver avg $2.17. Walls recount (13,733 listed): $10 wall 3,346 (+647 in a few hours while ~420/hr sell -- sellers stacking at $10). 10,009 packs sold in the 24h to 1:13pm ET 10/28 (`packSaleHistory`, binary search on rank; dates are UTC). Burn-dead scenario (no-name Silvers -> $0): book ~$5.67.
 
 ## 2026-10-28 — Sticker pack repriced off chain sales (serials tracked)
 
