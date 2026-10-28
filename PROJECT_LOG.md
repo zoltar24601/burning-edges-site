@@ -22,6 +22,16 @@
   - **Use WC card-EV (~$16), NOT current market ($62-89):** the 34,075-pack BP-store flood compresses WC pack price toward card-EV. So durable dividend ≈ **~$4.50/sticker pack**.
   - **TODO when checklist lands:** sticker-card EV by comping sticker parallels (Silver /501…Black 1/1) to the 2026 WC base set's same parallels (`burning_edges_sales_db.json`), discounted for stickers-vs-cards. Then $8-pack value = sticker-EV + ~$4.50.
 
+## 2026-10-28 (later) — Sticker pack priced on what is STILL IN PACKS (Panini pack checklist)
+
+- **Source found:** the pack page (`/marketplace-details/subpack-5368435-1058.html`, tab PACK CHECKLIST) loads GraphQL `getStorePackCheckList(pack_id: 1058, p, l: 30, applied_filters: "&sortBy=rarityH")` from `/onepanini`. Per card: `unclaimed_count` (still sealed), `with_collectors_count`, `burned_count`, `burnable_count` (= 50% of each card's copies -- the burn cap is PER CARD), best_offer, floor_price, avg_sale, and `special_serials[]` (#1 / perfect mint / jersey mint) each with status Unclaimed / With Collectors. Works signed-out when replayed in-page with l<=30 (l=100+ -> Cloudflare 1101). 192 pages for 5,760 cards.
+- `data/stickers26-checklist.json`: 226 notable in-pack cards listed individually + every other card rolled up per parallel (copies + sealed special serials). Unopened packs 96,594 (117,873 on 10/27); Silver in packs 292,085 (~3 per unopened pack, checks out). Burned 0 so far.
+- **Pack walls (listings, 13,213):** $10: 2,699 · $11: 1,716 · $12: 2,209 · $13: 1,645 · $14: 891 · $15: 866 · $16-18: 1,023 · $18-20: 959 · $20-25: 840 · $25-30: 134 · $30-50: 182 · $50+: 49. (Found by binary-searching `otherUsersPackSales` sorted ASC, l: 1.)
+- `data/stickers26-sales.json` now merges John's Data Dive export (top 740 sticker sales with serial + tags incl. jersey mint).
+- `tools/build-pack-pages.py` sticker section rewritten: values only sealed copies; normal-serial value = John override > median last 3 normal sales > offer capped at floor > scrub; each sealed special serial valued separately (#1 3x / last 2x / jersey 2x for runs <49; 5x/5x/8x for Red/Blue/Silver). Hits table shows copies left + which special serials are still sealed.
+- John overrides: **Messi Black 1/1 $35k (still sealed)**, Yamal Black $35k (already PULLED -- no pack impact), **Messi Gold / Yamal Gold normal serial $3k**. Also pulled: Mbappe Black.
+- **Sticker book $10.12 (expected $20.24)**: 3 Silver at $1.67 + 2 hits at $2.55.
+
 ## 2026-10-28 — Sticker pack repriced off chain sales (serials tracked)
 
 - `data/stickers26-sales.json` now holds every chain sale (price > 0) for the 138 sticker cards valued $15+, each with **serial/run** and a premium flag (#1 = "number 1", last serial = "perfect mint"), plus John's earlier airdrop pastes (src=paste). Pulled 2026-10-28.
