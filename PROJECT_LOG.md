@@ -300,6 +300,10 @@ Built-in never-sell list (`ALWAYS_NEVER`: LeBron, Wembanyama, Yamal, Messi, Rona
 - Rules: GOAT `ALWAYS_NEVER` (LeBron, Jordan, Kobe, Wembanyama, Curry, Brady, Mahomes, Messi, Yamal, Ronaldo, Mbappe, Haaland, Ohtani, Trout, Judge) + popup list; never #1 / last / jersey serials; selects every other serial (up to the page cap and remaining max).
 - Site-down handling (John expects a mass burn tomorrow 10/30): every step has a timeout; on failure reload the list with backoff 5/10/20/40/60s; stop after 30 straight failures; a card failing 3x is skipped.
 - 21 active "Craft Block Points" events on 10/29 (all older sets); the 2026 WC Stickers set is NOT listed yet.
+- **v0.1.1 (10/29 evening, John: working beautifully):** wide-window fix -- on a wide screen Panini moves inventory to a "BURNABLE INVENTORY" column with no "INVENTORY COUNT" label, so `innerText` parsing read 0 copies on every card; card parse now uses `textContent` + `h5` / `p.card-text` (burned counter stays `innerText`-first: its `textContent` has tooltip text in between).
+- **No page refreshes (John: never refresh):** retries/backouts use the popup's Cancel, the page's CANCEL, else `history.back()`; sort is set by clicking Panini's own sort menu (verified SPA, no reload). Wrong set / filters off -> stops with a message.
+- **Pre-confirm safety check** (John's #1 worry: never burn his Yamal Silver 1/501): right before CONFIRM it re-checks same page URL, header name not a GOAT, no ticked serial is #1 / last / jersey, selected count matches; any mismatch -> backs out, NOT burned. Yamal is protected 3 ways (GOAT on list, GOAT + #1 on serial page, final check).
+- Does NOT scroll the whole list: takes the first allowed card among those loaded; scrolls only if every loaded card is a remembered skip.
 
 ---
 
