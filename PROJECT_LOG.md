@@ -34,6 +34,14 @@
 - **PM update:** John: commons back to $2 -> Silver scrub $2 -> **book $11.60 (expected $23.20)**, Silver avg $2.17. Walls recount (13,733 listed): $10 wall 3,346 (+647 in a few hours while ~420/hr sell -- sellers stacking at $10). 10,009 packs sold in the 24h to 1:13pm ET 10/28 (`packSaleHistory`, binary search on rank; dates are UTC). Burn-dead scenario (no-name Silvers -> $0): book ~$5.67.
 - **Evening:** Yamal Black 1/1 offer now $50k -> Messi Black (still sealed) and Yamal Black overrides raised $35k -> **$50k** (`overrides` in `data/stickers26-checklist.json`). **Book $11.76 (expected $23.52).** Offer Accepter extension v0.2.0 (Desktop\offer_accepter): built-in never-sell list LeBron/Wembanyama/Yamal/Messi/Ronaldo (applies even if popup box is cleared), and never sells special serials (#1, last #run/run, jersey-tagged) -- picks highest NORMAL serial, keeps the card if only specials are left. John pulled a Yamal Silver 1/501 (#1 special).
 
+## 2026-10-29 — Sticker pack refresh (checklist + chain sales)
+- Re-pulled Panini pack checklist in-browser (5,760 cards, 235 notable in-pack) -> `data/stickers26-checklist.json` (`pulled` 2026-10-29T10:00, new `totals` block per parallel: unclaimed / with collectors / burned / burnable). **Unopened 96,594 -> 82,708** (Silver unclaimed / 3).
+- **Burn race:** Silver unclaimed 248,125 vs burn cap 240,000 total -> only ~8k Silvers (~2.7k packs) above the cap. Burned still 0 everywhere.
+- Chain sales: `sales1029.mjs` (scratchpad) pulled chain_events per notable card since 2026-10-28T12:00 with `ts=gte.` filter -> 1,017 sales, 957 new after dedupe vs Data Dive -> `stickers26-sales.json` now 1,708 sales (src=chain tags #1/last from serial; jersey not visible on chain).
+- Packs: floor **$9** (last 30 sales all $9), 13,304 listed, **9,125 sold in 24h** to 10:01 ET. Walls: $9 53 · $10 5,199 · $11 1,313 · $12 1,772 · $13 759 · $14 667 · $15 759 · $16-17.99 962 · $18-19.99 687 · $20-24.99 813 · $25-29.99 107 · $30-49.99 178 · $50+ 35.
+- **Book $11.76 -> $11.88 (expected $23.76)**: 3 Silver at $2.13 + 2 hits at $2.74. Hub card floor $9.
+- Flags for John: Yamal Black best offer now $57,500 (Messi override still $50k); Messi Gold normal serials sold $5,500 (#3) and $4,500 (#7) overnight vs his $3k override.
+
 ## 2026-10-28 — Sticker pack repriced off chain sales (serials tracked)
 
 - `data/stickers26-sales.json` now holds every chain sale (price > 0) for the 138 sticker cards valued $15+, each with **serial/run** and a premium flag (#1 = "number 1", last serial = "perfect mint"), plus John's earlier airdrop pastes (src=paste). Pulled 2026-10-28.
