@@ -136,15 +136,30 @@ def card_value(c):
         v = sorted(norm)[len(norm) // 2]
     else:
         v = c["offer"] or 0
-        if c["floor"] and v > c["floor"]:
+        if RULES.get("mid") and v and c["floor"] > v:
+            v = (v + c["floor"]) / 2  # no sales: bid/ask midpoint
+        elif c["floor"] and v > c["floor"]:
             v = c["floor"]  # a bid above the floor is for one specific serial
     return max(v, scrub[c["p"]])
 
 
+RULES = ck.get("rules", {})
+VAL = {(c["a"], c["p"]): card_value(c) for c in ck["cards"]}
+if RULES.get("ladder"):
+    # a rarer parallel of the same player is never worth less than a commoner one
+    for a in {c["a"] for c in ck["cards"]}:
+        best = 0
+        for p in PAR:
+            k = (a, p)
+            if k in VAL:
+                if VAL[k] < best and k not in OVR:
+                    VAL[k] = best
+                best = max(best, VAL[k])
+
 tot = {p: [0, 0.0] for p in PAR}       # in-pack copies, in-pack value
 hits = []
 for c in ck["cards"]:
-    v = card_value(c)
+    v = VAL[(c["a"], c["p"])]
     sp = [t for t in c["spec"]]
     val = (c["u"] - len(sp)) * v + sum(v * special_mult(t, c["run"]) for t in sp)
     tot[c["p"]][0] += c["u"]; tot[c["p"]][1] += val

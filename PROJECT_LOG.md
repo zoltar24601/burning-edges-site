@@ -42,6 +42,7 @@
 - **Book $11.76 -> $11.88 (expected $23.76)**: 3 Silver at $2.13 + 2 hits at $2.74. Hub card floor $9.
 - Flags for John: Yamal Black best offer now $57,500 (Messi override still $50k); Messi Gold normal serials sold $5,500 (#3) and $4,500 (#7) overnight vs his $3k override.
 - John: Messi Black override -> **$57,700**, Messi Gold (normal serial) override $3k -> **$5,000** (midpoint of the two overnight normal-serial sales). Yamal Gold stays $3k. **Book $12.17 (expected $24.34)**: 3 Silver at $2.13 + 2 hits at $2.88.
+- John: Yamal Gold normal override $3k -> **$5,000** (same as Messi). **Book $12.21 (expected $24.42).** Added optional `rules` to the sticker model in `build-pack-pages.py` (`ladder`: rarer parallel never below a commoner one for the same player; `mid`: no-sales card uses bid/ask midpoint when floor > offer). OFF pending John; with both on book = $12.85. Found: big-name Greens priced BELOW their Golds (Messi Green $1,600 vs Gold $5k; Ronaldo Green $450 vs Gold $1,700) because Greens have no normal-serial sales and fall back to best offer.
 
 ## 2026-10-28 — Sticker pack repriced off chain sales (serials tracked)
 

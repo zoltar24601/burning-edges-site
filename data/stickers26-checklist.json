@@ -37,9 +37,9 @@
   "Lionel Messi|Black": 57700,
   "Lamine Yamal|Black": 50000,
   "Lionel Messi|Gold": 5000,
-  "Lamine Yamal|Gold": 3000
+  "Lamine Yamal|Gold": 5000
  },
- "overrides_note": "John 2026-10-29: Messi Black $57.7k (Yamal Black offer $57.5k); Messi Gold normal serial $5k (overnight normal-serial sales $5,500 #3 / $4,500 #7); Yamal Gold normal $3k; specials via multiplier",
+ "overrides_note": "John 2026-10-29: Messi Black $57.7k (Yamal Black offer $57.5k); Messi Gold normal serial $5k (overnight normal-serial sales $5,500 #3 / $4,500 #7); Yamal Gold normal $5k (John: same as Messi); specials via multiplier",
  "rest": {
   "Black": {
    "run": 1,
@@ -2963,5 +2963,7 @@
    "b": 0,
    "bn": 240000
   }
- }
+ },
+ "rules": {},
+ "rules_note": "Optional: ladder = rarer parallel of same player never below a commoner one; mid = no-sales card uses bid/ask midpoint when floor > offer. Off until John OKs."
 }
