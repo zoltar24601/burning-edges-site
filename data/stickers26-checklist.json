@@ -2964,6 +2964,10 @@
    "bn": 240000
   }
  },
- "rules": {},
- "rules_note": "Optional: ladder = rarer parallel of same player never below a commoner one; mid = no-sales card uses bid/ask midpoint when floor > offer. Off until John OKs."
+ "rules": {
+  "ladder": true,
+  "mid": true,
+  "window24": true
+ },
+ "rules_note": "John 2026-10-29 ON: ladder = rarer parallel of same player never below a commoner one (overrides exempt); mid = no-sales card uses bid/ask midpoint when floor > offer; window24 = median of last 24h normal sales (>=3), else last 5."
 }

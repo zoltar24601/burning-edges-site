@@ -10,6 +10,7 @@
 # ============================================================
 import json, os
 from collections import defaultdict
+from datetime import datetime, timedelta
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 P = lambda *a: os.path.join(ROOT, *a)
@@ -126,12 +127,23 @@ for x in sales["sales"]:
         recent[(x["a"], x["p"])].append(x)
 
 
+RULES = ck.get("rules", {})
+_last = max(datetime.fromisoformat(x["date"][:19]) for x in sales["sales"] if "T" in x["date"])
+CUT24 = (_last - timedelta(hours=24)).isoformat()
+
+
 def card_value(c):
     k = (c["a"], c["p"])
     if k in OVR:
         return OVR[k]
     ss = sorted(recent.get(k, []), key=lambda x: x["date"], reverse=True)
-    norm = [x["price"] for x in ss if c["run"] == 1 or not any(t in x["tags"] for t in SPECIAL)][:3]
+    norm = [x for x in ss if c["run"] == 1 or not any(t in x["tags"] for t in SPECIAL)]
+    if RULES.get("window24"):
+        # liquid cards: median of the last 24h of normal sales; thin ones: last 5
+        day = [x["price"] for x in norm if x["date"] >= CUT24]
+        norm = day if len(day) >= 3 else [x["price"] for x in norm[:5]]
+    else:
+        norm = [x["price"] for x in norm[:3]]
     if norm:
         v = sorted(norm)[len(norm) // 2]
     else:
@@ -143,7 +155,6 @@ def card_value(c):
     return max(v, scrub[c["p"]])
 
 
-RULES = ck.get("rules", {})
 VAL = {(c["a"], c["p"]): card_value(c) for c in ck["cards"]}
 if RULES.get("ladder"):
     # a rarer parallel of the same player is never worth less than a commoner one
