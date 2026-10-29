@@ -34,12 +34,12 @@
   "Black": 8
  },
  "overrides": {
-  "Lionel Messi|Black": 50000,
+  "Lionel Messi|Black": 57700,
   "Lamine Yamal|Black": 50000,
-  "Lionel Messi|Gold": 3000,
+  "Lionel Messi|Gold": 5000,
   "Lamine Yamal|Gold": 3000
  },
- "overrides_note": "John 2026-10-28: Messi Black = Yamal's $35k offer (Yamal Black already pulled); Messi/Yamal Gold normal serial $3k, specials via multiplier",
+ "overrides_note": "John 2026-10-29: Messi Black $57.7k (Yamal Black offer $57.5k); Messi Gold normal serial $5k (overnight normal-serial sales $5,500 #3 / $4,500 #7); Yamal Gold normal $3k; specials via multiplier",
  "rest": {
   "Black": {
    "run": 1,

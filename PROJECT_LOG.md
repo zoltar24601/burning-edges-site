@@ -41,6 +41,7 @@
 - Packs: floor **$9** (last 30 sales all $9), 13,304 listed, **9,125 sold in 24h** to 10:01 ET. Walls: $9 53 · $10 5,199 · $11 1,313 · $12 1,772 · $13 759 · $14 667 · $15 759 · $16-17.99 962 · $18-19.99 687 · $20-24.99 813 · $25-29.99 107 · $30-49.99 178 · $50+ 35.
 - **Book $11.76 -> $11.88 (expected $23.76)**: 3 Silver at $2.13 + 2 hits at $2.74. Hub card floor $9.
 - Flags for John: Yamal Black best offer now $57,500 (Messi override still $50k); Messi Gold normal serials sold $5,500 (#3) and $4,500 (#7) overnight vs his $3k override.
+- John: Messi Black override -> **$57,700**, Messi Gold (normal serial) override $3k -> **$5,000** (midpoint of the two overnight normal-serial sales). Yamal Gold stays $3k. **Book $12.17 (expected $24.34)**: 3 Silver at $2.13 + 2 hits at $2.88.
 
 ## 2026-10-28 — Sticker pack repriced off chain sales (serials tracked)
 
