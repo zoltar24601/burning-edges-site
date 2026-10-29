@@ -37,9 +37,10 @@
   "Lionel Messi|Black": 57700,
   "Lamine Yamal|Black": 50000,
   "Lionel Messi|Gold": 5000,
-  "Lamine Yamal|Gold": 5000
+  "Lamine Yamal|Gold": 5000,
+  "Erling Haaland|Black": 10000
  },
- "overrides_note": "John 2026-10-29: Messi Black $57.7k (Yamal Black offer $57.5k); Messi Gold normal serial $5k (overnight normal-serial sales $5,500 #3 / $4,500 #7); Yamal Gold normal $5k (John: same as Messi); specials via multiplier",
+ "overrides_note": "John 2026-10-29: Messi Black $57.7k (Yamal Black offer $57.5k); Messi Gold normal serial $5k (overnight normal-serial sales $5,500 #3 / $4,500 #7); Yamal Gold normal $5k (John: same as Messi); specials via multiplier; Haaland Black $10k (John 2026-10-29, Mbappe 1/1 sold $9.5k)",
  "rest": {
   "Black": {
    "run": 1,
