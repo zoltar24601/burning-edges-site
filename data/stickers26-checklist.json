@@ -1,29 +1,28 @@
 {
  "source": "Panini pack checklist (getStorePackCheckList, pack 1058), pulled in-browser",
- "pulled": "2026-10-29T10:00",
- "unopened": 82708,
+ "pulled": "2026-10-29T14:50",
+ "unopened": 79467,
  "pack": {
-  "floor": 9,
+  "floor": 10,
   "recent": 9,
-  "avg": 9.0,
+  "avg": 9.17,
   "top": 20,
-  "listings": 13304,
-  "sold_24h": 9125
+  "listings": 13143,
+  "sold_24h": 9289
  },
  "walls": {
-  "9": 53,
-  "10": 5199,
-  "11": 1313,
-  "12": 1772,
-  "13": 759,
-  "14": 667,
-  "15": 759,
-  "16-17.99": 962,
-  "18-19.99": 687,
-  "20-24.99": 813,
+  "10": 5590,
+  "11": 1232,
+  "12": 1603,
+  "13": 679,
+  "14": 675,
+  "15": 749,
+  "16-17.99": 895,
+  "18-19.99": 632,
+  "20-24.99": 782,
   "25-29.99": 107,
-  "30-49.99": 178,
-  "50+": 35
+  "30-49.99": 172,
+  "50+": 27
  },
  "scrub": {
   "Silver": 2,
@@ -44,68 +43,68 @@
  "rest": {
   "Black": {
    "run": 1,
-   "u": 467,
-   "cards": 850,
+   "u": 450,
+   "cards": 845,
    "spec": {
-    "jersey mint,number 1,perfect mint": 26,
-    "number 1,perfect mint": 441
+    "jersey mint,number 1,perfect mint": 25,
+    "number 1,perfect mint": 425
    }
   },
   "Green": {
    "run": 5,
-   "u": 2415,
-   "cards": 922,
+   "u": 2318,
+   "cards": 917,
    "spec": {
-    "number 1": 445,
+    "number 1": 427,
     "jersey mint,number 1": 16,
-    "perfect mint": 469,
-    "jersey mint": 68,
+    "perfect mint": 443,
+    "jersey mint": 66,
     "jersey mint,perfect mint": 15
    }
   },
   "Gold": {
    "run": 10,
-   "u": 4762,
-   "cards": 909,
+   "u": 4541,
+   "cards": 899,
    "spec": {
-    "number 1": 477,
-    "perfect mint": 473,
-    "jersey mint": 154,
-    "jersey mint,perfect mint": 25,
+    "number 1": 458,
+    "perfect mint": 450,
+    "jersey mint": 148,
+    "jersey mint,perfect mint": 22,
     "jersey mint,number 1": 22
    }
   },
   "Red": {
    "run": 49,
-   "u": 23180,
-   "cards": 923,
+   "u": 22284,
+   "cards": 922,
    "spec": {
-    "number 1": 460,
-    "jersey mint": 370,
-    "perfect mint": 461,
+    "number 1": 445,
+    "jersey mint": 351,
+    "perfect mint": 443,
     "jersey mint,number 1": 17
    }
   },
   "Blue": {
    "run": 269,
-   "u": 128075,
-   "cards": 922,
+   "u": 122852,
+   "cards": 921,
    "spec": {
-    "number 1": 460,
-    "perfect mint": 472,
-    "jersey mint,number 1": 22,
-    "jersey mint": 406
+    "number 1": 443,
+    "jersey mint,number 1": 21,
+    "perfect mint": 449,
+    "jersey mint": 395
    }
   },
   "Silver": {
    "run": 501,
-   "u": 240405,
-   "cards": 930,
+   "u": 231262,
+   "cards": 931,
    "spec": {
-    "number 1": 458,
+    "number 1": 450,
     "jersey mint,number 1": 22,
-    "jersey mint": 417,
-    "perfect mint": 470
+    "jersey mint": 408,
+    "perfect mint": 447
    }
   }
  },
@@ -139,7 +138,7 @@
    "p": "Black",
    "run": 1,
    "u": 1,
-   "offer": 400.0,
+   "offer": 500.0,
    "floor": 0.0,
    "avg": 0.0,
    "spec": [
@@ -244,18 +243,6 @@
   },
   {
    "a": "Egypt",
-   "p": "Black",
-   "run": 1,
-   "u": 1,
-   "offer": 55.0,
-   "floor": 0.0,
-   "avg": 0.0,
-   "spec": [
-    "number 1,perfect mint"
-   ]
-  },
-  {
-   "a": "Declan Rice",
    "p": "Black",
    "run": 1,
    "u": 1,
@@ -415,7 +402,7 @@
    "p": "Black",
    "run": 1,
    "u": 1,
-   "offer": 800.0,
+   "offer": 777.0,
    "floor": 0.0,
    "avg": 0.0,
    "spec": [
@@ -452,18 +439,6 @@
    "run": 1,
    "u": 1,
    "offer": 75.0,
-   "floor": 0.0,
-   "avg": 0.0,
-   "spec": [
-    "number 1,perfect mint"
-   ]
-  },
-  {
-   "a": "Florian Wirtz",
-   "p": "Black",
-   "run": 1,
-   "u": 1,
-   "offer": 50.0,
    "floor": 0.0,
    "avg": 0.0,
    "spec": [
@@ -535,7 +510,7 @@
    "p": "Black",
    "run": 1,
    "u": 1,
-   "offer": 35.0,
+   "offer": 50.0,
    "floor": 0.0,
    "avg": 0.0,
    "spec": [
@@ -644,9 +619,35 @@
    "run": 5,
    "u": 1,
    "offer": 15.0,
-   "floor": 30.0,
+   "floor": 25.0,
    "avg": 0.0,
    "spec": []
+  },
+  {
+   "a": "Argentina Team Badge",
+   "p": "Green",
+   "run": 5,
+   "u": 3,
+   "offer": 50.0,
+   "floor": 500.0,
+   "avg": 0.0,
+   "spec": [
+    "number 1",
+    "perfect mint"
+   ]
+  },
+  {
+   "a": "Argentina",
+   "p": "Green",
+   "run": 5,
+   "u": 4,
+   "offer": 55.0,
+   "floor": 500.0,
+   "avg": 0.0,
+   "spec": [
+    "number 1",
+    "perfect mint"
+   ]
   },
   {
    "a": "Nico Paz",
@@ -685,8 +686,8 @@
    "p": "Green",
    "run": 5,
    "u": 2,
-   "offer": 15.0,
-   "floor": 0.0,
+   "offer": 25.0,
+   "floor": 500.0,
    "avg": 25.0,
    "spec": []
   },
@@ -707,7 +708,7 @@
    "p": "Green",
    "run": 5,
    "u": 2,
-   "offer": 140.0,
+   "offer": 110.0,
    "floor": 200.0,
    "avg": 269.0,
    "spec": []
@@ -769,7 +770,7 @@
    "run": 5,
    "u": 1,
    "offer": 100.0,
-   "floor": 0.0,
+   "floor": 200.0,
    "avg": 158.33,
    "spec": [
     "perfect mint"
@@ -824,25 +825,21 @@
    "a": "Rodri",
    "p": "Green",
    "run": 5,
-   "u": 2,
+   "u": 1,
    "offer": 10.0,
    "floor": 40.0,
    "avg": 35.0,
-   "spec": [
-    "number 1"
-   ]
+   "spec": []
   },
   {
    "a": "Pedri",
    "p": "Green",
    "run": 5,
-   "u": 2,
+   "u": 1,
    "offer": 40.0,
-   "floor": 400.0,
+   "floor": 100.0,
    "avg": 0.0,
-   "spec": [
-    "perfect mint"
-   ]
+   "spec": []
   },
   {
    "a": "Lamine Yamal",
@@ -955,11 +952,21 @@
    "run": 5,
    "u": 2,
    "offer": 22.0,
-   "floor": 175.0,
+   "floor": 150.0,
    "avg": 0.0,
    "spec": [
     "perfect mint"
    ]
+  },
+  {
+   "a": "Martin Odegaard",
+   "p": "Green",
+   "run": 5,
+   "u": 2,
+   "offer": 15.0,
+   "floor": 90.0,
+   "avg": 0.0,
+   "spec": []
   },
   {
    "a": "Erling Haaland",
@@ -985,6 +992,16 @@
     "number 1",
     "perfect mint"
    ]
+  },
+  {
+   "a": "Joao Neves",
+   "p": "Green",
+   "run": 5,
+   "u": 2,
+   "offer": 13.0,
+   "floor": 25.0,
+   "avg": 0.0,
+   "spec": []
   },
   {
    "a": "Cristiano Ronaldo",
@@ -1038,7 +1055,7 @@
    "a": "Folarin Balogun",
    "p": "Green",
    "run": 5,
-   "u": 3,
+   "u": 2,
    "offer": 25.0,
    "floor": 125.0,
    "avg": 0.0,
@@ -1052,10 +1069,36 @@
    "run": 10,
    "u": 5,
    "offer": 12.0,
-   "floor": 50.0,
+   "floor": 25.0,
    "avg": 12.0,
    "spec": [
     "number 1",
+    "perfect mint"
+   ]
+  },
+  {
+   "a": "Emiliano Martinez",
+   "p": "Gold",
+   "run": 10,
+   "u": 7,
+   "offer": 40.0,
+   "floor": 199.0,
+   "avg": 0.0,
+   "spec": [
+    "number 1",
+    "perfect mint"
+   ]
+  },
+  {
+   "a": "Leonardo Balerdi",
+   "p": "Gold",
+   "run": 10,
+   "u": 6,
+   "offer": 15.0,
+   "floor": 100.0,
+   "avg": 0.0,
+   "spec": [
+    "jersey mint",
     "perfect mint"
    ]
   },
@@ -1065,10 +1108,34 @@
    "run": 10,
    "u": 6,
    "offer": 0.0,
-   "floor": 60.0,
+   "floor": 100.0,
    "avg": 20.0,
    "spec": [
     "number 1"
+   ]
+  },
+  {
+   "a": "Rodrigo De Paul",
+   "p": "Gold",
+   "run": 10,
+   "u": 7,
+   "offer": 15.0,
+   "floor": 99.0,
+   "avg": 0.0,
+   "spec": [
+    "perfect mint"
+   ]
+  },
+  {
+   "a": "Argentina",
+   "p": "Gold",
+   "run": 10,
+   "u": 4,
+   "offer": 75.0,
+   "floor": 268.0,
+   "avg": 0.0,
+   "spec": [
+    "perfect mint"
    ]
   },
   {
@@ -1097,12 +1164,22 @@
    ]
   },
   {
+   "a": "Nicolas Gonzalez",
+   "p": "Gold",
+   "run": 10,
+   "u": 3,
+   "offer": 12.0,
+   "floor": 100.0,
+   "avg": 0.0,
+   "spec": []
+  },
+  {
    "a": "Lionel Messi",
    "p": "Gold",
    "run": 10,
-   "u": 5,
-   "offer": 2555.0,
-   "floor": 0.0,
+   "u": 3,
+   "offer": 3850.0,
+   "floor": 4900.0,
    "avg": 4375.0,
    "spec": [
     "number 1",
@@ -1115,8 +1192,8 @@
    "run": 10,
    "u": 5,
    "offer": 0.0,
-   "floor": 50.0,
-   "avg": 15.5,
+   "floor": 500.0,
+   "avg": 18.67,
    "spec": [
     "number 1",
     "perfect mint"
@@ -1131,6 +1208,18 @@
    "floor": 90.0,
    "avg": 40.5,
    "spec": []
+  },
+  {
+   "a": "Giuliano Simeone",
+   "p": "Gold",
+   "run": 10,
+   "u": 4,
+   "offer": 15.0,
+   "floor": 35.0,
+   "avg": 9.0,
+   "spec": [
+    "perfect mint"
+   ]
   },
   {
    "a": "Kevin De Bruyne",
@@ -1160,7 +1249,7 @@
    "a": "Joao Pedro",
    "p": "Gold",
    "run": 10,
-   "u": 8,
+   "u": 7,
    "offer": 15.0,
    "floor": 100.0,
    "avg": 0.0,
@@ -1185,7 +1274,7 @@
    "a": "Yan Diomande",
    "p": "Gold",
    "run": 10,
-   "u": 7,
+   "u": 6,
    "offer": 150.0,
    "floor": 200.0,
    "avg": 0.0,
@@ -1220,7 +1309,7 @@
    "a": "Petar Sucic",
    "p": "Gold",
    "run": 10,
-   "u": 6,
+   "u": 5,
    "offer": 0.0,
    "floor": 0.0,
    "avg": 20.0,
@@ -1241,12 +1330,24 @@
    ]
   },
   {
+   "a": "England Team Badge",
+   "p": "Gold",
+   "run": 10,
+   "u": 4,
+   "offer": 0.0,
+   "floor": 45.0,
+   "avg": 27.0,
+   "spec": [
+    "perfect mint"
+   ]
+  },
+  {
    "a": "Jude Bellingham",
    "p": "Gold",
    "run": 10,
    "u": 2,
    "offer": 225.0,
-   "floor": 2500.0,
+   "floor": 2400.0,
    "avg": 225.0,
    "spec": []
   },
@@ -1256,7 +1357,7 @@
    "run": 10,
    "u": 4,
    "offer": 0.0,
-   "floor": 80.0,
+   "floor": 75.0,
    "avg": 45.0,
    "spec": []
   },
@@ -1288,7 +1389,7 @@
    "p": "Gold",
    "run": 10,
    "u": 3,
-   "offer": 200.0,
+   "offer": 225.0,
    "floor": 250.0,
    "avg": 0.0,
    "spec": [
@@ -1301,7 +1402,7 @@
    "run": 10,
    "u": 3,
    "offer": 15.0,
-   "floor": 50.0,
+   "floor": 45.0,
    "avg": 33.0,
    "spec": []
   },
@@ -1331,7 +1432,7 @@
    "a": "Pedri",
    "p": "Gold",
    "run": 10,
-   "u": 3,
+   "u": 2,
    "offer": 21.0,
    "floor": 98.0,
    "avg": 50.0,
@@ -1343,8 +1444,8 @@
    "run": 10,
    "u": 2,
    "offer": 30.0,
-   "floor": 95.0,
-   "avg": 115.5,
+   "floor": 136.0,
+   "avg": 102.4,
    "spec": []
   },
   {
@@ -1353,7 +1454,7 @@
    "run": 10,
    "u": 1,
    "offer": 1900.0,
-   "floor": 5000.0,
+   "floor": 4500.0,
    "avg": 2875.0,
    "spec": [
     "perfect mint"
@@ -1365,7 +1466,7 @@
    "run": 10,
    "u": 7,
    "offer": 20.0,
-   "floor": 50.0,
+   "floor": 40.0,
    "avg": 30.0,
    "spec": [
     "number 1"
@@ -1397,13 +1498,23 @@
    ]
   },
   {
+   "a": "France",
+   "p": "Gold",
+   "run": 10,
+   "u": 2,
+   "offer": 30.0,
+   "floor": 29.0,
+   "avg": 15.0,
+   "spec": []
+  },
+  {
    "a": "Michael Olise",
    "p": "Gold",
    "run": 10,
-   "u": 3,
+   "u": 2,
    "offer": 400.0,
-   "floor": 745.0,
-   "avg": 174.75,
+   "floor": 600.0,
+   "avg": 209.8,
    "spec": []
   },
   {
@@ -1446,7 +1557,7 @@
    "p": "Gold",
    "run": 10,
    "u": 2,
-   "offer": 8.0,
+   "offer": 12.0,
    "floor": 17.0,
    "avg": 20.0,
    "spec": []
@@ -1455,9 +1566,9 @@
    "a": "Kylian Mbappe",
    "p": "Gold",
    "run": 10,
-   "u": 5,
-   "offer": 1200.0,
-   "floor": 2222.0,
+   "u": 4,
+   "offer": 900.0,
+   "floor": 3600.0,
    "avg": 0.0,
    "spec": []
   },
@@ -1477,7 +1588,7 @@
    "a": "Jamal Musiala",
    "p": "Gold",
    "run": 10,
-   "u": 4,
+   "u": 3,
    "offer": 25.0,
    "floor": 100.0,
    "avg": 0.0,
@@ -1514,7 +1625,7 @@
    "u": 4,
    "offer": 35.0,
    "floor": 99.0,
-   "avg": 40.0,
+   "avg": 37.5,
    "spec": [
     "jersey mint"
    ]
@@ -1532,12 +1643,24 @@
    ]
   },
   {
+   "a": "Martin Odegaard",
+   "p": "Gold",
+   "run": 10,
+   "u": 7,
+   "offer": 6.0,
+   "floor": 250.0,
+   "avg": 25.0,
+   "spec": [
+    "jersey mint,perfect mint"
+   ]
+  },
+  {
    "a": "Erling Haaland",
    "p": "Gold",
    "run": 10,
    "u": 6,
-   "offer": 1750.0,
-   "floor": 2000.0,
+   "offer": 1500.0,
+   "floor": 1700.0,
    "avg": 1111.0,
    "spec": [
     "number 1",
@@ -1568,12 +1691,24 @@
    "spec": []
   },
   {
+   "a": "Portugal",
+   "p": "Gold",
+   "run": 10,
+   "u": 5,
+   "offer": 30.0,
+   "floor": 100.0,
+   "avg": 0.0,
+   "spec": [
+    "number 1"
+   ]
+  },
+  {
    "a": "Cristiano Ronaldo",
    "p": "Gold",
    "run": 10,
    "u": 2,
-   "offer": 2000.0,
-   "floor": 1700.0,
+   "offer": 1000.0,
+   "floor": 1377.0,
    "avg": 0.0,
    "spec": []
   },
@@ -1581,7 +1716,7 @@
    "a": "Hassan Al-Haydos",
    "p": "Gold",
    "run": 10,
-   "u": 5,
+   "u": 4,
    "offer": 0.0,
    "floor": 50.0,
    "avg": 130.67,
@@ -1593,7 +1728,7 @@
    "a": "Johan Manzambi",
    "p": "Gold",
    "run": 10,
-   "u": 6,
+   "u": 5,
    "offer": 100.0,
    "floor": 150.0,
    "avg": 112.5,
@@ -1632,7 +1767,7 @@
    "p": "Gold",
    "run": 10,
    "u": 3,
-   "offer": 35.0,
+   "offer": 50.0,
    "floor": 499.0,
    "avg": 50.0,
    "spec": []
@@ -1656,7 +1791,7 @@
    "u": 27,
    "offer": 10.0,
    "floor": 15.0,
-   "avg": 6.11,
+   "avg": 6.5,
    "spec": [
     "jersey mint"
    ]
@@ -1668,7 +1803,7 @@
    "u": 23,
    "offer": 550.0,
    "floor": 299.0,
-   "avg": 119.17,
+   "avg": 123.57,
    "spec": [
     "number 1",
     "jersey mint",
@@ -1682,7 +1817,7 @@
    "u": 21,
    "offer": 25.0,
    "floor": 5.0,
-   "avg": 5.75,
+   "avg": 4.67,
    "spec": []
   },
   {
@@ -1701,9 +1836,9 @@
    "a": "Vinicius Junior",
    "p": "Red",
    "run": 49,
-   "u": 27,
-   "offer": 1.0,
-   "floor": 44.0,
+   "u": 26,
+   "offer": 2.0,
+   "floor": 8.0,
    "avg": 10.0,
    "spec": [
     "perfect mint"
@@ -1713,7 +1848,7 @@
    "a": "Estevao",
    "p": "Red",
    "run": 49,
-   "u": 30,
+   "u": 28,
    "offer": 10.0,
    "floor": 150.0,
    "avg": 5.0,
@@ -1727,7 +1862,7 @@
    "a": "Yan Diomande",
    "p": "Red",
    "run": 49,
-   "u": 26,
+   "u": 25,
    "offer": 15.0,
    "floor": 20.0,
    "avg": 16.0,
@@ -1739,7 +1874,7 @@
    "a": "Luka Modric",
    "p": "Red",
    "run": 49,
-   "u": 23,
+   "u": 22,
    "offer": 1.0,
    "floor": 9.0,
    "avg": 6.83,
@@ -1749,13 +1884,26 @@
    ]
   },
   {
+   "a": "Croatia",
+   "p": "Red",
+   "run": 49,
+   "u": 27,
+   "offer": 5.0,
+   "floor": 2.0,
+   "avg": 1.0,
+   "spec": [
+    "number 1",
+    "perfect mint"
+   ]
+  },
+  {
    "a": "Mohamed Salah",
    "p": "Red",
    "run": 49,
    "u": 27,
    "offer": 5.0,
-   "floor": 50.0,
-   "avg": 8.0,
+   "floor": 25.0,
+   "avg": 8.5,
    "spec": [
     "jersey mint"
    ]
@@ -1803,7 +1951,7 @@
    "run": 49,
    "u": 32,
    "offer": 30.0,
-   "floor": 100.0,
+   "floor": 30.0,
    "avg": 13.0,
    "spec": [
     "perfect mint"
@@ -1815,21 +1963,9 @@
    "run": 49,
    "u": 24,
    "offer": 20.0,
-   "floor": 40.0,
+   "floor": 25.0,
    "avg": 6.78,
    "spec": []
-  },
-  {
-   "a": "Unai Simon",
-   "p": "Red",
-   "run": 49,
-   "u": 24,
-   "offer": 1.0,
-   "floor": 5.0,
-   "avg": 6.67,
-   "spec": [
-    "number 1"
-   ]
   },
   {
    "a": "Pedro Porro",
@@ -1849,10 +1985,10 @@
    "a": "Marc Cucurella",
    "p": "Red",
    "run": 49,
-   "u": 25,
-   "offer": 10.0,
-   "floor": 14.0,
-   "avg": 3.0,
+   "u": 23,
+   "offer": 5.0,
+   "floor": 15.0,
+   "avg": 3.33,
    "spec": [
     "jersey mint"
    ]
@@ -1887,10 +2023,10 @@
    "a": "Spain",
    "p": "Red",
    "run": 49,
-   "u": 25,
+   "u": 24,
    "offer": 20.0,
    "floor": 13.0,
-   "avg": 9.86,
+   "avg": 10.0,
    "spec": [
     "number 1",
     "perfect mint"
@@ -1900,10 +2036,10 @@
    "a": "Lamine Yamal",
    "p": "Red",
    "run": 49,
-   "u": 21,
+   "u": 20,
    "offer": 800.0,
-   "floor": 200.0,
-   "avg": 179.27,
+   "floor": 255.0,
+   "avg": 188.23,
    "spec": [
     "number 1",
     "jersey mint"
@@ -1913,10 +2049,10 @@
    "a": "Nico Williams",
    "p": "Red",
    "run": 49,
-   "u": 19,
+   "u": 18,
    "offer": 10.0,
    "floor": 0.0,
-   "avg": 2.6,
+   "avg": 2.5,
    "spec": [
     "jersey mint"
    ]
@@ -1925,22 +2061,34 @@
    "a": "Ferran Torres",
    "p": "Red",
    "run": 49,
-   "u": 28,
+   "u": 27,
    "offer": 6.0,
-   "floor": 5.0,
-   "avg": 6.5,
+   "floor": 10.0,
+   "avg": 5.0,
    "spec": [
     "jersey mint"
    ]
   },
   {
-   "a": "France Team Badge",
+   "a": "Mikel Oyarzabal",
    "p": "Red",
    "run": 49,
-   "u": 29,
-   "offer": 7.0,
-   "floor": 10.0,
-   "avg": 3.0,
+   "u": 21,
+   "offer": 5.0,
+   "floor": 0.0,
+   "avg": 3.33,
+   "spec": [
+    "number 1"
+   ]
+  },
+  {
+   "a": "France",
+   "p": "Red",
+   "run": 49,
+   "u": 25,
+   "offer": 5.0,
+   "floor": 30.0,
+   "avg": 4.4,
    "spec": [
     "number 1",
     "perfect mint"
@@ -1950,9 +2098,9 @@
    "a": "Michael Olise",
    "p": "Red",
    "run": 49,
-   "u": 26,
+   "u": 25,
    "offer": 40.0,
-   "floor": 24.0,
+   "floor": 15.0,
    "avg": 8.4,
    "spec": []
   },
@@ -1960,23 +2108,22 @@
    "a": "Desire Doue",
    "p": "Red",
    "run": 49,
-   "u": 27,
+   "u": 25,
    "offer": 8.0,
-   "floor": 20.0,
-   "avg": 12.5,
+   "floor": 39.0,
+   "avg": 11.6,
    "spec": [
-    "number 1",
-    "perfect mint"
+    "number 1"
    ]
   },
   {
    "a": "Kylian Mbappe",
    "p": "Red",
    "run": 49,
-   "u": 25,
-   "offer": 99.0,
+   "u": 24,
+   "offer": 130.0,
    "floor": 69.0,
-   "avg": 21.33,
+   "avg": 22.57,
    "spec": [
     "jersey mint"
    ]
@@ -1995,15 +2142,14 @@
    ]
   },
   {
-   "a": "Kang-in Lee",
+   "a": "Korea Republic",
    "p": "Red",
    "run": 49,
-   "u": 35,
-   "offer": 2.0,
-   "floor": 4.0,
-   "avg": 10.0,
+   "u": 24,
+   "offer": 5.0,
+   "floor": 50.0,
+   "avg": 0.0,
    "spec": [
-    "jersey mint",
     "perfect mint"
    ]
   },
@@ -2011,7 +2157,7 @@
    "a": "Yassine Bounou",
    "p": "Red",
    "run": 49,
-   "u": 22,
+   "u": 20,
    "offer": 5.0,
    "floor": 2.0,
    "avg": 2.33,
@@ -2021,10 +2167,10 @@
    "a": "Martin Odegaard",
    "p": "Red",
    "run": 49,
-   "u": 24,
-   "offer": 8.0,
+   "u": 23,
+   "offer": 10.0,
    "floor": 22.0,
-   "avg": 0.0,
+   "avg": 8.0,
    "spec": [
     "number 1",
     "perfect mint"
@@ -2035,9 +2181,9 @@
    "p": "Red",
    "run": 49,
    "u": 29,
-   "offer": 15.0,
-   "floor": 25.0,
-   "avg": 3.5,
+   "offer": 5.0,
+   "floor": 0.0,
+   "avg": 7.33,
    "spec": [
     "perfect mint"
    ]
@@ -2046,9 +2192,9 @@
    "a": "Erling Haaland",
    "p": "Red",
    "run": 49,
-   "u": 32,
+   "u": 31,
    "offer": 250.0,
-   "floor": 75.0,
+   "floor": 65.0,
    "avg": 58.57,
    "spec": [
     "number 1",
@@ -2073,8 +2219,8 @@
    "run": 49,
    "u": 24,
    "offer": 10.0,
-   "floor": 12.0,
-   "avg": 9.4,
+   "floor": 25.0,
+   "avg": 9.83,
    "spec": [
     "number 1",
     "jersey mint"
@@ -2084,7 +2230,7 @@
    "a": "Arda Guler",
    "p": "Red",
    "run": 49,
-   "u": 29,
+   "u": 28,
    "offer": 12.0,
    "floor": 0.0,
    "avg": 4.33,
@@ -2096,7 +2242,7 @@
    "a": "Argentina Team Badge",
    "p": "Blue",
    "run": 269,
-   "u": 125,
+   "u": 117,
    "offer": 12.0,
    "floor": 2.0,
    "avg": 2.05,
@@ -2106,7 +2252,7 @@
    "a": "Argentina",
    "p": "Blue",
    "run": 269,
-   "u": 143,
+   "u": 140,
    "offer": 5.0,
    "floor": 4.0,
    "avg": 3.0,
@@ -2116,10 +2262,10 @@
    "a": "Nico Paz",
    "p": "Blue",
    "run": 269,
-   "u": 123,
+   "u": 119,
    "offer": 50.0,
    "floor": 6.0,
-   "avg": 3.67,
+   "avg": 3.7,
    "spec": [
     "number 1",
     "perfect mint"
@@ -2129,10 +2275,10 @@
    "a": "Lionel Messi",
    "p": "Blue",
    "run": 269,
-   "u": 142,
+   "u": 138,
    "offer": 1200.0,
-   "floor": 55.0,
-   "avg": 31.8,
+   "floor": 50.0,
+   "avg": 32.47,
    "spec": [
     "jersey mint",
     "perfect mint"
@@ -2142,7 +2288,7 @@
    "a": "Nestory Irankunda",
    "p": "Blue",
    "run": 269,
-   "u": 134,
+   "u": 126,
    "offer": 0.0,
    "floor": 1.0,
    "avg": 5.0,
@@ -2155,7 +2301,7 @@
    "a": "Kevin De Bruyne",
    "p": "Blue",
    "run": 269,
-   "u": 133,
+   "u": 129,
    "offer": 15.0,
    "floor": 1.0,
    "avg": 4.33,
@@ -2168,7 +2314,7 @@
    "a": "Esmir Bajraktarevic",
    "p": "Blue",
    "run": 269,
-   "u": 140,
+   "u": 134,
    "offer": 0.0,
    "floor": 1.0,
    "avg": 5.0,
@@ -2180,10 +2326,10 @@
    "a": "Vinicius Junior",
    "p": "Blue",
    "run": 269,
-   "u": 134,
+   "u": 128,
    "offer": 0.0,
    "floor": 3.0,
-   "avg": 5.5,
+   "avg": 4.0,
    "spec": [
     "jersey mint",
     "perfect mint"
@@ -2193,10 +2339,35 @@
    "a": "Yan Diomande",
    "p": "Blue",
    "run": 269,
-   "u": 150,
+   "u": 149,
    "offer": 10.0,
-   "floor": 5.0,
+   "floor": 4.0,
    "avg": 5.27,
+   "spec": [
+    "number 1",
+    "perfect mint"
+   ]
+  },
+  {
+   "a": "Croatia",
+   "p": "Blue",
+   "run": 269,
+   "u": 130,
+   "offer": 0.0,
+   "floor": 1.0,
+   "avg": 3.25,
+   "spec": [
+    "perfect mint"
+   ]
+  },
+  {
+   "a": "Egypt",
+   "p": "Blue",
+   "run": 269,
+   "u": 123,
+   "offer": 0.0,
+   "floor": 1.0,
+   "avg": 8.0,
    "spec": [
     "number 1",
     "perfect mint"
@@ -2206,10 +2377,10 @@
    "a": "Jude Bellingham",
    "p": "Blue",
    "run": 269,
-   "u": 131,
+   "u": 127,
    "offer": 30.0,
-   "floor": 4.0,
-   "avg": 3.17,
+   "floor": 3.0,
+   "avg": 3.12,
    "spec": [
     "number 1"
    ]
@@ -2218,10 +2389,10 @@
    "a": "Harry Kane",
    "p": "Blue",
    "run": 269,
-   "u": 150,
+   "u": 142,
    "offer": 3.0,
    "floor": 3.0,
-   "avg": 2.45,
+   "avg": 2.36,
    "spec": [
     "jersey mint"
    ]
@@ -2230,7 +2401,7 @@
    "a": "Spain Team Badge",
    "p": "Blue",
    "run": 269,
-   "u": 140,
+   "u": 138,
    "offer": 8.0,
    "floor": 2.0,
    "avg": 1.33,
@@ -2242,7 +2413,7 @@
    "a": "Pedro Porro",
    "p": "Blue",
    "run": 269,
-   "u": 138,
+   "u": 134,
    "offer": 5.0,
    "floor": 2.0,
    "avg": 1.0,
@@ -2255,7 +2426,7 @@
    "a": "Marc Cucurella",
    "p": "Blue",
    "run": 269,
-   "u": 150,
+   "u": 140,
    "offer": 4.0,
    "floor": 1.0,
    "avg": 1.25,
@@ -2267,30 +2438,29 @@
    "a": "Rodri",
    "p": "Blue",
    "run": 269,
-   "u": 134,
+   "u": 128,
    "offer": 10.0,
    "floor": 2.0,
-   "avg": 1.36,
+   "avg": 1.31,
    "spec": [
-    "number 1",
-    "perfect mint"
+    "number 1"
    ]
   },
   {
    "a": "Pedri",
    "p": "Blue",
    "run": 269,
-   "u": 136,
+   "u": 131,
    "offer": 10.0,
    "floor": 2.0,
-   "avg": 1.62,
+   "avg": 1.64,
    "spec": []
   },
   {
    "a": "Fabian Ruiz",
    "p": "Blue",
    "run": 269,
-   "u": 127,
+   "u": 122,
    "offer": 5.0,
    "floor": 1.0,
    "avg": 1.0,
@@ -2300,10 +2470,10 @@
    "a": "Spain",
    "p": "Blue",
    "run": 269,
-   "u": 157,
-   "offer": 7.0,
-   "floor": 2.0,
-   "avg": 2.14,
+   "u": 142,
+   "offer": 20.0,
+   "floor": 3.0,
+   "avg": 2.12,
    "spec": [
     "perfect mint"
    ]
@@ -2312,10 +2482,10 @@
    "a": "Lamine Yamal",
    "p": "Blue",
    "run": 269,
-   "u": 145,
+   "u": 137,
    "offer": 1200.0,
    "floor": 45.0,
-   "avg": 28.18,
+   "avg": 28.25,
    "spec": [
     "number 1",
     "jersey mint",
@@ -2326,7 +2496,7 @@
    "a": "Nico Williams",
    "p": "Blue",
    "run": 269,
-   "u": 131,
+   "u": 128,
    "offer": 7.0,
    "floor": 2.0,
    "avg": 1.21,
@@ -2338,7 +2508,7 @@
    "a": "France Team Badge",
    "p": "Blue",
    "run": 269,
-   "u": 130,
+   "u": 120,
    "offer": 5.0,
    "floor": 3.0,
    "avg": 1.29,
@@ -2351,7 +2521,7 @@
    "a": "Eduardo Camavinga",
    "p": "Blue",
    "run": 269,
-   "u": 136,
+   "u": 128,
    "offer": 3.0,
    "floor": 1.0,
    "avg": 1.0,
@@ -2365,7 +2535,7 @@
    "a": "France",
    "p": "Blue",
    "run": 269,
-   "u": 144,
+   "u": 137,
    "offer": 0.0,
    "floor": 2.0,
    "avg": 3.25,
@@ -2378,10 +2548,10 @@
    "a": "Michael Olise",
    "p": "Blue",
    "run": 269,
-   "u": 127,
+   "u": 121,
    "offer": 125.0,
    "floor": 6.0,
-   "avg": 6.14,
+   "avg": 6.05,
    "spec": [
     "number 1",
     "jersey mint"
@@ -2391,7 +2561,7 @@
    "a": "Ousmane Dembele",
    "p": "Blue",
    "run": 269,
-   "u": 148,
+   "u": 144,
    "offer": 3.0,
    "floor": 5.0,
    "avg": 2.3,
@@ -2404,7 +2574,7 @@
    "a": "Bradley Barcola",
    "p": "Blue",
    "run": 269,
-   "u": 133,
+   "u": 130,
    "offer": 0.0,
    "floor": 2.0,
    "avg": 3.33,
@@ -2417,10 +2587,10 @@
    "a": "Kylian Mbappe",
    "p": "Blue",
    "run": 269,
-   "u": 132,
+   "u": 127,
    "offer": 250.0,
-   "floor": 12.0,
-   "avg": 12.73,
+   "floor": 11.0,
+   "avg": 12.32,
    "spec": [
     "jersey mint"
    ]
@@ -2429,19 +2599,17 @@
    "a": "Kang-in Lee",
    "p": "Blue",
    "run": 269,
-   "u": 142,
-   "offer": 10.0,
+   "u": 134,
+   "offer": 0.0,
    "floor": 1.0,
-   "avg": 1.0,
-   "spec": [
-    "jersey mint"
-   ]
+   "avg": 4.0,
+   "spec": []
   },
   {
    "a": "Yassine Bounou",
    "p": "Blue",
    "run": 269,
-   "u": 139,
+   "u": 132,
    "offer": 5.0,
    "floor": 1.0,
    "avg": 2.0,
@@ -2451,7 +2619,7 @@
    "a": "Netherlands",
    "p": "Blue",
    "run": 269,
-   "u": 157,
+   "u": 152,
    "offer": 3.0,
    "floor": 1.0,
    "avg": 1.0,
@@ -2460,10 +2628,22 @@
    ]
   },
   {
+   "a": "Martin Odegaard",
+   "p": "Blue",
+   "run": 269,
+   "u": 133,
+   "offer": 10.0,
+   "floor": 1.0,
+   "avg": 5.5,
+   "spec": [
+    "jersey mint"
+   ]
+  },
+  {
    "a": "Norway",
    "p": "Blue",
    "run": 269,
-   "u": 132,
+   "u": 129,
    "offer": 10.0,
    "floor": 1.0,
    "avg": 1.0,
@@ -2476,10 +2656,10 @@
    "a": "Erling Haaland",
    "p": "Blue",
    "run": 269,
-   "u": 145,
+   "u": 144,
    "offer": 250.0,
-   "floor": 19.0,
-   "avg": 21.89,
+   "floor": 16.0,
+   "avg": 21.26,
    "spec": [
     "jersey mint",
     "perfect mint"
@@ -2489,7 +2669,7 @@
    "a": "Portugal Team Badge",
    "p": "Blue",
    "run": 269,
-   "u": 134,
+   "u": 128,
    "offer": 10.0,
    "floor": 2.0,
    "avg": 1.4,
@@ -2502,10 +2682,10 @@
    "a": "Cristiano Ronaldo",
    "p": "Blue",
    "run": 269,
-   "u": 154,
+   "u": 147,
    "offer": 65.0,
-   "floor": 11.0,
-   "avg": 8.0,
+   "floor": 8.0,
+   "avg": 8.21,
    "spec": [
     "jersey mint"
    ]
@@ -2514,7 +2694,7 @@
    "a": "Qatar Team Badge",
    "p": "Blue",
    "run": 269,
-   "u": 147,
+   "u": 142,
    "offer": 0.0,
    "floor": 1.0,
    "avg": 5.5,
@@ -2524,34 +2704,10 @@
    "a": "Arda Guler",
    "p": "Blue",
    "run": 269,
-   "u": 141,
+   "u": 135,
    "offer": 3.0,
    "floor": 2.0,
-   "avg": 1.9,
-   "spec": [
-    "number 1"
-   ]
-  },
-  {
-   "a": "Brenden Aaronson",
-   "p": "Blue",
-   "run": 269,
-   "u": 131,
-   "offer": 0.0,
-   "floor": 1.0,
-   "avg": 5.0,
-   "spec": [
-    "number 1"
-   ]
-  },
-  {
-   "a": "Folarin Balogun",
-   "p": "Blue",
-   "run": 269,
-   "u": 133,
-   "offer": 5.0,
-   "floor": 1.0,
-   "avg": 1.0,
+   "avg": 1.86,
    "spec": [
     "number 1"
    ]
@@ -2560,10 +2716,10 @@
    "a": "Nico Paz",
    "p": "Silver",
    "run": 501,
-   "u": 257,
+   "u": 243,
    "offer": 21.0,
-   "floor": 4.0,
-   "avg": 2.34,
+   "floor": 3.0,
+   "avg": 2.28,
    "spec": [
     "number 1",
     "jersey mint"
@@ -2573,34 +2729,22 @@
    "a": "Lionel Messi",
    "p": "Silver",
    "run": 501,
-   "u": 261,
+   "u": 251,
    "offer": 1500.0,
    "floor": 33.0,
-   "avg": 22.73,
+   "avg": 23.1,
    "spec": [
     "jersey mint"
-   ]
-  },
-  {
-   "a": "Romelu Lukaku",
-   "p": "Silver",
-   "run": 501,
-   "u": 251,
-   "offer": 9.0,
-   "floor": 3.0,
-   "avg": 2.2,
-   "spec": [
-    "number 1"
    ]
   },
   {
    "a": "Vinicius Junior",
    "p": "Silver",
    "run": 501,
-   "u": 257,
+   "u": 246,
    "offer": 7.0,
    "floor": 3.0,
-   "avg": 2.37,
+   "avg": 2.31,
    "spec": [
     "perfect mint"
    ]
@@ -2609,31 +2753,51 @@
    "a": "Estevao",
    "p": "Silver",
    "run": 501,
-   "u": 257,
-   "offer": 16.0,
+   "u": 249,
+   "offer": 30.0,
    "floor": 3.0,
-   "avg": 3.09,
+   "avg": 3.0,
    "spec": [
     "perfect mint"
    ]
+  },
+  {
+   "a": "Ivory Coast Team Badge",
+   "p": "Silver",
+   "run": 501,
+   "u": 245,
+   "offer": 5.0,
+   "floor": 2.0,
+   "avg": 2.22,
+   "spec": []
   },
   {
    "a": "Yan Diomande",
    "p": "Silver",
    "run": 501,
-   "u": 265,
+   "u": 259,
    "offer": 100.0,
-   "floor": 3.0,
-   "avg": 2.71,
+   "floor": 4.0,
+   "avg": 2.7,
    "spec": [
     "perfect mint"
    ]
   },
   {
+   "a": "Croatia",
+   "p": "Silver",
+   "run": 501,
+   "u": 231,
+   "offer": 5.0,
+   "floor": 3.0,
+   "avg": 2.61,
+   "spec": []
+  },
+  {
    "a": "Mohamed Salah",
    "p": "Silver",
    "run": 501,
-   "u": 256,
+   "u": 244,
    "offer": 20.0,
    "floor": 3.0,
    "avg": 2.18,
@@ -2646,10 +2810,10 @@
    "a": "Jude Bellingham",
    "p": "Silver",
    "run": 501,
-   "u": 257,
+   "u": 249,
    "offer": 106.0,
-   "floor": 4.0,
-   "avg": 2.7,
+   "floor": 3.0,
+   "avg": 2.72,
    "spec": [
     "jersey mint"
    ]
@@ -2658,10 +2822,10 @@
    "a": "Harry Kane",
    "p": "Silver",
    "run": 501,
-   "u": 245,
+   "u": 239,
    "offer": 35.0,
    "floor": 4.0,
-   "avg": 3.75,
+   "avg": 3.65,
    "spec": [
     "number 1",
     "jersey mint"
@@ -2671,10 +2835,10 @@
    "a": "Unai Simon",
    "p": "Silver",
    "run": 501,
-   "u": 253,
+   "u": 242,
    "offer": 5.0,
-   "floor": 2.0,
-   "avg": 2.33,
+   "floor": 3.0,
+   "avg": 2.28,
    "spec": [
     "number 1",
     "jersey mint",
@@ -2682,23 +2846,13 @@
    ]
   },
   {
-   "a": "Dean Huijsen",
-   "p": "Silver",
-   "run": 501,
-   "u": 276,
-   "offer": 5.0,
-   "floor": 3.0,
-   "avg": 2.36,
-   "spec": []
-  },
-  {
    "a": "Pedro Porro",
    "p": "Silver",
    "run": 501,
-   "u": 265,
+   "u": 255,
    "offer": 5.0,
    "floor": 3.0,
-   "avg": 2.47,
+   "avg": 2.45,
    "spec": [
     "jersey mint"
    ]
@@ -2707,10 +2861,10 @@
    "a": "Marc Cucurella",
    "p": "Silver",
    "run": 501,
-   "u": 254,
+   "u": 239,
    "offer": 8.0,
-   "floor": 2.0,
-   "avg": 2.2,
+   "floor": 3.0,
+   "avg": 2.14,
    "spec": [
     "number 1"
    ]
@@ -2719,10 +2873,10 @@
    "a": "Rodri",
    "p": "Silver",
    "run": 501,
-   "u": 259,
+   "u": 252,
    "offer": 14.0,
    "floor": 3.0,
-   "avg": 2.24,
+   "avg": 2.22,
    "spec": [
     "number 1",
     "perfect mint"
@@ -2732,10 +2886,10 @@
    "a": "Pedri",
    "p": "Silver",
    "run": 501,
-   "u": 251,
+   "u": 238,
    "offer": 10.0,
    "floor": 3.0,
-   "avg": 2.42,
+   "avg": 2.38,
    "spec": [
     "number 1",
     "jersey mint",
@@ -2746,20 +2900,20 @@
    "a": "Lamine Yamal",
    "p": "Silver",
    "run": 501,
-   "u": 242,
+   "u": 232,
    "offer": 1200.0,
-   "floor": 31.0,
-   "avg": 37.42,
+   "floor": 32.0,
+   "avg": 36.66,
    "spec": []
   },
   {
    "a": "Nico Williams",
    "p": "Silver",
    "run": 501,
-   "u": 254,
+   "u": 244,
    "offer": 7.0,
    "floor": 3.0,
-   "avg": 2.42,
+   "avg": 2.38,
    "spec": [
     "jersey mint",
     "perfect mint"
@@ -2769,7 +2923,7 @@
    "a": "Ferran Torres",
    "p": "Silver",
    "run": 501,
-   "u": 262,
+   "u": 249,
    "offer": 5.0,
    "floor": 3.0,
    "avg": 2.38,
@@ -2782,10 +2936,10 @@
    "a": "Mikel Oyarzabal",
    "p": "Silver",
    "run": 501,
-   "u": 245,
+   "u": 237,
    "offer": 7.0,
-   "floor": 3.0,
-   "avg": 2.35,
+   "floor": 2.0,
+   "avg": 2.33,
    "spec": [
     "number 1",
     "perfect mint"
@@ -2795,10 +2949,10 @@
    "a": "Michael Olise",
    "p": "Silver",
    "run": 501,
-   "u": 238,
+   "u": 231,
    "offer": 20.0,
    "floor": 4.0,
-   "avg": 3.24,
+   "avg": 3.22,
    "spec": [
     "jersey mint",
     "perfect mint"
@@ -2808,20 +2962,20 @@
    "a": "Ousmane Dembele",
    "p": "Silver",
    "run": 501,
-   "u": 277,
+   "u": 263,
    "offer": 8.0,
    "floor": 2.0,
-   "avg": 2.62,
+   "avg": 2.56,
    "spec": []
   },
   {
    "a": "Bradley Barcola",
    "p": "Silver",
    "run": 501,
-   "u": 257,
+   "u": 253,
    "offer": 6.0,
    "floor": 3.0,
-   "avg": 2.38,
+   "avg": 2.35,
    "spec": [
     "number 1",
     "jersey mint"
@@ -2831,10 +2985,10 @@
    "a": "Kylian Mbappe",
    "p": "Silver",
    "run": 501,
-   "u": 252,
+   "u": 243,
    "offer": 250.0,
-   "floor": 9.0,
-   "avg": 8.76,
+   "floor": 8.0,
+   "avg": 8.7,
    "spec": [
     "number 1",
     "perfect mint"
@@ -2844,34 +2998,22 @@
    "a": "Kang-in Lee",
    "p": "Silver",
    "run": 501,
-   "u": 234,
+   "u": 224,
    "offer": 9.0,
    "floor": 2.0,
-   "avg": 2.38,
+   "avg": 2.54,
    "spec": [
     "perfect mint"
-   ]
-  },
-  {
-   "a": "Norway",
-   "p": "Silver",
-   "run": 501,
-   "u": 263,
-   "offer": 10.0,
-   "floor": 2.0,
-   "avg": 2.5,
-   "spec": [
-    "number 1"
    ]
   },
   {
    "a": "Erling Haaland",
    "p": "Silver",
    "run": 501,
-   "u": 268,
+   "u": 254,
    "offer": 250.0,
    "floor": 10.0,
-   "avg": 11.64,
+   "avg": 11.42,
    "spec": [
     "jersey mint"
    ]
@@ -2880,10 +3022,10 @@
    "a": "Portugal",
    "p": "Silver",
    "run": 501,
-   "u": 273,
-   "offer": 15.0,
+   "u": 269,
+   "offer": 30.0,
    "floor": 3.0,
-   "avg": 2.19,
+   "avg": 2.47,
    "spec": [
     "number 1"
    ]
@@ -2892,20 +3034,20 @@
    "a": "Cristiano Ronaldo",
    "p": "Silver",
    "run": 501,
-   "u": 272,
+   "u": 259,
    "offer": 200.0,
    "floor": 9.0,
-   "avg": 9.07,
+   "avg": 8.91,
    "spec": []
   },
   {
    "a": "Johan Manzambi",
    "p": "Silver",
    "run": 501,
-   "u": 247,
+   "u": 236,
    "offer": 7.0,
    "floor": 3.0,
-   "avg": 2.52,
+   "avg": 2.51,
    "spec": [
     "number 1",
     "jersey mint"
@@ -2915,10 +3057,10 @@
    "a": "Folarin Balogun",
    "p": "Silver",
    "run": 501,
-   "u": 272,
+   "u": 262,
    "offer": 5.0,
-   "floor": 2.0,
-   "avg": 2.27,
+   "floor": 3.0,
+   "avg": 2.22,
    "spec": [
     "number 1",
     "jersey mint",
@@ -2929,38 +3071,38 @@
  "scrub_note": "Silver scrub $2 (John 2026-10-28 PM: commons back to $2)",
  "totals": {
   "Black": {
-   "u": 511,
-   "wc": 449,
+   "u": 492,
+   "wc": 468,
    "b": 0,
    "bn": 960
   },
   "Green": {
-   "u": 2502,
-   "wc": 2298,
+   "u": 2413,
+   "wc": 2387,
    "b": 0,
    "bn": 1920
   },
   "Gold": {
-   "u": 4994,
-   "wc": 4606,
+   "u": 4811,
+   "wc": 4789,
    "b": 0,
    "bn": 4800
   },
   "Red": {
-   "u": 24133,
-   "wc": 22907,
+   "u": 23226,
+   "wc": 23814,
    "b": 0,
    "bn": 24960
   },
   "Blue": {
-   "u": 133343,
-   "wc": 124897,
+   "u": 128037,
+   "wc": 130203,
    "b": 0,
    "bn": 141120
   },
   "Silver": {
-   "u": 248125,
-   "wc": 232835,
+   "u": 238400,
+   "wc": 242560,
    "b": 0,
    "bn": 240000
   }
