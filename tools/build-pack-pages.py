@@ -136,6 +136,8 @@ def card_value(c):
     k = (c["a"], c["p"])
     if k in OVR:
         return OVR[k]
+    if c["p"] in RULES.get("zero", []):
+        return 0.0  # John: price this parallel at $0 (burn-dead), even named cards
     ss = sorted(recent.get(k, []), key=lambda x: x["date"], reverse=True)
     norm = [x for x in ss if c["run"] == 1 or not any(t in x["tags"] for t in SPECIAL)]
     if RULES.get("window24"):

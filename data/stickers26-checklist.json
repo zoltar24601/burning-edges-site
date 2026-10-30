@@ -25,7 +25,7 @@
   "50+": 27
  },
  "scrub": {
-  "Silver": 2,
+  "Silver": 0,
   "Blue": 1,
   "Red": 2,
   "Gold": 5,
@@ -3068,7 +3068,7 @@
    ]
   }
  ],
- "scrub_note": "Silver scrub $2 (John 2026-10-28 PM: commons back to $2)",
+ "scrub_note": "Silver $0 (John 2026-10-30: price as if commons are worth nothing after the burn -- even named Silvers that still sell, e.g. Olise/Mbappe/Ronaldo ~$3, Messi/Yamal ~$30)",
  "totals": {
   "Black": {
    "u": 492,
@@ -3110,7 +3110,10 @@
  "rules": {
   "ladder": true,
   "mid": true,
-  "window24": true
+  "window24": true,
+  "zero": [
+   "Silver"
+  ]
  },
- "rules_note": "John 2026-10-29 ON: ladder = rarer parallel of same player never below a commoner one (overrides exempt); mid = no-sales card uses bid/ask midpoint when floor > offer; window24 = median of last 24h normal sales (>=3), else last 5."
+ "rules_note": "John 2026-10-29 ON: ladder = rarer parallel of same player never below a commoner one (overrides exempt); mid = no-sales card uses bid/ask midpoint when floor > offer; window24 = median of last 24h normal sales (>=3), else last 5. zero = list of parallels priced at $0 outright (named cards too); overrides still win."
 }

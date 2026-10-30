@@ -48,6 +48,10 @@
 - **PM refresh (~2:50pm ET 10/29):** checklist re-pulled (248 notable in-pack cards). **Unopened 79,467** (Silver unclaimed 238,400 -- now BELOW the 240,000 total burn cap; burned still 0). $9 listings cleared -> **floor $10**; walls: $10 5,590 · $11 1,232 · $12 1,603 · $13 679 · $14 675 · $15 749 · $16-17.99 895 · $18-19.99 632 · $20-24.99 782 · $25-29.99 107 · $30-49.99 172 · $50+ 27 (13,143 listed). 9,289 packs sold in 24h. **Book $12.85 (expected $25.70).**
 - **CHAIN POLLER STALLED:** newest sticker sale in `chain_events` is 2026-10-29 14:30 UTC (10:30am ET); only 46 sales came back for 13:00-18:50 UTC vs ~1,000/day before. Also `chain_sync` cursor stuck at block 4293691 since **2026-10-06** -- each tick walks MAX_PAGES (800 x 100 blocks, ~10+ min) from head and never reaches the cursor, so it never advances (gap > MAX_PAGES is never closed and every tick is a heavy 800-page crawl). Suspect: today's many site pushes each redeployed the poller (see poller-deploy-cadence: rapid redeploys trip Cloudflare 403) and/or the heavy crawl. Needs Railway logs (John's account).
 
+## 2026-10-30 — Stickers priced with Silvers at $0 (John)
+- John: price as if commons are worth $0 (burn-dead), even named Silvers that still sell (Olise/Mbappe/Ronaldo ~$3, Messi/Yamal ~$30). New `rules.zero = ["Silver"]` in the checklist (`card_value` returns 0 for those parallels; overrides still win) + `scrub.Silver = 0`.
+- **Book $12.85 -> $6.45 (expected $12.90)**: 3 Silver at $0 + 2 hits at $3.23. (Keeping named Silvers at market would be $6.86.) Pack floor $10 -> ripping now loses ~$3.90/pack vs selling sealed at the floor.
+
 ## 2026-10-28 — Sticker pack repriced off chain sales (serials tracked)
 
 - `data/stickers26-sales.json` now holds every chain sale (price > 0) for the 138 sticker cards valued $15+, each with **serial/run** and a premium flag (#1 = "number 1", last serial = "perfect mint"), plus John's earlier airdrop pastes (src=paste). Pulled 2026-10-28.
