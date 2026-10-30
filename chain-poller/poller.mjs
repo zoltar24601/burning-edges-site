@@ -7,7 +7,7 @@
 //
 // Env: SUPABASE_URL, SUPABASE_SERVICE_KEY, [PANINI_API], [POLL_MS], [PAGE_LIMIT], [MAX_PAGES]
 // Run: node chain-poller/poller.mjs   (from repo root)
-// Restart marker: 2026-09-12 (rebuilt: page cursor->head, no more skipped gaps).
+// Restart marker: 2026-10-30 (resumable backfill, per-page writes, 20-block pages).
 // ============================================================
 import { chromium } from "playwright";
 import { blockEvents, blockPulls } from "./panini-chain.mjs";   // vendored copy of tools/panini-chain.mjs
@@ -23,8 +23,17 @@ const POLL_MS = +(process.env.POLL_MS || 120000);   // 2 min -- gentler on Cloud
 // backfill in one recovery tick), a small delay between pages to stay gentle on
 // Cloudflare. To backfill an existing hole, just set chain_sync.last_block_num
 // back to the start of the gap and the next tick walks head -> that block.
-const PAGE_LIMIT = +(process.env.PAGE_LIMIT || 100);   // bigger pages = fewer requests (gentler on the 429 limiter)
-const MAX_PAGES = +(process.env.MAX_PAGES || 800);
+// NOTE (2026-10-30): the explorer CAPS pages at 20 blocks no matter what limit we
+// ask for. With 800 pages/tick that is only 16,000 blocks, so once the cursor fell
+// more than 16k blocks behind (after Oct 6) it could never be reached again: every
+// tick crawled 800 pages and re-upserted ~235k events in one go, which overloaded
+// Supabase and drew Cloudflare 403s. Now: each page is written as it is read, a
+// backfill resumes where it stopped (bf below), and a tick reads at most MAX_PAGES.
+const PAGE_LIMIT = +(process.env.PAGE_LIMIT || 20);    // the API's real cap
+const MAX_PAGES = +(process.env.MAX_PAGES || 150);     // per tick (150 x 20 = 3,000 blocks)
+// Never backfill deeper than this many blocks below the head (a long outage beyond
+// it is logged and skipped rather than crawled for hours). ~1.5-2 days of blocks.
+const MAX_BACKFILL_BLOCKS = +(process.env.MAX_BACKFILL_BLOCKS || 15000);
 const PAGE_DELAY = +(process.env.PAGE_DELAY || 700);   // ms between pages -- stay under the rate limit
 const CHUNK = 500;   // rows per Supabase write
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
@@ -66,20 +75,29 @@ async function apiGet(path) {
 
 const sb = (path, opts) => fetch(`${SB_URL}/rest/v1/${path}`, { headers: SBH, ...opts });
 
+// Supabase call that must succeed: retry a few times, then throw (no silent drops).
+async function sbMust(path, opts, what) {
+  for (let attempt = 0; ; attempt++) {
+    let res, txt = "";
+    try { res = await sb(path, opts); if (res.ok) return res; txt = await res.text(); } catch (e) { txt = e.message; }
+    if (attempt >= 3) throw new Error(`supabase ${what} failed: ${res ? res.status : ""} ${txt.slice(0, 80)}`);
+    await sleep(3000 * (attempt + 1));
+  }
+}
 async function getCursor() {
-  const rows = await (await sb("chain_sync?select=last_block_num&id=eq.1")).json();
+  const rows = await (await sbMust("chain_sync?select=last_block_num&id=eq.1", {}, "cursor read")).json();
   return rows.length ? Number(rows[0].last_block_num) : 0;
 }
 async function setCursor(n) {
-  await sb("chain_sync?id=eq.1", { method: "PATCH", body: JSON.stringify({ last_block_num: n, updated_at: new Date().toISOString() }) });
+  await sbMust("chain_sync?id=eq.1", { method: "PATCH", body: JSON.stringify({ last_block_num: n, updated_at: new Date().toISOString() }) }, "cursor write");
 }
 async function upsertEvents(events) {
   for (let i = 0; i < events.length; i += CHUNK) {
-    await sb("chain_events?on_conflict=tx_id", {
+    await sbMust("chain_events?on_conflict=tx_id", {
       method: "POST",
       headers: { ...SBH, Prefer: "resolution=merge-duplicates,return=minimal" },
       body: JSON.stringify(events.slice(i, i + CHUNK)),
-    });
+    }, "events upsert");
   }
 }
 
@@ -104,45 +122,81 @@ async function recordPulls(pulls) {
   return insertedCount;
 }
 
-async function tick() {
-  const cursor = await getCursor();
-  // Walk from the chain head backward via paging.next, ingesting EVERY block
-  // whose num > cursor, until we reach a block already ingested (num <= cursor)
-  // or run out of pages. This closes any gap (normal 1-2 pages; a big backfill
-  // pages more, bounded by MAX_PAGES) instead of skipping to the head.
-  let path = `/blocks?limit=${PAGE_LIMIT}`;
-  let head = cursor, all = [], pulls = [], pages = 0, reached = false;
-  while (path && pages < MAX_PAGES) {
+const HEAD_PATH = `/blocks?limit=${PAGE_LIMIT}`;
+const nextPath = (resp) => {
+  const next = resp && resp.paging && resp.paging.next;
+  if (!next) return null;
+  // paging.next is a full URL (and http://) -- keep just path+query for apiGet.
+  try { const u = new URL(next); return u.pathname + u.search; }
+  catch { return next.startsWith("/") ? next : "/" + next; }
+};
+
+// Walk down from `path` until a block <= stop (reached), the chain runs out, or
+// `budget` pages. Every page's events + pulls are written before the next page,
+// so an error mid-walk never throws away work. onPage(next, head) lets the
+// caller save where to resume.
+async function walkDown(path, stop, budget, onPage) {
+  let head = 0, pages = 0, events = 0, sales = 0, pulls = 0, reached = false;
+  while (path && pages < budget) {
     const resp = await apiGet(path);
     const blocks = (resp && resp.data) || [];
-    if (!blocks.length) break;
+    if (!blocks.length) { path = null; break; }
+    const ev = [], pl = [];
     for (const b of blocks) {
       const num = b.header ? Number(b.header.block_num) : null;
       if (num == null) continue;
       if (num > head) head = num;
-      if (num <= cursor) { reached = true; continue; }   // hit already-ingested territory
-      all.push(...blockEvents(b));
-      pulls.push(...blockPulls(b));
+      if (num <= stop) { reached = true; continue; }
+      ev.push(...blockEvents(b));
+      pl.push(...blockPulls(b));
     }
-    pages++;
+    if (ev.length) await upsertEvents(ev);
+    pulls += await recordPulls(pl);
+    events += ev.length; sales += ev.filter(e => e.is_sale).length; pages++;
+    path = reached ? null : nextPath(resp);
+    if (onPage) onPage(path, head);
     if (reached) break;
-    const next = resp.paging && resp.paging.next;
-    if (!next) break;   // reached genesis / no more pages
-    // paging.next is a full URL (and http://, one char shorter than our https
-    // base) -- parse out path+query so apiGet's `API + path` stays well-formed.
-    try { const u = new URL(next); path = u.pathname + u.search; }
-    catch { path = next.startsWith("/") ? next : "/" + next; }
-    await sleep(PAGE_DELAY);
+    if (path) await sleep(PAGE_DELAY);
   }
-  if (all.length) await upsertEvents(all);
-  const newPulls = await recordPulls(pulls);
-  // Only advance the cursor when the fetched range is contiguous down to the old
-  // cursor (reached) or we paged to the very end (!path). If we stopped on
-  // MAX_PAGES with a gap still open, leave the cursor so the next tick continues.
-  const complete = reached || !path;
-  if (head > cursor && complete) await setCursor(head);
-  const sales = all.filter(e => e.is_sale).length;
-  console.log(`[${new Date().toISOString()}] cursor ${cursor} -> ${complete ? head : cursor} (head ${head}) | pages ${pages}${complete ? "" : " MAX_PAGES-gap-remains"} | events ${all.length} (sales ${sales}, pulls ${newPulls})`);
+  return { reached: reached || !path, path, head, pages, events, sales, pulls };
+}
+
+// In-progress backfill: { high: newest block already covered, path: where to
+// resume walking down, low: the cursor it is walking down to }.
+let bf = null;
+
+async function tick() {
+  let cursor = await getCursor();
+  const t0 = Date.now();
+  let msg;
+  if (!bf) {
+    // normal case: head -> cursor, usually 1-2 pages
+    const top = await apiGet(HEAD_PATH);
+    const head0 = Math.max(0, ...((top && top.data) || []).map(b => Number(b.header && b.header.block_num) || 0));
+    if (head0 - cursor > MAX_BACKFILL_BLOCKS) {            // too far behind: cap the dig, say so
+      console.log(`cursor ${cursor} is ${head0 - cursor} blocks behind head ${head0} -- backfilling only the last ${MAX_BACKFILL_BLOCKS}`);
+      cursor = head0 - MAX_BACKFILL_BLOCKS;
+    }
+    let first = null;
+    const w = await walkDown(HEAD_PATH, cursor, MAX_PAGES, (p, head) => {
+      if (first == null) first = head;
+      bf = { high: first, path: p, low: cursor };            // provisional, so an error or budget stop resumes here
+    });
+    if (w.reached) { bf = null; if (w.head > cursor) await setCursor(w.head); }
+    msg = `head walk ${w.pages}p ${w.events} ev (${w.sales} sales, ${w.pulls} pulls)${bf ? ` -- backfill pending down to ${bf.low}` : ` -> cursor ${Math.max(w.head, cursor)}`}`;
+  } else {
+    // 1) new blocks above what the backfill already covers
+    const top = await walkDown(HEAD_PATH, bf.high, MAX_PAGES, null);
+    if (top.reached) bf.high = Math.max(bf.high, top.head);
+    else { bf.high = top.head; bf.path = top.path; }       // new blocks outran a tick: resume from there (re-reads, never skips)
+    // 2) keep digging the backfill with whatever budget is left
+    const left = Math.max(MAX_PAGES - top.pages, 10);
+    const low = await walkDown(bf.path, bf.low, left, (p) => { bf.path = p; });
+    msg = `top ${top.pages}p ${top.events} ev | backfill ${low.pages}p ${low.events} ev (${top.sales + low.sales} sales, ${top.pulls + low.pulls} pulls)`;
+    if (low.reached) { await setCursor(bf.high); msg += ` -- backfill DONE -> cursor ${bf.high}`; bf = null; }
+    else msg += ` -- still digging (resume ${bf.path && bf.path.match(/start=(0x[0-9a-f]+)/i) ? parseInt(bf.path.match(/start=(0x[0-9a-f]+)/i)[1], 16) : "?"} -> ${bf.low})`;
+  }
+  console.log(`[${new Date().toISOString()}] ${msg} | ${Math.round((Date.now() - t0) / 1000)}s`);
 }
 
 (async () => {

@@ -52,6 +52,13 @@
 - John: price as if commons are worth $0 (burn-dead), even named Silvers that still sell (Olise/Mbappe/Ronaldo ~$3, Messi/Yamal ~$30). New `rules.zero = ["Silver"]` in the checklist (`card_value` returns 0 for those parallels; overrides still win) + `scrub.Silver = 0`.
 - **Book $12.85 -> $6.45 (expected $12.90)**: 3 Silver at $0 + 2 hits at $3.23. (Keeping named Silvers at market would be $6.86.) Pack floor $10 -> ripping now loses ~$3.90/pack vs selling sealed at the floor.
 
+## 2026-10-30 — CHAIN POLLER FIX (stalled since 10/29 10:30am ET)
+- **Diagnosis (Railway deploy log, John screenshot):** `tick error: HTTP 403` (explorer) then `tick error: Unexpected token 'u', "upstream r"...` (= Supabase "upstream request timeout"). Every site push redeploys the poller (Railway deploy history shows each site commit) -- 4 pushes in 7 min at 10:20-10:27 ET preceded the stall.
+- **Root cause:** the explorer API CAPS pages at **20 blocks** (`paging.limit: 20`) regardless of `limit=100`. MAX_PAGES 800 x 20 = 16,000 blocks/tick, but the `chain_sync` cursor (block 4,293,691 = 2026-10-06 09:49Z) was ~103k blocks behind head (4,397,1xx) -> never reachable -> cursor frozen since Oct 6, and EVERY tick crawled 800 pages and upserted ~235k events in one burst at the end (~15 tx/block). Sticker-launch volume made that burst big enough to time out Supabase (also why our own chain_events queries were timing out) and draw Cloudflare 403s; any error threw away the whole tick.
+- **Fix (`chain-poller/poller.mjs`):** PAGE_LIMIT default 20 (real cap); MAX_PAGES default 150/tick; **every page's events + pulls are written before the next page** (`walkDown`); **resumable backfill** (`bf` = {high, path, low}) so a budget stop or error continues next tick instead of restarting; **MAX_BACKFILL_BLOCKS 15000** caps a long outage (logged); Supabase writes now checked + retried (`sbMust`) instead of silently dropped.
+- Chain rate ~400 blocks/hr (head-5000 = 12.5h). head-15000 = 2026-10-28 20:11Z, so the capped backfill covers the whole stall. `/blocks?start=0x<hex block>&limit=N` jumps to any block (handy for backfills/debug).
+- **TODO John:** Railway service Settings -> Watch Paths = `/chain-poller/**` so site pushes stop restarting the poller.
+
 ## 2026-10-28 — Sticker pack repriced off chain sales (serials tracked)
 
 - `data/stickers26-sales.json` now holds every chain sale (price > 0) for the 138 sticker cards valued $15+, each with **serial/run** and a premium flag (#1 = "number 1", last serial = "perfect mint"), plus John's earlier airdrop pastes (src=paste). Pulled 2026-10-28.

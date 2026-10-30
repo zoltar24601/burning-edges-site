@@ -9,9 +9,13 @@ independent version of the data feed Diamond's tracker provides.
 1. Launches a real headless Chromium (Playwright) and navigates to the explorer
    API once to pass **Cloudflare** — a plain server `fetch` gets 403, a real
    browser passes the managed challenge.
-2. Every `POLL_MS` it reads `/blocks?limit=LOOKBACK`, keeps blocks newer than the
-   `chain_sync` cursor, decodes them (`panini-chain.mjs`), and upserts events.
-3. Advances the cursor so nothing is missed or double-counted.
+2. Every `POLL_MS` it walks `/blocks` down from the head (the API returns at most
+   **20 blocks per page**) to the `chain_sync` cursor, decoding each page
+   (`panini-chain.mjs`) and upserting its events before reading the next.
+3. Advances the cursor when it reaches it. If it can't get there in one tick
+   (`MAX_PAGES`, default 150 pages = 3,000 blocks) it keeps a resumable backfill
+   and continues next tick. More than `MAX_BACKFILL_BLOCKS` (15,000, ~1.5 days)
+   behind = it backfills only that far and logs the skip.
 
 ## Prereqs
 - Run `migrations/005_panini_chain.sql` in Supabase first (creates `chain_events`
@@ -24,7 +28,8 @@ independent version of the data feed Diamond's tracker provides.
 | `SUPABASE_SERVICE_KEY` | yes | — |
 | `PANINI_API` | no | `https://explorerapi.paniniamerica.net` |
 | `POLL_MS` | no | `30000` (30s) |
-| `LOOKBACK` | no | `40` blocks scanned per poll |
+| `MAX_PAGES` | no | `150` pages (x20 blocks) per tick |
+| `MAX_BACKFILL_BLOCKS` | no | `15000` |
 
 ## Deploy (Railway — easiest)
 1. New Project → Deploy from GitHub repo → this repo.
