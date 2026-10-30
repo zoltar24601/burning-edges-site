@@ -35,7 +35,7 @@ const MAX_PAGES = +(process.env.MAX_PAGES || 150);     // per tick (150 x 20 = 3
 // it is logged and skipped rather than crawled for hours). ~1.5-2 days of blocks.
 const MAX_BACKFILL_BLOCKS = +(process.env.MAX_BACKFILL_BLOCKS || 15000);
 const PAGE_DELAY = +(process.env.PAGE_DELAY || 700);   // ms between pages -- stay under the rate limit
-const CHUNK = 500;   // rows per Supabase write
+const CHUNK = 100;   // rows per Supabase write (small = short statements on a busy DB)
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 // Optional residential proxy (the durable fix for the datacenter-IP Cloudflare block).
 // Set PROXY_SERVER=http://host:port (+ PROXY_USER / PROXY_PASS) in Railway env.
@@ -95,7 +95,7 @@ async function upsertEvents(events) {
   for (let i = 0; i < events.length; i += CHUNK) {
     await sbMust("chain_events?on_conflict=tx_id", {
       method: "POST",
-      headers: { ...SBH, Prefer: "resolution=merge-duplicates,return=minimal" },
+      headers: { ...SBH, Prefer: "resolution=ignore-duplicates,return=minimal" },   // chain data never changes: skip rows we have (far cheaper than merge)
       body: JSON.stringify(events.slice(i, i + CHUNK)),
     }, "events upsert");
   }

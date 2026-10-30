@@ -58,6 +58,9 @@
 - **Fix (`chain-poller/poller.mjs`):** PAGE_LIMIT default 20 (real cap); MAX_PAGES default 150/tick; **every page's events + pulls are written before the next page** (`walkDown`); **resumable backfill** (`bf` = {high, path, low}) so a budget stop or error continues next tick instead of restarting; **MAX_BACKFILL_BLOCKS 15000** caps a long outage (logged); Supabase writes now checked + retried (`sbMust`) instead of silently dropped.
 - Chain rate ~400 blocks/hr (head-5000 = 12.5h). head-15000 = 2026-10-28 20:11Z, so the capped backfill covers the whole stall. `/blocks?start=0x<hex block>&limit=N` jumps to any block (handy for backfills/debug).
 - **TODO John:** Railway service Settings -> Watch Paths = `/chain-poller/**` so site pushes stop restarting the poller.
+- **After deploy (13:12 ET):** new code ran correctly ("cursor 4293691 is 103487 blocks behind head 4397178 -- backfilling only the last 15000") but the FIRST one-page upsert hit Supabase `57014 statement timeout`. A 6h-bounded `chain_events` read also timed out at 106s -> the DB itself is starved (suspect Disk IO budget exhausted by weeks of 235k-row upsert bursts + full-table scans), not just query shape.
+- Load cuts pushed: the 5 refresh functions (floral + animalprint every 5 min; moonbirds/nflprizm/silhouette hourly) did `order=ts.desc&limit=500` with NO time bound = backward scan of the whole table each run; now bounded by `ts=gte.now-3h` (5-min ones) / `now-6h` (hourly) via `EV_WINDOW_MS`. Poller upserts now `resolution=ignore-duplicates` (chain rows never change) in chunks of 100.
+- **TODO John:** Supabase dashboard -> project rklfzqqusainitumsvta -> Reports / Observability: check Disk IO budget, CPU, disk size; consider Restart project (kills stuck queries) and/or a compute upgrade.
 
 ## 2026-10-28 — Sticker pack repriced off chain sales (serials tracked)
 

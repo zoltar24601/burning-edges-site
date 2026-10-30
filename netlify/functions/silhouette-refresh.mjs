@@ -14,6 +14,9 @@ import { reconciledRemainingByFilter } from "../../tools/chain-serials.mjs";
 import staticMap from "../../tools/silhouette-values.json";
 
 export const config = { schedule: "@hourly" };
+// Only look back 6h for new sales: an unbounded "newest 500 for these cards"
+// scans the whole (huge) chain_events table by ts and timed out the DB (2026-10-30).
+const EV_WINDOW_MS = 6 * 3600 * 1000;
 const PRODUCT = "silhouette";
 const EV_FILTER = "or=(sku_base.like.packcard-2217*,sku_base.like.packcard-2305*)";
 const notable = (o, n) => Math.abs(n - o) >= 100 && Math.abs(n - o) / Math.max(o, 1) >= 0.15;
@@ -31,7 +34,7 @@ export default async () => {
     const meta = Object.fromEntries(vrows.map(v => [v.sku_base, v]));
 
     // 2) append new on-chain sales -> pack_sales
-    const evs = await (await fetch(`${SB_URL}/rest/v1/chain_events?${EV_FILTER}&price=gt.0&select=sku_base,serial,run,price,ts&order=ts.desc&limit=500`, { headers: H })).json();
+    const evs = await (await fetch(`${SB_URL}/rest/v1/chain_events?${EV_FILTER}&price=gt.0&ts=gte.${new Date(Date.now() - EV_WINDOW_MS).toISOString()}&select=sku_base,serial,run,price,ts&order=ts.desc&limit=500`, { headers: H })).json();
     const newSales = (Array.isArray(evs) ? evs : []).filter(e => meta[e.sku_base]).map(e => {
       const m = meta[e.sku_base], d = (e.ts || "").slice(0, 10);
       return { product: PRODUCT, sku_base: e.sku_base, athlete: m.athlete, parallel: m.cardset, serial: e.serial, run: e.run, price: e.price, tags: null, sold_at: d, source: "chain", dedup: [PRODUCT, e.sku_base, e.serial, e.price, d].join("|") };

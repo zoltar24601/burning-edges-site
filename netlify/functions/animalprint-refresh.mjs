@@ -20,6 +20,9 @@ import staticMap from "../../tools/animalprint-values.json";
 // hourly would leave it lagging behind live card_remaining. Recompute + reprice
 // are cheap.
 export const config = { schedule: "*/5 * * * *" };
+// Only look back 3h for new sales: an unbounded "newest 500 for these cards"
+// scans the whole (huge) chain_events table by ts and timed out the DB (2026-10-30).
+const EV_WINDOW_MS = 3 * 3600 * 1000;
 const PRODUCT = "animalprint";
 // Animal Print SKUs share prefix packcard-2332 with the main set + Floral, so
 // we can't filter by prefix -- the chain-sales query is built from the exact
@@ -41,7 +44,7 @@ export default async () => {
     // 2) append new on-chain Animal Print SALES (price>0) -> pack_sales. Query by
     //    the exact seeded SKUs so we don't pull the whole main set.
     const skuIn = vrows.map(v => v.sku_base).join(",");
-    const evs = skuIn ? await (await fetch(`${SB_URL}/rest/v1/chain_events?sku_base=in.(${encodeURIComponent(skuIn)})&price=gt.0&select=sku_base,serial,run,price,ts&order=ts.desc&limit=500`, { headers: H })).json() : [];
+    const evs = skuIn ? await (await fetch(`${SB_URL}/rest/v1/chain_events?sku_base=in.(${encodeURIComponent(skuIn)})&price=gt.0&ts=gte.${new Date(Date.now() - EV_WINDOW_MS).toISOString()}&select=sku_base,serial,run,price,ts&order=ts.desc&limit=500`, { headers: H })).json() : [];
     const newSales = (Array.isArray(evs) ? evs : []).filter(e => meta[e.sku_base]).map(e => {
       const m = meta[e.sku_base], d = (e.ts || "").slice(0, 10);
       return { product: PRODUCT, sku_base: e.sku_base, athlete: m.athlete, parallel: m.cardset, serial: e.serial, run: e.run, price: e.price, tags: null, sold_at: d, source: "chain", dedup: [PRODUCT, e.sku_base, e.serial, e.price, d].join("|") };
