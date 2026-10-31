@@ -212,11 +212,12 @@ hit_ev = sum(tot[p][1] for p in PAR if p != "Silver") / non_u
 book = 3 * avg["Silver"] + 2 * hit_ev
 hits.sort(key=lambda h: -h["p"])
 mk = ck["pack"]
+UNOPENED = mk.get("unopened_with_collectors", ck["unopened"])  # live marketplace count beats the checklist estimate
 runs = {"Silver": 501, "Blue": 269, "Red": 49, "Gold": 10, "Green": 5, "Black": 1}
 render("stickers.html", "stickers", "2026 World Cup Sticker Pack", "#5ed68a", {
     "eyebrow": "2026 Panini NFT Prizm FIFA World Cup Stickers",
     "h1": "World Cup <span class=\"accent\">Stickers</span>",
-    "updated": f"Modeled {ck['pulled']} · {ck['unopened']:,} unopened packs · $8 mint",
+    "updated": f"Card checklist {ck['pulled'][:10]} · {UNOPENED:,} unopened packs ({mk.get('pulled', ck['pulled'])[5:10]}) · $8 mint",
     "disclaimer": "<strong>How this pack works.</strong> 5 stickers: <strong>3 Base Silver #/501</strong> + <strong>2 non-Silver</strong> (Blue /269 · Red /49 · Gold /10 · Green /5 · Black 1/1). Silvers are <strong>burnable for 10 block points</strong> (100 BP buys a 2022 Prizm WC pack); burning is capped at half of each card's copies. Priced on <strong>only the stickers still sealed in packs</strong>, from Panini's own pack checklist. A card's value is its recent normal-serial sales first, then its best offer capped at its floor, never below scrub. Every special serial still in a pack (#1, last serial, jersey number) is valued on its own. " + "".join(f"<strong>{p}s are priced only on sales since {SINCE[p][5:10]} {SINCE[p][11:16]} UTC</strong> (after the burn): each card's median normal-serial sale, $0 if it hasn't sold. " for p in SINCE) + "Scrub levels: " + " · ".join(f"{p} ${scrub[p]:g}" for p in PAR if p not in SINCE) + ". Not financial advice.",
     "book": round(book, 2),
     "book_sub": f"3 Silver at {money(avg['Silver'])} + 2 hits at {money(hit_ev)}",
@@ -224,7 +225,7 @@ render("stickers.html", "stickers", "2026 World Cup Sticker Pack", "#5ed68a", {
     "mkt_value": money(mk["floor"]),
     "mkt_sub": f"latest sale ${mk['recent']:g} · avg sale ${mk['avg']:.2f} · {mk['listings']:,} listed · mint $8",
     "slots": [{"n": 5, "d": "Stickers<br>per pack"}, {"n": 3, "d": "Silver<br>#/501 (burnable)"},
-              {"n": 2, "d": "Non-Silver<br>/269 to 1/1", "hit": True}, {"n": f"{ck['unopened']:,}", "d": "Unopened<br>packs"}],
+              {"n": 2, "d": "Non-Silver<br>/269 to 1/1", "hit": True}, {"n": f"{UNOPENED:,}", "d": "Unopened<br>packs"}],
     "hits_sub": f"Every sticker worth $50+ that is still sealed, with copies left in packs (pulled {ck['pulled']}). Special serials still in packs are noted.",
     "hits": hits[:60],
     "break_label": "Each parallel",
