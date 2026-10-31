@@ -30,14 +30,17 @@
   .hero p{color:var(--text-dim);margin-top:12px;font-size:15px;}
 
   .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;margin-top:18px;}
-  .jump{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-top:26px;}
-  .jump a{font-family:'Barlow Condensed',sans-serif;font-size:13px;letter-spacing:1.5px;text-transform:uppercase;color:var(--text-dim);border:1px solid var(--border-bright);border-radius:20px;padding:6px 14px;transition:color .15s,border-color .15s;}
-  .jump a:hover{color:var(--gold);border-color:var(--gold-dim);}
-  .sport{margin-top:44px;scroll-margin-top:90px;}
-  .sport-h{display:flex;align-items:baseline;justify-content:space-between;gap:12px;border-bottom:1px solid var(--border);padding-bottom:10px;}
-  .sport-h h3{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:28px;letter-spacing:1px;text-transform:uppercase;color:var(--cream);}
-  .sport-h h3 .accent{color:var(--gold);font-weight:700;font-size:20px;margin-left:6px;}
-  .sport-h .cnt{font-family:'Barlow Condensed',sans-serif;font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:var(--text-faint);}
+  .tabs{display:flex;justify-content:center;gap:4px;margin-top:30px;border-bottom:1px solid var(--border);flex-wrap:wrap;}
+  .tabs button{background:none;border:none;border-bottom:3px solid transparent;margin-bottom:-1px;padding:10px 18px;cursor:pointer;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:18px;letter-spacing:1.5px;text-transform:uppercase;color:var(--text-faint);transition:color .15s,border-color .15s;}
+  .tabs button:hover{color:var(--cream);}
+  .tabs button[aria-selected="true"]{color:var(--gold);border-bottom-color:var(--gold);}
+  .tabs button .n{font-size:12px;font-weight:600;margin-left:6px;color:var(--text-faint);}
+  .years{display:flex;justify-content:center;gap:8px;margin-top:16px;flex-wrap:wrap;min-height:30px;}
+  .years button{background:none;cursor:pointer;font-family:'Barlow Condensed',sans-serif;font-size:13px;letter-spacing:1.5px;text-transform:uppercase;color:var(--text-dim);border:1px solid var(--border-bright);border-radius:20px;padding:5px 14px;transition:color .15s,border-color .15s,background .15s;}
+  .years button:hover{color:var(--gold);border-color:var(--gold-dim);}
+  .years button[aria-pressed="true"]{color:var(--pine-3);background:var(--gold);border-color:var(--gold);}
+  .pack[hidden]{display:none;}
+  .empty{text-align:center;color:var(--text-faint);margin-top:30px;}
   .pack{position:relative;background:linear-gradient(160deg,var(--card),var(--card-2));border:1px solid var(--border-bright);border-radius:16px;padding:26px 26px 22px;transition:transform .16s ease,border-color .16s ease,box-shadow .16s ease;display:flex;flex-direction:column;}
   .pack:hover{transform:translateY(-4px);border-color:var(--accent);box-shadow:0 14px 40px rgba(0,0,0,0.35);}
   .pack{--accent:var(--gold);}
@@ -88,163 +91,169 @@
     <p>Pick a pack to dive in &mdash; live book value, pull odds, and every card inside.</p>
   </div>
 
-  <nav class="jump"><a href="#soccer26">Soccer &middot; 2026 World Cup</a><a href="#soccer22">Soccer &middot; 2022 World Cup</a><a href="#football">Football &middot; NFL</a><a href="#basketball">Basketball &middot; NBA</a><a href="#moonbirds">Moonbirds &middot; Art &amp; PFP</a></nav>
+  <nav class="tabs" id="sportTabs" role="tablist">
+    <button role="tab" data-sport="soccer">Soccer</button>
+    <button role="tab" data-sport="football">Football</button>
+    <button role="tab" data-sport="basketball">Basketball</button>
+    <button role="tab" data-sport="moonbirds">Moonbirds</button>
+    <button role="tab" data-sport="all">All</button>
+  </nav>
+  <nav class="years" id="yearChips"></nav>
 
-  <section class="sport" id="soccer26">
-    <div class="sport-h"><h3>Soccer <span class="accent">2026 World Cup</span></h3><span class="cnt">5 packs</span></div>
-    <div class="grid">
-      <a class="pack soccer" href="/panini">
-        <div class="tagrow"><span class="chip">Base Pack</span><span class="rel">World Cup Soccer</span></div>
-        <h2>2026 Prizm<br>World Cup Soccer</h2>
-        <div class="sub">Silvers, golds, inserts &amp; the black 1/1 chase across the full base pack.</div>
-        <div class="stats">
-          <div class="stat"><div class="l">Predicted</div><div class="v accent" id="soc_pred">&mdash;</div></div>
-          <div class="stat"><div class="l">Book value</div><div class="v" id="soc_book">&mdash;</div></div>
-          <div class="stat"><div class="l">Mint</div><div class="v" id="soc_mint">$25</div></div>
-          <div class="stat"><div class="l">vs Mint</div><div class="v" id="soc_vs">&mdash;</div></div>
-        </div>
-        <div class="go"><span>View analytics</span><span class="arw">&rarr;</span></div>
-      </a>
-      <a class="pack fotl" href="/panini">
-        <div class="tagrow"><span class="chip">FOTL Pack</span><span class="rel">World Cup Soccer</span></div>
-        <h2>Soccer<br>First Off The Line</h2>
-        <div class="sub">Everything in a base pack plus the FOTL-exclusive parallels (Nebula, Aguila, Old Glory).</div>
-        <div class="stats">
-          <div class="stat"><div class="l">Predicted</div><div class="v accent" id="fotl_pred">&mdash;</div></div>
-          <div class="stat"><div class="l">Book value</div><div class="v" id="fotl_book">&mdash;</div></div>
-          <div class="stat"><div class="l">Mint</div><div class="v" id="fotl_mint">$150</div></div>
-          <div class="stat"><div class="l">vs Mint</div><div class="v" id="fotl_vs">&mdash;</div></div>
-        </div>
-        <div class="go"><span>View analytics</span><span class="arw">&rarr;</span></div>
-      </a>
-      <a class="pack stickers" href="/stickers">
-        <div class="tagrow"><span class="chip">Pack</span><span class="rel">World Cup Stickers</span></div>
-        <h2>2026 World Cup<br>Stickers</h2>
-        <div class="sub">5 stickers &mdash; 3 burnable Silver /501 + 2 parallels down to Black 1/1; fully burned Silvers priced on post-burn sales (mostly $0), plus the 5 stars.</div>
-        <div class="stats">
-          <div class="stat"><div class="l">Expected</div><div class="v accent" id="stk_exp">$14.26</div><span class="est">2&times; book</span></div>
-          <div class="stat"><div class="l">Book value</div><div class="v" id="stk_book">$7.13</div></div>
-          <div class="stat"><div class="l">Pack floor</div><div class="v">$9</div></div>
-          <div class="stat"><div class="l">Cards/pack</div><div class="v">5</div></div>
-        </div>
-        <div class="go"><span>View analytics</span><span class="arw">&rarr;</span></div>
-      </a>
-      <a class="pack floral" href="/floral">
-        <div class="tagrow"><span class="chip">Craft</span><span class="rel">Floral Edition</span></div>
-        <h2>World Cup<br>Floral Edition</h2>
-        <div class="sub">Craft pack &mdash; 2 cards from a 30-player floral pool (Plum /18, Cherry /9, Lotus /4); Messi &amp; Yamal Lotus grails.</div>
-        <div class="stats">
-          <div class="stat"><div class="l">Predicted</div><div class="v accent" id="floral_pred">~$1,537</div><span class="est">Estimate</span></div>
-          <div class="stat"><div class="l">Book value</div><div class="v" id="floral_book">$615</div></div>
-          <div class="stat"><div class="l">Packs</div><div class="v">465</div></div>
-          <div class="stat"><div class="l">Cards/pack</div><div class="v">2</div></div>
-        </div>
-        <div class="go"><span>View analytics</span><span class="arw">&rarr;</span></div>
-      </a>
-      <a class="pack animalprint" href="/animalprint">
-        <div class="tagrow"><span class="chip">Craft</span><span class="rel">Animal Print Edition</span></div>
-        <h2>World Cup<br>Animal Print Edition</h2>
-        <div class="sub">Craft pack &mdash; 2 cards, 1 Giraffe /20 + 1 Elephant /20 from a 30-player checklist; Messi, Yamal &amp; Mbappe are the chase.</div>
-        <div class="stats">
-          <div class="stat"><div class="l">Predicted</div><div class="v accent" id="ap_pred">~$994</div><span class="est">Estimate</span></div>
-          <div class="stat"><div class="l">Book value</div><div class="v" id="ap_book">$398</div></div>
-          <div class="stat"><div class="l">Packs</div><div class="v">600</div></div>
-          <div class="stat"><div class="l">Cards/pack</div><div class="v">2</div></div>
-        </div>
-        <div class="go"><span>View analytics</span><span class="arw">&rarr;</span></div>
-      </a>
-    </div>
-  </section>
-
-  <section class="sport" id="soccer22">
-    <div class="sport-h"><h3>Soccer <span class="accent">2022 World Cup</span></h3><span class="cnt">2 packs</span></div>
-    <div class="grid">
-      <a class="pack wc22" href="/prizmwc22">
-        <div class="tagrow"><span class="chip">BP Store</span><span class="rel">2022 Prizm World Cup</span></div>
-        <h2>2022 Prizm<br>World Cup</h2>
-        <div class="sub">3 cards &mdash; 2 base + 1 hit #/149 or less; <span id="wc22_packs">35,623</span> packs left in the Block Point store at 100 BP.</div>
-        <div class="stats">
-          <div class="stat"><div class="l">Expected</div><div class="v accent" id="wc22_exp">$32.04</div><span class="est">2&times; book</span></div>
-          <div class="stat"><div class="l">Book value</div><div class="v" id="wc22_book">$16.02</div></div>
-          <div class="stat"><div class="l">Pack floor</div><div class="v">$25</div></div>
-          <div class="stat"><div class="l">Cards/pack</div><div class="v">3</div></div>
-        </div>
-        <div class="go"><span>View analytics</span><span class="arw">&rarr;</span></div>
-      </a>
-      <a class="pack mosaic22" href="/mosaic22">
-        <div class="tagrow"><span class="chip">Reward</span><span class="rel">2022 Mosaic Road to WC</span></div>
-        <h2>2022 Mosaic<br>Road to WC</h2>
-        <div class="sub">3 cards &mdash; Spend Promo reward pack; Haaland debut 1/1 &amp; Messi Base Black still sealed.</div>
-        <div class="stats">
-          <div class="stat"><div class="l">Expected</div><div class="v accent" id="rtwc_exp">$28.76</div><span class="est">2&times; book</span></div>
-          <div class="stat"><div class="l">Book value</div><div class="v" id="rtwc_book">$14.38</div></div>
-          <div class="stat"><div class="l">Packs left</div><div class="v" id="rtwc_packs">59,156</div></div>
-          <div class="stat"><div class="l">Cards/pack</div><div class="v">3</div></div>
-        </div>
-        <div class="go"><span>View analytics</span><span class="arw">&rarr;</span></div>
-      </a>
-    </div>
-  </section>
-
-  <section class="sport" id="football">
-    <div class="sport-h"><h3>Football <span class="accent">NFL</span></h3><span class="cnt">1 pack</span></div>
-    <div class="grid">
-      <a class="pack nfl" href="/nflprizm">
-        <div class="tagrow"><span class="chip">Pack</span><span class="rel">2021 NFL Prizm</span></div>
-        <h2>2021 NFL<br>Prizm</h2>
-        <div class="sub">5 cards &mdash; 3 base + 1 rookie + 1 parallel/insert (1:6); Brady &amp; Mahomes gold chases.</div>
-        <div class="stats">
-          <div class="stat"><div class="l">Predicted</div><div class="v accent" id="nfl_pred">&mdash;</div><span class="est" id="nfl_est" style="display:none">Estimate</span></div>
-          <div class="stat"><div class="l">Book value</div><div class="v" id="nfl_book">&mdash;</div></div>
-          <div class="stat"><div class="l">Packs left</div><div class="v" id="nfl_packs">&mdash;</div></div>
-          <div class="stat"><div class="l">Cards/pack</div><div class="v">5</div></div>
-        </div>
-        <div class="go"><span>View analytics</span><span class="arw">&rarr;</span></div>
-      </a>
-    </div>
-  </section>
-
-  <section class="sport" id="basketball">
-    <div class="sport-h"><h3>Basketball <span class="accent">NBA</span></h3><span class="cnt">1 pack</span></div>
-    <div class="grid">
-      <a class="pack silo" href="/silhouette">
-        <div class="tagrow"><span class="chip">Pack</span><span class="rel">Silhouette Basketball</span></div>
-        <h2>2024-25 NBA<br>Silhouette</h2>
-        <div class="sub">4 cards &mdash; 3 base + 1 insert/Instant hit; Cooper Flagg &amp; the rookie-class chases.</div>
-        <div class="stats">
-          <div class="stat"><div class="l">Predicted</div><div class="v accent" id="silo_pred">&mdash;</div><span class="est" id="silo_est" style="display:none">Estimate</span></div>
-          <div class="stat"><div class="l">Book value</div><div class="v" id="silo_book">&mdash;</div></div>
-          <div class="stat"><div class="l">Hit slot</div><div class="v" id="silo_hit">&mdash;</div></div>
-          <div class="stat"><div class="l">Cards/pack</div><div class="v">4</div></div>
-        </div>
-        <div class="go"><span>View analytics</span><span class="arw">&rarr;</span></div>
-      </a>
-    </div>
-  </section>
-
-  <section class="sport" id="moonbirds">
-    <div class="sport-h"><h3>Moonbirds <span class="accent">Art &amp; PFP</span></h3><span class="cnt">1 pack</span></div>
-    <div class="grid">
-      <a class="pack moon" href="/moonbirds">
-        <div class="tagrow"><span class="chip">Pack</span><span class="rel">Birbs Beyond</span></div>
-        <h2>Moonbirds<br>Birbs Beyond</h2>
-        <div class="sub">Art/PFP drop &mdash; 2 cards/pack, the Birbhalla grail and Kaboom insert chases.</div>
-        <div class="stats">
-          <div class="stat"><div class="l">Predicted</div><div class="v accent" id="moon_pred">&mdash;</div><span class="est" id="moon_est" style="display:none">Estimate</span></div>
-          <div class="stat"><div class="l">Book value</div><div class="v" id="moon_book">&mdash;</div></div>
-          <div class="stat"><div class="l">Mint</div><div class="v" id="moon_mint">$50</div></div>
-          <div class="stat"><div class="l">vs Mint</div><div class="v" id="moon_vs">&mdash;</div></div>
-        </div>
-        <div class="go"><span>View analytics</span><span class="arw">&rarr;</span></div>
-      </a>
-    </div>
-  </section>
-
+  <div class="grid" id="packGrid">
+    <a class="pack soccer" data-sport="soccer" data-year="2026" href="/panini">
+      <div class="tagrow"><span class="chip">Base Pack</span><span class="rel">World Cup Soccer</span></div>
+      <h2>2026 Prizm<br>World Cup Soccer</h2>
+      <div class="sub">Silvers, golds, inserts &amp; the black 1/1 chase across the full base pack.</div>
+      <div class="stats">
+        <div class="stat"><div class="l">Predicted</div><div class="v accent" id="soc_pred">&mdash;</div></div>
+        <div class="stat"><div class="l">Book value</div><div class="v" id="soc_book">&mdash;</div></div>
+        <div class="stat"><div class="l">Mint</div><div class="v" id="soc_mint">$25</div></div>
+        <div class="stat"><div class="l">vs Mint</div><div class="v" id="soc_vs">&mdash;</div></div>
+      </div>
+      <div class="go"><span>View analytics</span><span class="arw">&rarr;</span></div>
+    </a>
+    <a class="pack fotl" data-sport="soccer" data-year="2026" href="/panini">
+      <div class="tagrow"><span class="chip">FOTL Pack</span><span class="rel">World Cup Soccer</span></div>
+      <h2>Soccer<br>First Off The Line</h2>
+      <div class="sub">Everything in a base pack plus the FOTL-exclusive parallels (Nebula, Aguila, Old Glory).</div>
+      <div class="stats">
+        <div class="stat"><div class="l">Predicted</div><div class="v accent" id="fotl_pred">&mdash;</div></div>
+        <div class="stat"><div class="l">Book value</div><div class="v" id="fotl_book">&mdash;</div></div>
+        <div class="stat"><div class="l">Mint</div><div class="v" id="fotl_mint">$150</div></div>
+        <div class="stat"><div class="l">vs Mint</div><div class="v" id="fotl_vs">&mdash;</div></div>
+      </div>
+      <div class="go"><span>View analytics</span><span class="arw">&rarr;</span></div>
+    </a>
+    <a class="pack stickers" data-sport="soccer" data-year="2026" href="/stickers">
+      <div class="tagrow"><span class="chip">Pack</span><span class="rel">World Cup Stickers</span></div>
+      <h2>2026 World Cup<br>Stickers</h2>
+      <div class="sub">5 stickers &mdash; 3 burnable Silver /501 + 2 parallels down to Black 1/1; fully burned Silvers priced on post-burn sales (mostly $0), plus the 5 stars.</div>
+      <div class="stats">
+        <div class="stat"><div class="l">Expected</div><div class="v accent" id="stk_exp">$14.26</div><span class="est">2&times; book</span></div>
+        <div class="stat"><div class="l">Book value</div><div class="v" id="stk_book">$7.13</div></div>
+        <div class="stat"><div class="l">Pack floor</div><div class="v">$9</div></div>
+        <div class="stat"><div class="l">Cards/pack</div><div class="v">5</div></div>
+      </div>
+      <div class="go"><span>View analytics</span><span class="arw">&rarr;</span></div>
+    </a>
+    <a class="pack floral" data-sport="soccer" data-year="2026" href="/floral">
+      <div class="tagrow"><span class="chip">Craft</span><span class="rel">Floral Edition</span></div>
+      <h2>World Cup<br>Floral Edition</h2>
+      <div class="sub">Craft pack &mdash; 2 cards from a 30-player floral pool (Plum /18, Cherry /9, Lotus /4); Messi &amp; Yamal Lotus grails.</div>
+      <div class="stats">
+        <div class="stat"><div class="l">Predicted</div><div class="v accent" id="floral_pred">~$1,537</div><span class="est">Estimate</span></div>
+        <div class="stat"><div class="l">Book value</div><div class="v" id="floral_book">$615</div></div>
+        <div class="stat"><div class="l">Packs</div><div class="v">465</div></div>
+        <div class="stat"><div class="l">Cards/pack</div><div class="v">2</div></div>
+      </div>
+      <div class="go"><span>View analytics</span><span class="arw">&rarr;</span></div>
+    </a>
+    <a class="pack animalprint" data-sport="soccer" data-year="2026" href="/animalprint">
+      <div class="tagrow"><span class="chip">Craft</span><span class="rel">Animal Print Edition</span></div>
+      <h2>World Cup<br>Animal Print Edition</h2>
+      <div class="sub">Craft pack &mdash; 2 cards, 1 Giraffe /20 + 1 Elephant /20 from a 30-player checklist; Messi, Yamal &amp; Mbappe are the chase.</div>
+      <div class="stats">
+        <div class="stat"><div class="l">Predicted</div><div class="v accent" id="ap_pred">~$994</div><span class="est">Estimate</span></div>
+        <div class="stat"><div class="l">Book value</div><div class="v" id="ap_book">$398</div></div>
+        <div class="stat"><div class="l">Packs</div><div class="v">600</div></div>
+        <div class="stat"><div class="l">Cards/pack</div><div class="v">2</div></div>
+      </div>
+      <div class="go"><span>View analytics</span><span class="arw">&rarr;</span></div>
+    </a>
+    <a class="pack wc22" data-sport="soccer" data-year="2022" href="/prizmwc22">
+      <div class="tagrow"><span class="chip">BP Store</span><span class="rel">2022 Prizm World Cup</span></div>
+      <h2>2022 Prizm<br>World Cup</h2>
+      <div class="sub">3 cards &mdash; 2 base + 1 hit #/149 or less; <span id="wc22_packs">35,623</span> packs left in the Block Point store at 100 BP.</div>
+      <div class="stats">
+        <div class="stat"><div class="l">Expected</div><div class="v accent" id="wc22_exp">$32.04</div><span class="est">2&times; book</span></div>
+        <div class="stat"><div class="l">Book value</div><div class="v" id="wc22_book">$16.02</div></div>
+        <div class="stat"><div class="l">Pack floor</div><div class="v">$25</div></div>
+        <div class="stat"><div class="l">Cards/pack</div><div class="v">3</div></div>
+      </div>
+      <div class="go"><span>View analytics</span><span class="arw">&rarr;</span></div>
+    </a>
+    <a class="pack mosaic22" data-sport="soccer" data-year="2022" href="/mosaic22">
+      <div class="tagrow"><span class="chip">Reward</span><span class="rel">2022 Mosaic Road to WC</span></div>
+      <h2>2022 Mosaic<br>Road to WC</h2>
+      <div class="sub">3 cards &mdash; Spend Promo reward pack; Haaland debut 1/1 &amp; Messi Base Black still sealed.</div>
+      <div class="stats">
+        <div class="stat"><div class="l">Expected</div><div class="v accent" id="rtwc_exp">$28.76</div><span class="est">2&times; book</span></div>
+        <div class="stat"><div class="l">Book value</div><div class="v" id="rtwc_book">$14.38</div></div>
+        <div class="stat"><div class="l">Packs left</div><div class="v" id="rtwc_packs">59,156</div></div>
+        <div class="stat"><div class="l">Cards/pack</div><div class="v">3</div></div>
+      </div>
+      <div class="go"><span>View analytics</span><span class="arw">&rarr;</span></div>
+    </a>
+    <a class="pack nfl" data-sport="football" data-year="2021" href="/nflprizm">
+      <div class="tagrow"><span class="chip">Pack</span><span class="rel">2021 NFL Prizm</span></div>
+      <h2>2021 NFL<br>Prizm</h2>
+      <div class="sub">5 cards &mdash; 3 base + 1 rookie + 1 parallel/insert (1:6); Brady &amp; Mahomes gold chases.</div>
+      <div class="stats">
+        <div class="stat"><div class="l">Predicted</div><div class="v accent" id="nfl_pred">&mdash;</div><span class="est" id="nfl_est" style="display:none">Estimate</span></div>
+        <div class="stat"><div class="l">Book value</div><div class="v" id="nfl_book">&mdash;</div></div>
+        <div class="stat"><div class="l">Packs left</div><div class="v" id="nfl_packs">&mdash;</div></div>
+        <div class="stat"><div class="l">Cards/pack</div><div class="v">5</div></div>
+      </div>
+      <div class="go"><span>View analytics</span><span class="arw">&rarr;</span></div>
+    </a>
+    <a class="pack silo" data-sport="basketball" data-year="2024-25" href="/silhouette">
+      <div class="tagrow"><span class="chip">Pack</span><span class="rel">Silhouette Basketball</span></div>
+      <h2>2024-25 NBA<br>Silhouette</h2>
+      <div class="sub">4 cards &mdash; 3 base + 1 insert/Instant hit; Cooper Flagg &amp; the rookie-class chases.</div>
+      <div class="stats">
+        <div class="stat"><div class="l">Predicted</div><div class="v accent" id="silo_pred">&mdash;</div><span class="est" id="silo_est" style="display:none">Estimate</span></div>
+        <div class="stat"><div class="l">Book value</div><div class="v" id="silo_book">&mdash;</div></div>
+        <div class="stat"><div class="l">Hit slot</div><div class="v" id="silo_hit">&mdash;</div></div>
+        <div class="stat"><div class="l">Cards/pack</div><div class="v">4</div></div>
+      </div>
+      <div class="go"><span>View analytics</span><span class="arw">&rarr;</span></div>
+    </a>
+    <a class="pack moon" data-sport="moonbirds" data-year="" href="/moonbirds">
+      <div class="tagrow"><span class="chip">Pack</span><span class="rel">Birbs Beyond</span></div>
+      <h2>Moonbirds<br>Birbs Beyond</h2>
+      <div class="sub">Art/PFP drop &mdash; 2 cards/pack, the Birbhalla grail and Kaboom insert chases.</div>
+      <div class="stats">
+        <div class="stat"><div class="l">Predicted</div><div class="v accent" id="moon_pred">&mdash;</div><span class="est" id="moon_est" style="display:none">Estimate</span></div>
+        <div class="stat"><div class="l">Book value</div><div class="v" id="moon_book">&mdash;</div></div>
+        <div class="stat"><div class="l">Mint</div><div class="v" id="moon_mint">$50</div></div>
+        <div class="stat"><div class="l">vs Mint</div><div class="v" id="moon_vs">&mdash;</div></div>
+      </div>
+      <div class="go"><span>View analytics</span><span class="arw">&rarr;</span></div>
+    </a>
+  </div>
+  <div class="empty" id="emptyMsg" hidden>No packs here yet.</div>
 
   <div class="foot">Book value = expected card value per pack. Predicted = a speculative secondary estimate, not a market figure &mdash; not financial advice.</div>
 </div>
 
 <script>
+// sport tabs + year filter; selection lives in the URL hash (#soccer/2022) so it survives reloads and can be linked
+(() => {
+  const cards = [...document.querySelectorAll('#packGrid .pack')];
+  const tabs = [...document.querySelectorAll('#sportTabs button')];
+  const chips = document.getElementById('yearChips');
+  for (const t of tabs) {
+    const n = t.dataset.sport === 'all' ? cards.length : cards.filter(c => c.dataset.sport === t.dataset.sport).length;
+    t.insertAdjacentHTML('beforeend', '<span class="n">' + n + '</span>');
+  }
+  function show(sport, year) {
+    if (!tabs.some(t => t.dataset.sport === sport)) sport = 'soccer';
+    const inSport = cards.filter(c => sport === 'all' || c.dataset.sport === sport);
+    const years = [...new Set(inSport.map(c => c.dataset.year).filter(Boolean))].sort().reverse();
+    if (!years.includes(year)) year = '';
+    tabs.forEach(t => t.setAttribute('aria-selected', String(t.dataset.sport === sport)));
+    chips.innerHTML = years.length > 1 ? ['', ...years].map(y => '<button data-year="' + y + '" aria-pressed="' + (y === year) + '">' + (y || 'All years') + '</button>').join('') : '';
+    let shown = 0;
+    for (const c of cards) { const on = inSport.includes(c) && (!year || c.dataset.year === year); c.hidden = !on; shown += on; }
+    document.getElementById('emptyMsg').hidden = shown > 0;
+    history.replaceState(null, '', '#' + sport + (year ? '/' + year : ''));
+  }
+  const cur = () => { const [s, y] = location.hash.slice(1).split('/'); return [s || 'soccer', y || '']; };
+  tabs.forEach(t => t.addEventListener('click', () => show(t.dataset.sport, '')));
+  chips.addEventListener('click', e => { const b = e.target.closest('button'); if (b) show(cur()[0], b.dataset.year); });
+  show(...cur());
+})();
 const $ = id => document.getElementById(id);
 const money = n => '$' + Math.round(n).toLocaleString('en-US');
 
