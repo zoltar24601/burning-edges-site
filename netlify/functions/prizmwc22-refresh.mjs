@@ -21,7 +21,7 @@ export default async () => {
       saleKey: x => [x.k, x.serial, x.date].join("|"),
       mapSale: e => ({ k: e.sku_base, serial: e.serial, run: e.run, price: Number(e.price), date: e.ts.slice(0, 19) }),
       compute: (st, pricedAt) => cardPackPage("prizmwc22", deck.cards, st.log, { market: markets.prizmwc22, pulled: st.pulled, pricedAt,
-        liveNote: `report ${deck.report_date} minus chain pulls since Oct 28` }),
+        liveNote: "live from the chain" }),
     }));
   } catch (e) { return respond({ status: 500, body: { error: String(e) } }); }
 };
