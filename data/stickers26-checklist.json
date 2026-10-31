@@ -3080,12 +3080,40 @@
   "ladder": true,
   "mid": true,
   "window24": true,
-  "since_on_hold": {
-   "Silver": "2026-10-31T01:00:00"
-  },
-  "zero": [
-   "Silver"
-  ]
+  "silver_burn": {
+   "since": "2026-10-31T01:00:00",
+   "stars": [
+    "Lamine Yamal",
+    "Lionel Messi",
+    "Erling Haaland",
+    "Cristiano Ronaldo",
+    "Kylian Mbappe"
+   ],
+   "uncapped": {
+    "Yan Diomande": 119,
+    "Johan Manzambi": 238,
+    "Lamine Yamal": 0,
+    "Lionel Messi": 0,
+    "Erling Haaland": 7,
+    "Nico Paz": 186,
+    "Spain Team Badge": 238,
+    "France": 247,
+    "Portugal": 236,
+    "Jude Bellingham": 169,
+    "Michael Olise": 83,
+    "Harry Kane": 156,
+    "Argentina": 244,
+    "Belgium Team Badge": 248,
+    "Pedri": 232,
+    "Argentina Team Badge": 238,
+    "Luka Modric": 241,
+    "Estevao": 204,
+    "Ousmane Dembele": 219,
+    "Kylian Mbappe": 18,
+    "Spain": 224,
+    "Cristiano Ronaldo": 13
+   }
+  }
  },
  "rules_note": "John 2026-10-29 ON: ladder = rarer parallel of same player never below a commoner one (overrides exempt); mid = no-sales card uses bid/ask midpoint when floor > offer; window24 = median of last 24h normal sales (>=3), else last 5. zero = list of parallels priced at $0 outright (named cards too); overrides still win.",
  "source_copies": "Panini Collection Report CSV (John, 2026-10-31): exact UNCLAIMED / WITH COLLECTORS / BURNED per card"

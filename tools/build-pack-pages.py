@@ -132,15 +132,18 @@ _last = max(datetime.fromisoformat(x["date"][:19]) for x in sales["sales"] if "T
 CUT24 = (_last - timedelta(hours=24)).isoformat()
 
 
-# rules.since {parallel: utc cutoff}: that parallel is priced ONLY on normal-serial
-# sales after the cutoff (John: Silvers after the burn, from 9pm ET 10/30); a card
-# with no sale since is $0. Covers every card of the parallel, notable or not.
-SINCE = RULES.get("since", {})
+# rules.silver_burn (John, after the Silver burn): every Silver with burns left is
+# listed in `uncapped` {name: burned} (from Panini's collection report); all others
+# are fully burned (250/250). Fully burned -> median normal-serial sale since `since`
+# (9pm ET 10/30, after the burn rush), $0 if none. `stars` (barely burned, held for
+# collecting) -> normal sales rules. Other uncapped -> $0: their price is burn value
+# that ends when the card hits its cap.
+SB = RULES.get("silver_burn")
 
 
 def since_median(k):
     ps = sorted(x["price"] for x in recent.get(k, [])
-                if x["date"] >= SINCE[k[1]] and not any(t in x["tags"] for t in SPECIAL))
+                if x["date"] >= SB["since"] and not any(t in x["tags"] for t in SPECIAL))
     return ps[len(ps) // 2] if ps else 0.0
 
 
@@ -148,8 +151,11 @@ def card_value(c):
     k = (c["a"], c["p"])
     if k in OVR:
         return OVR[k]
-    if c["p"] in SINCE:
-        return since_median(k)
+    if SB and c["p"] == "Silver":
+        if c["a"] not in SB["stars"]:
+            return 0.0 if c["a"] in SB["uncapped"] else since_median(k)
+        if since_median(k):
+            return since_median(k)  # stars: post-burn sales first; unsold since -> normal rules below
     if c["p"] in RULES.get("zero", []):
         return 0.0  # John: price this parallel at $0 (burn-dead), even named cards
     ss = sorted(recent.get(k, []), key=lambda x: x["date"], reverse=True)
@@ -198,10 +204,10 @@ for c in ck["cards"]:
 NOTABLE = {(c["a"], c["p"]) for c in ck["cards"]}
 rest_val = {}
 for p, r in ck["rest"].items():
-    # un-listed cards: scrub, or for a `since` parallel the average over all r["cards"]
-    # of each card's post-cutoff median (cards that haven't sold count $0)
-    rest_val[p] = (sum(since_median(k) for k in recent if k[1] == p and k not in NOTABLE) / r["cards"]
-                   if p in SINCE else scrub[p])
+    # un-listed cards: scrub; un-listed Silvers under silver_burn: average over all
+    # r["cards"] of each fully burned card's post-cutoff median (unsold = $0)
+    rest_val[p] = (sum(since_median(k) for k in recent if k[1] == p and k not in NOTABLE and k[0] not in SB["uncapped"]) / r["cards"]
+                   if SB and p == "Silver" else scrub[p])
     run = r["run"]
     nspec = sum(r["spec"].values())
     tot[p][0] += r["u"]
@@ -218,7 +224,7 @@ render("stickers.html", "stickers", "2026 World Cup Sticker Pack", "#5ed68a", {
     "eyebrow": "2026 Panini NFT Prizm FIFA World Cup Stickers",
     "h1": "World Cup <span class=\"accent\">Stickers</span>",
     "updated": f"Copies left {ck['pulled'][:10]} · {UNOPENED:,} unopened packs ({mk.get('unopened_with_collectors', 0):,} with collectors) · $8 mint",
-    "disclaimer": "<strong>How this pack works.</strong> 5 stickers: <strong>3 Base Silver #/501</strong> + <strong>2 non-Silver</strong> (Blue /269 · Red /49 · Gold /10 · Green /5 · Black 1/1). Silvers are <strong>burnable for 10 block points</strong> (100 BP buys a 2022 Prizm WC pack); burning is capped at half of each card's copies. Priced on <strong>only the stickers still sealed in packs</strong>, from Panini's own pack checklist. A card's value is its recent normal-serial sales first, then its best offer capped at its floor, never below scrub. Every special serial still in a pack (#1, last serial, jersey number) is valued on its own. " + "".join(f"<strong>{p}s are priced only on sales since {SINCE[p][5:10]} {SINCE[p][11:16]} UTC</strong> (after the burn): each card's median normal-serial sale, $0 if it hasn't sold. " for p in SINCE) + "Scrub levels: " + " · ".join(f"{p} ${scrub[p]:g}" for p in PAR if p not in SINCE) + ". Not financial advice.",
+    "disclaimer": "<strong>How this pack works.</strong> 5 stickers: <strong>3 Base Silver #/501</strong> + <strong>2 non-Silver</strong> (Blue /269 · Red /49 · Gold /10 · Green /5 · Black 1/1). Silvers are <strong>burnable for 10 block points</strong> (100 BP buys a 2022 Prizm WC pack); burning is capped at half of each card's copies. Priced on <strong>only the stickers still sealed in packs</strong>, from Panini's own pack checklist. A card's value is its recent normal-serial sales first, then its best offer capped at its floor, never below scrub. Every special serial still in a pack (#1, last serial, jersey number) is valued on its own. " + (f"<strong>Silvers after the burn:</strong> {960 - len(SB['uncapped'])} of 960 are fully burned and priced only on sales since 9pm ET Oct 30 ($0 if unsold); the stars nobody burns ({', '.join(n.split()[-1] for n in SB['stars'])}) on their sales; the other {len(SB['uncapped']) - len(SB['stars'])} still being burned at $0, since their price is burn value that ends at the cap. " if SB else "") + "Scrub levels: " + " · ".join(f"{p} ${scrub[p]:g}" for p in PAR if not (SB and p == "Silver")) + ". Not financial advice.",
     "book": round(book, 2),
     "book_sub": f"3 Silver at {money(avg['Silver'])} + 2 hits at {money(hit_ev)}",
     "mkt_label": f"Pack floor ({mk.get('pulled', ck['pulled'])[5:10]})",  # market can be refreshed apart from the checklist
