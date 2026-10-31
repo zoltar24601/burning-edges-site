@@ -98,6 +98,10 @@
   to = "/.netlify/functions/stickers-data"
   status = 200
 [[redirects]]
+  from = "/api/pack-live"
+  to = "/.netlify/functions/pack-live"
+  status = 200
+[[redirects]]
   from = "/api/changes"
   to = "/.netlify/functions/changes-data"
   status = 200

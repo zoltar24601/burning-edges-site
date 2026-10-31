@@ -134,8 +134,8 @@ function draw(D) {
   $('foot').innerHTML = D.foot;
 }
 draw(D);
-// live pages (stickers): swap in the hourly-repriced numbers; keep the baked ones on any failure
-if (D.live) fetch('/api/stickers-data').then(r => r.ok ? r.json() : null).then(d => { if (d && d.book) draw(d); }).catch(() => {});
+// live pages: swap in the hourly-repriced numbers (D.live = its API URL); keep the baked ones on any failure
+if (D.live) fetch(D.live).then(r => r.ok ? r.json() : null).then(d => { if (d && d.book) draw(d); }).catch(() => {});
 </script>
 </body>
 </html>

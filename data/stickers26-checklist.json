@@ -3116,5 +3116,6 @@
   }
  },
  "rules_note": "John 2026-10-29 ON: ladder = rarer parallel of same player never below a commoner one (overrides exempt); mid = no-sales card uses bid/ask midpoint when floor > offer; window24 = median of last 24h normal sales (>=3), else last 5. zero = list of parallels priced at $0 outright (named cards too); overrides still win.",
- "source_copies": "Panini Collection Report CSV (John, 2026-10-31): exact UNCLAIMED / WITH COLLECTORS / BURNED per card"
+ "source_copies": "Panini Collection Report CSV (John, 2026-10-31): exact UNCLAIMED / WITH COLLECTORS / BURNED per card",
+ "report_ts": "2026-10-31T11:42:17Z"
 }

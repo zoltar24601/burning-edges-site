@@ -29,7 +29,31 @@ function specialMult(tags, run) {
   return Math.max(1, ...SPECIAL.filter(t => tags.includes(t)).map(t => m[t]));
 }
 
-export function stickersModel(ck, sales, windowFrom = "2026-10-26", pricedAt = null) {
+// Copies pulled out of packs since the collection report (live chain_pulls):
+// pulled {psku: n}, pullSpec {psku: ["number 1" | "perfect mint", ...]}, cards =
+// data/stickers26-cards.json. Returns a copy of ck with copies/specials reduced.
+export function applyPulls(ck, { pulled = {}, pullSpec = {} }, cards) {
+  ck = structuredClone(ck);
+  const byKey = Object.fromEntries(ck.cards.map(c => [key(c.a, c.p), c]));
+  for (const [sku, n] of Object.entries(pulled)) {
+    const m = cards[sku.replace("packcard-850180_", "")];
+    if (!m) continue;
+    const [a, p] = m, c = byKey[key(a, p)], tags = pullSpec[sku] || [];
+    if (c) {
+      c.u = Math.max(0, c.u - n);
+      for (const t of tags) { const i = c.spec.findIndex(s => s.includes(t)); if (i >= 0) c.spec.splice(i, 1); }
+    } else if (ck.rest[p]) {
+      const r = ck.rest[p];
+      r.u = Math.max(0, r.u - n);
+      for (const t of tags) if (r.spec[t] > 0) r.spec[t]--;
+    }
+  }
+  const silver = ck.cards.filter(c => c.p === "Silver").reduce((s, c) => s + c.u, 0) + ck.rest.Silver.u;
+  ck.unopened = Math.round(silver / 3);
+  return ck;
+}
+
+export function stickersModel(ck, sales, windowFrom = "2026-10-26", pricedAt = null, liveCopies = false) {
   const scrub = ck.scrub, RULES = ck.rules || {}, SB = RULES.silver_burn;
   const OVR = new Map(Object.entries(ck.overrides).map(([k, v]) => [k, v]));
   const recent = new Map();
@@ -120,11 +144,11 @@ export function stickersModel(ck, sales, windowFrom = "2026-10-26", pricedAt = n
   return {
     eyebrow: "2026 Panini NFT Prizm FIFA World Cup Stickers",
     h1: "World Cup <span class=\"accent\">Stickers</span>",
-    updated: `Copies left ${ck.pulled.slice(0, 10)} · ${UNOPENED.toLocaleString("en-US")} unopened packs (${(mk.unopened_with_collectors || 0).toLocaleString("en-US")} with collectors)${priced} · $8 mint`,
+    updated: `${liveCopies ? "Copies left live from the chain" : `Copies left ${ck.pulled.slice(0, 10)}`} · ${UNOPENED.toLocaleString("en-US")} unopened packs (${(mk.unopened_with_collectors || 0).toLocaleString("en-US")} with collectors)${priced} · $8 mint`,
     disclaimer: "<strong>How this pack works.</strong> 5 stickers: <strong>3 Base Silver #/501</strong> + <strong>2 non-Silver</strong> (Blue /269 · Red /49 · Gold /10 · Green /5 · Black 1/1). Silvers are <strong>burnable for 10 block points</strong> (100 BP buys a 2022 Prizm WC pack); burning is capped at half of each card's copies. Priced on <strong>only the stickers still sealed in packs</strong>, from Panini's own pack checklist. A card's value is its recent normal-serial sales first, then its best offer capped at its floor, never below scrub. Every special serial still in a pack (#1, last serial, jersey number) is valued on its own. "
       + (SB ? `<strong>Silvers after the burn:</strong> ${960 - Object.keys(SB.uncapped).length} of 960 are fully burned and priced only on sales since 9pm ET Oct 30 ($0 if unsold); the stars nobody burns (${SB.stars.map(n => n.split(" ").at(-1)).join(", ")}) on their sales; the other ${Object.keys(SB.uncapped).length - SB.stars.length} still being burned at $0, since their price is burn value that ends at the cap. ` : "")
       + "Scrub levels: " + PAR.filter(p => !(SB && p === "Silver")).map(p => `${p} $${g(scrub[p])}`).join(" · ") + ". "
-      + (pricedAt ? "Prices refresh every hour from blockchain sales. " : "") + "Not financial advice.",
+      + (pricedAt ? "Copies left and prices refresh every hour from the blockchain. " : "") + "Not financial advice.",
     book: Math.round(book * 100) / 100,
     book_sub: `3 Silver at ${money(avg.Silver)} + 2 hits at ${money(hitEv)}`,
     mkt_label: `Pack floor (${pulled.slice(5, 10)})`,
@@ -132,13 +156,13 @@ export function stickersModel(ck, sales, windowFrom = "2026-10-26", pricedAt = n
     mkt_sub: `latest sale $${g(mk.recent)} · avg sale $${mk.avg.toFixed(2)} · ${mk.listings.toLocaleString("en-US")} listed · mint $8`,
     slots: [{ n: 5, d: "Stickers<br>per pack" }, { n: 3, d: "Silver<br>#/501 (burnable)" },
             { n: 2, d: "Non-Silver<br>/269 to 1/1", hit: true }, { n: UNOPENED.toLocaleString("en-US"), d: "Unopened<br>packs" }],
-    hits_sub: `Every sticker worth $50+ that is still sealed, with copies left in packs (pulled ${ck.pulled}). Special serials still in packs are noted.`,
+    hits_sub: `Every sticker worth $50+ that is still sealed, with copies left in packs (${liveCopies ? "live: collection report minus every pull since" : `report ${ck.pulled}`}). Special serials still in packs are noted.`,
     hits: hits.slice(0, 60),
     break_label: "Each parallel",
     break_sub: "Copies still in packs, odds per hit slot from those copies, and average value of a pulled copy (special serials included).",
     break_cols: ["Parallel", "Run", "In packs", "Odds / hit slot", "Avg value"],
     breakdown: PAR.map(p => [p, `/${RUNS[p]}`, tot[p][0].toLocaleString("en-US"), p === "Silver" ? "3 per pack" : `${(tot[p][0] / nonU * 100).toFixed(1)}%`, money(avg[p])]),
     foot: "Data: data/stickers26-checklist.json (Panini pack checklist + collection report) + blockchain sales" + (pricedAt ? " (refreshed hourly)." : " (data/stickers26-sales.json)."),
-    live: true,
+    live: "/api/stickers-data",
   };
 }

@@ -10,7 +10,7 @@ export async function handler(event) {
     return json(500, { error: "Server not configured (missing Supabase env vars)." });
   }
   try {
-    const url = `${SB_URL}/rest/v1/stickers_snapshots?select=payload,computed_at&published=eq.true&order=computed_at.desc&limit=1`;
+    const url = `${SB_URL}/rest/v1/stickers_snapshots?select=payload,computed_at&product=eq.stickers26&published=eq.true&order=computed_at.desc&limit=1`;
     const res = await fetch(url, { headers: { apikey: SB_KEY, Authorization: `Bearer ${SB_KEY}` } });
     if (!res.ok) return json(502, { error: "Supabase read failed", status: res.status });
     const rows = await res.json();
