@@ -3113,9 +3113,12 @@
   "ladder": true,
   "mid": true,
   "window24": true,
-  "since": {
+  "since_on_hold": {
    "Silver": "2026-10-31T01:00:00"
-  }
+  },
+  "zero": [
+   "Silver"
+  ]
  },
  "rules_note": "John 2026-10-29 ON: ladder = rarer parallel of same player never below a commoner one (overrides exempt); mid = no-sales card uses bid/ask midpoint when floor > offer; window24 = median of last 24h normal sales (>=3), else last 5. zero = list of parallels priced at $0 outright (named cards too); overrides still win."
 }
