@@ -4,7 +4,7 @@
 
 **Site:** burningedgesdfs.com (Netlify static, drag-drop deploy) · **Repo:** `zoltar24601/burning-edges-site` · **Backend:** Supabase · **Stack:** vanilla HTML/CSS/JS · **Owner:** John
 
-**Last updated:** 2026-10-12
+**Last updated:** 2026-10-31
 
 ---
 
@@ -61,6 +61,8 @@
 - **After deploy (13:12 ET):** new code ran correctly ("cursor 4293691 is 103487 blocks behind head 4397178 -- backfilling only the last 15000") but the FIRST one-page upsert hit Supabase `57014 statement timeout`. A 6h-bounded `chain_events` read also timed out at 106s -> the DB itself is starved (suspect Disk IO budget exhausted by weeks of 235k-row upsert bursts + full-table scans), not just query shape.
 - Load cuts pushed: the 5 refresh functions (floral + animalprint every 5 min; moonbirds/nflprizm/silhouette hourly) did `order=ts.desc&limit=500` with NO time bound = backward scan of the whole table each run; now bounded by `ts=gte.now-3h` (5-min ones) / `now-6h` (hourly) via `EV_WINDOW_MS`. Poller upserts now `resolution=ignore-duplicates` (chain rows never change) in chunks of 100.
 - **TODO John:** Supabase dashboard -> project rklfzqqusainitumsvta -> Reports / Observability: check Disk IO budget, CPU, disk size; consider Restart project (kills stuck queries) and/or a compute upgrade.
+- **Supabase CPU chart (John):** 96.5% CPU, almost all IOwait, with disk at ~7 IOPS / 333 KB/s -> disk throttled (IO budget). **John restarted the project -> RECOVERED.** By 2026-10-31 01:53Z: `chain_sync` cursor 4,402,973 (updated 2 min earlier, i.e. live), 6h-bounded sales query 3.5s (was 106s timeout). Gap note: the capped backfill only covered head-15000 (~10/28 20:11Z on); blocks 10/06-10/28 were never written (sticker sales for that span came from Data Dive + earlier pulls).
+- **Sticker refresh after recovery:** `sales1029.mjs 2026-10-29T14:30:00` -> 1,020 chain sales, 1,019 new -> `stickers26-sales.json` 2,765 sales (pulled 2026-10-31). Checklist NOT re-pulled (needs in-browser Panini session). **Book $6.45 -> $6.48 (expected $12.96).**
 
 ## 2026-10-28 — Sticker pack repriced off chain sales (serials tracked)
 
