@@ -72,6 +72,7 @@
 - **First live numbers (dry run):** Prizm $16.02 -> **$18.81** (30,576 packs; 15,142 pulls; 164 new sales: scrub Base median $1 -> $2 also lifts star-base estimates, Mbappe base $20 -> $10.5). Mosaic $14.38 -> **$15.43** (59,156 packs; 244 new sales: scrub base $2 -> $3, Ronaldo base $26 -> $39, Haaland $22 -> $33, Messi base $36 -> $10, T2 stars $10 est -> $2-3 actual).
 - John confirmed the 2022-over-2026 premium: 1.5x the 2026 comp (more than his ~20% rule of thumb) stays.
 - **Packs hub grouped by sport (John):** jump bar + sections Soccer 2026 WC (Prizm WC, FOTL, Stickers, Floral, Animal Print) / Soccer 2022 WC (Prizm, Mosaic) / Football (NFL Prizm) / Basketball (Silhouette) / Moonbirds; removed the CSS `order:` hacks. 2022 hub cards now fill book/expected/packs from `/api/pack-live`.
+- **LIVE ~9:00am ET 10/31** (commit 723152d): Claude seeded all three rows locally against the real DB; verified in browser: hub sections + live numbers (stickers $7.16, Prizm $18.81 / 30,576 packs, Mosaic $15.43 / 59,156), /prizmwc22 shows "prices updated 9:00 AM ET".
 - Still manual (not on chain): copies left / burn status (`checklist` from Panini collection report) and pack floor/listings (marketplace page). Update `stickers26-checklist.json` and push -> the function picks them up.
 - Flags for John: Yamal Black best offer now $57,500 (Messi override still $50k); Messi Gold normal serials sold $5,500 (#3) and $4,500 (#7) overnight vs his $3k override.
 - John: Messi Black override -> **$57,700**, Messi Gold (normal serial) override $3k -> **$5,000** (midpoint of the two overnight normal-serial sales). Yamal Gold stays $3k. **Book $12.17 (expected $24.34)**: 3 Silver at $2.13 + 2 hits at $2.88.
@@ -132,6 +133,7 @@
 - **First live numbers (dry run):** Prizm $16.02 -> **$18.81** (30,576 packs; 15,142 pulls; 164 new sales: scrub Base median $1 -> $2 also lifts star-base estimates, Mbappe base $20 -> $10.5). Mosaic $14.38 -> **$15.43** (59,156 packs; 244 new sales: scrub base $2 -> $3, Ronaldo base $26 -> $39, Haaland $22 -> $33, Messi base $36 -> $10, T2 stars $10 est -> $2-3 actual).
 - John confirmed the 2022-over-2026 premium: 1.5x the 2026 comp (more than his ~20% rule of thumb) stays.
 - **Packs hub grouped by sport (John):** jump bar + sections Soccer 2026 WC (Prizm WC, FOTL, Stickers, Floral, Animal Print) / Soccer 2022 WC (Prizm, Mosaic) / Football (NFL Prizm) / Basketball (Silhouette) / Moonbirds; removed the CSS `order:` hacks. 2022 hub cards now fill book/expected/packs from `/api/pack-live`.
+- **LIVE ~9:00am ET 10/31** (commit 723152d): Claude seeded all three rows locally against the real DB; verified in browser: hub sections + live numbers (stickers $7.16, Prizm $18.81 / 30,576 packs, Mosaic $15.43 / 59,156), /prizmwc22 shows "prices updated 9:00 AM ET".
 - Still manual (not on chain): copies left / burn status (`checklist` from Panini collection report) and pack floor/listings (marketplace page). Update `stickers26-checklist.json` and push -> the function picks them up.
 
 ## 2026-10-28 — Sticker pack repriced off chain sales (serials tracked)
