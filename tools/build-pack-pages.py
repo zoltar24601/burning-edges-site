@@ -59,9 +59,9 @@ render("prizmwc22.html", "prizmwc22", "2022 Prizm World Cup Pack", "#e8c468", {
     "disclaimer": "<strong>How this pack works.</strong> 3 cards: <strong>2 Base #/1399</strong> + <strong>1 hit</strong> (parallel, insert or auto #/149 or less). Panini is putting the remaining <strong>34,075 packs</strong> in the Block Point store at <strong>100 BP</strong> each (burn sticker commons for 10 BP apiece). Values are 2026 chain sales first, a 2022 card at 1.5&times; the same player's 2026 WC comp, scrubs capped at scrub prices, and grail overrides. Book value is the cards' worth; the pack trades higher because of BP utility and the grail lottery. Not financial advice.",
     "book": round(2 * aB + aH, 2),
     "book_sub": f"2 base at {money(aB)} + 1 hit at {money(aH)}",
-    "mkt_label": "Pack floor (Oct 30)",
-    "mkt_value": "$27.00",
-    "mkt_sub": "latest sale $28 · avg sale $36.59 · 773 listed · top sale $415",
+    "mkt_label": "Pack floor (Oct 31)",
+    "mkt_value": "$25.00",
+    "mkt_sub": "latest sale $27 · avg sale $36.27 · 916 listed · top sale $415",
     "slots": [{"n": 3, "d": "Cards<br>per pack"}, {"n": 2, "d": "Base<br>#/1399"},
               {"n": 1, "d": "Hit<br>#/149 or less", "hit": True}, {"n": "34,075", "d": "Packs<br>in BP store"}],
     "hits_sub": f"Every sealed hit worth $300+, ranked. {len(hits):,} distinct hit cards still in packs.",
@@ -132,10 +132,24 @@ _last = max(datetime.fromisoformat(x["date"][:19]) for x in sales["sales"] if "T
 CUT24 = (_last - timedelta(hours=24)).isoformat()
 
 
+# rules.since {parallel: utc cutoff}: that parallel is priced ONLY on normal-serial
+# sales after the cutoff (John: Silvers after the burn, from 9pm ET 10/30); a card
+# with no sale since is $0. Covers every card of the parallel, notable or not.
+SINCE = RULES.get("since", {})
+
+
+def since_median(k):
+    ps = sorted(x["price"] for x in recent.get(k, [])
+                if x["date"] >= SINCE[k[1]] and not any(t in x["tags"] for t in SPECIAL))
+    return ps[len(ps) // 2] if ps else 0.0
+
+
 def card_value(c):
     k = (c["a"], c["p"])
     if k in OVR:
         return OVR[k]
+    if c["p"] in SINCE:
+        return since_median(k)
     if c["p"] in RULES.get("zero", []):
         return 0.0  # John: price this parallel at $0 (burn-dead), even named cards
     ss = sorted(recent.get(k, []), key=lambda x: x["date"], reverse=True)
@@ -181,11 +195,17 @@ for c in ck["cards"]:
         left = [" / ".join(lab[x] for x in t.split(",")) for t in sp if c["run"] > 1]
         hits.append({"c": c["a"], "s": c["p"] + (" &middot; still sealed: " + ", ".join(left) if left else ""),
                      "r": c["run"], "u": c["u"], "p": v})
+NOTABLE = {(c["a"], c["p"]) for c in ck["cards"]}
+rest_val = {}
 for p, r in ck["rest"].items():
+    # un-listed cards: scrub, or for a `since` parallel the average over all r["cards"]
+    # of each card's post-cutoff median (cards that haven't sold count $0)
+    rest_val[p] = (sum(since_median(k) for k in recent if k[1] == p and k not in NOTABLE) / r["cards"]
+                   if p in SINCE else scrub[p])
     run = r["run"]
     nspec = sum(r["spec"].values())
     tot[p][0] += r["u"]
-    tot[p][1] += (r["u"] - nspec) * scrub[p] + sum(n * scrub[p] * special_mult(t, run) for t, n in r["spec"].items())
+    tot[p][1] += (r["u"] - nspec) * rest_val[p] + sum(n * rest_val[p] * special_mult(t, run) for t, n in r["spec"].items())
 avg = {p: tot[p][1] / tot[p][0] for p in PAR}
 non_u = sum(tot[p][0] for p in PAR if p != "Silver")
 hit_ev = sum(tot[p][1] for p in PAR if p != "Silver") / non_u
@@ -197,7 +217,7 @@ render("stickers.html", "stickers", "2026 World Cup Sticker Pack", "#5ed68a", {
     "eyebrow": "2026 Panini NFT Prizm FIFA World Cup Stickers",
     "h1": "World Cup <span class=\"accent\">Stickers</span>",
     "updated": f"Modeled {ck['pulled']} · {ck['unopened']:,} unopened packs · $8 mint",
-    "disclaimer": "<strong>How this pack works.</strong> 5 stickers: <strong>3 Base Silver #/501</strong> + <strong>2 non-Silver</strong> (Blue /269 · Red /49 · Gold /10 · Green /5 · Black 1/1). Silvers are <strong>burnable for 10 block points</strong> (100 BP buys a 2022 Prizm WC pack); burning is capped at half of each card's copies. Priced on <strong>only the stickers still sealed in packs</strong>, from Panini's own pack checklist. A card's value is its recent normal-serial sales first, then its best offer capped at its floor, never below scrub. Every special serial still in a pack (#1, last serial, jersey number) is valued on its own. Scrub levels: " + " · ".join(f"{p} ${scrub[p]:g}" for p in PAR) + ". Not financial advice.",
+    "disclaimer": "<strong>How this pack works.</strong> 5 stickers: <strong>3 Base Silver #/501</strong> + <strong>2 non-Silver</strong> (Blue /269 · Red /49 · Gold /10 · Green /5 · Black 1/1). Silvers are <strong>burnable for 10 block points</strong> (100 BP buys a 2022 Prizm WC pack); burning is capped at half of each card's copies. Priced on <strong>only the stickers still sealed in packs</strong>, from Panini's own pack checklist. A card's value is its recent normal-serial sales first, then its best offer capped at its floor, never below scrub. Every special serial still in a pack (#1, last serial, jersey number) is valued on its own. " + "".join(f"<strong>{p}s are priced only on sales since {SINCE[p][5:10]} {SINCE[p][11:16]} UTC</strong> (after the burn): each card's median normal-serial sale, $0 if it hasn't sold. " for p in SINCE) + "Scrub levels: " + " · ".join(f"{p} ${scrub[p]:g}" for p in PAR if p not in SINCE) + ". Not financial advice.",
     "book": round(book, 2),
     "book_sub": f"3 Silver at {money(avg['Silver'])} + 2 hits at {money(hit_ev)}",
     "mkt_label": f"Pack floor ({mk.get('pulled', ck['pulled'])[5:10]})",  # market can be refreshed apart from the checklist

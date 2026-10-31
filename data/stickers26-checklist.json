@@ -4,13 +4,13 @@
  "unopened": 79467,
  "pack": {
   "floor": 9,
-  "recent": 8,
-  "avg": 10.76,
+  "recent": 9,
+  "avg": 10.74,
   "top": 20,
-  "listings": 9464,
+  "listings": 8986,
   "sold_24h": 9289,
-  "unopened_with_collectors": 59581,
-  "pulled": "2026-10-30T22:40"
+  "unopened_with_collectors": 58861,
+  "pulled": "2026-10-31T09:00"
  },
  "walls": {
   "10": 5590,
@@ -3113,9 +3113,9 @@
   "ladder": true,
   "mid": true,
   "window24": true,
-  "zero": [
-   "Silver"
-  ]
+  "since": {
+   "Silver": "2026-10-31T01:00:00"
+  }
  },
  "rules_note": "John 2026-10-29 ON: ladder = rarer parallel of same player never below a commoner one (overrides exempt); mid = no-sales card uses bid/ask midpoint when floor > offer; window24 = median of last 24h normal sales (>=3), else last 5. zero = list of parallels priced at $0 outright (named cards too); overrides still win."
 }
