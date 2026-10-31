@@ -66,6 +66,7 @@
 - **SITE NOW PUBLIC (John):** removed `netlify/edge-functions/site-gate.js` (Basic-Auth lock). Restore from git history (pre-23c593e) if a lock is ever wanted again.
 - **NETLIFY OUT OF CREDITS (10/30 ~10pm ET):** team UnitTruth's credits ran out -> production deploys paused, live site frozen at `eeae2b1` (so 2dfc68d load cuts, b5b5820 sticker refresh, 23c593e gate removal were NOT live). Every push = a production deploy = credits. John added credits; an empty-commit push redeployed, site returns 200 with sticker book $6.48. **Batch pushes from now on.**
 - **2022 Prizm WC pack market refreshed (10/30 ~10:30pm ET)** from its marketplace page `/marketplace-details/subpack-3210182-755.html` (pack_id 755): **floor $50 -> $27**, latest sale $28, avg sale $36.59 (was $61.95), 773 listed, 20,859 unopened with collectors, top sale $415 (Oct 2025). The BP-store flood is pulling the market toward card book ($16.02, expected $32.04 now ABOVE the floor). Snapshot is typed into `build-pack-pages.py` (`mkt_*`) + the hub card -- refresh both from that page.
+- **Sticker pack market refreshed (10/30 ~10:40pm ET)** from `/marketplace-details/subpack-5368435-1058.html`: **floor $10 -> $9**, latest sale $8, avg $10.76, 9,464 listed (was 13,143), 59,581 unopened with collectors. Stored in `stickers26-checklist.json` `pack` with its own `pulled` (page label now uses `pack.pulled`, so the market can be refreshed without re-pulling the card checklist). Hub card floor $9.
 
 ## 2026-10-28 — Sticker pack repriced off chain sales (serials tracked)
 

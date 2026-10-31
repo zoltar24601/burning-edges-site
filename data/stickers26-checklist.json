@@ -3,12 +3,14 @@
  "pulled": "2026-10-29T14:50",
  "unopened": 79467,
  "pack": {
-  "floor": 10,
-  "recent": 9,
-  "avg": 9.17,
+  "floor": 9,
+  "recent": 8,
+  "avg": 10.76,
   "top": 20,
-  "listings": 13143,
-  "sold_24h": 9289
+  "listings": 9464,
+  "sold_24h": 9289,
+  "unopened_with_collectors": 59581,
+  "pulled": "2026-10-30T22:40"
  },
  "walls": {
   "10": 5590,

@@ -200,7 +200,7 @@ render("stickers.html", "stickers", "2026 World Cup Sticker Pack", "#5ed68a", {
     "disclaimer": "<strong>How this pack works.</strong> 5 stickers: <strong>3 Base Silver #/501</strong> + <strong>2 non-Silver</strong> (Blue /269 · Red /49 · Gold /10 · Green /5 · Black 1/1). Silvers are <strong>burnable for 10 block points</strong> (100 BP buys a 2022 Prizm WC pack); burning is capped at half of each card's copies. Priced on <strong>only the stickers still sealed in packs</strong>, from Panini's own pack checklist. A card's value is its recent normal-serial sales first, then its best offer capped at its floor, never below scrub. Every special serial still in a pack (#1, last serial, jersey number) is valued on its own. Scrub levels: " + " · ".join(f"{p} ${scrub[p]:g}" for p in PAR) + ". Not financial advice.",
     "book": round(book, 2),
     "book_sub": f"3 Silver at {money(avg['Silver'])} + 2 hits at {money(hit_ev)}",
-    "mkt_label": f"Pack floor ({ck['pulled'][5:10]})",
+    "mkt_label": f"Pack floor ({mk.get('pulled', ck['pulled'])[5:10]})",  # market can be refreshed apart from the checklist
     "mkt_value": money(mk["floor"]),
     "mkt_sub": f"latest sale ${mk['recent']:g} · avg sale ${mk['avg']:.2f} · {mk['listings']:,} listed · mint $8",
     "slots": [{"n": 5, "d": "Stickers<br>per pack"}, {"n": 3, "d": "Silver<br>#/501 (burnable)"},
