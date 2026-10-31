@@ -4,7 +4,8 @@
 #   prizmwc22.html  -- 2022 Prizm FIFA WC (block-point store pack)
 #   mosaic22.html   -- 2022 Mosaic Road to World Cup (Spend Promo reward pack)
 #   stickers.html   -- 2026 Prizm FIFA WC Stickers
-# Fills tools/packpage-template.html from the committed value files. Market
+# Fills tools/packpage-template.html from the committed value files (stickers via
+# tools/stickers-model.mjs, also run hourly live). Market
 # figures (floors/avg sales) are snapshots typed in below -- update them here.
 # Run from repo root:  python tools/build-pack-pages.py
 # ============================================================
@@ -98,145 +99,10 @@ render("mosaic22.html", "mosaic22", "2022 Mosaic Road to World Cup Pack", "#b89b
 })
 
 # ---------- 2026 Prizm FIFA WC Stickers ----------
-# Priced on what is STILL IN PACKS. data/stickers26-checklist.json is Panini's
-# pack checklist (getStorePackCheckList): per card unclaimed count, best offer,
-# floor, and the status of every special serial (#1, last, jersey). Notable cards
-# are listed one by one; every other card is rolled up per parallel at scrub.
-# Card value (normal serial): John's override > median of the last 3 normal-serial
-# sales since window_from > best offer capped at floor > never below scrub.
-# Each unclaimed special serial is valued on its own (special_mult below).
-ck = json.load(open(P("data", "stickers26-checklist.json"), encoding="utf-8"))
-sales = json.load(open(P("data", "stickers26-sales.json"), encoding="utf-8"))
-scrub = ck["scrub"]
-OVR = {(k.split("|")[0], k.split("|")[1]): v for k, v in ck["overrides"].items()}
-PAR = ["Silver", "Blue", "Red", "Gold", "Green", "Black"]
-SPECIAL = ("number 1", "perfect mint", "jersey mint")
-
-
-def special_mult(tags, run):
-    if run == 1:
-        return 1.0
-    hi = run >= 49
-    m = {"number 1": 5 if hi else 3, "perfect mint": 5 if hi else 2, "jersey mint": 8 if hi else 2}
-    return max([m[t] for t in SPECIAL if t in tags] or [1])
-
-
-recent = defaultdict(list)
-for x in sales["sales"]:
-    if x["date"] >= sales["window_from"]:
-        recent[(x["a"], x["p"])].append(x)
-
-
-RULES = ck.get("rules", {})
-_last = max(datetime.fromisoformat(x["date"][:19]) for x in sales["sales"] if "T" in x["date"])
-CUT24 = (_last - timedelta(hours=24)).isoformat()
-
-
-# rules.silver_burn (John, after the Silver burn): every Silver with burns left is
-# listed in `uncapped` {name: burned} (from Panini's collection report); all others
-# are fully burned (250/250). Fully burned -> median normal-serial sale since `since`
-# (9pm ET 10/30, after the burn rush), $0 if none. `stars` (barely burned, held for
-# collecting) -> normal sales rules. Other uncapped -> $0: their price is burn value
-# that ends when the card hits its cap.
-SB = RULES.get("silver_burn")
-
-
-def since_median(k):
-    ps = sorted(x["price"] for x in recent.get(k, [])
-                if x["date"] >= SB["since"] and not any(t in x["tags"] for t in SPECIAL))
-    return ps[len(ps) // 2] if ps else 0.0
-
-
-def card_value(c):
-    k = (c["a"], c["p"])
-    if k in OVR:
-        return OVR[k]
-    if SB and c["p"] == "Silver":
-        if c["a"] not in SB["stars"]:
-            return 0.0 if c["a"] in SB["uncapped"] else since_median(k)
-        if since_median(k):
-            return since_median(k)  # stars: post-burn sales first; unsold since -> normal rules below
-    if c["p"] in RULES.get("zero", []):
-        return 0.0  # John: price this parallel at $0 (burn-dead), even named cards
-    ss = sorted(recent.get(k, []), key=lambda x: x["date"], reverse=True)
-    norm = [x for x in ss if c["run"] == 1 or not any(t in x["tags"] for t in SPECIAL)]
-    if RULES.get("window24"):
-        # liquid cards: median of the last 24h of normal sales; thin ones: last 5
-        day = [x["price"] for x in norm if x["date"] >= CUT24]
-        norm = day if len(day) >= 3 else [x["price"] for x in norm[:5]]
-    else:
-        norm = [x["price"] for x in norm[:3]]
-    if norm:
-        v = sorted(norm)[len(norm) // 2]
-    else:
-        v = c["offer"] or 0
-        if RULES.get("mid") and v and c["floor"] > v:
-            v = (v + c["floor"]) / 2  # no sales: bid/ask midpoint
-        elif c["floor"] and v > c["floor"]:
-            v = c["floor"]  # a bid above the floor is for one specific serial
-    return max(v, scrub[c["p"]])
-
-
-VAL = {(c["a"], c["p"]): card_value(c) for c in ck["cards"]}
-if RULES.get("ladder"):
-    # a rarer parallel of the same player is never worth less than a commoner one
-    for a in {c["a"] for c in ck["cards"]}:
-        best = 0
-        for p in PAR:
-            k = (a, p)
-            if k in VAL:
-                if VAL[k] < best and k not in OVR:
-                    VAL[k] = best
-                best = max(best, VAL[k])
-
-tot = {p: [0, 0.0] for p in PAR}       # in-pack copies, in-pack value
-hits = []
-for c in ck["cards"]:
-    v = VAL[(c["a"], c["p"])]
-    sp = [t for t in c["spec"]]
-    val = (c["u"] - len(sp)) * v + sum(v * special_mult(t, c["run"]) for t in sp)
-    tot[c["p"]][0] += c["u"]; tot[c["p"]][1] += val
-    if c["u"] and v >= 50:
-        lab = {"number 1": "#1", "perfect mint": f"#{c['run']} (last)", "jersey mint": "jersey #"}
-        left = [" / ".join(lab[x] for x in t.split(",")) for t in sp if c["run"] > 1]
-        hits.append({"c": c["a"], "s": c["p"] + (" &middot; still sealed: " + ", ".join(left) if left else ""),
-                     "r": c["run"], "u": c["u"], "p": v})
-NOTABLE = {(c["a"], c["p"]) for c in ck["cards"]}
-rest_val = {}
-for p, r in ck["rest"].items():
-    # un-listed cards: scrub; un-listed Silvers under silver_burn: average over all
-    # r["cards"] of each fully burned card's post-cutoff median (unsold = $0)
-    rest_val[p] = (sum(since_median(k) for k in recent if k[1] == p and k not in NOTABLE and k[0] not in SB["uncapped"]) / r["cards"]
-                   if SB and p == "Silver" else scrub[p])
-    run = r["run"]
-    nspec = sum(r["spec"].values())
-    tot[p][0] += r["u"]
-    tot[p][1] += (r["u"] - nspec) * rest_val[p] + sum(n * rest_val[p] * special_mult(t, run) for t, n in r["spec"].items())
-avg = {p: tot[p][1] / tot[p][0] for p in PAR}
-non_u = sum(tot[p][0] for p in PAR if p != "Silver")
-hit_ev = sum(tot[p][1] for p in PAR if p != "Silver") / non_u
-book = 3 * avg["Silver"] + 2 * hit_ev
-hits.sort(key=lambda h: -h["p"])
-mk = ck["pack"]
-UNOPENED = ck["unopened"]  # stickers left in packs / 5 (Silver/3 = non-Silver/2) -- exact from Panini's collection report
-runs = {"Silver": 501, "Blue": 269, "Red": 49, "Gold": 10, "Green": 5, "Black": 1}
-render("stickers.html", "stickers", "2026 World Cup Sticker Pack", "#5ed68a", {
-    "eyebrow": "2026 Panini NFT Prizm FIFA World Cup Stickers",
-    "h1": "World Cup <span class=\"accent\">Stickers</span>",
-    "updated": f"Copies left {ck['pulled'][:10]} · {UNOPENED:,} unopened packs ({mk.get('unopened_with_collectors', 0):,} with collectors) · $8 mint",
-    "disclaimer": "<strong>How this pack works.</strong> 5 stickers: <strong>3 Base Silver #/501</strong> + <strong>2 non-Silver</strong> (Blue /269 · Red /49 · Gold /10 · Green /5 · Black 1/1). Silvers are <strong>burnable for 10 block points</strong> (100 BP buys a 2022 Prizm WC pack); burning is capped at half of each card's copies. Priced on <strong>only the stickers still sealed in packs</strong>, from Panini's own pack checklist. A card's value is its recent normal-serial sales first, then its best offer capped at its floor, never below scrub. Every special serial still in a pack (#1, last serial, jersey number) is valued on its own. " + (f"<strong>Silvers after the burn:</strong> {960 - len(SB['uncapped'])} of 960 are fully burned and priced only on sales since 9pm ET Oct 30 ($0 if unsold); the stars nobody burns ({', '.join(n.split()[-1] for n in SB['stars'])}) on their sales; the other {len(SB['uncapped']) - len(SB['stars'])} still being burned at $0, since their price is burn value that ends at the cap. " if SB else "") + "Scrub levels: " + " · ".join(f"{p} ${scrub[p]:g}" for p in PAR if not (SB and p == "Silver")) + ". Not financial advice.",
-    "book": round(book, 2),
-    "book_sub": f"3 Silver at {money(avg['Silver'])} + 2 hits at {money(hit_ev)}",
-    "mkt_label": f"Pack floor ({mk.get('pulled', ck['pulled'])[5:10]})",  # market can be refreshed apart from the checklist
-    "mkt_value": money(mk["floor"]),
-    "mkt_sub": f"latest sale ${mk['recent']:g} · avg sale ${mk['avg']:.2f} · {mk['listings']:,} listed · mint $8",
-    "slots": [{"n": 5, "d": "Stickers<br>per pack"}, {"n": 3, "d": "Silver<br>#/501 (burnable)"},
-              {"n": 2, "d": "Non-Silver<br>/269 to 1/1", "hit": True}, {"n": f"{UNOPENED:,}", "d": "Unopened<br>packs"}],
-    "hits_sub": f"Every sticker worth $50+ that is still sealed, with copies left in packs (pulled {ck['pulled']}). Special serials still in packs are noted.",
-    "hits": hits[:60],
-    "break_label": "Each parallel",
-    "break_sub": "Copies still in packs, odds per hit slot from those copies, and average value of a pulled copy (special serials included).",
-    "break_cols": ["Parallel", "Run", "In packs", "Odds / hit slot", "Avg value"],
-    "breakdown": [[p, f"/{runs[p]}", f"{tot[p][0]:,}", "3 per pack" if p == "Silver" else f"{tot[p][0] / non_u:.1%}", money(avg[p])] for p in PAR],
-    "foot": "Data: data/stickers26-checklist.json (Panini pack checklist) + data/stickers26-sales.json (sales with serials).",
-})
+# The model lives in tools/stickers-model.mjs, shared with the hourly refresh
+# (netlify/functions/stickers-refresh.mjs -> /api/stickers-data). This bakes its
+# output into stickers.html as the fallback the page shows until live data loads.
+# Edit rules/overrides/copies in data/stickers26-checklist.json.
+import subprocess
+render("stickers.html", "stickers", "2026 World Cup Sticker Pack", "#5ed68a", json.loads(subprocess.run(
+    ["node", P("tools", "stickers-build.mjs")], capture_output=True, encoding="utf-8", check=True).stdout))

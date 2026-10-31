@@ -113,24 +113,29 @@
 const D = __DATA__;
 const $ = id => document.getElementById(id);
 const money = n => '$' + (n >= 100 ? Math.round(n).toLocaleString('en-US') : Number(n).toFixed(2));
-$('eyebrow').textContent = D.eyebrow;
-$('h1').innerHTML = D.h1;
-$('updated').textContent = D.updated;
-$('disclaimer').innerHTML = D.disclaimer;
-$('book').textContent = money(D.book);
-$('bookSub').textContent = D.book_sub;
-$('exp').textContent = money(2 * D.book);
-$('mktLabel').textContent = D.mkt_label;
-$('mkt').textContent = D.mkt_value;
-$('mktSub').textContent = D.mkt_sub;
-$('compose').innerHTML = D.slots.map(s => '<div class="slot' + (s.hit ? ' hit' : '') + '"><div class="n">' + s.n + '</div><div class="d">' + s.d + '</div></div>').join('');
-$('hitsSub').textContent = D.hits_sub;
-$('hits').innerHTML = D.hits.map(h => '<tr><td>' + h.c + ' <span class="sub">' + h.s + '</span></td><td>/' + h.r + '</td><td>' + (h.u == null ? '<span class="sub">&mdash;</span>' : h.u) + '</td><td>' + money(h.p) + '</td></tr>').join('');
-$('breakLabel').textContent = D.break_label;
-$('breakSub').textContent = D.break_sub;
-$('breakHead').innerHTML = '<tr>' + D.break_cols.map(c => '<th>' + c + '</th>').join('') + '</tr>';
-$('break').innerHTML = D.breakdown.map(r => '<tr>' + r.map((v, i) => '<td>' + v + '</td>').join('') + '</tr>').join('');
-$('foot').innerHTML = D.foot;
+function draw(D) {
+  $('eyebrow').textContent = D.eyebrow;
+  $('h1').innerHTML = D.h1;
+  $('updated').textContent = D.updated;
+  $('disclaimer').innerHTML = D.disclaimer;
+  $('book').textContent = money(D.book);
+  $('bookSub').textContent = D.book_sub;
+  $('exp').textContent = money(2 * D.book);
+  $('mktLabel').textContent = D.mkt_label;
+  $('mkt').textContent = D.mkt_value;
+  $('mktSub').textContent = D.mkt_sub;
+  $('compose').innerHTML = D.slots.map(s => '<div class="slot' + (s.hit ? ' hit' : '') + '"><div class="n">' + s.n + '</div><div class="d">' + s.d + '</div></div>').join('');
+  $('hitsSub').textContent = D.hits_sub;
+  $('hits').innerHTML = D.hits.map(h => '<tr><td>' + h.c + ' <span class="sub">' + h.s + '</span></td><td>/' + h.r + '</td><td>' + (h.u == null ? '<span class="sub">&mdash;</span>' : h.u) + '</td><td>' + money(h.p) + '</td></tr>').join('');
+  $('breakLabel').textContent = D.break_label;
+  $('breakSub').textContent = D.break_sub;
+  $('breakHead').innerHTML = '<tr>' + D.break_cols.map(c => '<th>' + c + '</th>').join('') + '</tr>';
+  $('break').innerHTML = D.breakdown.map(r => '<tr>' + r.map((v, i) => '<td>' + v + '</td>').join('') + '</tr>').join('');
+  $('foot').innerHTML = D.foot;
+}
+draw(D);
+// live pages (stickers): swap in the hourly-repriced numbers; keep the baked ones on any failure
+if (D.live) fetch('/api/stickers-data').then(r => r.ok ? r.json() : null).then(d => { if (d && d.book) draw(d); }).catch(() => {});
 </script>
 </body>
 </html>

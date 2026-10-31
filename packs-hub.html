@@ -86,8 +86,8 @@
       <h2>2026 World Cup<br>Stickers</h2>
       <div class="sub">5 stickers &mdash; 3 burnable Silver /501 + 2 parallels down to Black 1/1; fully burned Silvers priced on post-burn sales (mostly $0), plus the 5 stars.</div>
       <div class="stats">
-        <div class="stat"><div class="l">Expected</div><div class="v accent">$14.26</div><span class="est">2&times; book</span></div>
-        <div class="stat"><div class="l">Book value</div><div class="v">$7.13</div></div>
+        <div class="stat"><div class="l">Expected</div><div class="v accent" id="stk_exp">$14.26</div><span class="est">2&times; book</span></div>
+        <div class="stat"><div class="l">Book value</div><div class="v" id="stk_book">$7.13</div></div>
         <div class="stat"><div class="l">Pack floor</div><div class="v">$9</div></div>
         <div class="stat"><div class="l">Cards/pack</div><div class="v">5</div></div>
       </div>
@@ -268,6 +268,11 @@ fetch('/api/animalprint-data').then(r=>r.json()).then(D=>{
   $('ap_book').textContent = money(pe.pack_book_ev);
   $('ap_pred').innerHTML = '~' + money(pe.predicted_price);
 }).catch(e=>console.warn('[hub] animalprint fetch failed (baked values shown)', e.message));
+fetch('/api/stickers-data').then(r=>r.json()).then(D=>{
+  if (!D.book) return;
+  $('stk_book').textContent = '$' + D.book.toFixed(2);   // hub money() rounds to whole dollars
+  $('stk_exp').textContent = '$' + (2 * D.book).toFixed(2);
+}).catch(e=>console.warn('[hub] stickers fetch failed (baked values shown)', e.message));
 </script>
 </body>
 </html>
