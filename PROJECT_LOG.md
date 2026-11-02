@@ -8,6 +8,11 @@
 
 ---
 
+## 2026-11-01 -- Sticker pack market refresh; pack walls no longer pullable
+- **Market (7:20pm ET 11/1, from `/marketplace-details/subpack-5368435-1058.html`):** floor **$9 -> $10**, latest sale $10, avg $10.68, top $20, **7,593 listed** (8,986 on 10/31, 13,143 on 10/29), 56,247 unopened with collectors (58,861 on 10/31). Cheapest listings all $10. Stored in `stickers26-checklist.json` `pack` (`pulled` 2026-11-01T19:20); hub sticker card floor $10. `sold_24h` and `walls` in that file are still the 10/29 values (not shown on the page).
+- **Walls method broken:** Panini's `/onepanini` API now rejects replayed `otherUsersPackSales` queries with `426 "Invalid request"` -- even the page's exact query text, signed in or out. The page's own requests still work, so it now attaches something a plain resend lacks; sending through the page's Apollo client got a 403. Claude stopped there rather than reverse-engineer what looks like an anti-automation check. The listings UI has no price filter or page jump (10 rows at a time), so per-price wall counts are unavailable until there's another source.
+- Docs tidied the same day: duplicate 10/31 sections removed, dated sections + Changelog put newest-first, `ARCHITECTURE.md` rewritten against the current code (c4fe07d).
+
 ## 2026-10-31 -- 2022 Prizm WC + 2022 Mosaic RTWC also hourly; copies left go live from chain pulls (John: "mimic everything")
 - **Shared engine `tools/live-pack.mjs`** (all three live packs): state row per product in `stickers_snapshots` (the table now holds every live pack; `product` = stickers26 / prizmwc22 / mosaic22; the `sales` jsonb column holds `{log, pulled, pullSpec, last_pull_id}`). Each hour: chain SALES since last_ts-30min, chain PULLS since `last_pull_id` (`chain_pulls`, incremental by id; first run from the report time) -> copies pulled per sku, #1/last serial pulls tracked; compute; save one row.
 - **Chain pulls are recorded for every product** (poller -> `chain_pulls`): last 24h ~40.9k sticker cards (~8.2k packs opened), ~15.1k 2022 Prizm cards (~5k BP-store packs), 0 Mosaic.
