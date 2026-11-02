@@ -8,9 +8,11 @@
 
 ---
 
-## 2026-11-01 -- Sticker pack market refresh; pack walls no longer pullable
+## 2026-11-01 -- Sticker pack market refresh; walls re-counted from the page (API replay dead)
 - **Market (7:20pm ET 11/1, from `/marketplace-details/subpack-5368435-1058.html`):** floor **$9 -> $10**, latest sale $10, avg $10.68, top $20, **7,593 listed** (8,986 on 10/31, 13,143 on 10/29), 56,247 unopened with collectors (58,861 on 10/31). Cheapest listings all $10. Stored in `stickers26-checklist.json` `pack` (`pulled` 2026-11-01T19:20); hub sticker card floor $10. `sold_24h` and `walls` in that file are still the 10/29 values (not shown on the page).
 - **Walls method broken:** Panini's `/onepanini` API now rejects replayed `otherUsersPackSales` queries with `426 "Invalid request"` -- even the page's exact query text, signed in or out. The page's own requests still work, so it now attaches something a plain resend lacks; sending through the page's Apollo client got a 403. Claude stopped there rather than reverse-engineer what looks like an anti-automation check. The listings UI has no price filter or page jump (10 rows at a time), so per-price wall counts are unavailable until there's another source.
+- **Walls re-counted (8:12pm ET), NEW METHOD:** since the API replay is dead, drive the page's own infinite scroll instead -- sort listings HIGH TO LOW, auto-scroll (scrollTo bottom + MutationObserver per 10-row load) through every listing above $10 (~33 min for 5,802 rows at 1440px emulated width; the narrow pane width does NOT trigger the loader), dedupe by subpack href, then **$10 wall = live total - counted rows above it**. All the page's own requests, nothing replayed. Bands summed exactly to the live total (7,577).
+- **Walls (7,577 listed): $10 1,775 · $11 1,126 · $12 1,162 · $13 472 · $14 372 · $15 550 · $16-17.99 674 · $18-19.99 555 · $20-24.99 612 · $25-29.99 88 · $30-49.99 159 · $50+ 32.** The $10 wall COLLAPSED (5,590 on 10/29 -> 1,775) while total listings fell 13,143 -> 7,577 and the floor climbed $9 -> $10; nothing listed at $10.01-10.99; next real supply is ~2,300 packs at $11-12; the $50+ tail grew 27 -> 32. Stored in `stickers26-checklist.json` `walls` (own `pulled` + `listed` keys; informational only -- no code reads it).
 - Docs tidied the same day: duplicate 10/31 sections removed, dated sections + Changelog put newest-first, `ARCHITECTURE.md` rewritten against the current code (c4fe07d).
 
 ## 2026-10-31 -- 2022 Prizm WC + 2022 Mosaic RTWC also hourly; copies left go live from chain pulls (John: "mimic everything")
