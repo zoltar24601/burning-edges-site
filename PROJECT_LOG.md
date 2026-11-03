@@ -4,9 +4,18 @@
 
 **Site:** burningedgesdfs.com (Netlify, auto-deploys on every push to `main`) · **Repo:** `zoltar24601/burning-edges-site` · **Backend:** Supabase · **Stack:** vanilla HTML/CSS/JS · **Owner:** John
 
-**Last updated:** 2026-11-01
+**Last updated:** 2026-11-03
 
 ---
+
+## 2026-11-03 -- Sticker model: stale special-serial tags cleared (Messi Gold); $10 wall; poller 403 stall
+- **Found by John:** the live model showed Messi Gold's last copy as "still sealed: #1" (valued 3x = $15,000). The copy actually left is #9/10. The chain agrees: every Messi Gold serial except #9 has moved (#1 pulled 10/30 16:25Z and sold for $10,000, #10 sold $15,000, #4 and #8 left earlier).
+- **Root cause:** the `spec` tags in `stickers26-checklist.json` (sealed #1 / last / jersey serials) come from the 10/29 PM Panini checklist pull. The 10/31 collection report refreshed `u` (copies) but has no serial numbers, and `applyPulls()` only subtracts specials pulled AFTER `report_ts` (10/31 11:42Z). A special pulled in between (10/29 18:30Z - 10/31 11:42Z) stayed tagged as sealed.
+- **Audit (read-only, `chain_events` transfers since 2026-10-29 18:30Z):** checked the #1 and last-serial tags on the 68 notable cards with offer/floor/avg >= $100. **14 stale tags found and removed** (plus Messi Gold #1): Salah Green #1, Nico Paz Green #1 and Gold #1, Haaland Green last, Modric Gold #1, Lautaro Gold #1, Al-Haydos Gold #1, Argentina Badge Green #1, Yildiz Gold last, Guler Gold last, Bellingham Red last, Mbappe Silver #1 + last, Diomande Silver last. Doue Gold #1 (11/2) and Musiala Green last (11/1) moved after the report and are already handled by `applyPulls`. NOT checked: the other 67 cards under $100, and all jersey tags (the chain cannot see jersey numbers).
+- **Expected effect:** about $12-13k less in-pack value (Messi Gold alone -$10k) = roughly -$0.23 on the book (live was $7.49) and about -$0.46 on 2x book. Exact numbers after the first hourly refresh that includes this file (needs a push).
+- **Follow-up (not done):** make it self-healing: store a `spec_pulled` timestamp with the tags and have `applyPulls` also count specials pulled since then; re-check the 67 low-value cards and the jersey tags.
+- **$10 wall (6:02am ET):** 1,489 (1,631 on 11/2 8:49pm), floor $10, 7,189 listed, 54,817 unopened. About 15 an hour overnight.
+- **Poller stalled (Cloudflare 403) after the 11/3 push (~6:06am ET):** cursor last moved 6:11:44am ET (block 4,420,408); 403s at 6:13, 6:15, 6:19, 6:25 (the poller backs off 2/4/6/8/10 min and rebuilds its browser on the 5th failure). Re-read of the 08-11 / 09-04 / 09-14 entries: the documented fix is ONE restart after some quiet time (09-04: recovered in ~30s via empty commit f529965); the rule is against rapid-fire restarts, not against a single one. A stall a restart does not revive = Railway billing (09-09). Railway Watch Paths (`/chain-poller/**`) is still the TODO that would prevent it. Status when logged (~6:27am ET): still down.
 
 ## 2026-11-02 -- Sticker pack: $10 wall re-count (8:49pm ET)
 - **$10 wall = 1,631** (1,775 on 11/1 8:12pm; 5,590 on 10/29 PM). Nothing below $10 and nothing at $10.01-10.99; the next price is $11. Direct count: listings sorted LOW TO HIGH, scrolled until the first $11 row (1,640 rows loaded, ~2.75 min), no duplicates, nothing replayed.

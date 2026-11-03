@@ -608,7 +608,6 @@
    "floor": 500.0,
    "avg": 0.0,
    "spec": [
-    "number 1",
     "perfect mint"
    ]
   },
@@ -633,9 +632,7 @@
    "offer": 80.0,
    "floor": 275.0,
    "avg": 250.0,
-   "spec": [
-    "number 1"
-   ]
+   "spec": []
   },
   {
    "a": "Franco Mastantuono",
@@ -734,9 +731,7 @@
    "offer": 25.0,
    "floor": 250.0,
    "avg": 0.0,
-   "spec": [
-    "number 1"
-   ]
+   "spec": []
   },
   {
    "a": "Jude Bellingham",
@@ -948,9 +943,7 @@
    "offer": 450.0,
    "floor": 0.0,
    "avg": 0.0,
-   "spec": [
-    "perfect mint"
-   ]
+   "spec": []
   },
   {
    "a": "Portugal",
@@ -1119,7 +1112,6 @@
    "floor": 400.0,
    "avg": 87.0,
    "spec": [
-    "number 1",
     "perfect mint"
    ]
   },
@@ -1153,9 +1145,7 @@
    "offer": 3850.0,
    "floor": 4900.0,
    "avg": 4375.0,
-   "spec": [
-    "number 1"
-   ]
+   "spec": []
   },
   {
    "a": "Lautaro Martinez",
@@ -1166,7 +1156,6 @@
    "floor": 500.0,
    "avg": 18.67,
    "spec": [
-    "number 1",
     "perfect mint"
    ]
   },
@@ -1272,9 +1261,7 @@
    "offer": 100.0,
    "floor": 325.0,
    "avg": 200.0,
-   "spec": [
-    "number 1"
-   ]
+   "spec": []
   },
   {
    "a": "Petar Sucic",
@@ -1691,9 +1678,7 @@
    "offer": 0.0,
    "floor": 50.0,
    "avg": 130.67,
-   "spec": [
-    "number 1"
-   ]
+   "spec": []
   },
   {
    "a": "Johan Manzambi",
@@ -1716,9 +1701,7 @@
    "offer": 88.0,
    "floor": 150.0,
    "avg": 0.0,
-   "spec": [
-    "perfect mint"
-   ]
+   "spec": []
   },
   {
    "a": "Kenan Yildiz",
@@ -1729,8 +1712,7 @@
    "floor": 240.0,
    "avg": 0.0,
    "spec": [
-    "number 1",
-    "perfect mint"
+    "number 1"
    ]
   },
   {
@@ -1899,9 +1881,7 @@
    "offer": 20.0,
    "floor": 350.0,
    "avg": 7.3,
-   "spec": [
-    "perfect mint"
-   ]
+   "spec": []
   },
   {
    "a": "Anthony Gordon",
@@ -2750,9 +2730,7 @@
    "offer": 100.0,
    "floor": 4.0,
    "avg": 2.7,
-   "spec": [
-    "perfect mint"
-   ]
+   "spec": []
   },
   {
    "a": "Croatia",
@@ -2960,10 +2938,7 @@
    "offer": 250.0,
    "floor": 8.0,
    "avg": 8.7,
-   "spec": [
-    "number 1",
-    "perfect mint"
-   ]
+   "spec": []
   },
   {
    "a": "Kang-in Lee",
