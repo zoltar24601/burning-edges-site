@@ -7,7 +7,7 @@
 > when the architecture changes** (a new product, table, function, or a rule change), not for
 > routine repricing. The chronological "what happened when" narrative is `PROJECT_LOG.md`.
 
-Last architecture change: 2026-10-31 (shared live-pack engine for Stickers / 2022 Prizm WC / 2022 Mosaic; poller resumable backfill).
+Last architecture change: 2026-11-04 (change log on the live packs; poller self-heal).
 
 ---
 
@@ -74,7 +74,11 @@ chain_events (sales)          chain_pulls (opens, read incrementally by id)
 - Models: `tools/stickers-model.mjs` (stickers), `tools/card-pack-model.mjs` (both 2022 packs).
 - Pages are rendered from `tools/packpage-template.html` by `python tools/build-pack-pages.py`, which bakes a fallback payload (via `node tools/stickers-build.mjs` / `node tools/card-pack-build.mjs`). The page swaps in live numbers and keeps the baked ones on any failure.
 - State is the `sales` jsonb column: `{log, pulled, pullSpec, last_pull_id}`. The table name is historical — it holds every live pack.
-- These engines do NOT write `price_changes`, so their moves don't appear on `/changes`.
+- **Change log** (`tools/change-log.mjs`, called from `live-pack.mjs` after the save): each run diffs the new model snapshot against the last run's (`st.cl`, kept in the state row; the sticker model returns it as `payload._cl`, which the engine strips before saving or serving) and inserts rows into `price_changes`, each with the reason:
+  - one row per card whose value moved >= $20 and >= 10% (always when its override changed), with why: override, new sale (with serial), market data refresh, rule change, ladder follow, or the 24h window rolling forward;
+  - one pack row when the book moves >= max($0.02, 0.5%), with the breakdown (top card moves, Silver average, copies left and special serials, cards pulled);
+  - one row per NEW entry in the data file's `changelog` array (`[{id, note, scope}]` in `data/stickers26-checklist.json`): the human why for a manual push. Add one whenever you push a data change that should be explained.
+  - The first run only records a baseline. The whole step is best-effort (it can fail without affecting prices). The 2022 packs only get the pack row (their model doesn't return per-card values yet). Shown on `/changes` and in each pack page's "Recent price changes" (`/api/changes?product=<key>`).
 - **Still manual (not on chain):** copies left / burn status (fresh collection report → update the data JSON and set `report_ts` / `pulls_from` to the report time) and pack floor / listings (`data/pack-markets.json`, `pack` in `stickers26-checklist.json`). Push → the next hourly run picks them up.
 
 ## Engine 3 — offline: 2026 Prizm WC (base + FOTL)
@@ -137,7 +141,7 @@ and the soccer side of `/value`. Data contract: `PBC_DATA_CONTRACT.md`. Not chai
 
 ## Known follow-ups (not yet done)
 - `/value` only covers the soccer set + NFL + Silhouette (`card-values.js` reads `pack_values` for `nflprizm21,silhouette`). Moonbirds, Floral, Animal Print and the three live packs aren't searchable. (The 2026-08-24 log entry says Moonbirds landed in /value; the code doesn't include it.)
-- Live-pack engines don't write `price_changes`, so Stickers / 2022 pack moves don't show on `/changes`.
+- The 2022 packs' change log only has pack-level rows: `tools/card-pack-model.mjs` doesn't return per-card values yet.
 - 2026 Prizm WC + FOTL are still priced offline by `pbc_engine.py` (not chain-wired).
 - Moonbirds counts need re-seeding until the ETH-bridge transfer can be told apart from a pack open.
 - Live packs: copies left / burn status and pack floors / listings are still entered by hand.

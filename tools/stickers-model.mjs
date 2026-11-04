@@ -108,12 +108,13 @@ export function stickersModel(ck, sales, windowFrom = "2026-10-26", pricedAt = n
   }
 
   const tot = Object.fromEntries(PAR.map(p => [p, [0, 0]]));
-  const hits = [];
+  const hits = [], EFF = {};   // EFF: copy-equivalents per card (special serials count at their multiple) for the change log
   const lab = (t, run) => ({ "number 1": "#1", "perfect mint": `#${run} (last)`, "jersey mint": "jersey #" })[t];
   for (const c of ck.cards) {
     const v = VAL.get(key(c.a, c.p)), sp = c.spec;
     tot[c.p][0] += c.u;
     tot[c.p][1] += (c.u - sp.length) * v + sp.reduce((s, t) => s + v * specialMult(t, c.run), 0);
+    EFF[key(c.a, c.p)] = (c.u - sp.length) + sp.reduce((s, t) => s + specialMult(t, c.run), 0);
     if (c.u && v >= 50) {
       const left = c.run > 1 ? sp.map(t => t.split(",").map(x => lab(x, c.run)).join(" / ")) : [];
       hits.push({ c: c.a, s: c.p + (left.length ? " &middot; still sealed: " + left.join(", ") : ""), r: c.run, u: c.u, p: v });
@@ -164,5 +165,10 @@ export function stickersModel(ck, sales, windowFrom = "2026-10-26", pricedAt = n
     breakdown: PAR.map(p => [p, `/${RUNS[p]}`, tot[p][0].toLocaleString("en-US"), p === "Silver" ? "3 per pack" : `${(tot[p][0] / nonU * 100).toFixed(1)}%`, money(avg[p])]),
     foot: "Data: data/stickers26-checklist.json (Panini pack checklist + collection report) + blockchain sales" + (pricedAt ? " (refreshed hourly)." : " (data/stickers26-sales.json)."),
     live: "/api/stickers-data",
+    // snapshot for the change log (tools/change-log.mjs); tools/live-pack.mjs strips it before saving or serving
+    _cl: { v: 1, book: Math.round(book * 100) / 100, avgSilver: avg.Silver, hitEv, nonU, vals: Object.fromEntries(VAL), eff: EFF,
+           offers: Object.fromEntries(ck.cards.map(c => [key(c.a, c.p), [c.offer || 0, c.floor || 0]])), ovr: Object.fromEntries(OVR),
+           ladder: !!RULES.ladder, rules: JSON.stringify(RULES), scrub: JSON.stringify(scrub),
+           notes: (ck.changelog || []).map(x => ({ id: x.id, note: x.note, scope: x.scope })) },
   };
 }

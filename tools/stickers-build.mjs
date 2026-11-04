@@ -5,4 +5,6 @@ import { readFileSync } from "node:fs";
 import { stickersModel } from "./stickers-model.mjs";
 const load = f => JSON.parse(readFileSync(new URL(`../data/${f}`, import.meta.url), "utf8"));
 const sales = load("stickers26-sales.json");
-process.stdout.write(JSON.stringify(stickersModel(load("stickers26-checklist.json"), sales.sales, sales.window_from)));
+const out = stickersModel(load("stickers26-checklist.json"), sales.sales, sales.window_from);
+delete out._cl;   // change-log snapshot: for the hourly engine only, not the baked page
+process.stdout.write(JSON.stringify(out));

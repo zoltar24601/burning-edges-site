@@ -9,6 +9,8 @@
 //   4. compute the page payload, save payload + state (one row, updated in place)
 // state (stored in the `sales` jsonb column) = { log, pulled, pullSpec, last_pull_id }
 // ============================================================
+import { buildChangeRows } from "./change-log.mjs";
+
 const OVERLAP_MS = 30 * 60 * 1000;
 const MAX_BACK_MS = 7 * 24 * 3600 * 1000;
 
@@ -42,11 +44,12 @@ export async function runLivePack({ product, prefix, seedLog, pullsFrom, mapSale
   const evs = await page(`chain_events?${range}&price=gt.0&ts=gte.${since}&select=sku_base,serial,run,price,ts&order=ts.asc`);
   const seen = new Set(st.log.map(saleKey));
   let added = 0, newest = lastTs;
+  const fresh = [];   // sales new this run, for the change log
   for (const e of evs) {
     newest = Math.max(newest, Date.parse(e.ts));
     const x = mapSale(e);
     if (!x || seen.has(saleKey(x))) continue;
-    seen.add(saleKey(x)); st.log.push(x); added++;
+    seen.add(saleKey(x)); st.log.push(x); fresh.push(x); added++;
   }
 
   // 3) pulls (incremental by chain_pulls.id, so no overlap/dedup needed)
@@ -61,14 +64,29 @@ export async function runLivePack({ product, prefix, seedLog, pullsFrom, mapSale
   // 4) compute + save
   const pricedAt = new Date().toLocaleString("en-US", { timeZone: "America/New_York", month: "short", day: "numeric", hour: "numeric", minute: "2-digit" }) + " ET";
   const payload = compute(st, pricedAt);
+  // change log: best effort, it must never block the price refresh. Diff this run against the
+  // last run's snapshot (st.cl); the rows are written after the save succeeds. _cl is internal: strip it.
+  const cl = payload._cl; delete payload._cl;
+  let logRows = [];
+  try {
+    const out = buildChangeRows({ product, prev: st.cl || null, next: cl || { book: payload.book }, fresh, pulls: pulls.length });
+    logRows = out.rows; st.cl = out.snapshot;
+  } catch (e) { console.error("change log:", e); }
   st.log = prune ? prune(st.log) : st.log;
   const body = { product, updated: pricedAt, pack_book_ev: payload.book, payload, sales: st, last_ts: new Date(newest).toISOString(), published: true, computed_at: new Date().toISOString() };
   const w = row
     ? await fetch(`${SB_URL}/rest/v1/stickers_snapshots?id=eq.${row.id}`, { method: "PATCH", headers: { ...H, Prefer: "return=minimal" }, body: JSON.stringify(body) })
     : await fetch(`${SB_URL}/rest/v1/stickers_snapshots`, { method: "POST", headers: { ...H, Prefer: "return=minimal" }, body: JSON.stringify(body) });
   if (!w.ok) return { status: 502, body: { error: "save failed", status: w.status, detail: await w.text() } };
+  let logged = 0;
+  if (logRows.length) {
+    try {
+      const lr = await fetch(`${SB_URL}/rest/v1/price_changes`, { method: "POST", headers: { ...H, Prefer: "return=minimal" }, body: JSON.stringify(logRows) });
+      if (lr.ok) logged = logRows.length; else console.error("price_changes insert failed:", lr.status);
+    } catch (e) { console.error("price_changes insert:", e); }
+  }
   const pulledTotal = Object.values(st.pulled).reduce((s, n) => s + n, 0);
-  return { status: 200, body: { ok: true, product, seeded: !row, sales_added: added, sales_kept: st.log.length, pulls_new: pulls.length, pulled_total: pulledTotal, book: payload.book } };
+  return { status: 200, body: { ok: true, product, seeded: !row, sales_added: added, sales_kept: st.log.length, pulls_new: pulls.length, pulled_total: pulledTotal, book: payload.book, changes_logged: logged } };
 }
 
 export const respond = r => new Response(JSON.stringify(r.body), { status: r.status, headers: { "Content-Type": "application/json" } });

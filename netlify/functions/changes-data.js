@@ -6,7 +6,10 @@ export async function handler(event) {
   const SB_KEY = process.env.SUPABASE_SERVICE_KEY;
   if (!SB_URL || !SB_KEY) return json(500, { error: "Server not configured." });
   try {
-    const url = `${SB_URL}/rest/v1/price_changes?select=product,scope,headline,detail,old_value,new_value,created_at&order=created_at.desc&limit=200`;
+    // ?product=stickers26 -> just that pack (the on-page lists), so busy hourly packs can't crowd out the others
+    const p = event && event.queryStringParameters && event.queryStringParameters.product;
+    const only = p && /^[a-z0-9_]+$/i.test(p) ? `&product=eq.${p}` : "";
+    const url = `${SB_URL}/rest/v1/price_changes?select=product,scope,headline,detail,old_value,new_value,created_at${only}&order=created_at.desc,id.desc&limit=${only ? 60 : 200}`;
     const res = await fetch(url, { headers: { apikey: SB_KEY, Authorization: `Bearer ${SB_KEY}` } });
     if (!res.ok) return json(502, { error: "Supabase read failed", status: res.status });
     return json(200, { changes: await res.json() });

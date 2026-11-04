@@ -36,6 +36,9 @@
   .row .tag.moonbirds{background:rgba(184,155,224,0.15);color:var(--purple);}
   .row .tag.silhouette{background:rgba(255,122,60,0.15);color:var(--flame);}
   .row .tag.nflprizm21{background:rgba(94,214,138,0.15);color:var(--green);}
+  .row .tag.stickers26{background:rgba(94,214,138,0.15);color:var(--green);}
+  .row .tag.prizmwc22{background:rgba(232,196,104,0.15);color:var(--gold);}
+  .row .tag.mosaic22{background:rgba(184,155,224,0.15);color:var(--purple);}
   .row .dt{font-size:13px;color:var(--text-faint);margin-top:2px;}
   .row .ts{font-size:12px;color:var(--text-faint);font-family:'Barlow Condensed',sans-serif;letter-spacing:1px;text-transform:uppercase;text-align:right;white-space:nowrap;}
   .empty{color:var(--text-faint);text-align:center;padding:40px;font-size:14px;}
@@ -56,7 +59,7 @@
     <p class="sub">Every major price adjustment, logged automatically. Values update <b>hourly</b> from live Panini Blockchain sales &amp; offers via the <b>Panini Blockchain Tracker</b> &mdash; when a card meaningfully moves, it lands here. Nothing hand-edited.</p>
   </div>
   <div class="feed" id="feed"><div class="empty">Loading&hellip;</div></div>
-  <div class="foot">Major = pack book value moves &ge; $2, or a card's value moves &ge; 15%. Estimates, not financial advice.</div>
+  <div class="foot">Logged when a pack's book value or a card's value moves meaningfully; every entry says why. Estimates, not financial advice.</div>
 </div>
 <script>
 const feed = document.getElementById('feed');
@@ -76,7 +79,8 @@ fetch('/api/changes').then(r=>r.json()).then(j=>{
   feed.innerHTML = rows.map(c=>{
     const d = dir(c.old_value, c.new_value);
     const prod = (c.product||'').toLowerCase();
-    const label = prod==='silhouette'?'Silhouette':prod==='moonbirds'?'Moonbirds':prod==='nflprizm21'?'NFL Prizm':(c.product||'');
+    const LABELS = {silhouette:'Silhouette',moonbirds:'Moonbirds',nflprizm21:'NFL Prizm',stickers26:'WC Stickers',prizmwc22:'2022 Prizm WC',mosaic22:'2022 Mosaic',floral:'Floral',animalprint:'Animal Print'};
+    const label = LABELS[prod] || (c.product||'');
     const tag = label ? '<span class="tag '+prod+'">'+label+'</span>' : '';
     return '<div class="row '+d+'"><div class="ic">'+arrow(d)+'</div>'
       + '<div><div class="hl">'+tag+c.headline+'</div>'+(c.detail?'<div class="dt">'+c.detail+'</div>':'')+'</div>'

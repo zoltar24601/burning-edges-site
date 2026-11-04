@@ -107,6 +107,11 @@
   <div class="section-label" id="breakLabel"></div>
   <div class="section-sub" id="breakSub"></div>
   <table class="s2"><thead id="breakHead"></thead><tbody id="break"></tbody></table>
+  <div id="changesWrap" style="display:none">
+    <div class="section-label">Recent price changes</div>
+    <div class="section-sub">Logged every time the hourly update moves the book or a card, with the reason.</div>
+    <table class="s2"><thead><tr><th>Change</th><th>Move</th><th>When</th></tr></thead><tbody id="changesBody"></tbody></table>
+  </div>
   <div class="foot" id="foot"></div>
 </div>
 <script>
@@ -136,6 +141,22 @@ function draw(D) {
 draw(D);
 // live pages: swap in the hourly-repriced numbers (D.live = its API URL); keep the baked ones on any failure
 if (D.live) fetch(D.live).then(r => r.ok ? r.json() : null).then(d => { if (d && d.book) draw(d); }).catch(() => {});
+// recent price changes for this pack: written by the hourly engine, with the reason for each move
+const PRODUCT = 'stickers26';
+const esc = s => String(s == null ? '' : s).replace(/[&<>"]/g, ch => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[ch]));
+const timeAgo = ts => { const s = (Date.now() - new Date(ts).getTime()) / 1000, d = Math.floor(s / 86400); if (d > 0) return d + 'd ago'; const h = Math.floor(s / 3600); if (h > 0) return h + 'h ago'; const m = Math.floor(s / 60); return m <= 1 ? 'just now' : m + 'm ago'; };
+(async () => {
+  try {
+    const r = await fetch('/api/changes?product=' + PRODUCT, { cache: 'no-store' }); if (!r.ok) return;
+    const mine = ((await r.json()).changes || []).filter(c => (c.product || '').toLowerCase() === PRODUCT).slice(0, 25);
+    if (!mine.length) return;
+    $('changesBody').innerHTML = mine.map(c => {
+      const up = Number(c.new_value) > Number(c.old_value);
+      return '<tr><td>' + esc(c.headline) + (c.scope ? ' <span class="sub">' + esc(c.scope) + '</span>' : '') + '</td><td style="color:' + (up ? 'var(--green)' : 'var(--red)') + '">' + (up ? '&#9650; ' : '&#9660; ') + esc(c.detail) + '</td><td>' + esc(timeAgo(c.created_at)) + '</td></tr>';
+    }).join('');
+    $('changesWrap').style.display = '';
+  } catch (e) {}
+})();
 </script>
 </body>
 </html>

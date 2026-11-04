@@ -22,6 +22,7 @@ def render(fname, nav_key, title, accent, data):
     html = TEMPLATE.replace("__TITLE__", title).replace("__ACCENT__", accent)
     for k in ("prizmwc22", "mosaic22", "stickers"):
         html = html.replace(f"__NAV_{k}__", ' class="active"' if k == nav_key else "")
+    html = html.replace("__PRODUCT__", {"stickers": "stickers26"}.get(nav_key, nav_key))   # the price_changes product key
     html = html.replace("__DATA__", json.dumps(data, ensure_ascii=True))
     open(P(fname), "w", encoding="utf-8").write(html)
     print("wrote", fname, "| book", money(data["book"]))
