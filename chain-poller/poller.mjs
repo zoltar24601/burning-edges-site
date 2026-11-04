@@ -7,7 +7,7 @@
 //
 // Env: SUPABASE_URL, SUPABASE_SERVICE_KEY, [PANINI_API], [POLL_MS], [PAGE_LIMIT], [MAX_PAGES]
 // Run: node chain-poller/poller.mjs   (from repo root)
-// Restart marker: 2026-10-30 (resumable backfill, per-page writes, 20-block pages).
+// Restart marker: 2026-11-03 (self-heal: exit after repeated HTTP 403s so the host restarts the container).
 // ============================================================
 import { chromium } from "playwright";
 import { blockEvents, blockPulls } from "./panini-chain.mjs";   // vendored copy of tools/panini-chain.mjs
@@ -40,7 +40,17 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 // Optional residential proxy (the durable fix for the datacenter-IP Cloudflare block).
 // Set PROXY_SERVER=http://host:port (+ PROXY_USER / PROXY_PASS) in Railway env.
 const PROXY_SERVER = process.env.PROXY_SERVER;
-const SBH = { apikey: SB_KEY, Authorization: `Bearer ${SB_KEY}`, "Content-Type": "application/json" };
+// Self-heal for a Cloudflare 403 wall. Both times we can see (2026-09-04, 2026-11-03) the
+// in-process browser rebuild did NOT clear the wall, but a fresh container did within ~30-90 s
+// of a restart. So after SELF_HEAL_AFTER consecutive HTTP 403s (6 = ~30 min of back-off) exit
+// non-zero and let the host restart the container. The long back-off is the guard against a
+// restart storm (a burst of restarts is what trips the wall in the first place);
+// SELF_HEAL_MIN_UPTIME_MS enforces the same gap if POLL_MS is ever lowered. SELF_HEAL_AFTER=0
+// disables it. Set Railway's restart policy to "Always" so the host never gives up after
+// repeated exits.
+const SELF_HEAL_AFTER = +(process.env.SELF_HEAL_AFTER || 6);
+const SELF_HEAL_MIN_UPTIME_MS = +(process.env.SELF_HEAL_MIN_UPTIME_MS || 20 * 60 * 1000);
+const SBH ={ apikey: SB_KEY, Authorization: `Bearer ${SB_KEY}`, "Content-Type": "application/json" };
 
 if (!SB_URL || !SB_KEY) { console.error("missing SUPABASE_URL / SUPABASE_SERVICE_KEY"); process.exit(1); }
 
@@ -200,17 +210,29 @@ async function tick() {
 }
 
 (async () => {
-  await browserReady();
-  let fails = 0;
+  // A failed FIRST session must not crash-loop: every crash restarts the container and
+  // re-challenges Cloudflare, and a burst of restarts is what feeds the wall.
+  for (let n = 1; ; n++) {
+    try { await browserReady(); break; }
+    catch (e) { console.error(`startup error: ${e.message} (attempt ${n})`); await sleep(Math.min(POLL_MS * n, 600000)); }
+  }
+  let fails = 0, blocked = 0;   // blocked = consecutive HTTP 403s (the Cloudflare wall)
   for (;;) {
-    try { await tick(); fails = 0; }
+    try { await tick(); fails = 0; blocked = 0; }
     catch (e) {
       fails++;
+      blocked = /HTTP 403/.test(e.message) ? blocked + 1 : 0;
       console.error(`tick error: ${e.message} (consecutive ${fails})`);
       // On a run of failures (e.g. a Cloudflare 403 wall) rebuild the browser
       // session -- a fresh challenge sometimes clears; with PROXY_SERVER set it
       // reconnects through the residential IP.
       if (fails % 5 === 0) { try { await browserReady(); console.log("browser session rebuilt after failures"); } catch (be) { console.error("rebuild failed:", be.message); } }
+      // Still walled after the rebuild: restart the whole container (see SELF_HEAL_AFTER).
+      if (SELF_HEAL_AFTER > 0 && blocked >= SELF_HEAL_AFTER && process.uptime() * 1000 >= SELF_HEAL_MIN_UPTIME_MS) {
+        console.error(`self-heal: ${blocked} consecutive HTTP 403s -- exiting so the host restarts the container`);
+        try { await Promise.race([browser.close(), sleep(5000)]); } catch (_) {}
+        process.exit(1);
+      }
     }
     // exponential-ish back-off while failing (up to 10 min), normal cadence when healthy
     const wait = fails ? Math.min(POLL_MS * Math.min(fails, 5), 600000) : POLL_MS;
