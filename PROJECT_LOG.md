@@ -4,7 +4,7 @@
 
 **Site:** burningedgesdfs.com (Netlify, auto-deploys on every push to `main`) · **Repo:** `zoltar24601/burning-edges-site` · **Backend:** Supabase · **Stack:** vanilla HTML/CSS/JS · **Owner:** John
 
-**Last updated:** 2026-11-03
+**Last updated:** 2026-11-04
 
 ---
 
