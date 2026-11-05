@@ -118,6 +118,10 @@ export function cardPackPage(product, cards, sales, { pulled = {}, market = null
     break_cols: ["Cardset", "Run", "In packs", "Avg value"],
     breakdown: rows,
     live: `/api/pack-live?product=${product}`,
+    // snapshot for the change log (tools/change-log.mjs); tools/live-pack.mjs strips it before saving or serving.
+    // pv = sku -> [value, athlete, cardset, run, slot, copies left after pulls], so this run's pulls can be named
+    _cl: { v: 1, book: Math.round(book * 100) / 100, pullMin: 300, slots: { hit: [slot.hit[0], slot.hit[1]], base: [slot.base[0], slot.base[1]] },
+           pv: Object.fromEntries(cards.map(c => { const i = vm[c[0]]; return [c[0], [i.v, i.a, i.cs, i.r, i.slot, Math.max(0, c[4] - (pulled[c[0]] || 0))]]; })) },
   };
   const copies = liveNote || "copies from the Panini collection report";
   if (product === "prizmwc22") return {

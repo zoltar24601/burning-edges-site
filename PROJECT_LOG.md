@@ -4,9 +4,16 @@
 
 **Site:** burningedgesdfs.com (Netlify, auto-deploys on every push to `main`) · **Repo:** `zoltar24601/burning-edges-site` · **Backend:** Supabase · **Stack:** vanilla HTML/CSS/JS · **Owner:** John
 
-**Last updated:** 2026-11-04
+**Last updated:** 2026-11-05
 
 ---
+
+## 2026-11-05 -- Change log now names pulled chase cards (John: "an Mbappe Gold should have moved packs, the Kane 1/10 was just pulled")
+- **What John saw:** 2022 packs have been ripped (Prizm: ~10,650 cards pulled since the 10/31 report, 26,956 packs left) but the log had nothing for them.
+- **What the data showed:** the model WAS reacting. Chain pulls are recorded and applied: Mbappe Base Prizms Gold /10 went 3 -> 2 left (#7 pulled 11/4 16:57Z = 11:57am ET); valued at $30,000 (1.5x its $20,000 2026 comp) that took about **$1.11** off the Prizm book at the next hourly run, before the change log existed, so no row. Mbappe International Ink Gold #1 (11:09pm ET) and the **Kane Base Prizms Gold 1/10 (#1, 6:30am ET 11/5; model value $1,162.50)** are also subtracted; Kane's pull moves the book only about **$0.04**, under the pack-row threshold (0.5% = ~$0.09), so nothing was logged. The 2022 pack row also could not name any card.
+- **Fix:** `tools/change-log.mjs` now takes this run's pulls (`pullRows`) and the model's `pv` map and logs (1) one row per notable card pulled (2022 >= $300, stickers >= $50; max 10, most valuable first): `Kylian Mbappe Base Prizms Gold: #7 pulled from a pack (3 -> 2 left)`, `$30,000 each (book about -$1.11)`; (2) the pulled cards by name inside the pack row: `Book down -$1.15: pulled: Mbappe Base Prizms Gold #7 -$1.11, Kane Base Prizms Gold #1 -$0.04; ...`. A sealed sticker #1 / last serial is counted at its multiple, so pulling it removes that much. Effect formula: slot weight x (average after - average before); `pv` comes from `tools/card-pack-model.mjs` (2022) and the `compute` callback in `netlify/functions/stickers-refresh.mjs` (stickers, wrapped in try/catch).
+- **Tested (sandbox):** the earlier 17 scenarios plus 8 for pulls (Mbappe -$1.11, Kane -$0.04, below-threshold card skipped, sticker last-serial 2x -$0.18, cap + aggregation + "+N more", bad data) and 4 on the model-side additions: 29 pass. Not run against real Supabase yet.
+- **Open:** Mosaic 2022 pulls are barely recorded (15 cards since 10/31). Either the packs mostly sit unopened or Mosaic opens use a path the poller does not see. If John has seen a Mosaic Mbappe/Kane Gold ripped, the serial and time would tell.
 
 ## 2026-11-04 -- Change log on the live packs (stickers, 2022 Prizm WC, 2022 Mosaic): every move with its reason
 - **Why:** John: "for each push and price change, do the change log thing as to why price change and list it." The older packs already wrote a feed (`price_changes` -> `/api/changes` -> `/changes` and an on-page list); the hourly live-pack engine wrote nothing, and the sticker / 2022 pages had no list.

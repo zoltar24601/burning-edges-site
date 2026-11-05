@@ -36,7 +36,22 @@ export default async () => {
           return x.date >= keepFrom || perCard[k] <= 10 || (x.p === "Silver" && x.date >= sbSince);
         });
       },
-      compute: (st, pricedAt) => stickersModel(applyPulls(ck, st, cards), st.log, seed.window_from, pricedAt, true),
+      compute: (st, pricedAt) => {
+        const ck2 = applyPulls(ck, st, cards);
+        const out = stickersModel(ck2, st.log, seed.window_from, pricedAt, true);
+        // so the change log can name this run's pulls: sku -> [value, athlete, parallel, run, slot, copies left]
+        // (best effort: a problem here must never stop the price refresh)
+        try {
+          const byKey = new Map(ck2.cards.map(c => [c.a + "|" + c.p, c]));
+          const pv = {};
+          for (const [id, m] of Object.entries(cards)) {
+            const c = byKey.get(m[0] + "|" + m[1]);
+            if (c && m[1] !== "Silver") pv["packcard-850180_" + id] = [out._cl.vals[m[0] + "|" + m[1]], m[0], m[1], c.run, "hit", c.u];
+          }
+          out._cl.pv = pv;
+        } catch (e) { console.error("change log pv:", e); }
+        return out;
+      },
     }));
   } catch (e) { return respond({ status: 500, body: { error: String(e) } }); }
 };

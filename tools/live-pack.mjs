@@ -69,7 +69,7 @@ export async function runLivePack({ product, prefix, seedLog, pullsFrom, mapSale
   const cl = payload._cl; delete payload._cl;
   let logRows = [];
   try {
-    const out = buildChangeRows({ product, prev: st.cl || null, next: cl || { book: payload.book }, fresh, pulls: pulls.length });
+    const out = buildChangeRows({ product, prev: st.cl || null, next: cl || { book: payload.book }, fresh, pulls: pulls.length, pullRows: pulls });
     logRows = out.rows; st.cl = out.snapshot;
   } catch (e) { console.error("change log:", e); }
   st.log = prune ? prune(st.log) : st.log;

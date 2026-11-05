@@ -168,7 +168,7 @@ export function stickersModel(ck, sales, windowFrom = "2026-10-26", pricedAt = n
     // snapshot for the change log (tools/change-log.mjs); tools/live-pack.mjs strips it before saving or serving
     _cl: { v: 1, book: Math.round(book * 100) / 100, avgSilver: avg.Silver, hitEv, nonU, vals: Object.fromEntries(VAL), eff: EFF,
            offers: Object.fromEntries(ck.cards.map(c => [key(c.a, c.p), [c.offer || 0, c.floor || 0]])), ovr: Object.fromEntries(OVR),
-           ladder: !!RULES.ladder, rules: JSON.stringify(RULES), scrub: JSON.stringify(scrub),
+           ladder: !!RULES.ladder, specials: true, pullMin: 50, rules: JSON.stringify(RULES), scrub: JSON.stringify(scrub),
            notes: (ck.changelog || []).map(x => ({ id: x.id, note: x.note, scope: x.scope })) },
   };
 }

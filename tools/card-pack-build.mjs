@@ -5,5 +5,7 @@ import { cardPackPage } from "./card-pack-model.mjs";
 const load = f => JSON.parse(readFileSync(new URL(`../data/${f}`, import.meta.url), "utf8"));
 const product = process.argv[2];
 const seed = load(product === "prizmwc22" ? "prizmwc22-sales.json" : "mosaicrtwc22-sales.json");
-process.stdout.write(JSON.stringify(cardPackPage(product, load(`${product}-cards.json`).cards,
-  seed.map(s => ({ k: s.sku_base, price: s.price })), { market: load("pack-markets.json")[product] })));
+const out = cardPackPage(product, load(`${product}-cards.json`).cards,
+  seed.map(s => ({ k: s.sku_base, price: s.price })), { market: load("pack-markets.json")[product] });
+delete out._cl;   // change-log snapshot: for the hourly engine only, not the baked page
+process.stdout.write(JSON.stringify(out));
