@@ -123,7 +123,7 @@ and the soccer side of `/value`. Data contract: `PBC_DATA_CONTRACT.md`. Not chai
 - `panini-chain.mjs` decodes base64-JSON payloads; `blockPulls` = $0 `transfer_product` of a `packcard-` card **from the pack-vault wallet** (`PACK_VAULT`) = a pack open; Moonbirds excluded (`BRIDGE_PREFIXES`). Vendored copy must stay in sync with `tools/panini-chain.mjs`.
 - Chain moves ~400 blocks/hr. `/blocks?start=0x<hex block>&limit=N` jumps to any block (debug / backfill). To backfill a hole, set `chain_sync.last_block_num` back to its start.
 - **⚠ OPERATING RULES:**
-  - Railway redeploys the poller on every push to this repo (until Watch Paths is set to `/chain-poller/**`). Each redeploy = a fresh Cloudflare challenge, and a burst trips a rate-based 403 block. Batch pushes into one and let it settle.
+  - Railway Watch Paths is `/chain-poller/**` (set and verified 2026-11-05: a site-only push shows SKIPPED "No changes to watched files" in the poller's Deployments tab), so only changes under `chain-poller/` redeploy the poller. Changing Railway settings also redeploys it once. Each redeploy = a fresh Cloudflare challenge, and a burst trips a rate-based 403 block. Batch poller changes into one push and let it settle.
   - If it stalls anyway, ONE restart after some quiet time is the documented fix (2026-09-04 and 2026-11-03: recovered in 30-90 s); the in-process browser rebuild cleared it neither time. Repeated restarts are what to avoid. The poller now exits after 6 consecutive HTTP 403s (`SELF_HEAL_AFTER`, ~30 min of back-off) so the host restarts the container itself; that needs Railway's Restart Policy set to Always.
   - A stall that a redeploy doesn't fix → check Railway billing first (the 2026-09-09 stall was an expired trial).
   - `PROXY_SERVER` env hook exists for an *unprovoked* future block (residential proxy); not needed normally.
@@ -148,5 +148,5 @@ and the soccer side of `/value`. Data contract: `PBC_DATA_CONTRACT.md`. Not chai
 - Moonbirds counts need re-seeding until the ETH-bridge transfer can be told apart from a pack open.
 - Live packs: copies left / burn status and pack floors / listings are still entered by hand.
 - Poller history has holes that were never written (2026-09-06→09-09, by decision 2026-09-14; 2026-10-06→10-28); outages beyond 15,000 blocks are skipped, not backfilled.
-- Railway settings (John): Watch Paths = `/chain-poller/**` so site pushes stop restarting the poller, and Restart Policy = Always so the poller's self-heal exit is always restarted.
+- Railway settings are done (2026-11-05): Watch Paths = `/chain-poller/**` and Restart Policy = Always (so the poller's self-heal exit is always restarted).
 - Self-heal is untested against a real Cloudflare wall: unknown whether a crash-restart clears it as reliably as a full redeploy did. If not: Railway's redeploy API, or a residential proxy (`PROXY_SERVER`).
