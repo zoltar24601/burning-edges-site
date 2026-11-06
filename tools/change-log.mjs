@@ -152,7 +152,7 @@ export function buildChangeRows({ product, prev, next, fresh = [], pulls = 0, pu
   for (const x of pullsShown) {
     display.push({ product, scope: `${x.a} ${x.label} /${x.run}`,
       headline: `${x.a} ${x.label}: ${serText(x)} pulled from a pack (${x.uAfter + x.cnt} -> ${x.uAfter} left)`,
-      detail: `${$(x.v)} each` + (x.effect ? ` (book about ${sgn(x.effect)})` : ""), old_value: x.uAfter + x.cnt, new_value: x.uAfter });
+      detail: `${$(x.v)} each` + (Math.abs(x.effect) >= 0.005 ? ` (book about ${sgn(x.effect)})` : ""), old_value: x.uAfter + x.cnt, new_value: x.uAfter });
   }
 
   // 4) card value moves, biggest first
