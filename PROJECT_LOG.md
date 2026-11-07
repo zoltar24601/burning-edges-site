@@ -4,9 +4,15 @@
 
 **Site:** burningedgesdfs.com (Netlify, auto-deploys on every push to `main`) · **Repo:** `zoltar24601/burning-edges-site` · **Backend:** Supabase · **Stack:** vanilla HTML/CSS/JS · **Owner:** John
 
-**Last updated:** 2026-11-05
+**Last updated:** 2026-11-07
 
 ---
+
+## 2026-11-07 -- Sticker supply picture; market box refreshed; $10 wall doubled
+- **Supply left (8:00am ET, John: "the number of unopened packs could help you understand how much supply is left"):** produced 160,320; sealed with collectors **50,466**; with Panini 784 ("Other pools": marketing / redemption / crafting); opened ~109,070 (68%). The model's unopened 51,253 = 50,466 + 784 exactly. Listed 6,949 = **13.8%** of sealed; the $10 wall (1,526) = 3.0%; ~43,500 sealed packs are not listed (~28x the wall). The wall is a poor gauge of supply: overnight listings rose +809 while unopened fell only -289, so the refill came from holders listing packs they already own.
+- **Opens per day (chain pulls / 5):** 11/1 1,354 - 11/2 907 - 11/3 1,263 - 11/4 1,298 - 11/5 1,018 - 11/6 849 - 11/7 166 in the first 7.4 h (~22/h). Opens are slowing; at 849/day the sealed supply is ~60 days, at today's pace ~95 (straight line). Still sealed (model): Black 317 (367 on 10/31), Green 1,529, Gold 3,113, Red 15,012; book $7.48.
+- **$10 wall:** 595 (11/6 4:22am) -> 721 (5:36pm) -> **1,526** (11/7 8:01am). Five sellers not in the previous top six hold 728 of it (XVUPFOD3 294, YETI2X 180, XT12VCIL 118, KYRGIOS 86, XZZA9TGM 50). John's `HOWBOUT8INCHES`: 24 packs, 115 listings ahead of the first, 897 behind the last.
+- **Market box refreshed:** `pack` in `stickers26-checklist.json` was still the 11/1 snapshot (7,593 listed, 56,247 "with collectors", avg $10.68). Now (8:05am ET): floor $10, latest sale $10, avg $10.62, top $20, 6,949 listed, 50,466 with collectors. It is a hand-entered snapshot: refresh it whenever it matters.
 
 ## 2026-11-05 -- Change log now names pulled chase cards (John: "an Mbappe Gold should have moved packs, the Kane 1/10 was just pulled")
 - **What John saw:** 2022 packs have been ripped (Prizm: ~10,650 cards pulled since the 10/31 report, 26,956 packs left) but the log had nothing for them.

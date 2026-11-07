@@ -5,12 +5,12 @@
  "pack": {
   "floor": 10,
   "recent": 10,
-  "avg": 10.68,
+  "avg": 10.62,
   "top": 20,
-  "listings": 7593,
+  "listings": 6949,
   "sold_24h": 9289,
-  "unopened_with_collectors": 56247,
-  "pulled": "2026-11-01T19:20"
+  "unopened_with_collectors": 50466,
+  "pulled": "2026-11-07T08:05"
  },
  "walls": {
   "10": 1775,
