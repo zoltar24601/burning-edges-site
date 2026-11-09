@@ -4,9 +4,16 @@
 
 **Site:** burningedgesdfs.com (Netlify, auto-deploys on every push to `main`) · **Repo:** `zoltar24601/burning-edges-site` · **Backend:** Supabase · **Stack:** vanilla HTML/CSS/JS · **Owner:** John
 
-**Last updated:** 2026-11-07
+**Last updated:** 2026-11-09
 
 ---
+
+## 2026-11-09 -- $10 wall 3,992 (was 1,526); John's 736 packs are 18% of it
+- **Wall (7:00am ET, John: "lets do a pack count"):** **3,992** listings at $10 (72 sellers; the first $11 is row 3,993), up 2,466 from 1,526 on 11/7 8:01am (about +52 an hour net). Nothing below $10 or between $10.01 and $10.99. Floor and latest sale $10, avg sale $10.60 (was $10.62), top sale $20. Total listings **9,016** (6,949 on 11/7); sealed with collectors **49,357** (50,466).
+- **Supply context:** listed = **18.3%** of sealed (13.8% on 11/7); the wall = 8.1% of sealed (3.0%); ~40,300 sealed packs are not listed. Opens per day (chain pulls / 5): 11/6 849 - 11/7 799 - 11/8 436 - last 24 h ~384 (as of 7:04am), still slowing.
+- **John (`HOWBOUT8INCHES`): 736 packs on the wall** (24 on 11/7), the biggest seller, 18% of the wall. Positions (row 1 = front of the line): **623 at rows 1,173-1,923** (a near-solid block with 128 other listings mixed in: 4TGG5AMA 52, PFLGWGOO 40, MLS2ZTBC 31), **30 at 3,336-3,365**, **7 at 3,572-3,578**, **76 at 3,851-3,926**. **1,172 listings ahead of his first pack, 66 behind his last**; 12 CREPSANDCARDS listings in a row sit directly in front of the first. 292 of his packs are within the first 1,500 rows and 623 within the first 2,000; none of the 1,412 listings between rows 1,924 and 3,335 are his. His 24 packs from the 11/7 front group are no longer his on the wall (sold or repriced; the page does not say which). 736 is above the 684 he held on 11/7, so he has added packs since (my inference), and the long solid block is almost certainly the pack_lister run.
+- **Wall changes:** 72 sellers (34 on 11/7). Top: HOWBOUT8INCHES 736, YETI2X 480 (was 180), XVUPFOD3 294 (same), REVERSEFLASH 186, 9YBK9G3N 181, MLXKA0FP 158, SERIALCHILLER 156, 4TGG5AMA 150, SMLKQX 150. DUBDOLLA 259 -> 0, XT12VCIL 118 -> 38, MLS2ZTBC 153 -> 57, SWEDISHELDER 58 -> 28, KYRGIOS 86 -> 84.
+- **Method notes (new):** the scroll needs the pane VISIBLE. With the pane hidden (`document.visibilityState` = hidden) Chrome throttled the page (timers ~1/s) and the loader crawled; it sped back up to ~8 rows/s once the Claude window was in front. The earlier script's stall handler (5 s wait, scroll back 1,500 px, give up after 6 misses) quit at ~3,200 rows; waiting 9 s per load, scrolling back 3,000 px and allowing 14 misses got through. About 4,000 rows takes ~10 minutes once the wall is this long. Opens per day come from `chain_pulls` (sku_base like `packcard-850180%`) grouped by ET day, divided by 5.
 
 ## 2026-11-07 (later) -- pack_lister: a Chrome extension that lists the unopened sticker packs at one price (John: "need to build a bot to list packs")
 - **The numbers:** John holds 684 unopened sticker packs (bought at ~$9; $10 is the wall). A full scan of his list (68 "Load more" clicks, 9 s) showed **34 already FOR SALE and 650 unlisted**; an earlier note of "~674 left" had ignored 24 packs he had already listed. I listed 10 by a hand-driven script first (all verified at $10.00, ~12 s each) and 3 more while testing the extension (37 listed), then John reported "10 packs worked fyi" from running the extension himself. Re-scan the list for the live number.
