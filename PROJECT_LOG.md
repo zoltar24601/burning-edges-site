@@ -4,9 +4,18 @@
 
 **Site:** burningedgesdfs.com (Netlify, auto-deploys on every push to `main`) · **Repo:** `zoltar24601/burning-edges-site` · **Backend:** Supabase · **Stack:** vanilla HTML/CSS/JS · **Owner:** John
 
-**Last updated:** 2026-11-09
+**Last updated:** 2026-11-10
 
 ---
+
+## 2026-11-10 -- $10 wall 4,273 (was 3,992); John's block is 312 places closer in 24 h
+- **Wall (7:05am ET, John: "lets see how big that 10 wall is ... and where my packs sit"):** **4,273** listings at $10 (77 sellers; the first $11 is row 4,274), up 281 from 3,992 on 11/9. Nothing below $10. Floor and latest sale $10, avg sale $10.58 (was $10.60), top sale $20. Total listings **9,052** (9,016); sealed with collectors **48,936** (49,357; -421 in 24 h, in line with ~432 opens).
+- **Supply context:** listed = **18.5%** of sealed (18.3% on 11/9); the wall = 8.7% of sealed; ~39,900 sealed packs are not listed. Opens per day (chain pulls / 5): 11/6 849 - 11/7 799 - 11/8 436 - 11/9 401 - last 24 h ~432, so they have levelled off at roughly 400-430 a day.
+- **John (`HOWBOUT8INCHES`): 735 packs on the wall** (736 on 11/9), 17% of it. The one he lost came out of the middle of the big block (623 -> 622), so buyers do not take strictly from the front. Positions (row 1 = front of the line): **622 at rows 861-1,609** (127 other listings mixed in: 4TGG5AMA 52, PFLGWGOO 40, MLS2ZTBC 31; directly behind 10 CREPSANDCARDS), **30 at 3,022-3,051** (behind 10 REVERSEFLASH), **7 at 3,256-3,262** (behind LN9D7IJ3), **76 at 3,514-3,589** (behind FHG2AZV). **860 listings ahead of his first pack** (1,172 on 11/9), 3,588 ahead of his last, **684 behind his last** (66 on 11/9). 553 of his packs are within the first 1,500 rows and 622 within the first 2,000.
+- **Behind his last pack (684, checked):** DIAMONDHANDDEN 185 (rows 3,706-3,890) and 123HQ 122 (4,018-4,143) sit entirely behind him, then ROSALEE 80, RAMRAMBAMBAM 46, PAULPOGBA 36, DILLYDAVE 32, REVERSEFLASH 21, LOADING7 20. Neither DIAMONDHANDDEN nor 123HQ was in the 11/9 top 16 (the 16th had 80).
+- **Measured pace (answers the 11/9 "how many sales until the wall is hit" estimate):** the line ahead of his block shrank **312 places in 24 h (~13 an hour)**, inside the 10-15 an hour that estimate assumed. If it holds, his first pack reaches the front in ~66 h (the night of 11/12 into 11/13). It was as slow as <1 an hour on 11/6, and older listings repriced down to $10 slot in ahead of his newer ones (my inference from earlier passes), so treat it as a rough guide. The front of the line is now KYRGIOS (25 listings left, 84 on 11/9): the oldest listings are being consumed first.
+- **Wall changes:** 77 sellers (72). Top: HOWBOUT8INCHES 735, YETI2X 457 (480), XVUPFOD3 290 (294), REVERSEFLASH 207 (186), DIAMONDHANDDEN 185 (new), 9YBK9G3N 181, MLXKA0FP 158, SERIALCHILLER 156, 4TGG5AMA 150, SMLKQX 150, 123HQ 122 (new). Gone: XT12VCIL (38), XZZA9TGM (44), SWEDISHELDER (28). Down: KYRGIOS 84 -> 25, PFLGWGOO 86 -> 60, B7X27IS0 94 -> 70, MLS2ZTBC 57 -> 37.
+- **Method note:** with the pane visible the scroll runs ~15-20 rows/s (the first 3,000 rows in about 2 minutes); it flipped to hidden several times and dropped to ~2 rows/s each time, ~9 minutes in all. Same script as 11/9 (9 s per load, scroll back 3,000 px, up to 14 misses). Keep the Claude window in front while it runs.
 
 ## 2026-11-09 -- $10 wall 3,992 (was 1,526); John's 736 packs are 18% of it
 - **Wall (7:00am ET, John: "lets do a pack count"):** **3,992** listings at $10 (72 sellers; the first $11 is row 3,993), up 2,466 from 1,526 on 11/7 8:01am (about +52 an hour net). Nothing below $10 or between $10.01 and $10.99. Floor and latest sale $10, avg sale $10.60 (was $10.62), top sale $20. Total listings **9,016** (6,949 on 11/7); sealed with collectors **49,357** (50,466).
